@@ -3,6 +3,11 @@ import cardData from './data/cards.json'
 
 const IMAGE_BASE = 'https://raw.githubusercontent.com/profangrybeard/Malifaux4eDB-images/main'
 
+// Helper function to display card type names
+const getCardTypeDisplay = (cardType) => {
+  return cardType === 'Stat' ? 'Model' : cardType
+}
+
 function App() {
   const [search, setSearch] = useState('')
   const [faction, setFaction] = useState('')
@@ -158,7 +163,7 @@ function CardModal({ card, onClose }) {
               <h3>Info</h3>
               <p><strong>Faction:</strong> {card.faction}</p>
               {card.subfaction && <p><strong>Subfaction:</strong> {card.subfaction}</p>}
-              {card.card_type && <p><strong>Card Type:</strong> {card.card_type}</p>}
+              {card.card_type && <p><strong>Card Type:</strong> {getCardTypeDisplay(card.card_type)}</p>}
             </section>
           </div>
         </div>
