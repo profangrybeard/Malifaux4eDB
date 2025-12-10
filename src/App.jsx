@@ -14,78 +14,42 @@ function App() {
   const [baseSize, setBaseSize] = useState('')
   const [selectedCard, setSelectedCard] = useState(null)
 
-  const allCards = useMemo(() => cardData.cards || [], [])
+  const cards = cardData.cards || []
 
   // Get unique factions
   const factions = useMemo(() => {
-    const set = new Set(allCards.map(c => c.faction).filter(Boolean))
-    return [...set].sort()
-  }, [allCards])
+    const set = new Set(cards.map(c => c.faction).filter(Boolean))
+    const result = [...set].sort()
+    console.log('Extracted factions:', result)
+    return result
+  }, [cards])
 
   // Get unique base sizes
   const baseSizes = useMemo(() => {
-    const set = new Set(allCards.map(c => c.base_size).filter(Boolean))
-    return [...set].sort((a, b) => {
+    const set = new Set(cards.map(c => c.base_size).filter(Boolean))
+    const result = [...set].sort((a, b) => {
+      // Sort by numeric value (30mm, 40mm, 50mm)
       const aNum = parseInt(a)
       const bNum = parseInt(b)
       return aNum - bNum
     })
-  }, [allCards])
-
-  // Filter cards - THIS IS THE CRITICAL PART
-  const filteredCards = useMemo(() => {
-    console.log('=== FILTERING START ===')
-    console.log('Total cards:', allCards.length)
-    console.log('Filters:', { search, faction, baseSize })
-    
-    const result = allCards.filter(card => {
-      // Search filter
-      if (search) {
-        const searchLower = search.toLowerCase()
-        const nameMatch = card.name?.toLowerCase().includes(searchLower)
-        const keywordMatch = card.keywords?.some(k => k.toLowerCase().includes(searchLower))
-        if (!nameMatch && !keywordMatch) {
-          return false
-        }
-      }
-      
-      // Faction filter
-      if (faction && card.faction !== faction) {
-        return false
-      }
-      
-      // Base size filter
-      if (baseSize && card.base_size !== baseSize) {
-        return false
-      }
-      
-      return true
-    })
-    
-    console.log('Filtered result:', result.length, 'cards')
-    console.log('First 3 cards:', result.slice(0, 3).map(c => ({ name: c.name, faction: c.faction, base: c.base_size })))
-    console.log('=== FILTERING END ===')
-    
+    console.log('Extracted base sizes:', result)
     return result
-  }, [allCards, search, faction, baseSize])
+  }, [cards])
 
-  const handleSearchChange = (e) => {
-    const value = e.target.value
-    console.log('Search changed to:', value)
-    setSearch(value)
-  }
-
-  const handleFactionChange = (e) => {
-    const value = e.target.value
-    console.log('Faction changed to:', value)
-    setFaction(value)
-  }
-
-  const handleBaseSizeChange = (e) => {
-    const value = e.target.value
-    console.log('Base size changed to:', value)
-    setBaseSize(value)
-  }
+  // Filter cards - THE CRITICAL FIX: Must use useMemo with dependencies!
+  const filtered = useMemo(() => {
+    return cards.filter(card => {
+      const matchesSearch = !search || 
+        card.name?.toLowerCase().includes(search.toLowerCase()) ||
+        card.keywords?.some(k => k.toLowerCase().includes(search.toLowerCase()))
+      const matchesFaction = !faction || card.faction === faction
+      const matchesBaseSize = !baseSize || card.base_size === baseSize
+      return matchesSearch && matchesFaction && matchesBaseSize
+    })
+  }, [cards, search, faction, baseSize])  // <- THIS IS THE KEY FIX!
+  
+  console.log('Filter state:', { search, faction, baseSize, totalCards: cards.length, filteredCards: filtered.length })
 
   return (
     <div className="app">
@@ -100,12 +64,15 @@ function App() {
           className="search-box"
           placeholder="Search cards or keywords..."
           value={search}
-          onChange={handleSearchChange}
+          onChange={e => setSearch(e.target.value)}
         />
         <select 
           className="filter-select"
           value={faction}
-          onChange={handleFactionChange}
+          onChange={e => {
+            console.log('Faction changed to:', e.target.value)
+            setFaction(e.target.value)
+          }}
         >
           <option value="">All Factions</option>
           {factions.map(f => (
@@ -115,69 +82,57 @@ function App() {
         <select 
           className="filter-select"
           value={baseSize}
-          onChange={handleBaseSizeChange}
+          onChange={e => {
+            console.log('Base size changed to:', e.target.value)
+            setBaseSize(e.target.value)
+          }}
         >
           <option value="">All Base Sizes</option>
           {baseSizes.map(size => (
             <option key={size} value={size}>{size}</option>
           ))}
         </select>
-        <span className="result-count">{filteredCards.length} cards</span>
+        <span className="result-count">{filtered.length} cards</span>
       </div>
 
-      <div className="content">
-        {filteredCards.length === 0 ? (
-          <div className="empty">
-            <h3>No cards found</h3>
-            <p>Try adjusting your search or filters</p>
-          </div>
-        ) : (
-          <div className="card-grid">
-            {filteredCards.map((card) => (
-              <CardItem 
-                key={card.id} 
-                card={card} 
-                onClick={() => setSelectedCard(card)}
+      {filtered.length === 0 ? (
+        <div className="empty">
+          <h3>No cards found</h3>
+          <p>Try adjusting your search or filters</p>
+        </div>
+      ) : (
+        <div className="card-grid">
+          {filtered.map(card => (
+            <div key={card.id} className="card" onClick={() => setSelectedCard(card)}>
+              <img 
+                className="card-image"
+                src={`${IMAGE_BASE}/${card.front_image}`}
+                alt={card.name}
+                loading="lazy"
+                onError={e => { e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect fill="%23333" width="100" height="100"/><text x="50%" y="50%" fill="%23666" text-anchor="middle" dy=".3em">No Image</text></svg>' }}
               />
-            ))}
-          </div>
-        )}
-      </div>
+              <div className="card-info">
+                <h3 className="card-name">{card.name}</h3>
+                <p className="card-meta">
+                  <span className="card-faction">{card.faction}</span>
+                  {card.subfaction && ` • ${card.subfaction}`}
+                </p>
+                {card.cost && (
+                  <div className="card-stats">
+                    <span className="stat">Cost: {card.cost}</span>
+                    {card.defense && <span className="stat">Df: {card.defense}</span>}
+                    {card.speed && <span className="stat">Sp: {card.speed}</span>}
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
 
       {selectedCard && (
         <CardModal card={selectedCard} onClose={() => setSelectedCard(null)} />
       )}
-    </div>
-  )
-}
-
-// Separate component for individual cards
-function CardItem({ card, onClick }) {
-  return (
-    <div className="card" onClick={onClick}>
-      <img 
-        className="card-image"
-        src={`${IMAGE_BASE}/${card.front_image}`}
-        alt={card.name}
-        loading="lazy"
-        onError={e => { 
-          e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect fill="%23333" width="100" height="100"/><text x="50%" y="50%" fill="%23666" text-anchor="middle" dy=".3em">No Image</text></svg>' 
-        }}
-      />
-      <div className="card-info">
-        <h3 className="card-name">{card.name}</h3>
-        <p className="card-meta">
-          <span className="card-faction">{card.faction}</span>
-          {card.subfaction && ` • ${card.subfaction}`}
-        </p>
-        {card.cost && (
-          <div className="card-stats">
-            <span className="stat">Cost: {card.cost}</span>
-            {card.defense && <span className="stat">Df: {card.defense}</span>}
-            {card.speed && <span className="stat">Sp: {card.speed}</span>}
-          </div>
-        )}
-      </div>
     </div>
   )
 }
@@ -195,18 +150,8 @@ function CardModal({ card, onClose }) {
         <div className="modal-body">
           <div className="modal-images">
             <div className="image-tabs">
-              <button 
-                className={view === 'front' ? 'active' : ''} 
-                onClick={() => setView('front')}
-              >
-                Front
-              </button>
-              <button 
-                className={view === 'back' ? 'active' : ''} 
-                onClick={() => setView('back')}
-              >
-                Back
-              </button>
+              <button className={view === 'front' ? 'active' : ''} onClick={() => setView('front')}>Front</button>
+              <button className={view === 'back' ? 'active' : ''} onClick={() => setView('back')}>Back</button>
             </div>
             <img 
               className="modal-image"
@@ -232,9 +177,7 @@ function CardModal({ card, onClose }) {
                 <h3>Characteristics</h3>
                 <div className="keywords-list">
                   {card.characteristics.map(c => (
-                    <span key={c} className="keyword-tag characteristic">
-                      {c}{c === 'Minion' && card.minion_limit ? `(${card.minion_limit})` : ''}
-                    </span>
+                    <span key={c} className="keyword-tag characteristic">{c}{c === 'Minion' && card.minion_limit ? `(${card.minion_limit})` : ''}</span>
                   ))}
                 </div>
               </section>
