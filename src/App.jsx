@@ -124,8 +124,8 @@ function App() {
         </div>
       ) : (
         <div className="card-grid">
-          {filteredCards.map(card => (
-            <div key={card.id} className="card" onClick={() => openModal(card)}>
+          {filteredCards.map((card, index) => (
+            <div key={`${card.id}-${index}`} className="card" onClick={() => openModal(card)}>
               <img 
                 className="card-image"
                 src={`${IMAGE_BASE}/${card.front_image}`}
