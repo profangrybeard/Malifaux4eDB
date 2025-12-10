@@ -11,6 +11,7 @@ const getCardTypeDisplay = (cardType) => {
 function App() {
   const [search, setSearch] = useState('')
   const [faction, setFaction] = useState('')
+  const [baseSize, setBaseSize] = useState('')
   const [selectedCard, setSelectedCard] = useState(null)
 
   const cards = cardData.cards || []
@@ -21,6 +22,17 @@ function App() {
     return [...set].sort()
   }, [cards])
 
+  // Get unique base sizes
+  const baseSizes = useMemo(() => {
+    const set = new Set(cards.map(c => c.base_size).filter(Boolean))
+    return [...set].sort((a, b) => {
+      // Sort by numeric value (30mm, 40mm, 50mm)
+      const aNum = parseInt(a)
+      const bNum = parseInt(b)
+      return aNum - bNum
+    })
+  }, [cards])
+
   // Filter cards
   const filtered = useMemo(() => {
     return cards.filter(card => {
@@ -28,9 +40,10 @@ function App() {
         card.name?.toLowerCase().includes(search.toLowerCase()) ||
         card.keywords?.some(k => k.toLowerCase().includes(search.toLowerCase()))
       const matchesFaction = !faction || card.faction === faction
-      return matchesSearch && matchesFaction
+      const matchesBaseSize = !baseSize || card.base_size === baseSize
+      return matchesSearch && matchesFaction && matchesBaseSize
     })
-  }, [cards, search, faction])
+  }, [cards, search, faction, baseSize])
 
   return (
     <div className="app">
@@ -55,6 +68,16 @@ function App() {
           <option value="">All Factions</option>
           {factions.map(f => (
             <option key={f} value={f}>{f}</option>
+          ))}
+        </select>
+        <select 
+          className="filter-select"
+          value={baseSize}
+          onChange={e => setBaseSize(e.target.value)}
+        >
+          <option value="">All Base Sizes</option>
+          {baseSizes.map(size => (
+            <option key={size} value={size}>{size}</option>
           ))}
         </select>
         <span className="result-count">{filtered.length} cards</span>
@@ -164,6 +187,7 @@ function CardModal({ card, onClose }) {
               <p><strong>Faction:</strong> {card.faction}</p>
               {card.subfaction && <p><strong>Subfaction:</strong> {card.subfaction}</p>}
               {card.card_type && <p><strong>Card Type:</strong> {getCardTypeDisplay(card.card_type)}</p>}
+              {card.base_size && <p><strong>Base Size:</strong> {card.base_size}</p>}
             </section>
           </div>
         </div>
