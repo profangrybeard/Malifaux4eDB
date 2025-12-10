@@ -37,24 +37,20 @@ function App() {
     return result
   }, [cards])
 
-  // Filter cards
-  const filtered = cards.filter(card => {
-    const matchesSearch = !search || 
-      card.name?.toLowerCase().includes(search.toLowerCase()) ||
-      card.keywords?.some(k => k.toLowerCase().includes(search.toLowerCase()))
-    const matchesFaction = !faction || card.faction === faction
-    const matchesBaseSize = !baseSize || card.base_size === baseSize
-    const result = matchesSearch && matchesFaction && matchesBaseSize
+  // Filter cards - wrapped in useMemo to ensure it recalculates when dependencies change
+  const filtered = useMemo(() => {
+    const result = cards.filter(card => {
+      const matchesSearch = !search || 
+        card.name?.toLowerCase().includes(search.toLowerCase()) ||
+        card.keywords?.some(k => k.toLowerCase().includes(search.toLowerCase()))
+      const matchesFaction = !faction || card.faction === faction
+      const matchesBaseSize = !baseSize || card.base_size === baseSize
+      return matchesSearch && matchesFaction && matchesBaseSize
+    })
     
-    // Debug logging
-    if (faction === 'Arcanists' && card.faction === 'Arcanists') {
-      console.log('Arcanist card:', card.name, 'matches:', result)
-    }
-    
+    console.log('Filter state:', { search, faction, baseSize, totalCards: cards.length, filteredCards: result.length })
     return result
-  })
-  
-  console.log('Filter state:', { search, faction, baseSize, totalCards: cards.length, filteredCards: filtered.length })
+  }, [cards, search, faction, baseSize])
 
   return (
     <div className="app">
