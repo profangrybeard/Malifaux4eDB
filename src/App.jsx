@@ -19,31 +19,42 @@ function App() {
   // Get unique factions
   const factions = useMemo(() => {
     const set = new Set(cards.map(c => c.faction).filter(Boolean))
-    return [...set].sort()
+    const result = [...set].sort()
+    console.log('Extracted factions:', result)
+    return result
   }, [cards])
 
   // Get unique base sizes
   const baseSizes = useMemo(() => {
     const set = new Set(cards.map(c => c.base_size).filter(Boolean))
-    return [...set].sort((a, b) => {
+    const result = [...set].sort((a, b) => {
       // Sort by numeric value (30mm, 40mm, 50mm)
       const aNum = parseInt(a)
       const bNum = parseInt(b)
       return aNum - bNum
     })
+    console.log('Extracted base sizes:', result)
+    return result
   }, [cards])
 
   // Filter cards
-  const filtered = useMemo(() => {
-    return cards.filter(card => {
-      const matchesSearch = !search || 
-        card.name?.toLowerCase().includes(search.toLowerCase()) ||
-        card.keywords?.some(k => k.toLowerCase().includes(search.toLowerCase()))
-      const matchesFaction = !faction || card.faction === faction
-      const matchesBaseSize = !baseSize || card.base_size === baseSize
-      return matchesSearch && matchesFaction && matchesBaseSize
-    })
-  }, [cards, search, faction, baseSize])
+  const filtered = cards.filter(card => {
+    const matchesSearch = !search || 
+      card.name?.toLowerCase().includes(search.toLowerCase()) ||
+      card.keywords?.some(k => k.toLowerCase().includes(search.toLowerCase()))
+    const matchesFaction = !faction || card.faction === faction
+    const matchesBaseSize = !baseSize || card.base_size === baseSize
+    const result = matchesSearch && matchesFaction && matchesBaseSize
+    
+    // Debug logging
+    if (faction === 'Arcanists' && card.faction === 'Arcanists') {
+      console.log('Arcanist card:', card.name, 'matches:', result)
+    }
+    
+    return result
+  })
+  
+  console.log('Filter state:', { search, faction, baseSize, totalCards: cards.length, filteredCards: filtered.length })
 
   return (
     <div className="app">
@@ -63,7 +74,10 @@ function App() {
         <select 
           className="filter-select"
           value={faction}
-          onChange={e => setFaction(e.target.value)}
+          onChange={e => {
+            console.log('Faction changed to:', e.target.value)
+            setFaction(e.target.value)
+          }}
         >
           <option value="">All Factions</option>
           {factions.map(f => (
@@ -73,7 +87,10 @@ function App() {
         <select 
           className="filter-select"
           value={baseSize}
-          onChange={e => setBaseSize(e.target.value)}
+          onChange={e => {
+            console.log('Base size changed to:', e.target.value)
+            setBaseSize(e.target.value)
+          }}
         >
           <option value="">All Base Sizes</option>
           {baseSizes.map(size => (
