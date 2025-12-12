@@ -1,0 +1,16 @@
+# Malifaux 4E Crew Builder - Pipeline Dependencies
+
+# PDF parsing
+pdfplumber>=0.10.0
+
+# Image processing for health extraction
+opencv-python-headless>=4.8.0
+numpy>=1.24.0
+pillow>=10.0.0
+
+# OCR for scheme/strategy cards
+pytesseract>=0.3.10
+
+# ML recommender system
+pandas>=2.0.0
+scikit-learn>=1.3.0
