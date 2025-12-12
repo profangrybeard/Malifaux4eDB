@@ -863,18 +863,36 @@ class MalifauxCardParser:
                     front_image_path = None
             
             health = None
-            soulstone_cache = False
             if front_image_path and front_image_path.exists():
                 health = self.extract_health_from_image(str(front_image_path))
                 if health:
                     self.log(f"  Health from image: {health}")
-                
-                # Also check for soulstone cache indicator
-                soulstone_cache = self.extract_soulstone_cache_from_image(str(front_image_path))
-                if soulstone_cache:
-                    self.log(f"  Soulstone cache detected")
             else:
                 self.log(f"  No front image found for health extraction")
+            
+            # Derive soulstone cache - Masters and Henchmen can use soulstones
+            # Use inverse logic: if it's a Stat card and NOT a peon type, it can use soulstones
+            # Peon types: Minion, Enforcer, Totem
+            soulstone_cache = False
+            if card_type == 'Stat':
+                # Check if it's a peon type (cannot use soulstones)
+                is_peon = any(c in ('Minion', 'Enforcer', 'Totem') for c in characteristics)
+                
+                if not is_peon:
+                    # Also check raw text for doubled peon markers
+                    text_joined = page1_text.replace('\n', '').lower()
+                    # Doubled patterns: minion=mmiinniioonn, enforcer=eennffoorrcceerr, totem=ttootteemm
+                    if 'mmiinniioonn' in text_joined or 'iinniioonn' in text_joined:
+                        is_peon = True
+                    elif 'eennffoorrcceerr' in text_joined or 'nnffoorrcceerr' in text_joined:
+                        is_peon = True
+                    elif 'ttootteemm' in text_joined:
+                        is_peon = True
+                
+                soulstone_cache = not is_peon
+                
+            if soulstone_cache:
+                self.log(f"  Soulstone user (Master/Henchman)")
             
             # Fallback to PDF text extraction (rarely works)
             if health is None:

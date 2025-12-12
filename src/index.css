@@ -929,6 +929,15 @@ h1, h2, h3 {
     color: #c9a227;
 }
 
+.stat-box-soulstone {
+    border-color: #a78bfa;
+    background: linear-gradient(135deg, #1a1a2e 0%, #2d1f4a 100%);
+}
+
+    .stat-box-soulstone .stat-value {
+        color: #a78bfa;
+    }
+
 .keywords-list {
     display: flex;
     flex-wrap: wrap;

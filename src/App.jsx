@@ -23,6 +23,7 @@ function App() {
   const [maxCost, setMaxCost] = useState('')
   const [minHealth, setMinHealth] = useState('')
   const [maxHealth, setMaxHealth] = useState('')
+  const [soulstoneFilter, setSoulstoneFilter] = useState('')  // '', 'yes', 'no'
   
   // Objective filter state
   const [selectedSchemes, setSelectedSchemes] = useState([])
@@ -170,6 +171,14 @@ function App() {
       if (maxHealth !== '' && (card.health === null || card.health === undefined || card.health > parseInt(maxHealth))) {
         return false
       }
+
+      // Soulstone filter
+      if (soulstoneFilter === 'yes' && !card.soulstone_cache) {
+        return false
+      }
+      if (soulstoneFilter === 'no' && card.soulstone_cache) {
+        return false
+      }
       
       return true
     }).map(card => {
@@ -193,7 +202,7 @@ function App() {
       }
       return 0
     })
-  }, [cards, search, faction, baseSize, cardType, minCost, maxCost, minHealth, maxHealth, 
+  }, [cards, search, faction, baseSize, cardType, minCost, maxCost, minHealth, maxHealth, soulstoneFilter,
       selectedSchemes, selectedStrategy, schemes, strategies])
 
   // Toggle scheme selection
@@ -399,6 +408,15 @@ function App() {
                 onChange={e => setMaxHealth(e.target.value)}
               />
             </div>
+            <select 
+              className="filter-select"
+              value={soulstoneFilter}
+              onChange={e => setSoulstoneFilter(e.target.value)}
+            >
+              <option value="">Soulstone: All</option>
+              <option value="yes">✦ Soulstone Users</option>
+              <option value="no">No Soulstone</option>
+            </select>
             <span className="result-count">{filteredCards.length} cards</span>
           </div>
 
@@ -437,7 +455,7 @@ function App() {
                           {card.willpower && <span className="stat-item"><span className="stat-label">WP</span>{card.willpower}</span>}
                           {card.size && <span className="stat-item"><span className="stat-label">SZ</span>{card.size}</span>}
                           <span className="stat-item stat-health"><span className="stat-label">HP</span>{card.health || 'N/D'}</span>
-                          {(card.characteristics?.includes('Master') || card.characteristics?.includes('Henchman')) && (
+                          {card.soulstone_cache && (
                             <span className="stat-item stat-soulstone"><span className="stat-label">SS</span>✦</span>
                           )}
                         </div>
@@ -645,6 +663,12 @@ function App() {
                       <div className="stat-box">
                         <div className="stat-label">Health</div>
                         <div className="stat-value">{selectedCard.health}</div>
+                      </div>
+                    )}
+                    {selectedCard.soulstone_cache && (
+                      <div className="stat-box stat-box-soulstone">
+                        <div className="stat-label">Soulstone</div>
+                        <div className="stat-value">✦</div>
                       </div>
                     )}
                   </div>
