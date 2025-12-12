@@ -1,0 +1,182 @@
+{
+  "version": "1.0.0",
+  "synergy_weights": {
+    "same_keyword": 2.0,
+    "master_keyword_match": 2.5,
+    "versatile_in_keyword": 1.2,
+    "out_of_keyword_penalty": 0.6,
+    "condition_producer_consumer": 1.8,
+    "shared_condition_focus": 1.5,
+    "marker_producer_consumer": 2.0,
+    "marker_shared_generation": 1.3,
+    "role_diversity_bonus": 1.2,
+    "role_redundancy_penalty": 0.8,
+    "henchman_bonus": 1.1,
+    "cheap_minion_value": 1.0,
+    "elite_model_value": 1.1
+  },
+  "role_targets": {
+    "scheme_runner": {
+      "min": 1,
+      "ideal": 2,
+      "max": 3,
+      "weight": 1.0,
+      "description": "Need mobility for schemes"
+    },
+    "beater": {
+      "min": 1,
+      "ideal": 2,
+      "max": 3,
+      "weight": 1.0,
+      "description": "Need damage dealing"
+    },
+    "tank": {
+      "min": 0,
+      "ideal": 1,
+      "max": 2,
+      "weight": 0.8,
+      "description": "Survivability anchor"
+    },
+    "support": {
+      "min": 0,
+      "ideal": 1,
+      "max": 2,
+      "weight": 0.9,
+      "description": "Crew enhancement"
+    },
+    "control": {
+      "min": 0,
+      "ideal": 1,
+      "max": 2,
+      "weight": 0.7,
+      "description": "Enemy manipulation"
+    },
+    "summoner": {
+      "min": 0,
+      "ideal": 1,
+      "max": 1,
+      "weight": 0.5,
+      "description": "Usually the master"
+    },
+    "ranged_damage": {
+      "min": 0,
+      "ideal": 1,
+      "max": 2,
+      "weight": 0.8,
+      "description": "Threat projection"
+    },
+    "condition_engine": {
+      "min": 0,
+      "ideal": 1,
+      "max": 2,
+      "weight": 0.7,
+      "description": "Condition synergy"
+    }
+  },
+  "crew_constraints": {
+    "target_soulstones": 50,
+    "min_soulstones": 45,
+    "max_soulstones": 50,
+    "soulstone_cache_min": 3,
+    "soulstone_cache_max": 7,
+    "min_models": 5,
+    "max_models": 10
+  },
+  "learning": {
+    "min_cooccurrence": 2,
+    "smoothing_factor": 0.1,
+    "recency_weight": 1.2,
+    "win_rate_factor": 1.5
+  },
+  "faction_themes": {
+    "Arcanists": {
+      "preferred_conditions": [
+        "burning",
+        "focused"
+      ],
+      "preferred_markers": [
+        "pyre",
+        "ice_pillar",
+        "scrap"
+      ],
+      "style": "magic_and_constructs"
+    },
+    "Bayou": {
+      "preferred_conditions": [
+        "poison",
+        "injured"
+      ],
+      "preferred_markers": [
+        "scheme_marker"
+      ],
+      "style": "chaotic_numbers"
+    },
+    "Guild": {
+      "preferred_conditions": [
+        "slow",
+        "stunned",
+        "burning"
+      ],
+      "preferred_markers": [
+        "scheme_marker"
+      ],
+      "style": "control_and_armor"
+    },
+    "Neverborn": {
+      "preferred_conditions": [
+        "stunned",
+        "distracted",
+        "slow"
+      ],
+      "preferred_markers": [
+        "shadow"
+      ],
+      "style": "movement_and_wp"
+    },
+    "Outcasts": {
+      "preferred_conditions": [
+        "burning",
+        "injured"
+      ],
+      "preferred_markers": [
+        "scrap",
+        "scheme_marker"
+      ],
+      "style": "flexible_mercenary"
+    },
+    "Resurrectionists": {
+      "preferred_conditions": [
+        "poison",
+        "injured",
+        "slow"
+      ],
+      "preferred_markers": [
+        "corpse"
+      ],
+      "style": "undead_recursion"
+    },
+    "Ten Thunders": {
+      "preferred_conditions": [
+        "focused",
+        "fast",
+        "distracted"
+      ],
+      "preferred_markers": [
+        "shadow",
+        "scheme_marker"
+      ],
+      "style": "versatile_synergy"
+    },
+    "Explorer Society": {
+      "preferred_conditions": [
+        "shielded",
+        "focused"
+      ],
+      "preferred_markers": [
+        "lodestone",
+        "scheme_marker"
+      ],
+      "style": "artifacts_terrain"
+    }
+  }
+}

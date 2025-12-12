@@ -1,0 +1,156 @@
+{
+  "version": "1.0.0",
+  "updated_at": "2025-01-15",
+  "description": "Controlled vocabulary for Malifaux M4E tag extraction",
+  
+  "conditions": {
+    "description": "Game conditions that can be applied, required, or removed",
+    "values": [
+      {"tag": "burning", "type": "stacking", "effect": "damage_over_time"},
+      {"tag": "poison", "type": "stacking", "effect": "damage_over_time"},
+      {"tag": "slow", "type": "binary", "effect": "action_penalty"},
+      {"tag": "fast", "type": "binary", "effect": "action_bonus"},
+      {"tag": "focused", "type": "stacking", "effect": "stat_bonus"},
+      {"tag": "stunned", "type": "binary", "effect": "trigger_denial"},
+      {"tag": "distracted", "type": "stacking", "effect": "stat_penalty"},
+      {"tag": "injured", "type": "stacking", "effect": "stat_penalty"},
+      {"tag": "staggered", "type": "binary", "effect": "disengage_penalty"},
+      {"tag": "shielded", "type": "stacking", "effect": "damage_reduction"},
+      {"tag": "concealed", "type": "binary", "effect": "ranged_defense"},
+      {"tag": "insight", "type": "stacking", "effect": "stat_bonus"},
+      {"tag": "adversary", "type": "keyword", "effect": "stat_bonus_against"},
+      {"tag": "blinded", "type": "binary", "effect": "los_restriction"},
+      {"tag": "gluted", "type": "binary", "effect": "special"},
+      {"tag": "entranced", "type": "binary", "effect": "control"}
+    ]
+  },
+
+  "markers": {
+    "description": "Physical markers placed on the table",
+    "values": [
+      {"tag": "corpse", "generated_by": "death", "factions": ["resurrectionists", "outcasts"]},
+      {"tag": "scrap", "generated_by": "death", "factions": ["arcanists", "outcasts"]},
+      {"tag": "scheme_marker", "generated_by": "interact", "factions": ["all"]},
+      {"tag": "pyre", "generated_by": "ability", "factions": ["arcanists", "guild"]},
+      {"tag": "ice_pillar", "generated_by": "ability", "factions": ["arcanists"]},
+      {"tag": "shadow", "generated_by": "ability", "factions": ["neverborn", "ten_thunders"]},
+      {"tag": "web", "generated_by": "ability", "factions": ["neverborn"]},
+      {"tag": "remains", "generated_by": "death", "factions": ["all"]},
+      {"tag": "destructible", "generated_by": "varies", "factions": ["all"]},
+      {"tag": "hazardous", "generated_by": "ability", "factions": ["various"]},
+      {"tag": "strategy_marker", "generated_by": "strategy", "factions": ["all"]},
+      {"tag": "lodestone", "generated_by": "strategy", "factions": ["all"]}
+    ]
+  },
+
+  "movement": {
+    "description": "Movement-related abilities and modifiers",
+    "values": [
+      {"tag": "push", "description": "Forced movement in a direction"},
+      {"tag": "place", "description": "Teleport/non-linear movement"},
+      {"tag": "leap", "description": "Ignore terrain during movement"},
+      {"tag": "flight", "description": "Ignores terrain and models"},
+      {"tag": "unimpeded", "description": "Ignores severe terrain"},
+      {"tag": "incorporeal", "description": "Ignores models and terrain"},
+      {"tag": "bonus_move", "description": "Extra movement action"},
+      {"tag": "charge", "description": "Move + attack action"},
+      {"tag": "butterfly_jump", "description": "Reactive placement"},
+      {"tag": "dont_mind_me", "description": "Interact while engaged"}
+    ]
+  },
+
+  "combat": {
+    "description": "Damage and attack modifiers",
+    "values": [
+      {"tag": "blast", "description": "Area damage from severe"},
+      {"tag": "shockwave", "description": "Area attack, no LoS needed"},
+      {"tag": "aura", "description": "Persistent area effect"},
+      {"tag": "pulse", "description": "One-time area effect"},
+      {"tag": "irreducible", "description": "Damage cannot be reduced"},
+      {"tag": "bonus_damage", "description": "Conditional extra damage"},
+      {"tag": "direct_damage", "description": "Non-attack damage"},
+      {"tag": "armor_piercing", "description": "Ignores armor"},
+      {"tag": "execute", "description": "Kills below threshold"}
+    ]
+  },
+
+  "defense": {
+    "description": "Survivability abilities",
+    "values": [
+      {"tag": "armor", "description": "Damage reduction"},
+      {"tag": "hard_to_kill", "description": "Cannot be reduced below 1"},
+      {"tag": "hard_to_wound", "description": "Damage reduction vs severe"},
+      {"tag": "incorporeal", "description": "Reduces all damage by half"},
+      {"tag": "manipulative", "description": "Harder to target"},
+      {"tag": "terrifying", "description": "Forces WP duels to target"},
+      {"tag": "serene_countenance", "description": "Cannot be targeted by Wp"},
+      {"tag": "protected", "description": "Nearby models take damage instead"},
+      {"tag": "demise", "description": "Effect on death"},
+      {"tag": "regeneration", "description": "Heals each turn"},
+      {"tag": "damage_reduction", "description": "Generic damage reduction"}
+    ]
+  },
+
+  "support": {
+    "description": "Friendly model assistance",
+    "values": [
+      {"tag": "healing", "description": "Restores health"},
+      {"tag": "buff", "description": "Grants positive conditions"},
+      {"tag": "stat_buff", "description": "Increases stats"},
+      {"tag": "condition_removal", "description": "Removes negative conditions"},
+      {"tag": "card_draw", "description": "Generates cards"},
+      {"tag": "soulstone_generation", "description": "Generates soulstones"},
+      {"tag": "pass_token", "description": "Generates pass tokens"},
+      {"tag": "obey_friendly", "description": "Gives friendly AP"}
+    ]
+  },
+
+  "control": {
+    "description": "Enemy manipulation",
+    "values": [
+      {"tag": "obey", "description": "Control enemy model actions"},
+      {"tag": "lure", "description": "Force enemy movement toward"},
+      {"tag": "push_enemy", "description": "Push enemy models"},
+      {"tag": "stat_debuff", "description": "Reduce enemy stats"},
+      {"tag": "action_denial", "description": "Prevent enemy actions"},
+      {"tag": "movement_denial", "description": "Prevent enemy movement"},
+      {"tag": "engagement", "description": "Lock down in melee"},
+      {"tag": "activation_control", "description": "Manipulate activation order"}
+    ]
+  },
+
+  "roles": {
+    "description": "Strategic function a model serves in a crew",
+    "values": [
+      {"tag": "beater", "description": "High damage output, kills enemy models"},
+      {"tag": "tank", "description": "High survivability, absorbs damage"},
+      {"tag": "tarpit", "description": "Locks down enemies through engagement"},
+      {"tag": "control", "description": "Manipulates enemy positioning/actions"},
+      {"tag": "support", "description": "Buffs friendly models, provides utility"},
+      {"tag": "scheme_runner", "description": "Fast, cheap, scores schemes"},
+      {"tag": "summoner", "description": "Creates new models during game"},
+      {"tag": "ranged_damage", "description": "Deals damage from distance"},
+      {"tag": "melee_damage", "description": "Deals damage in close combat"},
+      {"tag": "assassin", "description": "Kills high-value targets"},
+      {"tag": "area_denial", "description": "Controls zones with markers/auras"},
+      {"tag": "condition_engine", "description": "Applies/exploits conditions"},
+      {"tag": "utility", "description": "Flexible, fills gaps"},
+      {"tag": "tech_piece", "description": "Counters specific strategies"},
+      {"tag": "battery", "description": "Generates resources"}
+    ]
+  },
+
+  "factions": {
+    "description": "Malifaux factions",
+    "values": [
+      {"tag": "guild", "themes": ["control", "armor", "ranged"]},
+      {"tag": "arcanists", "themes": ["magic", "constructs", "elementals"]},
+      {"tag": "resurrectionists", "themes": ["undead", "corpse", "summon"]},
+      {"tag": "neverborn", "themes": ["movement", "wp_attacks", "deception"]},
+      {"tag": "outcasts", "themes": ["mercenary", "scrap", "flexible"]},
+      {"tag": "bayou", "themes": ["chaotic", "risk_reward", "numbers"]},
+      {"tag": "ten_thunders", "themes": ["dual_faction", "versatile", "synergy"]},
+      {"tag": "explorer_society", "themes": ["artifacts", "research", "terrain"]}
+    ]
+  }
+}

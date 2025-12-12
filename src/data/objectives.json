@@ -1,70 +1,9 @@
 {
   "version": "1.0.0",
   "source": "ocr_extracted",
-  "scheme_count": 17,
+  "scheme_count": 15,
   "strategy_count": 4,
   "schemes": {
-    "halif": {
-      "id": "halif",
-      "name": "Halif",
-      "card_type": "scheme",
-      "max_vp": 2,
-      "setup_text": "FOURTH EDITION\n\nCOMPREHENSIVE",
-      "rules_text": "",
-      "scoring_text": "",
-      "additional_vp_text": "",
-      "reveal_condition": "",
-      "next_available_schemes": [],
-      "uses_strategy_markers": false,
-      "marker_count": 0,
-      "requires_killing": false,
-      "requires_scheme_markers": false,
-      "requires_strategy_markers": false,
-      "requires_terrain": false,
-      "requires_positioning": false,
-      "requires_interact": false,
-      "target_type": null,
-      "favors_roles": [],
-      "favors_abilities": [],
-      "source_file": "Malifaux4eDB-images\\Rules and Objectives\\M4E_Comprehensive_Rules_front.png",
-      "raw_text": "a\n\nHALIF\n\nFOURTH EDITION\n\nCOMPREHENSIVE\nRULES GUIDE\n\nThis text is protected by the copyright laws of the United States of America. Contents copyright © 2005-2025, Wyrd Miniatures, LLC.\nAll rights reserved. This book is a work of fiction; any resemblance to organizations, places, events, or actual persons - living\nor dead - is purely coincidental. Copies of materials herein are intended solely for your personal, non-commercial use, only if\nyou preserve any associated copyrights, trademarks, or other notices. Wyrd Miniatures, LLC holds exclusive rights to this work.\nUnauthorized duplication is prohibited. You may not distribute copies to others for a charge or other consideration without prior\nwritten consent of the owner of the materials except for review purpose only.\n\nMALIFAUX is a trademark of Wyrd Miniatures, LLC 2005-2025. The Wyrd logo, the MALIFAUX logo, the Through the Breach logo, the\nPenny Dreadful logo, The Other Side logo, and all related character names, places, and things are trademarks and copyright © 2005-\n2025 Wyrd Miniatures, LLC. The Malifaux game system is patent pending, serial no. 12/821,427.\n"
-    },
-    "j_general_actions_6": {
-      "id": "j_general_actions_6",
-      "name": "“J® General Actions 6",
-      "card_type": "scheme",
-      "max_vp": 2,
-      "setup_text": "Action Rg Ski Rst TN Dmg\n\nInteract le = - 3 2\nCannot be declared while engaged or if this model used\nthe Walk action to leave engagement this activation.\nThis action cannot target markers in base contact with\nanon-peon enemy model.\nDo one of the following:\n1. Make a Scheme marker anywhere within range.\n2. Remove one Scheme marker within range.\n3. Resolve a specific rule that refers to an\n\nInteract action.\n\nWalk ; : : -\nThis model moves up to its speed (Sp) and may\nclimb and/or scale terrain. This may incur penalties\nif it is engaged.\n\nCharge = =\n\nOnce per activation. Cannot be declared while cng\nMove this model up to its Spina straight line.\n\nIt may then declare a # action that does not count\nagainst its action limit.\n\nSlam 1\" > & = -\nTarget a non-Scheme marker or any one destructible\nterrain piece within range. Remove the target from\nplay.\n\nPrepare Fp ® S\nGive this model an Adaptable, Focused, or\nShielded token.\n\n—L\\—$=—$— Reference —S—a—",
-      "rules_text": "",
-      "scoring_text": "",
-      "additional_vp_text": "",
-      "reveal_condition": "",
-      "next_available_schemes": [],
-      "uses_strategy_markers": false,
-      "marker_count": 0,
-      "requires_killing": false,
-      "requires_scheme_markers": true,
-      "requires_strategy_markers": false,
-      "requires_terrain": true,
-      "requires_positioning": true,
-      "requires_interact": true,
-      "target_type": "peon",
-      "favors_roles": [
-        "scheme_runner",
-        "tank"
-      ],
-      "favors_abilities": [
-        "dont_mind_me",
-        "flight",
-        "incorporeal",
-        "leap",
-        "place",
-        "push",
-        "unimpeded"
-      ],
-      "source_file": "Malifaux4eDB-images\\Rules and Objectives\\M4E_Reference-Card_front.png",
-      "raw_text": "“J® GENERAL ACTIONS 6\nAction Rg Ski Rst TN Dmg\n\nInteract le = - 3 2\nCannot be declared while engaged or if this model used\nthe Walk action to leave engagement this activation.\nThis action cannot target markers in base contact with\nanon-peon enemy model.\nDo one of the following:\n1. Make a Scheme marker anywhere within range.\n2. Remove one Scheme marker within range.\n3. Resolve a specific rule that refers to an\n\nInteract action.\n\nWalk ; : : -\nThis model moves up to its speed (Sp) and may\nclimb and/or scale terrain. This may incur penalties\nif it is engaged.\n\nCharge = =\n\nOnce per activation. Cannot be declared while cng\nMove this model up to its Spina straight line.\n\nIt may then declare a # action that does not count\nagainst its action limit.\n\nSlam 1\" > & = -\nTarget a non-Scheme marker or any one destructible\nterrain piece within range. Remove the target from\nplay.\n\nPrepare Fp ® S\nGive this model an Adaptable, Focused, or\nShielded token.\n\n—L\\—$=—$— Reference —S—a—\n"
-    },
     "assassinate": {
       "id": "assassinate",
       "name": "Assassinate",
@@ -100,7 +39,7 @@
         "bonus_damage",
         "irreducible"
       ],
-      "source_file": "Malifaux4eDB-images\\Rules and Objectives\\Scheme Cards\\M4E_Scheme_Assassinate_front.png",
+      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Assassinate_front.png",
       "raw_text": "ASSASSINATE\n\nSCORED vP: L) OL)\n\nWhen this scheme is selected, secretly choose a unique\nenemy mode! that has half or more of its maximum health\nremaining. You may want to ask about the health of multiple\nmodels (even if you do not select this scheme) to fool\nyour opponent.\n\nREVEAL\n\nYou may reveal this scheme after the chosen modelis\nreduced to below half of its maximum health.\n\nSCORING\n\nWhen this scheme is revealed, gain 1 VP.\n\nADDITIONAL VP\n\nAt the end of the turn on which this scheme was\nrevealed, if the chosen model has been killed, gain 1\nadditional VP.\n\nNEXT AVAILABLE SCHEMES\n\nScout the Rooftops\nDetonate Charges\nRunic Binding\n\n"
     },
     "breakthrough": {
@@ -138,7 +77,7 @@
         "place",
         "push"
       ],
-      "source_file": "Malifaux4eDB-images\\Rules and Objectives\\Scheme Cards\\M4E_Scheme_Breakthrough_front.png",
+      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Breakthrough_front.png",
       "raw_text": "BREAKTHROUGH\n\nSCORED vP: L) OL)\n\nREVEAL\n\nYou may reveal this scheme when an enemy model ends\nits activation.\n\nSCORING\n\nWhen this scheme is revealed, remove one friendly\nScheme marker in the enemy deployment zone that\ndoes not have an enemy model within 2\" of it to gain1\nVP.\n\nADDITIONAL VP\n\nWhen this scheme is revealed you may also remove one\nfriendly Scheme marker from the centerline and one\nfriendly Scheme marker from your deployment zone to\ngain 1 additional VP.\n\nNEXT AVAILABLE SCHEMES\n\nAssassinate\nPublic Demonstration\nFrame Job\n\n"
     },
     "detonate_charges": {
@@ -176,7 +115,7 @@
         "place",
         "push"
       ],
-      "source_file": "Malifaux4eDB-images\\Rules and Objectives\\Scheme Cards\\M4E_Scheme_Detonate_Charges_front.png",
+      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Detonate_Charges_front.png",
       "raw_text": "DETONATE CHARGES\n\nSCORED vP: L) OL)\n\nREVEAL\n\nYou may reveal this scheme at the end of any turn.\n\nSCORING\n\nWhen this scheme is revealed, remove two friendly\nScheme markers that are within 2\" of enemy model(s)\nto gain 1 VP.\n\nADDITIONAL VP\n\nWhen this scheme is revealed you may remove one\nadditional qualifying Scheme marker to gain 1 additional\nVP.\n\nNEXT AVAILABLE SCHEMES\nGrave Robbing\nRunic Binding\nTake the Highground\n\n"
     },
     "ensnare": {
@@ -214,7 +153,7 @@
         "place",
         "push"
       ],
-      "source_file": "Malifaux4eDB-images\\Rules and Objectives\\Scheme Cards\\M4E_Scheme_Ensnare_front.png",
+      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Ensnare_front.png",
       "raw_text": "ENSNARE\n\nSCORED vP: L) OL)\n\nREVEAL\n\nYou may reveal this scheme when an enemy model ends\nits activation.\n\nSCORING\n\nWhen this scheme is revealed, remove two friendly\nScheme markers from within 2\" a single unique enemy\nmodel to gain 1 VP.\n\nADDITIONAL VP\n\nWhen this scheme is revealed, if the enemy unique\nmodel is engaged by a model of lower cost, gain 1\nadditional VP.\n\nNEXT AVAILABLE SCHEMES\n\nReshape the Land\nSearch the Area\nFrame Job\n\n"
     },
     "frame_job": {
@@ -252,7 +191,7 @@
         "place",
         "push"
       ],
-      "source_file": "Malifaux4eDB-images\\Rules and Objectives\\Scheme Cards\\M4E_Scheme_Frame_Job_front.png",
+      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Frame_Job_front.png",
       "raw_text": "FRAME JOB\n\nSCORED vP: L) OL)\n\nWhen this scheme is selected, secretly choose a\nfriendly model.\nREVEAL\n\nYou may reveal this scheme after the chosen model\nsuffers damage from an enemy attack action targeting it\nwhile it is on the enemy table half.\n\nSCORING\n\nWhen this scheme is revealed, gain 1 VP.\n\nADDITIONAL VP\n\nWhen this scheme is revealed, you may remove one\nfriendly Scheme marker from within 2\" of the chosen\nmodel to gain 1 additional VP.\n\nNEXT AVAILABLE SCHEMES\n\nPublic Demonstration\nHarness the Leyline\nScout the Rooftops\n\n"
     },
     "grave_robbing": {
@@ -297,7 +236,7 @@
         "place",
         "push"
       ],
-      "source_file": "Malifaux4eDB-images\\Rules and Objectives\\Scheme Cards\\M4E_Scheme_Grave_Robbing_front.png",
+      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Grave_Robbing_front.png",
       "raw_text": "GRAVE ROBBING\n\nSCORED vP: L) OL)\n\nWhen this scheme is selected, secretly choose a type of\nnon-Scheme marker.\n\nREVEAL\n\nAfter killing an enemy model within 2\" of both one or\nmore friendly Scheme marker(s) and one or more of the\nchosen marker, reveal this scheme.\n\nSCORING\n\nWhen this scheme is revealed, remove one friendly\nScheme marker within 2\" of the killed model to gain 1 VP.\n\nADDITIONAL VP\n\nUntil the end of the turn, friendly models may target\nenemy Remains markers with the Interact action to\nremove them and place them on your crew card. At the\nend of the turn remove all Remains markers from your\ncrew card that were placed this way. If two or more are\nremoved, gain 1 additional VP.\n\nNEXT AVAILABLE SCHEMES\n\nRunic Binding\nLeave Your Mark\nMake it Look Like an Accident\n\n"
     },
     "harness": {
@@ -335,7 +274,7 @@
         "place",
         "push"
       ],
-      "source_file": "Malifaux4eDB-images\\Rules and Objectives\\Scheme Cards\\M4E_Scheme_Harness_the_Leyline_front.png",
+      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Harness_the_Leyline_front.png",
       "raw_text": "HARNESS\nTHE LEYLINE\n\nSCORED vP: LJ)\n\nREVEAL\n\nYou may reveal this scheme at the end of any turn.\n\nSCORING\n\nWhen this scheme is revealed, remove two friendly\nScheme markers on the centerline not within 6” of\nanother marker used to score this scheme and that do\nnot have any enemy models within 2\" to gain 1 VP.\n\nADDITIONAL VP\n\nRemove one additional qualifying marker to gain 1\nadditional VP.\n\nNEXT AVAILABLE SCHEMES\n\nAssassinate\nScout the Rooftops\nGrave Robbing\n\n"
     },
     "leave_your_mark": {
@@ -373,7 +312,7 @@
         "place",
         "push"
       ],
-      "source_file": "Malifaux4eDB-images\\Rules and Objectives\\Scheme Cards\\M4E_Scheme_Leave_Your_Mark_front.png",
+      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Leave_Your_Mark_front.png",
       "raw_text": "LEAVE YOUR MARK\n\nSCORED vP: L) OL)\n\nREVEAL\n\nYou may reveal this scheme at the end of any turn.\n\nSCORING\n\nWhen this scheme is revealed, if there are more friendly\nScheme markers within 1\" of the centerpoint than\nenemy Scheme markers within 1\" of the centerpoint,\ngain1 VP. Then, remove all friendly Scheme markers\nwithin 1\" of the centerpoint.\n\nADDITIONAL VP\n\nWhen this scheme is revealed, if there are at least\ntwo more friendly Scheme markers within 1\" of the\ncenterpoint than enemy Scheme markers within 1\" of\nthe centerpoint, gain 1 additional VP.\n\nNEXT AVAILABLE SCHEMES\n\nTake the Highground\nMake it Look Like an Accident\nReshape the Land\n\n"
     },
     "make_it_look_like": {
@@ -411,7 +350,7 @@
         "bonus_damage",
         "irreducible"
       ],
-      "source_file": "Malifaux4eDB-images\\Rules and Objectives\\Scheme Cards\\M4E_Scheme_Make_It_Look_Like_an_Accident_front.png",
+      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Make_It_Look_Like_an_Accident_front.png",
       "raw_text": "MAKE IT LOOK LIKE\nAN ACCIDENT\n\nSCORED vP: LJ)\n\nREVEAL\n\nYou may reveal this scheme when an enemy model\nsuffers damage due to falling.\n\nSCORING\n\nWhen this scheme is revealed, gain 1 VP.\n\nADDITIONAL VP\n\nIf at the end of the turn on which this scheme was\nrevealed the enemy model that fell has been killed\nor has less than half of its maximum health, gain 1\nadditional VP.\n\nNEXT AVAILABLE SCHEMES\n\nEnsnare\nReshape the Land\nBreakthrough\n\n"
     },
     "public": {
@@ -449,7 +388,7 @@
         "place",
         "push"
       ],
-      "source_file": "Malifaux4eDB-images\\Rules and Objectives\\Scheme Cards\\M4E_Scheme_Public_Demonstration_front.png",
+      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Public_Demonstration_front.png",
       "raw_text": "PUBLIC\nDEMONSTRATION\n\nSCORED vP: LJ)\n\nWhen this scheme is selected, secretly choose a unique\nenemy model.\n\nREVEAL\n\nYou may reveal this scheme at the end of any turn.\n\nSCORING\n\nWhen this scheme is revealed, if there are two or more\nfriendly minions within 2” of the chosen model, gain\n1VP.\n\nADDITIONAL VP\n\nWhen this scheme is revealed, remove a friendly\nScheme marker from within 1” of the chosen model to\ngain 1 additional VP.\n\nNEXT AVAILABLE SCHEMES\n\nHarness the Leyline\nAssassinate\nDetonate Charges\n\n"
     },
     "reshape_the_land": {
@@ -485,7 +424,7 @@
         "place",
         "push"
       ],
-      "source_file": "Malifaux4eDB-images\\Rules and Objectives\\Scheme Cards\\M4E_Scheme_Reshape_the_Land_front.png",
+      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Reshape_the_Land_front.png",
       "raw_text": "RESHAPE THE LAND\n\nSCORED vP: L) OL)\n\nWhen this scheme is selected, secretly choose a marker type.\n\nREVEAL\n\nYou may reveal this scheme at the end of any turn.\n\nSCORING\n\nIf there are four friendly markers of the chosen type\ncompletely on the enemy table half, gain 1 VP. Then,\nif the chosen marker type was Scheme, remove all\nmarkers used to score this scheme.\n\nADDITIONAL VP\n\nWhen this scheme is revealed, if there are five friendly\nmarkers of the chosen type completely on the enemy\ntable half, gain 1 additional VP.\n\nNEXT AVAILABLE SCHEMES\n\nSearch the Area\nBreakthrough\nPublic Demonstration\n\n"
     },
     "runic_binding": {
@@ -523,7 +462,7 @@
         "place",
         "push"
       ],
-      "source_file": "Malifaux4eDB-images\\Rules and Objectives\\Scheme Cards\\M4E_Scheme_Runic_Binding_front.png",
+      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Runic_Binding_front.png",
       "raw_text": "RUNIC BINDING\n\nSCORED vP: L) OL)\n\nREVEAL\n\nYou may reveal this scheme when an enemy model ends\nits activation.\n\nSCORING\n\nWhen this scheme is revealed, choose three friendly\nScheme markers in play. Each chosen marker must be\nwithin 14\" of at least one of the other chosen markers.\nIf there is at least one enemy model within the area\nformed between the chosen markers, gain 1 VP. Remove\nthe chosen markers.\n\nADDITIONAL VP\n\nWhen this scheme is revealed, if the combined cost of\nthe enemy models in that area is 15 or greater, gain 1\nadditional VP.\n\nNEXT AVAILABLE SCHEMES\n\nLeave Your Mark\nTake the Highground\nEnsnare\n\n"
     },
     "scout_the_rooftops": {
@@ -563,7 +502,7 @@
         "push",
         "unimpeded"
       ],
-      "source_file": "Malifaux4eDB-images\\Rules and Objectives\\Scheme Cards\\M4E_Scheme_Scout_the_Rooftops_front.png",
+      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Scout_the_Rooftops_front.png",
       "raw_text": "SCOUT THE ROOFTOPS\n\nSCORED vP: L))\n\nREVEAL\n\nYou may reveal this scheme at the end of any turn.\n\nSCORING\n\nScheme markers are qualifying for this scheme if they:\n\n* Are not within 6\" of your deployment zone.\n\n* Do not have an enemy model at the same elevation\nwithin 2\".\n\n* Areat elevation 2 or higher.\n\nWhen this scheme is revealed, remove one qualifying\n\nScheme marker from two different terrain pieces to gain\n\n1VP (two Scheme markers total).\n\nADDITIONAL VP\n\nWhen this scheme is revealed, select one additional\nqualifying Scheme marker that is completely on the\nenemy table half and remove it to gain 1 VP. Note that\nthis Scheme marker may be on the same terrain piece as\none of the other qualifying Scheme markers.\n\nNEXT AVAILABLE SCHEMES\n\nDetonate Charges\nGrave Robbing\nLeave Your Mark\n\n"
     },
     "search_the_area": {
@@ -603,7 +542,7 @@
         "push",
         "unimpeded"
       ],
-      "source_file": "Malifaux4eDB-images\\Rules and Objectives\\Scheme Cards\\M4E_Scheme_Search_the_Area_front.png",
+      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Search_the_Area_front.png",
       "raw_text": "SEARCH THE AREA\n\nSCORED vP: L) OL)\n\nREVEAL\n\nYou may reveal this scheme at the end of any enemy\nactivation.\n\nSCORING\n\nWhen this scheme is revealed, select a piece of terrain\ncompletely on the enemy table half. Remove three\nfriendly Scheme markers from within 1\" of the selected\nterrain that do not have enemy models within 2\" of\nthem to gain 1 VP.\n\nADDITIONAL VP\n\nAt the end of the turn on which this scheme was\nrevealed, you may remove one friendly Scheme marker\nfrom within 1\" of the selected terrain to gain 1 VP.\n\nNEXT AVAILABLE SCHEMES\n\nBreakthrough\nFrame Job\nHarness the Leyline\n\n"
     },
     "take_the": {
@@ -642,7 +581,7 @@
         "push",
         "unimpeded"
       ],
-      "source_file": "Malifaux4eDB-images\\Rules and Objectives\\Scheme Cards\\M4E_Scheme_Take_the_Highground_front.png",
+      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Take_the_Highground_front.png",
       "raw_text": "TAKE THE\nHIGHGROUND\n\nSCORED vP: LJ)\n\nA crew is considered to control a terrain piece if it has the\nmost friendly models standing on it. This crew's models that\nare within 6\" of their deployment zone are ignored.\n\nREVEAL\n\nYou may reveal this scheme at the end of any turn.\n\nSCORING\n\nWhen you reveal this scheme, if you control at least two\nHt 2 or greater terrain pieces gain 1 VP.\n\nADDITIONAL VP\n\nIf you control at least three qualifying terrain pieces gain\n1 additional VP.\n\nNEXT AVAILABLE SCHEMES\nMake it Look Like an Accident\n\nEnsnare\nSearch the Area\n\n"
     }
   },
@@ -680,7 +619,7 @@
         "place",
         "push"
       ],
-      "source_file": "Malifaux4eDB-images\\Rules and Objectives\\Strategy Cards\\M4E_Strategy_Boundary_Dispute_front.png",
+      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Strategy Cards\\M4E_Strategy_Boundary_Dispute_front.png",
       "raw_text": "BOUNDARY DISPUTE\n\nscorepD vP: QOOO0\n\nSETUP\n\nAfter deployment zones are chosen, starting with the\nattacker, each player alternates making three Strategy\nmarkers completely in their deployment zone, not\nwithin 6\" of another Strategy marker.\n\nRULES\n\nStrategy markers are friendly to the player that made\nthem. A model may target a Strategy marker with\nthe Interact action to place it within 6\" of its current\nlocation, not in base contact with any model(s).\n\nSCORING\n\nAt the end of every turn, the crew with the most friendly\nStrategy markers completely on the enemy table half\ngains 1 VP. Strategy markers completely in the enemy\ndeployment zone are counted twice. In the case of a tie,\nboth crews gain 1 VP.\n\nThen the crew that has scored the least total VP from\nthis strategy this game may select any one friendly\nStrategy marker and place it within 4\" of its current\nlocation, not in base contact with any model(s).\n\nADDITIONAL VP\n\nDouble any victory points gained from this strategy on\nturn 4.\n\n"
     },
     "informants": {
@@ -715,7 +654,7 @@
         "place",
         "push"
       ],
-      "source_file": "Malifaux4eDB-images\\Rules and Objectives\\Strategy Cards\\M4E_Strategy_Informants_front.png",
+      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Strategy Cards\\M4E_Strategy_Informants_front.png",
       "raw_text": "INFORMANTS\n\nscorepD vP: QOOO0\n\nSETUP\n\nAfter deployment zones are chosen, make five Strategy\n\nmarkers:\n\n¢ One centered on the centerpoint.\n\n* Two centered on the centerline, each 10\" to the left\nand right of the centerpoint, respectively.\n\n¢ Starting with the attacker, each player alternates\nmaking one Strategy marker in the center of one table\nquarter completely on their side of the board.\n\nRULES\n\nAcrew controls a Strategy marker if it has more models\nwithout Summon tokens within 2\" of the marker than\nany opponent does.\n\nSCORING\n\nAt the end of every turn, the crew controlling the most\nStrategy markers gains 1 VP. In the case of atie, both\ncrews gain 1 VP.\n\nThen the crew that has scored the least total VP\nfrom this strategy this game selects up to two Strategy\nmarkers and places them within 3\" of their location, not\nin base contact with any model(s) or within 8\" of any\nother Strategy marker(s).\n\nADDITIONAL VP\n\nDouble any victory points gained from this strategy on\nturn 4.\n\n"
     },
     "plant_explosives": {
@@ -757,7 +696,7 @@
         "place",
         "push"
       ],
-      "source_file": "Malifaux4eDB-images\\Rules and Objectives\\Strategy Cards\\M4E_Strategy_Plant_Explosives_front.png",
+      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Strategy Cards\\M4E_Strategy_Plant_Explosives_front.png",
       "raw_text": "PLANT EXPLOSIVES\n\nscorepD vP: QOOO0\n\nSETUP\n\nAfter deployment, each non-peon model in play gains\nan Explosive token.\n\nRULES\n\nA model with an Explosive token may take the Interact\naction to remove the token and make a friendly Strategy\nmarker within 1\", and not within 4\" of another friendly\nStrategy marker. Explosive tokens may not be removed\nin any other way.\n\nA model may target a Strategy marker with the\nInteract action to remove it; if the model does not have\nan Explosive token, it gains one.\n\nAfter a model with an Explosive token is killed, the\nmodel that killed it makes a neutral Strategy marker\nwithin 1\" of the killed model, if able. Models may move\non top of Strategy markers.\n\nSCORING\n\nAt the end of every turn, each crew counts how many\nfriendly Strategy markers they have completely on the\nenemy table half. The crew with the highest total gains 1\nVP. In the case of a tie, both crews gain 1 VP.\n\nADDITIONAL VP\n\nOnce per crew per game, at the end of the turn this\ncrew gains 1 VP if there are two or more friendly Strategy\nmarkers in the enemy deployment zone.\n\n"
     },
     "recover_evidence": {
@@ -803,7 +742,7 @@
         "push",
         "unimpeded"
       ],
-      "source_file": "Malifaux4eDB-images\\Rules and Objectives\\Strategy Cards\\M4E_Strategy_Recover Evidence_front.png",
+      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Strategy Cards\\M4E_Strategy_Recover Evidence_front.png",
       "raw_text": "RECOVER EVIDENCE\n\nscorepD vP: QOOO0\n\nSETUP\n\nAfter deployment zones are chosen, starting with\nthe attacker, each player makes one Strategy marker\ncompletely on the enemy table half.\n\nRULES\n\nAfter a model is killed by the enemy crew, the enemy\nmakes a Strategy marker within 3\" of the killed model.\n\nA model may target a friendly Strategy marker with\nthe Interact action to remove the marker and put it\nonto that crew's crew card. Models may move on top of\nStrategy markers.\n\nSCORING\n\nAt the end of every turn, the crew with the most\nStrategy markers on its crew card gains 1 VP. Inthe case\nof a tie, both crews gain 1 VP. All crews then remove all\nStrategy markers from their crew cards.\n\nADDITIONAL VP\n\nOnce per crew per game, at the end of any friendly\nactivation, this crew may select a piece of terrain\nwithin 6\" of the enemy deployment zone and remove\nanumber of friendly Scheme markers equal to the turn\nnumber from within 1\" of it to gain 1 VP.\n\n"
     }
   }
