@@ -1,0 +1,182 @@
+{
+  "metadata": {
+    "source": "Longshanks Faction Analyzer",
+    "extracted": "2024-12-12",
+    "total_games": 15893,
+    "edition": "M4E"
+  },
+  "faction_rankings": [
+    {"faction": "Neverborn", "win_rate": 0.52, "games": 2554},
+    {"faction": "Explorers", "win_rate": 0.51, "games": 1902},
+    {"faction": "Ten Thunders", "win_rate": 0.51, "games": 1934},
+    {"faction": "Bayou", "win_rate": 0.51, "games": 1776},
+    {"faction": "Arcanists", "win_rate": 0.50, "games": 1694},
+    {"faction": "Guild", "win_rate": 0.50, "games": 1919},
+    {"faction": "Outcasts", "win_rate": 0.48, "games": 2193},
+    {"faction": "Resurrectionists", "win_rate": 0.47, "games": 1921}
+  ],
+  "strategy_affinity": {
+    "boundary_dispute": {
+      "best": ["Ten Thunders", "Bayou", "Explorers"],
+      "worst": ["Resurrectionists", "Arcanists", "Neverborn"],
+      "by_faction": {
+        "Neverborn": {"win_rate": 0.43, "delta": -0.09},
+        "Explorers": {"win_rate": 0.46, "delta": -0.05},
+        "Ten Thunders": {"win_rate": 0.48, "delta": -0.03},
+        "Bayou": {"win_rate": 0.47, "delta": -0.04},
+        "Arcanists": {"win_rate": 0.41, "delta": -0.09},
+        "Guild": {"win_rate": 0.45, "delta": -0.05},
+        "Outcasts": {"win_rate": 0.46, "delta": -0.02},
+        "Resurrectionists": {"win_rate": 0.31, "delta": -0.16}
+      }
+    },
+    "informants": {
+      "best": ["Neverborn"],
+      "worst": ["Guild", "Ten Thunders", "Outcasts"],
+      "by_faction": {
+        "Neverborn": {"win_rate": 0.53, "delta": 0.01},
+        "Explorers": {"win_rate": 0.43, "delta": -0.08},
+        "Ten Thunders": {"win_rate": 0.35, "delta": -0.16},
+        "Bayou": {"win_rate": 0.41, "delta": -0.10},
+        "Arcanists": {"win_rate": 0.44, "delta": -0.06},
+        "Guild": {"win_rate": 0.31, "delta": -0.19},
+        "Outcasts": {"win_rate": 0.40, "delta": -0.08},
+        "Resurrectionists": {"win_rate": 0.42, "delta": -0.05}
+      }
+    },
+    "plant_explosives": {
+      "best": ["Guild", "Explorers"],
+      "worst": ["Outcasts", "Resurrectionists"],
+      "by_faction": {
+        "Neverborn": {"win_rate": 0.43, "delta": -0.09},
+        "Explorers": {"win_rate": 0.51, "delta": 0.00},
+        "Ten Thunders": {"win_rate": 0.43, "delta": -0.08},
+        "Bayou": {"win_rate": 0.46, "delta": -0.05},
+        "Arcanists": {"win_rate": 0.46, "delta": -0.04},
+        "Guild": {"win_rate": 0.51, "delta": 0.01},
+        "Outcasts": {"win_rate": 0.37, "delta": -0.11},
+        "Resurrectionists": {"win_rate": 0.42, "delta": -0.05}
+      }
+    },
+    "recover_evidence": {
+      "best": ["Explorers", "Guild"],
+      "worst": ["Bayou"],
+      "by_faction": {
+        "Neverborn": {"win_rate": 0.45, "delta": -0.07},
+        "Explorers": {"win_rate": 0.47, "delta": -0.04},
+        "Ten Thunders": {"win_rate": 0.44, "delta": -0.07},
+        "Bayou": {"win_rate": 0.37, "delta": -0.14},
+        "Arcanists": {"win_rate": 0.42, "delta": -0.08},
+        "Guild": {"win_rate": 0.47, "delta": -0.03},
+        "Outcasts": {"win_rate": 0.43, "delta": -0.05},
+        "Resurrectionists": {"win_rate": 0.43, "delta": -0.04}
+      }
+    }
+  },
+  "scheme_affinity": {
+    "assassinate": {
+      "best_factions": ["Explorers", "Arcanists", "Outcasts"],
+      "worst_factions": ["Ten Thunders"],
+      "overall_difficulty": "medium"
+    },
+    "breakthrough": {
+      "best_factions": ["Arcanists", "Explorers", "Outcasts", "Resurrectionists"],
+      "worst_factions": ["Ten Thunders"],
+      "overall_difficulty": "easy"
+    },
+    "detonate_charges": {
+      "best_factions": ["Bayou", "Arcanists", "Neverborn"],
+      "worst_factions": ["Resurrectionists"],
+      "overall_difficulty": "easy"
+    },
+    "ensnare": {
+      "best_factions": ["Guild", "Arcanists"],
+      "worst_factions": ["Neverborn", "Ten Thunders"],
+      "overall_difficulty": "medium"
+    },
+    "frame_job": {
+      "best_factions": ["Arcanists", "Bayou"],
+      "worst_factions": ["Outcasts", "Explorers", "Ten Thunders"],
+      "overall_difficulty": "hard"
+    },
+    "harness_the_ley_line": {
+      "best_factions": ["Bayou", "Outcasts"],
+      "worst_factions": ["Ten Thunders", "Arcanists"],
+      "overall_difficulty": "medium"
+    },
+    "leave_your_mark": {
+      "best_factions": ["Arcanists", "Guild"],
+      "worst_factions": ["Neverborn", "Ten Thunders"],
+      "overall_difficulty": "easy"
+    },
+    "make_it_look_like_an_accident": {
+      "best_factions": ["Explorers"],
+      "worst_factions": ["Bayou", "Ten Thunders"],
+      "overall_difficulty": "medium"
+    },
+    "public_demonstration": {
+      "best_factions": ["Ten Thunders", "Arcanists", "Guild"],
+      "worst_factions": ["Outcasts"],
+      "overall_difficulty": "medium"
+    },
+    "reshape_the_land": {
+      "best_factions": ["Neverborn", "Outcasts", "Ten Thunders"],
+      "worst_factions": ["Arcanists", "Resurrectionists"],
+      "overall_difficulty": "medium"
+    },
+    "runic_binding": {
+      "best_factions": ["Neverborn", "Guild"],
+      "worst_factions": ["Bayou", "Resurrectionists"],
+      "overall_difficulty": "medium"
+    },
+    "scout_the_rooftops": {
+      "best_factions": ["Outcasts", "Guild"],
+      "worst_factions": ["Ten Thunders", "Resurrectionists"],
+      "overall_difficulty": "medium"
+    },
+    "search_the_area": {
+      "best_factions": ["Outcasts", "Neverborn", "Ten Thunders"],
+      "worst_factions": ["Bayou", "Resurrectionists"],
+      "overall_difficulty": "easy"
+    },
+    "take_the_highground": {
+      "best_factions": ["Explorers", "Neverborn"],
+      "worst_factions": ["Ten Thunders", "Resurrectionists"],
+      "overall_difficulty": "easy"
+    }
+  },
+  "faction_scheme_matrix": {
+    "Neverborn": {
+      "best_schemes": ["search_the_area", "take_the_highground", "detonate_charges", "make_it_look_like_an_accident", "reshape_the_land"],
+      "worst_schemes": ["ensnare", "leave_your_mark", "harness_the_ley_line", "frame_job"]
+    },
+    "Explorers": {
+      "best_schemes": ["make_it_look_like_an_accident", "grave_robbing", "assassinate", "take_the_highground", "breakthrough"],
+      "worst_schemes": ["frame_job"]
+    },
+    "Ten Thunders": {
+      "best_schemes": ["public_demonstration", "search_the_area", "reshape_the_land"],
+      "worst_schemes": ["light_the_beacons", "frame_job", "grave_robbing", "harness_the_ley_line", "ensnare"]
+    },
+    "Bayou": {
+      "best_schemes": ["detonate_charges", "harness_the_ley_line", "take_the_highground"],
+      "worst_schemes": ["make_it_look_like_an_accident", "grave_robbing", "leave_your_mark"]
+    },
+    "Arcanists": {
+      "best_schemes": ["leave_your_mark", "breakthrough", "public_demonstration", "detonate_charges"],
+      "worst_schemes": ["harness_the_ley_line", "runic_binding", "make_it_look_like_an_accident"]
+    },
+    "Guild": {
+      "best_schemes": ["light_the_beacons", "public_demonstration", "leave_your_mark", "ensnare"],
+      "worst_schemes": ["grave_robbing", "frame_job"]
+    },
+    "Outcasts": {
+      "best_schemes": ["search_the_area", "breakthrough", "harness_the_ley_line", "leave_your_mark", "reshape_the_land"],
+      "worst_schemes": ["frame_job", "public_demonstration", "light_the_beacons"]
+    },
+    "Resurrectionists": {
+      "best_schemes": ["breakthrough", "leave_your_mark", "take_the_highground"],
+      "worst_schemes": ["grave_robbing", "frame_job", "detonate_charges", "harness_the_ley_line", "reshape_the_land"]
+    }
+  }
+}

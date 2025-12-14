@@ -1,0 +1,226 @@
+{
+  "metadata": {
+    "source": "Longshanks Faction Analyzer",
+    "extracted": "2025-12-12",
+    "total_games": 15893
+  },
+  "faction_rankings": [
+    {
+      "faction": "Neverborn",
+      "win_rate": 0.52,
+      "games": 2554
+    },
+    {
+      "faction": "Explorers",
+      "win_rate": 0.51,
+      "games": 1902
+    },
+    {
+      "faction": "Ten Thunders",
+      "win_rate": 0.51,
+      "games": 1934
+    },
+    {
+      "faction": "Bayou",
+      "win_rate": 0.51,
+      "games": 1776
+    },
+    {
+      "faction": "Arcanists",
+      "win_rate": 0.5,
+      "games": 1694
+    },
+    {
+      "faction": "Guild",
+      "win_rate": 0.5,
+      "games": 1919
+    },
+    {
+      "faction": "Outcasts",
+      "win_rate": 0.48,
+      "games": 2193
+    },
+    {
+      "faction": "Resurrectionists",
+      "win_rate": 0.47,
+      "games": 1921
+    }
+  ],
+  "faction_scheme_affinity": {
+    "Neverborn": {
+      "best": [
+        "breakthrough",
+        "detonate_charges",
+        "make_it_look_like_an_accident",
+        "reshape_the_land",
+        "runic_binding",
+        "search_the_area",
+        "take_the_highground"
+      ],
+      "worst": [
+        "ensnare",
+        "frame_job",
+        "harness_the_ley_line",
+        "leave_your_mark"
+      ]
+    },
+    "Explorers": {
+      "best": [
+        "assassinate",
+        "breakthrough",
+        "detonate_charges",
+        "leave_your_mark",
+        "make_it_look_like_an_accident",
+        "search_the_area",
+        "take_the_highground"
+      ],
+      "worst": [
+        "frame_job"
+      ]
+    },
+    "Ten Thunders": {
+      "best": [
+        "reshape_the_land",
+        "search_the_area"
+      ],
+      "worst": [
+        "assassinate",
+        "ensnare",
+        "frame_job",
+        "harness_the_ley_line",
+        "runic_binding",
+        "scout_the_rooftops"
+      ]
+    },
+    "Bayou": {
+      "best": [
+        "assassinate",
+        "detonate_charges",
+        "harness_the_ley_line",
+        "take_the_highground"
+      ],
+      "worst": [
+        "ensnare",
+        "leave_your_mark",
+        "make_it_look_like_an_accident",
+        "runic_binding"
+      ]
+    },
+    "Arcanists": {
+      "best": [
+        "assassinate",
+        "breakthrough",
+        "detonate_charges",
+        "ensnare",
+        "frame_job",
+        "leave_your_mark",
+        "search_the_area",
+        "take_the_highground"
+      ],
+      "worst": [
+        "harness_the_ley_line"
+      ]
+    },
+    "Guild": {
+      "best": [
+        "ensnare",
+        "leave_your_mark",
+        "make_it_look_like_an_accident",
+        "runic_binding",
+        "search_the_area",
+        "take_the_highground"
+      ],
+      "worst": [
+        "frame_job",
+        "grave_robbing"
+      ]
+    },
+    "Outcasts": {
+      "best": [
+        "assassinate",
+        "breakthrough",
+        "detonate_charges",
+        "grave_robbing",
+        "harness_the_ley_line",
+        "leave_your_mark",
+        "make_it_look_like_an_accident",
+        "reshape_the_land",
+        "runic_binding",
+        "scout_the_rooftops",
+        "search_the_area"
+      ],
+      "worst": [
+        "frame_job",
+        "public_demonstration"
+      ]
+    },
+    "Resurrectionists": {
+      "best": [
+        "assassinate",
+        "breakthrough",
+        "leave_your_mark",
+        "search_the_area",
+        "take_the_highground"
+      ],
+      "worst": []
+    }
+  },
+  "faction_strategy_affinity": {
+    "Neverborn": {
+      "best": [],
+      "worst": [
+        "boundary_dispute",
+        "plant_explosives",
+        "recover_evidence"
+      ]
+    },
+    "Explorers": {
+      "best": [],
+      "worst": [
+        "informants"
+      ]
+    },
+    "Ten Thunders": {
+      "best": [],
+      "worst": [
+        "informants",
+        "plant_explosives",
+        "recover_evidence"
+      ]
+    },
+    "Bayou": {
+      "best": [],
+      "worst": [
+        "informants",
+        "recover_evidence"
+      ]
+    },
+    "Arcanists": {
+      "best": [],
+      "worst": [
+        "boundary_dispute",
+        "informants",
+        "recover_evidence"
+      ]
+    },
+    "Guild": {
+      "best": [],
+      "worst": [
+        "informants"
+      ]
+    },
+    "Outcasts": {
+      "best": [],
+      "worst": [
+        "informants",
+        "plant_explosives"
+      ]
+    },
+    "Resurrectionists": {
+      "best": [],
+      "worst": [
+        "boundary_dispute"
+      ]
+    }
+  }
+}

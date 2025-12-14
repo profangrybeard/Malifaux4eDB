@@ -40,7 +40,46 @@
         "irreducible"
       ],
       "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Assassinate_front.png",
-      "raw_text": "ASSASSINATE\n\nSCORED vP: L) OL)\n\nWhen this scheme is selected, secretly choose a unique\nenemy mode! that has half or more of its maximum health\nremaining. You may want to ask about the health of multiple\nmodels (even if you do not select this scheme) to fool\nyour opponent.\n\nREVEAL\n\nYou may reveal this scheme after the chosen modelis\nreduced to below half of its maximum health.\n\nSCORING\n\nWhen this scheme is revealed, gain 1 VP.\n\nADDITIONAL VP\n\nAt the end of the turn on which this scheme was\nrevealed, if the chosen model has been killed, gain 1\nadditional VP.\n\nNEXT AVAILABLE SCHEMES\n\nScout the Rooftops\nDetonate Charges\nRunic Binding\n\n"
+      "raw_text": "ASSASSINATE\n\nSCORED vP: L) OL)\n\nWhen this scheme is selected, secretly choose a unique\nenemy mode! that has half or more of its maximum health\nremaining. You may want to ask about the health of multiple\nmodels (even if you do not select this scheme) to fool\nyour opponent.\n\nREVEAL\n\nYou may reveal this scheme after the chosen modelis\nreduced to below half of its maximum health.\n\nSCORING\n\nWhen this scheme is revealed, gain 1 VP.\n\nADDITIONAL VP\n\nAt the end of the turn on which this scheme was\nrevealed, if the chosen model has been killed, gain 1\nadditional VP.\n\nNEXT AVAILABLE SCHEMES\n\nScout the Rooftops\nDetonate Charges\nRunic Binding\n\n",
+      "meta": {
+        "average_win_rate": 0.53,
+        "total_games": 1586,
+        "difficulty": "medium",
+        "faction_performance": {
+          "Neverborn": {
+            "win_rate": 0.51,
+            "games": 271
+          },
+          "Explorers": {
+            "win_rate": 0.62,
+            "games": 196
+          },
+          "Ten Thunders": {
+            "win_rate": 0.47,
+            "games": 182
+          },
+          "Bayou": {
+            "win_rate": 0.54,
+            "games": 138
+          },
+          "Arcanists": {
+            "win_rate": 0.56,
+            "games": 156
+          },
+          "Guild": {
+            "win_rate": 0.5,
+            "games": 207
+          },
+          "Outcasts": {
+            "win_rate": 0.54,
+            "games": 240
+          },
+          "Resurrectionists": {
+            "win_rate": 0.51,
+            "games": 196
+          }
+        }
+      }
     },
     "breakthrough": {
       "id": "breakthrough",
@@ -78,7 +117,46 @@
         "push"
       ],
       "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Breakthrough_front.png",
-      "raw_text": "BREAKTHROUGH\n\nSCORED vP: L) OL)\n\nREVEAL\n\nYou may reveal this scheme when an enemy model ends\nits activation.\n\nSCORING\n\nWhen this scheme is revealed, remove one friendly\nScheme marker in the enemy deployment zone that\ndoes not have an enemy model within 2\" of it to gain1\nVP.\n\nADDITIONAL VP\n\nWhen this scheme is revealed you may also remove one\nfriendly Scheme marker from the centerline and one\nfriendly Scheme marker from your deployment zone to\ngain 1 additional VP.\n\nNEXT AVAILABLE SCHEMES\n\nAssassinate\nPublic Demonstration\nFrame Job\n\n"
+      "raw_text": "BREAKTHROUGH\n\nSCORED vP: L) OL)\n\nREVEAL\n\nYou may reveal this scheme when an enemy model ends\nits activation.\n\nSCORING\n\nWhen this scheme is revealed, remove one friendly\nScheme marker in the enemy deployment zone that\ndoes not have an enemy model within 2\" of it to gain1\nVP.\n\nADDITIONAL VP\n\nWhen this scheme is revealed you may also remove one\nfriendly Scheme marker from the centerline and one\nfriendly Scheme marker from your deployment zone to\ngain 1 additional VP.\n\nNEXT AVAILABLE SCHEMES\n\nAssassinate\nPublic Demonstration\nFrame Job\n\n",
+      "meta": {
+        "average_win_rate": 0.559,
+        "total_games": 1151,
+        "difficulty": "easy",
+        "faction_performance": {
+          "Neverborn": {
+            "win_rate": 0.55,
+            "games": 163
+          },
+          "Explorers": {
+            "win_rate": 0.59,
+            "games": 181
+          },
+          "Ten Thunders": {
+            "win_rate": 0.52,
+            "games": 164
+          },
+          "Bayou": {
+            "win_rate": 0.53,
+            "games": 106
+          },
+          "Arcanists": {
+            "win_rate": 0.63,
+            "games": 119
+          },
+          "Guild": {
+            "win_rate": 0.52,
+            "games": 143
+          },
+          "Outcasts": {
+            "win_rate": 0.57,
+            "games": 147
+          },
+          "Resurrectionists": {
+            "win_rate": 0.57,
+            "games": 128
+          }
+        }
+      }
     },
     "detonate_charges": {
       "id": "detonate_charges",
@@ -116,7 +194,46 @@
         "push"
       ],
       "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Detonate_Charges_front.png",
-      "raw_text": "DETONATE CHARGES\n\nSCORED vP: L) OL)\n\nREVEAL\n\nYou may reveal this scheme at the end of any turn.\n\nSCORING\n\nWhen this scheme is revealed, remove two friendly\nScheme markers that are within 2\" of enemy model(s)\nto gain 1 VP.\n\nADDITIONAL VP\n\nWhen this scheme is revealed you may remove one\nadditional qualifying Scheme marker to gain 1 additional\nVP.\n\nNEXT AVAILABLE SCHEMES\nGrave Robbing\nRunic Binding\nTake the Highground\n\n"
+      "raw_text": "DETONATE CHARGES\n\nSCORED vP: L) OL)\n\nREVEAL\n\nYou may reveal this scheme at the end of any turn.\n\nSCORING\n\nWhen this scheme is revealed, remove two friendly\nScheme markers that are within 2\" of enemy model(s)\nto gain 1 VP.\n\nADDITIONAL VP\n\nWhen this scheme is revealed you may remove one\nadditional qualifying Scheme marker to gain 1 additional\nVP.\n\nNEXT AVAILABLE SCHEMES\nGrave Robbing\nRunic Binding\nTake the Highground\n\n",
+      "meta": {
+        "average_win_rate": 0.545,
+        "total_games": 1300,
+        "difficulty": "medium",
+        "faction_performance": {
+          "Neverborn": {
+            "win_rate": 0.57,
+            "games": 231
+          },
+          "Explorers": {
+            "win_rate": 0.55,
+            "games": 174
+          },
+          "Ten Thunders": {
+            "win_rate": 0.51,
+            "games": 135
+          },
+          "Bayou": {
+            "win_rate": 0.62,
+            "games": 129
+          },
+          "Arcanists": {
+            "win_rate": 0.6,
+            "games": 154
+          },
+          "Guild": {
+            "win_rate": 0.5,
+            "games": 158
+          },
+          "Outcasts": {
+            "win_rate": 0.55,
+            "games": 170
+          },
+          "Resurrectionists": {
+            "win_rate": 0.45,
+            "games": 149
+          }
+        }
+      }
     },
     "ensnare": {
       "id": "ensnare",
@@ -154,7 +271,46 @@
         "push"
       ],
       "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Ensnare_front.png",
-      "raw_text": "ENSNARE\n\nSCORED vP: L) OL)\n\nREVEAL\n\nYou may reveal this scheme when an enemy model ends\nits activation.\n\nSCORING\n\nWhen this scheme is revealed, remove two friendly\nScheme markers from within 2\" a single unique enemy\nmodel to gain 1 VP.\n\nADDITIONAL VP\n\nWhen this scheme is revealed, if the enemy unique\nmodel is engaged by a model of lower cost, gain 1\nadditional VP.\n\nNEXT AVAILABLE SCHEMES\n\nReshape the Land\nSearch the Area\nFrame Job\n\n"
+      "raw_text": "ENSNARE\n\nSCORED vP: L) OL)\n\nREVEAL\n\nYou may reveal this scheme when an enemy model ends\nits activation.\n\nSCORING\n\nWhen this scheme is revealed, remove two friendly\nScheme markers from within 2\" a single unique enemy\nmodel to gain 1 VP.\n\nADDITIONAL VP\n\nWhen this scheme is revealed, if the enemy unique\nmodel is engaged by a model of lower cost, gain 1\nadditional VP.\n\nNEXT AVAILABLE SCHEMES\n\nReshape the Land\nSearch the Area\nFrame Job\n\n",
+      "meta": {
+        "average_win_rate": 0.5,
+        "total_games": 1137,
+        "difficulty": "hard",
+        "faction_performance": {
+          "Neverborn": {
+            "win_rate": 0.46,
+            "games": 191
+          },
+          "Explorers": {
+            "win_rate": 0.53,
+            "games": 173
+          },
+          "Ten Thunders": {
+            "win_rate": 0.45,
+            "games": 90
+          },
+          "Bayou": {
+            "win_rate": 0.48,
+            "games": 107
+          },
+          "Arcanists": {
+            "win_rate": 0.55,
+            "games": 122
+          },
+          "Guild": {
+            "win_rate": 0.57,
+            "games": 161
+          },
+          "Outcasts": {
+            "win_rate": 0.47,
+            "games": 136
+          },
+          "Resurrectionists": {
+            "win_rate": 0.47,
+            "games": 157
+          }
+        }
+      }
     },
     "frame_job": {
       "id": "frame_job",
@@ -192,7 +348,46 @@
         "push"
       ],
       "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Frame_Job_front.png",
-      "raw_text": "FRAME JOB\n\nSCORED vP: L) OL)\n\nWhen this scheme is selected, secretly choose a\nfriendly model.\nREVEAL\n\nYou may reveal this scheme after the chosen model\nsuffers damage from an enemy attack action targeting it\nwhile it is on the enemy table half.\n\nSCORING\n\nWhen this scheme is revealed, gain 1 VP.\n\nADDITIONAL VP\n\nWhen this scheme is revealed, you may remove one\nfriendly Scheme marker from within 2\" of the chosen\nmodel to gain 1 additional VP.\n\nNEXT AVAILABLE SCHEMES\n\nPublic Demonstration\nHarness the Leyline\nScout the Rooftops\n\n"
+      "raw_text": "FRAME JOB\n\nSCORED vP: L) OL)\n\nWhen this scheme is selected, secretly choose a\nfriendly model.\nREVEAL\n\nYou may reveal this scheme after the chosen model\nsuffers damage from an enemy attack action targeting it\nwhile it is on the enemy table half.\n\nSCORING\n\nWhen this scheme is revealed, gain 1 VP.\n\nADDITIONAL VP\n\nWhen this scheme is revealed, you may remove one\nfriendly Scheme marker from within 2\" of the chosen\nmodel to gain 1 additional VP.\n\nNEXT AVAILABLE SCHEMES\n\nPublic Demonstration\nHarness the Leyline\nScout the Rooftops\n\n",
+      "meta": {
+        "average_win_rate": 0.452,
+        "total_games": 1093,
+        "difficulty": "hard",
+        "faction_performance": {
+          "Neverborn": {
+            "win_rate": 0.49,
+            "games": 173
+          },
+          "Explorers": {
+            "win_rate": 0.41,
+            "games": 151
+          },
+          "Ten Thunders": {
+            "win_rate": 0.41,
+            "games": 128
+          },
+          "Bayou": {
+            "win_rate": 0.52,
+            "games": 115
+          },
+          "Arcanists": {
+            "win_rate": 0.54,
+            "games": 100
+          },
+          "Guild": {
+            "win_rate": 0.44,
+            "games": 140
+          },
+          "Outcasts": {
+            "win_rate": 0.4,
+            "games": 159
+          },
+          "Resurrectionists": {
+            "win_rate": 0.44,
+            "games": 127
+          }
+        }
+      }
     },
     "grave_robbing": {
       "id": "grave_robbing",
@@ -237,7 +432,46 @@
         "push"
       ],
       "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Grave_Robbing_front.png",
-      "raw_text": "GRAVE ROBBING\n\nSCORED vP: L) OL)\n\nWhen this scheme is selected, secretly choose a type of\nnon-Scheme marker.\n\nREVEAL\n\nAfter killing an enemy model within 2\" of both one or\nmore friendly Scheme marker(s) and one or more of the\nchosen marker, reveal this scheme.\n\nSCORING\n\nWhen this scheme is revealed, remove one friendly\nScheme marker within 2\" of the killed model to gain 1 VP.\n\nADDITIONAL VP\n\nUntil the end of the turn, friendly models may target\nenemy Remains markers with the Interact action to\nremove them and place them on your crew card. At the\nend of the turn remove all Remains markers from your\ncrew card that were placed this way. If two or more are\nremoved, gain 1 additional VP.\n\nNEXT AVAILABLE SCHEMES\n\nRunic Binding\nLeave Your Mark\nMake it Look Like an Accident\n\n"
+      "raw_text": "GRAVE ROBBING\n\nSCORED vP: L) OL)\n\nWhen this scheme is selected, secretly choose a type of\nnon-Scheme marker.\n\nREVEAL\n\nAfter killing an enemy model within 2\" of both one or\nmore friendly Scheme marker(s) and one or more of the\nchosen marker, reveal this scheme.\n\nSCORING\n\nWhen this scheme is revealed, remove one friendly\nScheme marker within 2\" of the killed model to gain 1 VP.\n\nADDITIONAL VP\n\nUntil the end of the turn, friendly models may target\nenemy Remains markers with the Interact action to\nremove them and place them on your crew card. At the\nend of the turn remove all Remains markers from your\ncrew card that were placed this way. If two or more are\nremoved, gain 1 additional VP.\n\nNEXT AVAILABLE SCHEMES\n\nRunic Binding\nLeave Your Mark\nMake it Look Like an Accident\n\n",
+      "meta": {
+        "average_win_rate": 0.484,
+        "total_games": 331,
+        "difficulty": "hard",
+        "faction_performance": {
+          "Neverborn": {
+            "win_rate": 0.45,
+            "games": 38
+          },
+          "Explorers": {
+            "win_rate": 0.64,
+            "games": 39
+          },
+          "Ten Thunders": {
+            "win_rate": 0.42,
+            "games": 36
+          },
+          "Bayou": {
+            "win_rate": 0.45,
+            "games": 20
+          },
+          "Arcanists": {
+            "win_rate": 0.56,
+            "games": 43
+          },
+          "Guild": {
+            "win_rate": 0.41,
+            "games": 58
+          },
+          "Outcasts": {
+            "win_rate": 0.52,
+            "games": 50
+          },
+          "Resurrectionists": {
+            "win_rate": 0.43,
+            "games": 47
+          }
+        }
+      }
     },
     "harness": {
       "id": "harness",
@@ -313,7 +547,46 @@
         "push"
       ],
       "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Leave_Your_Mark_front.png",
-      "raw_text": "LEAVE YOUR MARK\n\nSCORED vP: L) OL)\n\nREVEAL\n\nYou may reveal this scheme at the end of any turn.\n\nSCORING\n\nWhen this scheme is revealed, if there are more friendly\nScheme markers within 1\" of the centerpoint than\nenemy Scheme markers within 1\" of the centerpoint,\ngain1 VP. Then, remove all friendly Scheme markers\nwithin 1\" of the centerpoint.\n\nADDITIONAL VP\n\nWhen this scheme is revealed, if there are at least\ntwo more friendly Scheme markers within 1\" of the\ncenterpoint than enemy Scheme markers within 1\" of\nthe centerpoint, gain 1 additional VP.\n\nNEXT AVAILABLE SCHEMES\n\nTake the Highground\nMake it Look Like an Accident\nReshape the Land\n\n"
+      "raw_text": "LEAVE YOUR MARK\n\nSCORED vP: L) OL)\n\nREVEAL\n\nYou may reveal this scheme at the end of any turn.\n\nSCORING\n\nWhen this scheme is revealed, if there are more friendly\nScheme markers within 1\" of the centerpoint than\nenemy Scheme markers within 1\" of the centerpoint,\ngain1 VP. Then, remove all friendly Scheme markers\nwithin 1\" of the centerpoint.\n\nADDITIONAL VP\n\nWhen this scheme is revealed, if there are at least\ntwo more friendly Scheme markers within 1\" of the\ncenterpoint than enemy Scheme markers within 1\" of\nthe centerpoint, gain 1 additional VP.\n\nNEXT AVAILABLE SCHEMES\n\nTake the Highground\nMake it Look Like an Accident\nReshape the Land\n\n",
+      "meta": {
+        "average_win_rate": 0.54,
+        "total_games": 1176,
+        "difficulty": "medium",
+        "faction_performance": {
+          "Neverborn": {
+            "win_rate": 0.47,
+            "games": 184
+          },
+          "Explorers": {
+            "win_rate": 0.58,
+            "games": 139
+          },
+          "Ten Thunders": {
+            "win_rate": 0.51,
+            "games": 153
+          },
+          "Bayou": {
+            "win_rate": 0.48,
+            "games": 126
+          },
+          "Arcanists": {
+            "win_rate": 0.64,
+            "games": 116
+          },
+          "Guild": {
+            "win_rate": 0.58,
+            "games": 163
+          },
+          "Outcasts": {
+            "win_rate": 0.56,
+            "games": 147
+          },
+          "Resurrectionists": {
+            "win_rate": 0.53,
+            "games": 148
+          }
+        }
+      }
     },
     "make_it_look_like": {
       "id": "make_it_look_like",
@@ -425,7 +698,46 @@
         "push"
       ],
       "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Reshape_the_Land_front.png",
-      "raw_text": "RESHAPE THE LAND\n\nSCORED vP: L) OL)\n\nWhen this scheme is selected, secretly choose a marker type.\n\nREVEAL\n\nYou may reveal this scheme at the end of any turn.\n\nSCORING\n\nIf there are four friendly markers of the chosen type\ncompletely on the enemy table half, gain 1 VP. Then,\nif the chosen marker type was Scheme, remove all\nmarkers used to score this scheme.\n\nADDITIONAL VP\n\nWhen this scheme is revealed, if there are five friendly\nmarkers of the chosen type completely on the enemy\ntable half, gain 1 additional VP.\n\nNEXT AVAILABLE SCHEMES\n\nSearch the Area\nBreakthrough\nPublic Demonstration\n\n"
+      "raw_text": "RESHAPE THE LAND\n\nSCORED vP: L) OL)\n\nWhen this scheme is selected, secretly choose a marker type.\n\nREVEAL\n\nYou may reveal this scheme at the end of any turn.\n\nSCORING\n\nIf there are four friendly markers of the chosen type\ncompletely on the enemy table half, gain 1 VP. Then,\nif the chosen marker type was Scheme, remove all\nmarkers used to score this scheme.\n\nADDITIONAL VP\n\nWhen this scheme is revealed, if there are five friendly\nmarkers of the chosen type completely on the enemy\ntable half, gain 1 additional VP.\n\nNEXT AVAILABLE SCHEMES\n\nSearch the Area\nBreakthrough\nPublic Demonstration\n\n",
+      "meta": {
+        "average_win_rate": 0.524,
+        "total_games": 835,
+        "difficulty": "medium",
+        "faction_performance": {
+          "Neverborn": {
+            "win_rate": 0.56,
+            "games": 137
+          },
+          "Explorers": {
+            "win_rate": 0.51,
+            "games": 136
+          },
+          "Ten Thunders": {
+            "win_rate": 0.55,
+            "games": 131
+          },
+          "Bayou": {
+            "win_rate": 0.52,
+            "games": 61
+          },
+          "Arcanists": {
+            "win_rate": 0.5,
+            "games": 92
+          },
+          "Guild": {
+            "win_rate": 0.51,
+            "games": 92
+          },
+          "Outcasts": {
+            "win_rate": 0.56,
+            "games": 89
+          },
+          "Resurrectionists": {
+            "win_rate": 0.46,
+            "games": 97
+          }
+        }
+      }
     },
     "runic_binding": {
       "id": "runic_binding",
@@ -463,7 +775,46 @@
         "push"
       ],
       "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Runic_Binding_front.png",
-      "raw_text": "RUNIC BINDING\n\nSCORED vP: L) OL)\n\nREVEAL\n\nYou may reveal this scheme when an enemy model ends\nits activation.\n\nSCORING\n\nWhen this scheme is revealed, choose three friendly\nScheme markers in play. Each chosen marker must be\nwithin 14\" of at least one of the other chosen markers.\nIf there is at least one enemy model within the area\nformed between the chosen markers, gain 1 VP. Remove\nthe chosen markers.\n\nADDITIONAL VP\n\nWhen this scheme is revealed, if the combined cost of\nthe enemy models in that area is 15 or greater, gain 1\nadditional VP.\n\nNEXT AVAILABLE SCHEMES\n\nLeave Your Mark\nTake the Highground\nEnsnare\n\n"
+      "raw_text": "RUNIC BINDING\n\nSCORED vP: L) OL)\n\nREVEAL\n\nYou may reveal this scheme when an enemy model ends\nits activation.\n\nSCORING\n\nWhen this scheme is revealed, choose three friendly\nScheme markers in play. Each chosen marker must be\nwithin 14\" of at least one of the other chosen markers.\nIf there is at least one enemy model within the area\nformed between the chosen markers, gain 1 VP. Remove\nthe chosen markers.\n\nADDITIONAL VP\n\nWhen this scheme is revealed, if the combined cost of\nthe enemy models in that area is 15 or greater, gain 1\nadditional VP.\n\nNEXT AVAILABLE SCHEMES\n\nLeave Your Mark\nTake the Highground\nEnsnare\n\n",
+      "meta": {
+        "average_win_rate": 0.503,
+        "total_games": 1053,
+        "difficulty": "medium",
+        "faction_performance": {
+          "Neverborn": {
+            "win_rate": 0.55,
+            "games": 193
+          },
+          "Explorers": {
+            "win_rate": 0.5,
+            "games": 145
+          },
+          "Ten Thunders": {
+            "win_rate": 0.47,
+            "games": 110
+          },
+          "Bayou": {
+            "win_rate": 0.46,
+            "games": 116
+          },
+          "Arcanists": {
+            "win_rate": 0.48,
+            "games": 121
+          },
+          "Guild": {
+            "win_rate": 0.54,
+            "games": 134
+          },
+          "Outcasts": {
+            "win_rate": 0.51,
+            "games": 157
+          },
+          "Resurrectionists": {
+            "win_rate": 0.46,
+            "games": 77
+          }
+        }
+      }
     },
     "scout_the_rooftops": {
       "id": "scout_the_rooftops",
@@ -503,7 +854,46 @@
         "unimpeded"
       ],
       "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Scout_the_Rooftops_front.png",
-      "raw_text": "SCOUT THE ROOFTOPS\n\nSCORED vP: L))\n\nREVEAL\n\nYou may reveal this scheme at the end of any turn.\n\nSCORING\n\nScheme markers are qualifying for this scheme if they:\n\n* Are not within 6\" of your deployment zone.\n\n* Do not have an enemy model at the same elevation\nwithin 2\".\n\n* Areat elevation 2 or higher.\n\nWhen this scheme is revealed, remove one qualifying\n\nScheme marker from two different terrain pieces to gain\n\n1VP (two Scheme markers total).\n\nADDITIONAL VP\n\nWhen this scheme is revealed, select one additional\nqualifying Scheme marker that is completely on the\nenemy table half and remove it to gain 1 VP. Note that\nthis Scheme marker may be on the same terrain piece as\none of the other qualifying Scheme markers.\n\nNEXT AVAILABLE SCHEMES\n\nDetonate Charges\nGrave Robbing\nLeave Your Mark\n\n"
+      "raw_text": "SCOUT THE ROOFTOPS\n\nSCORED vP: L))\n\nREVEAL\n\nYou may reveal this scheme at the end of any turn.\n\nSCORING\n\nScheme markers are qualifying for this scheme if they:\n\n* Are not within 6\" of your deployment zone.\n\n* Do not have an enemy model at the same elevation\nwithin 2\".\n\n* Areat elevation 2 or higher.\n\nWhen this scheme is revealed, remove one qualifying\n\nScheme marker from two different terrain pieces to gain\n\n1VP (two Scheme markers total).\n\nADDITIONAL VP\n\nWhen this scheme is revealed, select one additional\nqualifying Scheme marker that is completely on the\nenemy table half and remove it to gain 1 VP. Note that\nthis Scheme marker may be on the same terrain piece as\none of the other qualifying Scheme markers.\n\nNEXT AVAILABLE SCHEMES\n\nDetonate Charges\nGrave Robbing\nLeave Your Mark\n\n",
+      "meta": {
+        "average_win_rate": 0.507,
+        "total_games": 1307,
+        "difficulty": "medium",
+        "faction_performance": {
+          "Neverborn": {
+            "win_rate": 0.51,
+            "games": 217
+          },
+          "Explorers": {
+            "win_rate": 0.51,
+            "games": 179
+          },
+          "Ten Thunders": {
+            "win_rate": 0.48,
+            "games": 167
+          },
+          "Bayou": {
+            "win_rate": 0.52,
+            "games": 112
+          },
+          "Arcanists": {
+            "win_rate": 0.51,
+            "games": 120
+          },
+          "Guild": {
+            "win_rate": 0.52,
+            "games": 175
+          },
+          "Outcasts": {
+            "win_rate": 0.55,
+            "games": 172
+          },
+          "Resurrectionists": {
+            "win_rate": 0.46,
+            "games": 165
+          }
+        }
+      }
     },
     "search_the_area": {
       "id": "search_the_area",
@@ -543,7 +933,46 @@
         "unimpeded"
       ],
       "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Search_the_Area_front.png",
-      "raw_text": "SEARCH THE AREA\n\nSCORED vP: L) OL)\n\nREVEAL\n\nYou may reveal this scheme at the end of any enemy\nactivation.\n\nSCORING\n\nWhen this scheme is revealed, select a piece of terrain\ncompletely on the enemy table half. Remove three\nfriendly Scheme markers from within 1\" of the selected\nterrain that do not have enemy models within 2\" of\nthem to gain 1 VP.\n\nADDITIONAL VP\n\nAt the end of the turn on which this scheme was\nrevealed, you may remove one friendly Scheme marker\nfrom within 1\" of the selected terrain to gain 1 VP.\n\nNEXT AVAILABLE SCHEMES\n\nBreakthrough\nFrame Job\nHarness the Leyline\n\n"
+      "raw_text": "SEARCH THE AREA\n\nSCORED vP: L) OL)\n\nREVEAL\n\nYou may reveal this scheme at the end of any enemy\nactivation.\n\nSCORING\n\nWhen this scheme is revealed, select a piece of terrain\ncompletely on the enemy table half. Remove three\nfriendly Scheme markers from within 1\" of the selected\nterrain that do not have enemy models within 2\" of\nthem to gain 1 VP.\n\nADDITIONAL VP\n\nAt the end of the turn on which this scheme was\nrevealed, you may remove one friendly Scheme marker\nfrom within 1\" of the selected terrain to gain 1 VP.\n\nNEXT AVAILABLE SCHEMES\n\nBreakthrough\nFrame Job\nHarness the Leyline\n\n",
+      "meta": {
+        "average_win_rate": 0.568,
+        "total_games": 884,
+        "difficulty": "easy",
+        "faction_performance": {
+          "Neverborn": {
+            "win_rate": 0.58,
+            "games": 197
+          },
+          "Explorers": {
+            "win_rate": 0.56,
+            "games": 146
+          },
+          "Ten Thunders": {
+            "win_rate": 0.61,
+            "games": 90
+          },
+          "Bayou": {
+            "win_rate": 0.51,
+            "games": 72
+          },
+          "Arcanists": {
+            "win_rate": 0.58,
+            "games": 60
+          },
+          "Guild": {
+            "win_rate": 0.55,
+            "games": 111
+          },
+          "Outcasts": {
+            "win_rate": 0.64,
+            "games": 103
+          },
+          "Resurrectionists": {
+            "win_rate": 0.5,
+            "games": 105
+          }
+        }
+      }
     },
     "take_the": {
       "id": "take_the",

@@ -48,7 +48,7 @@ TAXONOMY = {
     
     "movement": [
         "push", "place", "leap", "flight", "unimpeded", "incorporeal",
-        "butterfly_jump", "dont_mind_me", "charge", "bonus_move"
+        "butterfly_jump", "dont_mind_me", "charge", "bonus_move", "interact"
     ],
     
     "combat": [
@@ -180,9 +180,14 @@ class ExtractionPatterns:
     # ─────────────────────────────────────────────────────────────────────────
     
     MOVEMENT = [
-        # Push patterns
+        # Push patterns - explicit "push" (rare in M4E)
         (r'push(?:es|ed)?\s+(?:up\s+to\s+)?(\d+)"', None, 'push'),
         (r'push(?:es|ed)?\s+(?:the\s+)?(?:target|this\s+model)', None, 'push'),
+        (r'push\s+(?:it|them|this)', None, 'push'),
+        # Push patterns - M4E style "move toward/away"
+        (r'move[sd]?\s+(?:up\s+to\s+)?\d+"\s*(?:directly\s+)?(?:toward|away)', None, 'push'),
+        (r'(?:directly\s+)?(?:toward|away\s+from)\s+(?:this\s+model|the\s+target)', None, 'push'),
+        (r'in\s+a\s+straight\s+line', None, 'push'),
         # Place patterns
         (r'place(?:s|d)?\s+(?:this\s+model|target|itself)', None, 'place'),
         (r'(?:may\s+)?place\s+(?:anywhere|within)', None, 'place'),
@@ -192,12 +197,18 @@ class ExtractionPatterns:
         (r'\bUnimpeded\b', None, 'unimpeded'),
         (r'\bIncorporeal\b', None, 'incorporeal'),
         (r'Butterfly\s+Jump', None, 'butterfly_jump'),
-        (r"Don'?t\s+Mind\s+Me", None, 'dont_mind_me'),
+        (r"Don.?t\s+Mind\s+Me", None, 'dont_mind_me'),  # Use . to match any apostrophe type
+        (r'DDOONN.?TT\s+MMIINNDD\s+MMEE', None, 'dont_mind_me'),  # OCR artifact pattern
         # Bonus movement
         (r'(?:may\s+)?move\s+(?:up\s+to\s+)?(?:its|their)?\s*(?:Mv|Speed)', None, 'bonus_move'),
         (r'take\s+(?:a\s+)?(?:free\s+)?move\s+action', None, 'bonus_move'),
         # Charge
         (r'\bCharge\b', None, 'charge'),
+        # Interact abilities (important for scheme running)
+        (r'\bInteract\b', None, 'interact'),
+        (r'take\s+(?:a\s+)?(?:free\s+)?[Ii]nteract\s+action', None, 'interact'),
+        (r'(?:may|can)\s+[Ii]nteract', None, 'interact'),
+        (r'[Ii]nteract\s+(?:action|while)', None, 'interact'),
     ]
     
     # ─────────────────────────────────────────────────────────────────────────
@@ -219,6 +230,9 @@ class ExtractionPatterns:
         # Armor interaction
         (r'ignores?\s+(?:Armor|armor)', None, 'armor_piercing'),
         (r'bypass(?:es)?\s+(?:Armor|armor)', None, 'armor_piercing'),
+        (r'[Aa]rmor\s*[Pp]iercing', None, 'armor_piercing'),
+        (r'AARRMMOORR\s*PPIIEERRCCIINNGG', None, 'armor_piercing'),  # OCR artifact
+        (r'reduce(?:s|d)?\s+(?:target.s?\s+)?[Aa]rmor', None, 'armor_piercing'),
         # Execute effects
         (r'(?:kill|slay|execute)\s+(?:the\s+)?target', None, 'execute'),
         (r'reduce(?:s|d)?\s+(?:to|below)\s+0', None, 'execute'),
@@ -438,10 +452,15 @@ class TagExtractor:
     
     def extract_combat_tags(self, text: str) -> List[str]:
         """Extract combat-related tags."""
-        return sorted(self._extract_with_patterns(
+        tags = self._extract_with_patterns(
             text,
             ExtractionPatterns.COMBAT
-        ))
+        )
+        # In M4E, 'irreducible' is functionally equivalent to 'armor_piercing'
+        # Add as synonym for objective matching
+        if 'irreducible' in tags:
+            tags.add('armor_piercing')
+        return sorted(tags)
     
     def extract_defense_tags(self, text: str) -> List[str]:
         """Extract defensive ability tags."""
@@ -809,6 +828,71 @@ class RoleInferencer:
             if 'bonus_damage' in all_tags:
                 score += 0.2
             roles['melee_damage'] = min(score, 0.95)
+        
+        # ─── Assassin ───
+        # High burst damage, single-target focus, execute effects
+        # Distinct from beater: assassins are more surgical, less tanky
+        score = 0.0
+        if 'execute' in all_tags:
+            score += 0.4
+        if 'armor_piercing' in all_tags:
+            score += 0.25
+        if 'irreducible' in all_tags:
+            score += 0.25
+        if 'bonus_damage' in all_tags:
+            score += 0.2
+        # High attack stat is important
+        if attack_stat >= 7:
+            score += 0.2
+        # Assassins typically have mobility to reach targets
+        if any(t in all_tags for t in ['leap', 'place', 'butterfly_jump', 'unimpeded']):
+            score += 0.15
+        # Lower health = more assassin-like (glass cannon)
+        if health and health <= 7 and score >= 0.4:
+            score += 0.1
+        if score >= 0.5:
+            roles['assassin'] = min(score, 0.95)
+        
+        # ─── Tarpit ───
+        # Engagement control, hard to remove, ties up enemy models
+        # Distinct from tank: tarpits are about engagement, not just survival
+        score = 0.0
+        if 'engagement' in all_tags:
+            score += 0.35
+        if 'manipulative' in all_tags:
+            score += 0.3
+        if 'terrifying' in all_tags:
+            score += 0.25
+        if 'hard_to_kill' in all_tags:
+            score += 0.25
+        if 'hard_to_wound' in all_tags:
+            score += 0.2
+        # Cheap cost helps (expendable tarpits)
+        if cost and cost <= 5:
+            score += 0.15
+        # Movement denial keeps enemies engaged
+        if 'movement_denial' in all_tags:
+            score += 0.2
+        if score >= 0.5:
+            roles['tarpit'] = min(score, 0.95)
+        
+        # ─── Utility ───
+        # Fallback role for models that don't fit other categories well
+        # Also assigned to models with diverse but shallow capabilities
+        # This ensures every model has at least one role
+        if not roles:
+            # No other roles assigned - this is a utility piece
+            roles['utility'] = 0.5
+        else:
+            # Check if model has diverse capabilities without excelling
+            role_count = len(roles)
+            max_confidence = max(roles.values()) if roles else 0
+            # If many weak roles, add utility
+            if role_count >= 3 and max_confidence < 0.7:
+                roles['utility'] = 0.4
+            # If only one weak role, also add utility
+            elif role_count == 1 and max_confidence < 0.6:
+                roles['utility'] = 0.4
         
         return roles
 

@@ -1,0 +1,475 @@
+{
+  "version": "1.0.0",
+  "source": "longshanks_dec_2025",
+  "note": "Win rates and game counts from Longshanks faction analyzer PDFs",
+  
+  "factions": {
+    "arcanists": {
+      "name": "Arcanists",
+      "overall_win_rate": 0.50,
+      "total_games": 1694,
+      "color": "#3498db",
+      "masters": {
+        "rasputina": { "code": "RA", "win_rate": 0.53, "games": 153 },
+        "sandeep": { "code": "SAN", "win_rate": 0.57, "games": 166 },
+        "colette": { "code": "COL", "win_rate": 0.49, "games": 117 },
+        "marcus": { "code": "MA", "win_rate": 0.34, "games": 28 },
+        "kaeris": { "code": "KAE", "win_rate": 0.45, "games": 174 },
+        "ironsides": { "code": "IR", "win_rate": 0.47, "games": 91 },
+        "mei_feng": { "code": "MF", "win_rate": 0.44, "games": 67 },
+        "hoffman": { "code": "HOF", "win_rate": 0.61, "games": 171 },
+        "kudra": { "code": "KUD", "win_rate": 0.46, "games": 28 }
+      },
+      "strategies_m4e": {
+        "boundary_dispute": { "win_rate": 0.41, "games": 177 },
+        "collapsing_mines": { "win_rate": 0.40, "games": 10 },
+        "informants": { "win_rate": 0.44, "games": 164 },
+        "plant_explosives": { "win_rate": 0.46, "games": 158 },
+        "recover_evidence": { "win_rate": 0.42, "games": 156 }
+      },
+      "schemes_gg0": {
+        "assassinate": { "win_rate": 0.56, "games": 156 },
+        "breakthrough": { "win_rate": 0.63, "games": 119 },
+        "detonate_charges": { "win_rate": 0.60, "games": 154 },
+        "ensnare": { "win_rate": 0.55, "games": 122 },
+        "frame_job": { "win_rate": 0.54, "games": 108 },
+        "grave_robbing": { "win_rate": 0.50, "games": 43 },
+        "harness_ley_line": { "win_rate": 0.46, "games": 98 },
+        "leave_your_mark": { "win_rate": 0.64, "games": 116 },
+        "light_the_beacons": { "win_rate": 0.54, "games": 15 },
+        "make_it_look_like_accident": { "win_rate": 0.49, "games": 84 },
+        "public_demonstration": { "win_rate": 0.61, "games": 44 },
+        "reshape_the_land": { "win_rate": 0.50, "games": 92 },
+        "runic_binding": { "win_rate": 0.48, "games": 121 },
+        "scout_the_rooftops": { "win_rate": 0.51, "games": 120 },
+        "search_the_area": { "win_rate": 0.58, "games": 60 },
+        "take_the_highground": { "win_rate": 0.55, "games": 124 }
+      },
+      "enemy_factions": {
+        "bayou": { "win_rate": 0.54, "games": 202 },
+        "explorers": { "win_rate": 0.48, "games": 264 },
+        "guild": { "win_rate": 0.50, "games": 228 },
+        "neverborn": { "win_rate": 0.40, "games": 201 },
+        "outcasts": { "win_rate": 0.52, "games": 221 },
+        "resurrectionists": { "win_rate": 0.50, "games": 138 },
+        "ten_thunders": { "win_rate": 0.47, "games": 177 }
+      }
+    },
+    
+    "bayou": {
+      "name": "Bayou",
+      "overall_win_rate": 0.51,
+      "total_games": 1776,
+      "color": "#27ae60",
+      "masters": {
+        "ophelia": { "code": "OPH", "win_rate": 0.64, "games": 48 },
+        "zipp": { "code": "ZIP", "win_rate": 0.63, "games": 15 },
+        "som_er": { "code": "SOM", "win_rate": 0.63, "games": 124 },
+        "zoraida": { "code": "ZOR", "win_rate": 0.59, "games": 108 },
+        "wong": { "code": "WON", "win_rate": 0.58, "games": 100 },
+        "mah_tucket": { "code": "MAH", "win_rate": 0.57, "games": 208 },
+        "ulix": { "code": "ULI", "win_rate": 0.57, "games": 47 },
+        "brewmaster": { "code": "BRE", "win_rate": 0.55, "games": 44 },
+        "sparks": { "code": "SPA", "win_rate": 0.53, "games": 97 },
+        "pere_ravage": { "code": "PER", "win_rate": 0.53, "games": 51 }
+      },
+      "strategies_m4e": {
+        "boundary_dispute": { "win_rate": 0.47, "games": 148 },
+        "collapsing_mines": { "win_rate": 0.00, "games": 4 },
+        "informants": { "win_rate": 0.47, "games": 145 },
+        "plant_explosives": { "win_rate": 0.46, "games": 136 },
+        "recover_evidence": { "win_rate": 0.37, "games": 141 }
+      },
+      "schemes_gg0": {
+        "assassinate": { "win_rate": 0.54, "games": 138 },
+        "breakthrough": { "win_rate": 0.53, "games": 106 },
+        "detonate_charges": { "win_rate": 0.62, "games": 179 },
+        "ensnare": { "win_rate": 0.48, "games": 107 },
+        "frame_job": { "win_rate": 0.52, "games": 111 },
+        "grave_robbing": { "win_rate": 0.45, "games": 20 },
+        "harness_ley_line": { "win_rate": 0.62, "games": 123 },
+        "leave_your_mark": { "win_rate": 0.48, "games": 126 },
+        "light_the_beacons": { "win_rate": 0.64, "games": 11 },
+        "make_it_look_like_accident": { "win_rate": 0.43, "games": 77 },
+        "public_demonstration": { "win_rate": 0.58, "games": 19 },
+        "reshape_the_land": { "win_rate": 0.52, "games": 61 },
+        "runic_binding": { "win_rate": 0.46, "games": 116 },
+        "scout_the_rooftops": { "win_rate": 0.52, "games": 112 },
+        "search_the_area": { "win_rate": 0.44, "games": 72 },
+        "take_the_highground": { "win_rate": 0.55, "games": 121 }
+      },
+      "enemy_factions": {
+        "arcanists": { "win_rate": 0.47, "games": 219 },
+        "explorers": { "win_rate": 0.53, "games": 177 },
+        "guild": { "win_rate": 0.44, "games": 221 },
+        "neverborn": { "win_rate": 0.53, "games": 246 },
+        "outcasts": { "win_rate": 0.52, "games": 211 },
+        "resurrectionists": { "win_rate": 0.51, "games": 279 },
+        "ten_thunders": { "win_rate": 0.55, "games": 228 }
+      }
+    },
+    
+    "explorers": {
+      "name": "Explorers Society",
+      "overall_win_rate": 0.51,
+      "total_games": 1982,
+      "color": "#9b59b6",
+      "masters": {
+        "nexus": { "code": "NEX", "win_rate": 0.70, "games": 105 },
+        "cooper": { "code": "COO", "win_rate": 0.63, "games": 12 },
+        "ivan": { "code": "IVA", "win_rate": 0.62, "games": 284 },
+        "jedza": { "code": "JED", "win_rate": 0.61, "games": 96 },
+        "english": { "code": "ENG", "win_rate": 0.58, "games": 116 },
+        "anya": { "code": "ANY", "win_rate": 0.55, "games": 49 },
+        "maxine": { "code": "MAX", "win_rate": 0.52, "games": 154 },
+        "cornelius": { "code": "COR", "win_rate": 0.52, "games": 126 },
+        "umbra": { "code": "UMB", "win_rate": 0.49, "games": 53 },
+        "seamus": { "code": "SEA", "win_rate": 0.48, "games": 128 }
+      },
+      "strategies_m4e": {
+        "boundary_dispute": { "win_rate": 0.46, "games": 204 },
+        "collapsing_mines": { "win_rate": 0.31, "games": 13 },
+        "informants": { "win_rate": 0.43, "games": 209 },
+        "plant_explosives": { "win_rate": 0.51, "games": 172 },
+        "recover_evidence": { "win_rate": 0.47, "games": 206 }
+      },
+      "schemes_gg0": {
+        "assassinate": { "win_rate": 0.62, "games": 166 },
+        "breakthrough": { "win_rate": 0.59, "games": 181 },
+        "detonate_charges": { "win_rate": 0.55, "games": 174 },
+        "ensnare": { "win_rate": 0.53, "games": 173 },
+        "frame_job": { "win_rate": 0.43, "games": 151 },
+        "grave_robbing": { "win_rate": 0.64, "games": 39 },
+        "harness_ley_line": { "win_rate": 0.52, "games": 127 },
+        "leave_your_mark": { "win_rate": 0.58, "games": 139 },
+        "light_the_beacons": { "win_rate": 0.62, "games": 37 },
+        "make_it_look_like_accident": { "win_rate": 0.57, "games": 105 },
+        "public_demonstration": { "win_rate": 0.55, "games": 46 },
+        "reshape_the_land": { "win_rate": 0.51, "games": 136 },
+        "runic_binding": { "win_rate": 0.58, "games": 145 },
+        "scout_the_rooftops": { "win_rate": 0.53, "games": 178 },
+        "search_the_area": { "win_rate": 0.56, "games": 146 },
+        "take_the_highground": { "win_rate": 0.62, "games": 181 }
+      },
+      "enemy_factions": {
+        "arcanists": { "win_rate": 0.54, "games": 227 },
+        "bayou": { "win_rate": 0.53, "games": 247 },
+        "guild": { "win_rate": 0.48, "games": 317 },
+        "neverborn": { "win_rate": 0.56, "games": 221 },
+        "outcasts": { "win_rate": 0.44, "games": 254 },
+        "resurrectionists": { "win_rate": 0.50, "games": 184 },
+        "ten_thunders": { "win_rate": 0.49, "games": 242 }
+      }
+    },
+    
+    "guild": {
+      "name": "Guild",
+      "overall_win_rate": 0.50,
+      "total_games": 1919,
+      "color": "#e74c3c",
+      "masters": {
+        "perdita": { "code": "PER", "win_rate": 0.62, "games": 102 },
+        "dashel": { "code": "DAS", "win_rate": 0.57, "games": 230 },
+        "cornelius": { "code": "COR", "win_rate": 0.57, "games": 78 },
+        "basse": { "code": "BAS", "win_rate": 0.56, "games": 17 },
+        "lady_justice": { "code": "LJ", "win_rate": 0.56, "games": 100 },
+        "sonnia": { "code": "SON", "win_rate": 0.55, "games": 54 },
+        "lucius": { "code": "LUC", "win_rate": 0.55, "games": 198 },
+        "nellie": { "code": "NEL", "win_rate": 0.54, "games": 184 },
+        "mcmourning": { "code": "MCM", "win_rate": 0.52, "games": 121 },
+        "hoffman": { "code": "HOF", "win_rate": 0.54, "games": 31 }
+      },
+      "strategies_m4e": {
+        "boundary_dispute": { "win_rate": 0.45, "games": 210 },
+        "collapsing_mines": { "win_rate": 0.50, "games": 10 },
+        "informants": { "win_rate": 0.37, "games": 200 },
+        "plant_explosives": { "win_rate": 0.51, "games": 168 },
+        "recover_evidence": { "win_rate": 0.47, "games": 205 }
+      },
+      "schemes_gg0": {
+        "assassinate": { "win_rate": 0.50, "games": 207 },
+        "breakthrough": { "win_rate": 0.52, "games": 143 },
+        "detonate_charges": { "win_rate": 0.56, "games": 158 },
+        "ensnare": { "win_rate": 0.57, "games": 161 },
+        "frame_job": { "win_rate": 0.44, "games": 140 },
+        "grave_robbing": { "win_rate": 0.41, "games": 58 },
+        "harness_ley_line": { "win_rate": 0.52, "games": 124 },
+        "leave_your_mark": { "win_rate": 0.58, "games": 163 },
+        "light_the_beacons": { "win_rate": 0.75, "games": 16 },
+        "make_it_look_like_accident": { "win_rate": 0.55, "games": 124 },
+        "public_demonstration": { "win_rate": 0.60, "games": 46 },
+        "reshape_the_land": { "win_rate": 0.51, "games": 92 },
+        "runic_binding": { "win_rate": 0.54, "games": 134 },
+        "scout_the_rooftops": { "win_rate": 0.52, "games": 175 },
+        "search_the_area": { "win_rate": 0.55, "games": 111 },
+        "take_the_highground": { "win_rate": 0.56, "games": 188 }
+      },
+      "enemy_factions": {
+        "arcanists": { "win_rate": 0.51, "games": 254 },
+        "bayou": { "win_rate": 0.56, "games": 228 },
+        "explorers": { "win_rate": 0.49, "games": 297 },
+        "neverborn": { "win_rate": 0.45, "games": 243 },
+        "outcasts": { "win_rate": 0.46, "games": 282 },
+        "resurrectionists": { "win_rate": 0.51, "games": 194 },
+        "ten_thunders": { "win_rate": 0.51, "games": 242 }
+      }
+    },
+    
+    "neverborn": {
+      "name": "Neverborn",
+      "overall_win_rate": 0.52,
+      "total_games": 2554,
+      "color": "#8e44ad",
+      "masters": {
+        "pandora": { "code": "PAN", "win_rate": 0.64, "games": 150 },
+        "dreamer": { "code": "DRE", "win_rate": 0.60, "games": 221 },
+        "nekima": { "code": "NEK", "win_rate": 0.59, "games": 195 },
+        "euripides": { "code": "EUR", "win_rate": 0.55, "games": 167 },
+        "titania": { "code": "TIT", "win_rate": 0.47, "games": 101 },
+        "zoraida": { "code": "ZOR", "win_rate": 0.40, "games": 86 },
+        "kastore": { "code": "KAS", "win_rate": 0.52, "games": 169 }
+      },
+      "strategies_m4e": {
+        "boundary_dispute": { "win_rate": 0.43, "games": 260 },
+        "collapsing_mines": { "win_rate": 0.61, "games": 18 },
+        "informants": { "win_rate": 0.53, "games": 264 },
+        "plant_explosives": { "win_rate": 0.43, "games": 223 },
+        "recover_evidence": { "win_rate": 0.45, "games": 238 }
+      },
+      "schemes_gg0": {
+        "assassinate": { "win_rate": 0.51, "games": 271 },
+        "breakthrough": { "win_rate": 0.55, "games": 163 },
+        "detonate_charges": { "win_rate": 0.57, "games": 149 },
+        "ensnare": { "win_rate": 0.46, "games": 125 },
+        "frame_job": { "win_rate": 0.48, "games": 124 },
+        "grave_robbing": { "win_rate": 0.42, "games": 47 },
+        "harness_ley_line": { "win_rate": 0.46, "games": 121 },
+        "leave_your_mark": { "win_rate": 0.47, "games": 152 },
+        "light_the_beacons": { "win_rate": 0.29, "games": 14 },
+        "make_it_look_like_accident": { "win_rate": 0.56, "games": 83 },
+        "public_demonstration": { "win_rate": 0.44, "games": 41 },
+        "reshape_the_land": { "win_rate": 0.46, "games": 101 },
+        "runic_binding": { "win_rate": 0.34, "games": 132 },
+        "scout_the_rooftops": { "win_rate": 0.46, "games": 148 },
+        "search_the_area": { "win_rate": 0.58, "games": 103 },
+        "take_the_highground": { "win_rate": 0.52, "games": 138 }
+      },
+      "enemy_factions": {
+        "arcanists": { "win_rate": 0.54, "games": 138 },
+        "bayou": { "win_rate": 0.49, "games": 241 },
+        "explorers": { "win_rate": 0.48, "games": 221 },
+        "guild": { "win_rate": 0.48, "games": 211 },
+        "outcasts": { "win_rate": 0.47, "games": 263 },
+        "resurrectionists": { "win_rate": 0.46, "games": 228 },
+        "ten_thunders": { "win_rate": 0.44, "games": 254 }
+      }
+    },
+    
+    "outcasts": {
+      "name": "Outcasts",
+      "overall_win_rate": 0.48,
+      "total_games": 2195,
+      "color": "#f39c12",
+      "masters": {
+        "jack_daw": { "code": "JD", "win_rate": 0.65, "games": 46 },
+        "hamelin": { "code": "HAM", "win_rate": 0.61, "games": 33 },
+        "tara": { "code": "TAR", "win_rate": 0.59, "games": 124 },
+        "leveticus": { "code": "LEV", "win_rate": 0.58, "games": 165 },
+        "von_schill": { "code": "VS", "win_rate": 0.56, "games": 59 },
+        "viktorias": { "code": "VIK", "win_rate": 0.53, "games": 225 },
+        "parker": { "code": "PAR", "win_rate": 0.51, "games": 108 },
+        "zipp": { "code": "ZIP", "win_rate": 0.48, "games": 82 }
+      },
+      "strategies_m4e": {
+        "boundary_dispute": { "win_rate": 0.46, "games": 229 },
+        "collapsing_mines": { "win_rate": 0.44, "games": 16 },
+        "informants": { "win_rate": 0.48, "games": 206 },
+        "plant_explosives": { "win_rate": 0.37, "games": 201 },
+        "recover_evidence": { "win_rate": 0.43, "games": 208 }
+      },
+      "schemes_gg0": {
+        "assassinate": { "win_rate": 0.54, "games": 240 },
+        "breakthrough": { "win_rate": 0.57, "games": 147 },
+        "detonate_charges": { "win_rate": 0.55, "games": 170 },
+        "ensnare": { "win_rate": 0.47, "games": 136 },
+        "frame_job": { "win_rate": 0.60, "games": 159 },
+        "grave_robbing": { "win_rate": 0.52, "games": 50 },
+        "harness_ley_line": { "win_rate": 0.57, "games": 136 },
+        "leave_your_mark": { "win_rate": 0.56, "games": 147 },
+        "light_the_beacons": { "win_rate": 0.41, "games": 22 },
+        "make_it_look_like_accident": { "win_rate": 0.51, "games": 96 },
+        "public_demonstration": { "win_rate": 0.41, "games": 50 },
+        "reshape_the_land": { "win_rate": 0.56, "games": 89 },
+        "runic_binding": { "win_rate": 0.51, "games": 157 },
+        "scout_the_rooftops": { "win_rate": 0.55, "games": 172 },
+        "search_the_area": { "win_rate": 0.54, "games": 103 },
+        "take_the_highground": { "win_rate": 0.50, "games": 194 }
+      },
+      "enemy_factions": {
+        "arcanists": { "win_rate": 0.53, "games": 263 },
+        "bayou": { "win_rate": 0.52, "games": 264 },
+        "explorers": { "win_rate": 0.56, "games": 254 },
+        "guild": { "win_rate": 0.50, "games": 216 },
+        "neverborn": { "win_rate": 0.47, "games": 246 },
+        "resurrectionists": { "win_rate": 0.53, "games": 204 },
+        "ten_thunders": { "win_rate": 0.44, "games": 404 }
+      }
+    },
+    
+    "resurrectionists": {
+      "name": "Resurrectionists",
+      "overall_win_rate": 0.47,
+      "total_games": 1921,
+      "color": "#1abc9c",
+      "masters": {
+        "reva": { "code": "REV", "win_rate": 0.59, "games": 81 },
+        "von_schtook": { "code": "VOS", "win_rate": 0.57, "games": 23 },
+        "yan_lo": { "code": "YAN", "win_rate": 0.53, "games": 134 },
+        "kirai": { "code": "KIR", "win_rate": 0.51, "games": 44 },
+        "molly": { "code": "MOL", "win_rate": 0.51, "games": 47 },
+        "mcmourning": { "code": "MCM", "win_rate": 0.50, "games": 59 },
+        "seamus": { "code": "SEA", "win_rate": 0.49, "games": 95 },
+        "jack_daw": { "code": "JD", "win_rate": 0.48, "games": 285 }
+      },
+      "strategies_m4e": {
+        "boundary_dispute": { "win_rate": 0.37, "games": 184 },
+        "collapsing_mines": { "win_rate": 0.30, "games": 14 },
+        "informants": { "win_rate": 0.42, "games": 178 },
+        "plant_explosives": { "win_rate": 0.42, "games": 161 },
+        "recover_evidence": { "win_rate": 0.43, "games": 190 }
+      },
+      "schemes_gg0": {
+        "assassinate": { "win_rate": 0.51, "games": 196 },
+        "breakthrough": { "win_rate": 0.57, "games": 128 },
+        "detonate_charges": { "win_rate": 0.45, "games": 149 },
+        "ensnare": { "win_rate": 0.47, "games": 137 },
+        "frame_job": { "win_rate": 0.48, "games": 127 },
+        "grave_robbing": { "win_rate": 0.43, "games": 41 },
+        "harness_ley_line": { "win_rate": 0.46, "games": 131 },
+        "leave_your_mark": { "win_rate": 0.53, "games": 148 },
+        "light_the_beacons": { "win_rate": 0.41, "games": 18 },
+        "make_it_look_like_accident": { "win_rate": 0.49, "games": 78 },
+        "public_demonstration": { "win_rate": 0.46, "games": 48 },
+        "reshape_the_land": { "win_rate": 0.46, "games": 97 },
+        "runic_binding": { "win_rate": 0.46, "games": 77 },
+        "scout_the_rooftops": { "win_rate": 0.46, "games": 165 },
+        "search_the_area": { "win_rate": 0.50, "games": 105 },
+        "take_the_highground": { "win_rate": 0.52, "games": 168 }
+      },
+      "enemy_factions": {
+        "arcanists": { "win_rate": 0.50, "games": 190 },
+        "bayou": { "win_rate": 0.49, "games": 243 },
+        "explorers": { "win_rate": 0.49, "games": 221 },
+        "guild": { "win_rate": 0.48, "games": 211 },
+        "neverborn": { "win_rate": 0.47, "games": 263 },
+        "outcasts": { "win_rate": 0.46, "games": 228 },
+        "ten_thunders": { "win_rate": 0.41, "games": 248 }
+      }
+    },
+    
+    "ten_thunders": {
+      "name": "Ten Thunders",
+      "overall_win_rate": 0.51,
+      "total_games": 1954,
+      "color": "#e67e22",
+      "masters": {
+        "youko": { "code": "YOU", "win_rate": 0.61, "games": 74 },
+        "yan_lo": { "code": "YAN", "win_rate": 0.59, "games": 16 },
+        "shenlong": { "code": "SHE", "win_rate": 0.59, "games": 241 },
+        "asami": { "code": "ASA", "win_rate": 0.59, "games": 185 },
+        "misaki": { "code": "MIS", "win_rate": 0.58, "games": 91 },
+        "mei_feng": { "code": "MF", "win_rate": 0.57, "games": 83 },
+        "lynch": { "code": "LYN", "win_rate": 0.54, "games": 90 },
+        "brewmaster": { "code": "BRE", "win_rate": 0.54, "games": 45 },
+        "lucas": { "code": "LUC", "win_rate": 0.53, "games": 68 },
+        "mccabe": { "code": "MCC", "win_rate": 0.51, "games": 132 }
+      },
+      "strategies_m4e": {
+        "boundary_dispute": { "win_rate": 0.48, "games": 185 },
+        "collapsing_mines": { "win_rate": 0.27, "games": 15 },
+        "informants": { "win_rate": 0.35, "games": 163 },
+        "plant_explosives": { "win_rate": 0.43, "games": 159 },
+        "recover_evidence": { "win_rate": 0.44, "games": 170 }
+      },
+      "schemes_gg0": {
+        "assassinate": { "win_rate": 0.47, "games": 182 },
+        "breakthrough": { "win_rate": 0.52, "games": 164 },
+        "detonate_charges": { "win_rate": 0.51, "games": 135 },
+        "ensnare": { "win_rate": 0.45, "games": 90 },
+        "frame_job": { "win_rate": 0.41, "games": 128 },
+        "grave_robbing": { "win_rate": 0.42, "games": 36 },
+        "harness_ley_line": { "win_rate": 0.44, "games": 102 },
+        "leave_your_mark": { "win_rate": 0.51, "games": 153 },
+        "light_the_beacons": { "win_rate": 0.25, "games": 10 },
+        "make_it_look_like_accident": { "win_rate": 0.42, "games": 116 },
+        "public_demonstration": { "win_rate": 0.64, "games": 35 },
+        "reshape_the_land": { "win_rate": 0.38, "games": 102 },
+        "runic_binding": { "win_rate": 0.47, "games": 119 },
+        "scout_the_rooftops": { "win_rate": 0.47, "games": 168 },
+        "search_the_area": { "win_rate": 0.61, "games": 90 },
+        "take_the_highground": { "win_rate": 0.37, "games": 166 }
+      },
+      "enemy_factions": {
+        "arcanists": { "win_rate": 0.59, "games": 248 },
+        "bayou": { "win_rate": 0.44, "games": 221 },
+        "explorers": { "win_rate": 0.53, "games": 219 },
+        "guild": { "win_rate": 0.51, "games": 283 },
+        "neverborn": { "win_rate": 0.51, "games": 296 },
+        "outcasts": { "win_rate": 0.50, "games": 288 },
+        "resurrectionists": { "win_rate": 0.46, "games": 227 }
+      }
+    }
+  },
+  
+  "strategies_m4e": {
+    "boundary_dispute": {
+      "name": "Boundary Dispute",
+      "id": "boundary_dispute",
+      "best_factions": ["ten_thunders", "outcasts", "explorers"],
+      "worst_factions": ["resurrectionists", "arcanists"]
+    },
+    "collapsing_mines": {
+      "name": "Collapsing Mines", 
+      "id": "collapsing_mines",
+      "best_factions": ["neverborn", "guild"],
+      "worst_factions": ["bayou", "ten_thunders"]
+    },
+    "informants": {
+      "name": "Informants",
+      "id": "informants",
+      "best_factions": ["neverborn", "outcasts"],
+      "worst_factions": ["ten_thunders", "guild"]
+    },
+    "plant_explosives": {
+      "name": "Plant Explosives",
+      "id": "plant_explosives",
+      "best_factions": ["guild", "explorers"],
+      "worst_factions": ["outcasts", "resurrectionists"]
+    },
+    "recover_evidence": {
+      "name": "Recover Evidence",
+      "id": "recover_evidence",
+      "best_factions": ["guild", "explorers"],
+      "worst_factions": ["bayou", "arcanists"]
+    }
+  },
+  
+  "schemes_gg0": {
+    "assassinate": { "name": "Assassinate", "difficulty": "medium" },
+    "breakthrough": { "name": "Breakthrough", "difficulty": "easy" },
+    "detonate_charges": { "name": "Detonate Charges", "difficulty": "medium" },
+    "ensnare": { "name": "Ensnare", "difficulty": "hard" },
+    "frame_job": { "name": "Frame Job", "difficulty": "hard" },
+    "grave_robbing": { "name": "Grave Robbing", "difficulty": "hard" },
+    "harness_ley_line": { "name": "Harness the Ley Line", "difficulty": "medium" },
+    "leave_your_mark": { "name": "Leave Your Mark", "difficulty": "easy" },
+    "light_the_beacons": { "name": "Light the Beacons", "difficulty": "hard" },
+    "make_it_look_like_accident": { "name": "Make it Look Like an Accident", "difficulty": "medium" },
+    "public_demonstration": { "name": "Public Demonstration", "difficulty": "medium" },
+    "reshape_the_land": { "name": "Reshape the Land", "difficulty": "medium" },
+    "runic_binding": { "name": "Runic Binding", "difficulty": "medium" },
+    "scout_the_rooftops": { "name": "Scout the Rooftops", "difficulty": "medium" },
+    "search_the_area": { "name": "Search the Area", "difficulty": "easy" },
+    "take_the_highground": { "name": "Take the Highground", "difficulty": "easy" }
+  }
+}

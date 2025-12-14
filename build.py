@@ -25,6 +25,7 @@ Directory Structure:
     │   ├── parse_cards.py
     │   ├── tag_extractor.py
     │   ├── parse_objective_cards.py
+    │   ├── faction_meta.py      (Longshanks competitive meta)
     │   ├── crew_recommender.py
     │   └── taxonomy.json
     └── src/data/                (web app data, copied from dist/)
@@ -34,10 +35,19 @@ Directory Structure:
         ├── Guild/...
         └── ...
 
+Pipeline Steps:
+    1. extract_cards     - Parse card PDFs to cards_raw.json
+    2. extract_tags      - Extract semantic tags to cards_tagged.json
+    3. extract_objectives- OCR scheme/strategy images to objectives_raw.json
+    4. enrich_meta       - Add Longshanks competitive meta to cards_enriched.json
+    5. train_recommender - Train ML model, output recommendations.json
+    6. bundle            - Copy to dist/ and src/data/
+
 Rebuild triggers:
     - Any PDF added/changed in card_pdfs/ → rebuild cards
     - Any image added/changed in objective_images/ → rebuild objectives
     - taxonomy.json changed → rebuild tags
+    - faction_meta.py changed → rebuild enrichment
     - recommender_config.json changed → rebuild recommendations
     - Pipeline scripts changed → rebuild affected steps
 """
@@ -360,11 +370,11 @@ class ExtractObjectivesStep(PipelineStep):
         return True
 
 
-class TrainRecommenderStep(PipelineStep):
-    """Step 4: Train crew recommender and pre-compute recommendations."""
+class EnrichMetaStep(PipelineStep):
+    """Step 4: Enrich cards/objectives with competitive meta from Longshanks."""
     
-    name = "train_recommender"
-    description = "Train recommender and pre-compute synergies"
+    name = "enrich_meta"
+    description = "Add competitive meta (faction affinity, scheme difficulty)"
     
     def get_input_hashes(self) -> Dict[str, str]:
         hashes = {}
@@ -373,6 +383,260 @@ class TrainRecommenderStep(PipelineStep):
         cards = self.config.intermediate_dir / "cards_tagged.json"
         if cards.exists():
             hashes["cards_tagged.json"] = hash_file(cards)
+        
+        # Input: objectives_raw.json
+        objectives = self.config.intermediate_dir / "objectives_raw.json"
+        if objectives.exists():
+            hashes["objectives_raw.json"] = hash_file(objectives)
+        
+        # Input: faction_meta.py (the meta database)
+        meta_script = self.config.pipeline_dir / "faction_meta.py"
+        if meta_script.exists():
+            hashes["faction_meta.py"] = hash_file(meta_script)
+        
+        return hashes
+    
+    def needs_rebuild(self) -> bool:
+        output_cards = self.config.intermediate_dir / "cards_enriched.json"
+        output_objectives = self.config.intermediate_dir / "objectives_enriched.json"
+        
+        if not output_cards.exists() or not output_objectives.exists():
+            return True
+        
+        old_hashes = self.state.file_hashes.get(self.name, {})
+        new_hashes = self.get_input_hashes()
+        return files_changed(old_hashes, new_hashes)
+    
+    def run(self) -> bool:
+        cards_input = self.config.intermediate_dir / "cards_tagged.json"
+        objectives_input = self.config.intermediate_dir / "objectives_raw.json"
+        cards_output = self.config.intermediate_dir / "cards_enriched.json"
+        objectives_output = self.config.intermediate_dir / "objectives_enriched.json"
+        faction_meta_json = self.config.dist_dir / "faction_meta.json"
+        
+        # Try to import faction_meta module
+        meta_script = self.config.pipeline_dir / "faction_meta.py"
+        faction_data = None
+        
+        if meta_script.exists():
+            try:
+                sys.path.insert(0, str(self.config.pipeline_dir))
+                from faction_meta import FACTION_DATA
+                faction_data = FACTION_DATA
+                print(f"  Loaded faction meta for {len(faction_data)} factions")
+            except ImportError as e:
+                print(f"  WARNING: Could not import faction_meta: {e}")
+        else:
+            print(f"  WARNING: faction_meta.py not found in {self.config.pipeline_dir}")
+        
+        # Load cards
+        if cards_input.exists():
+            with open(cards_input, 'r', encoding='utf-8') as f:
+                cards_data = json.load(f)
+            print(f"  Enriching cards with faction meta...")
+            cards_data = self._enrich_cards(cards_data, faction_data)
+            with open(cards_output, 'w', encoding='utf-8') as f:
+                json.dump(cards_data, f, indent=2, ensure_ascii=False)
+            print(f"  -> {cards_output}")
+        else:
+            print(f"  SKIP: No cards_tagged.json to enrich")
+            # Copy through if exists from previous step
+            if cards_input.exists():
+                shutil.copy(cards_input, cards_output)
+        
+        # Load objectives
+        if objectives_input.exists():
+            with open(objectives_input, 'r', encoding='utf-8') as f:
+                objectives_data = json.load(f)
+            print(f"  Enriching objectives with difficulty ratings...")
+            objectives_data = self._enrich_objectives(objectives_data, faction_data)
+            with open(objectives_output, 'w', encoding='utf-8') as f:
+                json.dump(objectives_data, f, indent=2, ensure_ascii=False)
+            print(f"  -> {objectives_output}")
+        else:
+            print(f"  SKIP: No objectives_raw.json to enrich")
+            # Create empty placeholder
+            with open(objectives_output, 'w', encoding='utf-8') as f:
+                json.dump({"schemes": {}, "strategies": {}}, f)
+        
+        # Also export faction_meta.json to dist
+        if faction_data:
+            self._export_faction_meta_json(faction_data, faction_meta_json)
+            print(f"  -> {faction_meta_json}")
+        
+        return True
+    
+    def _enrich_cards(self, cards_data: dict, faction_data: dict) -> dict:
+        """Add faction-specific scheme/strategy affinity to master cards."""
+        if not faction_data:
+            return cards_data
+        
+        cards = cards_data.get('cards', cards_data)
+        if isinstance(cards, dict):
+            card_list = list(cards.values())
+        else:
+            card_list = cards
+        
+        enriched_count = 0
+        for card in card_list:
+            faction = card.get('faction')
+            if not faction or faction not in faction_data:
+                continue
+            
+            # Only enrich master cards (or all stat cards?)
+            characteristics = card.get('characteristics', [])
+            if 'Master' not in characteristics:
+                continue
+            
+            faction_info = faction_data[faction]
+            
+            # Add faction win rate context
+            card['faction_meta'] = {
+                'faction_win_rate': faction_info['overall']['win_rate'],
+                'faction_games': faction_info['overall']['games'],
+            }
+            
+            # Add best/worst schemes for this faction
+            schemes_chosen = faction_info.get('schemes_chosen', {})
+            faction_avg = faction_info['overall']['win_rate']
+            
+            best_schemes = []
+            worst_schemes = []
+            for scheme, stats in schemes_chosen.items():
+                if stats['games'] >= 50:
+                    delta = stats['win_rate'] - faction_avg
+                    entry = {'scheme': scheme, 'win_rate': stats['win_rate'], 'delta': round(delta, 3)}
+                    if delta > 0.03:
+                        best_schemes.append(entry)
+                    elif delta < -0.03:
+                        worst_schemes.append(entry)
+            
+            best_schemes.sort(key=lambda x: -x['delta'])
+            worst_schemes.sort(key=lambda x: x['delta'])
+            
+            card['faction_meta']['best_schemes'] = [s['scheme'] for s in best_schemes[:5]]
+            card['faction_meta']['worst_schemes'] = [s['scheme'] for s in worst_schemes[:5]]
+            
+            # Add best/worst strategies for this faction
+            strategies = faction_info.get('strategies_m4e', {})
+            best_strats = []
+            worst_strats = []
+            for strat, stats in strategies.items():
+                if stats['games'] >= 20:
+                    delta = stats['win_rate'] - faction_avg
+                    if delta > 0.02:
+                        best_strats.append(strat)
+                    elif delta < -0.05:
+                        worst_strats.append(strat)
+            
+            card['faction_meta']['best_strategies'] = best_strats
+            card['faction_meta']['worst_strategies'] = worst_strats
+            
+            enriched_count += 1
+        
+        print(f"    Enriched {enriched_count} master cards with faction meta")
+        return cards_data
+    
+    def _enrich_objectives(self, objectives_data: dict, faction_data: dict) -> dict:
+        """Add difficulty ratings to schemes based on cross-faction performance."""
+        if not faction_data:
+            return objectives_data
+        
+        schemes = objectives_data.get('schemes', {})
+        
+        for scheme_key, scheme_data in schemes.items():
+            # Compute average win rate across all factions
+            total_wr = 0
+            total_games = 0
+            faction_performance = {}
+            
+            for faction, fdata in faction_data.items():
+                chosen = fdata.get('schemes_chosen', {})
+                # Try to match scheme key
+                matched = None
+                for sk in chosen:
+                    if sk == scheme_key or sk.replace('_', '') == scheme_key.replace('_', ''):
+                        matched = sk
+                        break
+                
+                if matched:
+                    stats = chosen[matched]
+                    total_wr += stats['win_rate'] * stats['games']
+                    total_games += stats['games']
+                    faction_performance[faction] = {
+                        'win_rate': stats['win_rate'],
+                        'games': stats['games']
+                    }
+            
+            if total_games > 0:
+                avg_wr = total_wr / total_games
+                
+                # Classify difficulty
+                if avg_wr >= 0.55:
+                    difficulty = 'easy'
+                elif avg_wr >= 0.50:
+                    difficulty = 'medium'
+                else:
+                    difficulty = 'hard'
+                
+                scheme_data['meta'] = {
+                    'average_win_rate': round(avg_wr, 3),
+                    'total_games': total_games,
+                    'difficulty': difficulty,
+                    'faction_performance': faction_performance
+                }
+        
+        return objectives_data
+    
+    def _export_faction_meta_json(self, faction_data: dict, output_path: Path):
+        """Export faction meta as compact JSON for web app."""
+        export = {
+            'metadata': {
+                'source': 'Longshanks Faction Analyzer',
+                'extracted': datetime.now().strftime('%Y-%m-%d'),
+                'total_games': sum(f['overall']['games'] for f in faction_data.values())
+            },
+            'faction_rankings': sorted([
+                {'faction': f, 'win_rate': d['overall']['win_rate'], 'games': d['overall']['games']}
+                for f, d in faction_data.items()
+            ], key=lambda x: -x['win_rate']),
+            'faction_scheme_affinity': {},
+            'faction_strategy_affinity': {}
+        }
+        
+        for faction, data in faction_data.items():
+            faction_avg = data['overall']['win_rate']
+            
+            # Scheme affinity
+            schemes = data.get('schemes_chosen', {})
+            best = [s for s, v in schemes.items() if v['games'] >= 50 and v['win_rate'] - faction_avg > 0.03]
+            worst = [s for s, v in schemes.items() if v['games'] >= 50 and v['win_rate'] - faction_avg < -0.03]
+            export['faction_scheme_affinity'][faction] = {'best': best, 'worst': worst}
+            
+            # Strategy affinity
+            strats = data.get('strategies_m4e', {})
+            best_s = [s for s, v in strats.items() if v['games'] >= 20 and v['win_rate'] - faction_avg > 0.02]
+            worst_s = [s for s, v in strats.items() if v['games'] >= 20 and v['win_rate'] - faction_avg < -0.05]
+            export['faction_strategy_affinity'][faction] = {'best': best_s, 'worst': worst_s}
+        
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(output_path, 'w', encoding='utf-8') as f:
+            json.dump(export, f, indent=2, ensure_ascii=False)
+
+
+class TrainRecommenderStep(PipelineStep):
+    """Step 5: Train crew recommender and pre-compute recommendations."""
+    
+    name = "train_recommender"
+    description = "Train recommender and pre-compute synergies"
+    
+    def get_input_hashes(self) -> Dict[str, str]:
+        hashes = {}
+        
+        # Input: cards_enriched.json (from meta enrichment step)
+        cards = self.config.intermediate_dir / "cards_enriched.json"
+        if cards.exists():
+            hashes["cards_enriched.json"] = hash_file(cards)
         
         # Input: recommender_config.json
         config_file = self.config.pipeline_dir / "recommender_config.json"
@@ -398,7 +662,7 @@ class TrainRecommenderStep(PipelineStep):
     
     def run(self) -> bool:
         script = self.config.pipeline_dir / "crew_recommender.py"
-        cards_file = self.config.intermediate_dir / "cards_tagged.json"
+        cards_file = self.config.intermediate_dir / "cards_enriched.json"
         output_model = self.config.intermediate_dir / "model.pkl"
         output_recs = self.config.intermediate_dir / "recommendations.json"
         
@@ -407,7 +671,7 @@ class TrainRecommenderStep(PipelineStep):
             return False
         
         if not cards_file.exists():
-            print(f"  ERROR: {cards_file} not found (run extract_tags first)")
+            print(f"  ERROR: {cards_file} not found (run enrich_meta first)")
             return False
         
         # Step 4a: Generate synthetic crews (or use tournament data)
@@ -632,7 +896,7 @@ class TrainRecommenderStep(PipelineStep):
 
 
 class BundleStep(PipelineStep):
-    """Step 5: Bundle everything for web app."""
+    """Step 6: Bundle everything for web app."""
     
     name = "bundle"
     description = "Bundle final outputs for web app"
@@ -640,10 +904,15 @@ class BundleStep(PipelineStep):
     def get_input_hashes(self) -> Dict[str, str]:
         hashes = {}
         
-        for filename in ["cards_tagged.json", "objectives_raw.json", "recommendations.json"]:
+        for filename in ["cards_enriched.json", "objectives_enriched.json", "recommendations.json"]:
             path = self.config.intermediate_dir / filename
             if path.exists():
                 hashes[filename] = hash_file(path)
+        
+        # Also check faction_meta.json in dist
+        faction_meta = self.config.dist_dir / "faction_meta.json"
+        if faction_meta.exists():
+            hashes["faction_meta.json"] = hash_file(faction_meta)
         
         return hashes
     
@@ -652,7 +921,8 @@ class BundleStep(PipelineStep):
         outputs = [
             self.config.dist_dir / "cards.json",
             self.config.dist_dir / "objectives.json",
-            self.config.dist_dir / "recommendations.json"
+            self.config.dist_dir / "recommendations.json",
+            self.config.dist_dir / "faction_meta.json"
         ]
         
         if not all(o.exists() for o in outputs):
@@ -665,15 +935,15 @@ class BundleStep(PipelineStep):
     def run(self) -> bool:
         print(f"  Bundling outputs...")
         
-        # Cards: copy tagged version
-        cards_src = self.config.intermediate_dir / "cards_tagged.json"
+        # Cards: copy enriched version
+        cards_src = self.config.intermediate_dir / "cards_enriched.json"
         cards_dst = self.config.dist_dir / "cards.json"
         if cards_src.exists():
             shutil.copy(cards_src, cards_dst)
             print(f"  -> cards.json")
         
-        # Objectives: copy OCR'd version (or create empty)
-        obj_src = self.config.intermediate_dir / "objectives_raw.json"
+        # Objectives: copy enriched version
+        obj_src = self.config.intermediate_dir / "objectives_enriched.json"
         obj_dst = self.config.dist_dir / "objectives.json"
         if obj_src.exists():
             shutil.copy(obj_src, obj_dst)
@@ -696,10 +966,15 @@ class BundleStep(PipelineStep):
                 json.dump({"synergies": {}, "objective_fits": {}}, f)
             print(f"  -> recommendations.json (empty placeholder)")
         
+        # Faction meta: already in dist from EnrichMetaStep, just confirm
+        faction_meta = self.config.dist_dir / "faction_meta.json"
+        if faction_meta.exists():
+            print(f"  -> faction_meta.json (already present)")
+        
         # Also copy to web app src/data/ if it exists
         if self.config.webapp_data_dir.exists():
             print(f"  Copying to web app...")
-            for filename in ["cards.json", "objectives.json", "recommendations.json"]:
+            for filename in ["cards.json", "objectives.json", "recommendations.json", "faction_meta.json"]:
                 src = self.config.dist_dir / filename
                 dst = self.config.webapp_data_dir / filename
                 if src.exists():
@@ -726,6 +1001,7 @@ class Pipeline:
             ExtractCardsStep(self.config, self.state),
             ExtractTagsStep(self.config, self.state),
             ExtractObjectivesStep(self.config, self.state),
+            EnrichMetaStep(self.config, self.state),
             TrainRecommenderStep(self.config, self.state),
             BundleStep(self.config, self.state),
         ]
