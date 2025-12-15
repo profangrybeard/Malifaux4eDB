@@ -4,9 +4,9 @@ import objectivesData from './data/objectives.json'
 
 const IMAGE_BASE = 'https://raw.githubusercontent.com/profangrybeard/Malifaux4eDB-images/main'
 
-// ═══════════════════════════════════════════════════════════════════════════════
+// ===========================================================================
 // FACTION META DATA - Embedded from Longshanks tournament analysis (15,893 games)
-// ═══════════════════════════════════════════════════════════════════════════════
+// ===========================================================================
 const FACTION_META = {
   "Neverborn": {
     "overall": {"win_rate": 0.52, "games": 2554},
@@ -216,55 +216,55 @@ const FACTION_META = {
   }
 }
 
-// ═══════════════════════════════════════════════════════════════════════════════
+// ===========================================================================
 // ROLE DESCRIPTIONS - for display in crew builder
-// ═══════════════════════════════════════════════════════════════════════════════
+// ===========================================================================
 const ROLE_DESCRIPTIONS = {
   'scheme_runner': {
     label: 'Scheme Runner',
     description: 'Fast, evasive models that score schemes',
-    icon: '🏃'
+    icon: '*'
   },
   'beater': {
     label: 'Beater',
     description: 'High damage dealers',
-    icon: '⚔'
+    icon: '*'
   },
   'tank': {
     label: 'Tank',
     description: 'Durable models that absorb damage',
-    icon: '🛡'
+    icon: '*'
   },
   'support': {
     label: 'Support',
     description: 'Buffs allies or heals',
-    icon: '💫'
+    icon: '*'
   },
   'control': {
     label: 'Control',
     description: 'Manipulates enemy positioning or actions',
-    icon: '🎯'
+    icon: '*'
   },
   'summoner': {
     label: 'Summoner',
     description: 'Creates new models',
-    icon: '✨'
+    icon: '*'
   },
   'marker_manipulation': {
     label: 'Marker Manipulation',
     description: 'Interacts with strategy/scheme markers',
-    icon: '📍'
+    icon: '*'
   },
   'condition_specialist': {
     label: 'Condition Specialist',
     description: 'Applies or removes conditions',
-    icon: '🔮'
+    icon: '*'
   }
 }
 
-// ═══════════════════════════════════════════════════════════════════════════════
+// ===========================================================================
 // OBJECTIVE REQUIREMENTS - what cards need to satisfy objectives
-// ═══════════════════════════════════════════════════════════════════════════════
+// ===========================================================================
 const OBJECTIVE_REQUIREMENTS = {
   requires_killing: {
     key: 'killing',
@@ -316,9 +316,9 @@ const OBJECTIVE_REQUIREMENTS = {
   }
 }
 
-// ═══════════════════════════════════════════════════════════════════════════════
+// ===========================================================================
 // SYNERGY SYSTEM - Detect beneficial interactions between models
-// ═══════════════════════════════════════════════════════════════════════════════
+// ===========================================================================
 
 // Role complementarity matrix - which roles work well together
 const ROLE_SYNERGIES = {
@@ -467,10 +467,14 @@ function App() {
   const [minHealth, setMinHealth] = useState('')
   const [maxHealth, setMaxHealth] = useState('')
   const [soulstoneFilter, setSoulstoneFilter] = useState('')
+  const [stationFilter, setStationFilter] = useState('')
+  const [dataIssueFilter, setDataIssueFilter] = useState('')
   
   // State - Modal
   const [selectedCard, setSelectedCard] = useState(null)
+  const [selectedVariant, setSelectedVariant] = useState(null) // Track which variant art to show
   const [modalView, setModalView] = useState('dual') // 'dual', 'front', 'back'
+  const [modalImagesLoaded, setModalImagesLoaded] = useState({ front: false, back: false })
   
   // State - Objectives selection (browse view)
   const [selectedStrategy, setSelectedStrategy] = useState('')
@@ -483,6 +487,8 @@ function App() {
   const [opponentFaction, setOpponentFaction] = useState('')
   const [opponentMaster, setOpponentMaster] = useState(null)
   const [opponentCrew, setOpponentCrew] = useState([])
+  const [counterCrewReasoning, setCounterCrewReasoning] = useState(null) // Explains why counter-crew was picked
+  const [counterDifficulty, setCounterDifficulty] = useState('challenging') // 'well-matched', 'challenging', 'strongest'
   
   // State - Crew Builder
   const [selectedMaster, setSelectedMaster] = useState(null)
@@ -499,8 +505,91 @@ function App() {
     return Array.isArray(cardData) ? cardData : (cardData.cards || [])
   }, [])
   
+  // Create a stats fingerprint for a card (used to detect gameplay vs cosmetic variants)
+  const getStatsFingerprint = (card) => {
+    return `${card.cost}|${card.defense}|${card.health}|${card.willpower}`
+  }
+  
+  // Group cosmetic variants by name+stats for lookup (same name + same stats = cosmetic variant)
+  const variantGroups = useMemo(() => {
+    const groups = {}
+    const seenIds = new Set()
+    
+    allCards.forEach(card => {
+      if (card.card_type !== 'Stat') return
+      // Skip true duplicates (same ID)
+      if (seenIds.has(card.id)) return
+      seenIds.add(card.id)
+      
+      const name = card.name
+      const fingerprint = getStatsFingerprint(card)
+      const groupKey = `${name}|${fingerprint}`
+      
+      if (!groups[groupKey]) groups[groupKey] = []
+      // Avoid adding cards with same variant letter
+      const isDupe = groups[groupKey].some(c => c.variant === card.variant)
+      if (!isDupe) groups[groupKey].push(card)
+    })
+    
+    // Sort each group so 'A' or null comes first
+    Object.keys(groups).forEach(key => {
+      groups[key].sort((a, b) => {
+        const vA = a.variant || ''
+        const vB = b.variant || ''
+        if (vA === 'None' || vA === '') return -1
+        if (vB === 'None' || vB === '') return 1
+        return vA.localeCompare(vB)
+      })
+    })
+    return groups
+  }, [allCards])
+  
+  // Get cosmetic variants for a specific card (same name AND same stats)
+  const getCardVariants = useCallback((card) => {
+    if (!card?.name) return []
+    const fingerprint = getStatsFingerprint(card)
+    const groupKey = `${card.name}|${fingerprint}`
+    return variantGroups[groupKey] || [card]
+  }, [variantGroups])
+  
   const cards = useMemo(() => {
-    return allCards.filter(card => card.card_type === 'Stat')
+    // Get all Stat cards, removing:
+    // 1. True duplicates (same ID)
+    // 2. Cosmetic variants (same name + same stats, keep only first/A variant)
+    // But KEEP gameplay variants (same name but different stats)
+    
+    const seenIds = new Set()
+    const seenNameStats = new Set() // Track name+stats combo for cosmetic dedup
+    const primaryCards = []
+    
+    const statCards = allCards.filter(card => card.card_type === 'Stat')
+    
+    // Sort so A variants or null come first
+    const sortedCards = [...statCards].sort((a, b) => {
+      const vA = a.variant || ''
+      const vB = b.variant || ''
+      if (vA === 'None' || vA === '') return -1
+      if (vB === 'None' || vB === '') return 1
+      return vA.localeCompare(vB)
+    })
+    
+    sortedCards.forEach(card => {
+      // Skip true duplicates (same ID)
+      if (seenIds.has(card.id)) return
+      seenIds.add(card.id)
+      
+      // For cosmetic variants: same name + same stats = only keep first
+      const fingerprint = getStatsFingerprint(card)
+      const nameStatsKey = `${card.name}|${fingerprint}`
+      
+      if (!seenNameStats.has(nameStatsKey)) {
+        seenNameStats.add(nameStatsKey)
+        primaryCards.push(card)
+      }
+      // If same name but DIFFERENT stats, it's a gameplay variant - already added with different fingerprint
+    })
+    
+    return primaryCards
   }, [allCards])
   
   // Parse objectives data - handle various formats
@@ -561,6 +650,74 @@ function App() {
     return [...new Set(cardArray.map(c => c.card_type).filter(Boolean))].sort()
   }, [])
   const metaFactions = useMemo(() => Object.keys(FACTION_META).sort(), [])
+
+  // Get station counts for filter dropdown (shows counts for quick data validation)
+  const stationCounts = useMemo(() => {
+    const counts = {}
+    const STATIONS = ['Master', 'Henchman', 'Enforcer', 'Minion', 'Totem', 'Peon']
+    STATIONS.forEach(s => counts[s] = 0)
+    
+    cards.forEach(card => {
+      const chars = card.characteristics || []
+      for (const station of STATIONS) {
+        if (chars.includes(station)) {
+          counts[station]++
+          break // Only count primary station
+        }
+      }
+    })
+    return counts
+  }, [cards])
+
+  // Get data issue counts for debug filter dropdown
+  const dataIssueCounts = useMemo(() => {
+    const counts = {
+      any: 0,
+      missing_cost: 0,
+      missing_chars: 0,
+      missing_keywords: 0,
+      missing_station: 0,
+    }
+    
+    cards.forEach(card => {
+      const chars = card.characteristics || []
+      // Use the hireable field if present, otherwise fall back to station-based check
+      const isHireable = card.hireable !== undefined 
+        ? card.hireable 
+        : !['Master', 'Totem'].some(c => chars.includes(c))
+      const hasStation = ['Master', 'Henchman', 'Enforcer', 'Minion', 'Totem', 'Peon'].some(s => chars.includes(s))
+      
+      let hasIssue = false
+      
+      // Missing cost (only for hireable models - not summoned-only)
+      if (card.cost == null && isHireable) {
+        counts.missing_cost++
+        hasIssue = true
+      }
+      
+      // Missing characteristics entirely
+      if (chars.length === 0) {
+        counts.missing_chars++
+        hasIssue = true
+      }
+      
+      // Missing keywords - only flag hireable models (not Masters, Totems, or summoned-only)
+      if ((!card.keywords || card.keywords.length === 0) && card.hireable === true) {
+        counts.missing_keywords++
+        hasIssue = true
+      }
+      
+      // Has characteristics but no station
+      if (chars.length > 0 && !hasStation) {
+        counts.missing_station++
+        hasIssue = true
+      }
+      
+      if (hasIssue) counts.any++
+    })
+    
+    return counts
+  }, [cards])
 
   // Get masters for crew builder (deduplicated by name)
   const masters = useMemo(() => {
@@ -684,7 +841,7 @@ function App() {
       if (characteristics.includes('Totem')) score += 2.5
       if (characteristics.includes('Minion')) score += (card.cost || 4) * 0.15
       
-      // Add randomization factor (±30% variation)
+      // Add randomization factor (Â±30% variation)
       const randomFactor = 0.7 + Math.random() * 0.6
       score *= randomFactor
       
@@ -814,9 +971,271 @@ function App() {
     }
   }, [opponentCrew])
 
-  // ═══════════════════════════════════════════════════════════════════════════════
+  // ===========================================================================
+  // COUNTER-CREW GENERATOR - Builds an opponent crew that counters the player's crew
+  // ===========================================================================
+  
+  // Creature types to exclude from keyword matching
+  const CREATURE_TYPES = new Set(['Living', 'Undead', 'Construct', 'Beast', 'Spirit', 'Nightmare', 'Tyrant', 'Elemental'])
+  
+  // Analyze player's crew for weaknesses
+  const analyzePlayerCrew = useCallback(() => {
+    if (!selectedMaster || crewRoster.length === 0) return null
+    
+    const allModels = [selectedMaster, ...crewRoster]
+    
+    // Collect conditions applied/required across crew
+    const conditionsApplied = new Set()
+    const conditionsRequired = new Set()
+    const combatTags = new Set()
+    const defenseTags = new Set()
+    const roles = new Set()
+    
+    let totalDf = 0, totalWp = 0, totalSp = 0, modelCount = 0
+    let hasHealing = false
+    let hasArmor = false
+    
+    allModels.forEach(model => {
+      const tags = model.extracted_tags || {}
+      const modelRoles = model.roles || []
+      const defTags = tags.defense_tags || []
+      
+      // Collect tags
+      ;(tags.conditions_applied || []).forEach(c => conditionsApplied.add(c))
+      ;(tags.conditions_required || []).forEach(c => conditionsRequired.add(c))
+      ;(tags.combat_tags || []).forEach(c => combatTags.add(c))
+      ;(tags.defense_tags || []).forEach(c => defenseTags.add(c))
+      modelRoles.forEach(r => roles.add(r))
+      
+      // Stats
+      if (model.defense) { totalDf += model.defense; modelCount++ }
+      if (model.willpower) totalWp += model.willpower
+      if (model.speed != null) totalSp += model.speed
+      
+      // Capabilities
+      if (modelRoles.includes('support')) hasHealing = true
+      if (defTags.includes('armor') || defTags.includes('damage_reduction')) hasArmor = true
+    })
+    
+    // Conditions player is WEAK to = all conditions minus ones they require/handle
+    const allConditions = ['burning', 'slow', 'poison', 'stunned', 'injured', 'staggered', 'distracted', 'shielded', 'focused']
+    const conditionsWeakTo = allConditions.filter(c => !conditionsRequired.has(c) && !conditionsApplied.has(c))
+    
+    const avgDf = modelCount > 0 ? totalDf / modelCount : 5
+    const avgWp = modelCount > 0 ? totalWp / modelCount : 5
+    const avgSp = modelCount > 0 ? totalSp / modelCount : 5
+    
+    return {
+      conditionsApplied: Array.from(conditionsApplied),
+      conditionsRequired: Array.from(conditionsRequired),
+      conditionsWeakTo,
+      combatTags: Array.from(combatTags),
+      defenseTags: Array.from(defenseTags),
+      roles: Array.from(roles),
+      avgDf,
+      avgWp,
+      avgSp,
+      lowestStat: avgWp < avgDf ? 'wp' : 'df',
+      hasHealing,
+      hasArmor,
+      isSlowCrew: avgSp < 5,
+      modelCount: allModels.length,
+    }
+  }, [selectedMaster, crewRoster])
+  
+  // Build keyword profile for a master's crew
+  const getKeywordProfile = useCallback((masterCard) => {
+    const keyword = masterCard.primary_keyword
+    if (!keyword) return null
+    
+    const keywordModels = cards.filter(c => 
+      c.card_type === 'Stat' &&
+      c.keywords?.some(k => !CREATURE_TYPES.has(k) && k === keyword)
+    )
+    
+    const profile = {
+      conditionsApplied: new Set(),
+      conditionsRequired: new Set(),
+      combatTags: new Set(),
+      defenseTags: new Set(),
+      roles: new Set(),
+    }
+    
+    keywordModels.forEach(m => {
+      const tags = m.extracted_tags || {}
+      ;(tags.conditions_applied || []).forEach(c => profile.conditionsApplied.add(c))
+      ;(tags.conditions_required || []).forEach(c => profile.conditionsRequired.add(c))
+      ;(tags.combat_tags || []).forEach(c => profile.combatTags.add(c))
+      ;(tags.defense_tags || []).forEach(c => profile.defenseTags.add(c))
+      ;(m.roles || []).forEach(r => profile.roles.add(r))
+    })
+    
+    return profile
+  }, [cards])
+  
+  // Generate a counter-crew based on player's crew weaknesses
+  const generateCounterCrew = useCallback(() => {
+    const playerProfile = analyzePlayerCrew()
+    if (!playerProfile) {
+      setCounterCrewReasoning(null)
+      return
+    }
+    
+    // Get all masters not in player's faction
+    const playerFaction = selectedMaster?.faction
+    const availableMasters = cards.filter(c => 
+      c.card_type === 'Stat' &&
+      (c.characteristics || []).includes('Master') &&
+      c.faction !== playerFaction &&
+      c.primary_keyword
+    )
+    
+    // Deduplicate masters by name
+    const uniqueMasters = []
+    const seenNames = new Set()
+    availableMasters.forEach(m => {
+      const baseName = m.name?.split(',')[0]
+      if (!seenNames.has(baseName)) {
+        seenNames.add(baseName)
+        uniqueMasters.push(m)
+      }
+    })
+    
+    // Difficulty settings
+    const difficultyConfig = {
+      'well-matched': { scoreMultiplier: 0.5, poolSize: 10, pickStrategy: 'random' },
+      'challenging': { scoreMultiplier: 1.0, poolSize: 5, pickStrategy: 'weighted' },
+      'strongest': { scoreMultiplier: 1.5, poolSize: 3, pickStrategy: 'top' },
+    }
+    const config = difficultyConfig[counterDifficulty] || difficultyConfig['challenging']
+    
+    // Score each master for counter-picking
+    const scoredMasters = uniqueMasters.map(master => {
+      const profile = getKeywordProfile(master)
+      if (!profile) return { master, score: 0, reasons: [] }
+      
+      let score = 0
+      const reasons = []
+      
+      // Does this keyword BENEFIT from conditions player applies?
+      const benefitsFrom = playerProfile.conditionsApplied.filter(c => 
+        profile.conditionsRequired.has(c)
+      )
+      if (benefitsFrom.length > 0) {
+        score += benefitsFrom.length * 15 * config.scoreMultiplier
+        reasons.push(`Benefits from ${benefitsFrom.join(', ')} you apply`)
+      }
+      
+      // Does this keyword APPLY conditions player is weak to?
+      const appliesWeakness = playerProfile.conditionsWeakTo.filter(c =>
+        profile.conditionsApplied.has(c)
+      )
+      if (appliesWeakness.length > 0) {
+        score += appliesWeakness.length * 12 * config.scoreMultiplier
+        reasons.push(`Applies ${appliesWeakness.join(', ')} you can't handle`)
+      }
+      
+      // Anti-armor if player has armor
+      if (playerProfile.hasArmor && 
+          (profile.combatTags.has('irreducible') || profile.combatTags.has('armor_piercing'))) {
+        score += 15 * config.scoreMultiplier
+        reasons.push('Irreducible/armor-piercing bypasses your armor')
+      }
+      
+      // Execute if player has healing
+      if (playerProfile.hasHealing && profile.combatTags.has('execute')) {
+        score += 10 * config.scoreMultiplier
+        reasons.push('Execute abilities counter your healing')
+      }
+      
+      // Target weak stat
+      if (playerProfile.lowestStat === 'wp' && profile.roles.has('control')) {
+        score += 8 * config.scoreMultiplier
+        reasons.push(`Your crew has low Wp (avg ${playerProfile.avgWp.toFixed(1)}) - Wp-targeting attacks hurt`)
+      }
+      
+      // Fast crew vs slow player
+      if (playerProfile.isSlowCrew && profile.roles.has('scheme_runner')) {
+        score += 8 * config.scoreMultiplier
+        reasons.push('Mobile crew can out-position your slower models')
+      }
+      
+      // Add random factor based on difficulty (more randomness = less optimal picks)
+      const randomFactor = counterDifficulty === 'well-matched' ? 15 : 
+                           counterDifficulty === 'strongest' ? 2 : 5
+      score += Math.random() * randomFactor
+      
+      return { master, score, reasons }
+    })
+    
+    // Sort by score and pick based on difficulty
+    scoredMasters.sort((a, b) => b.score - a.score)
+    const topMasters = scoredMasters.slice(0, config.poolSize).filter(m => m.score > 0)
+    
+    if (topMasters.length === 0) {
+      // Fallback: random master
+      const randomMaster = uniqueMasters[Math.floor(Math.random() * uniqueMasters.length)]
+      setOpponentFaction(randomMaster.faction)
+      setOpponentMaster(randomMaster)
+      setCounterCrewReasoning({
+        masterReason: 'Random selection (no specific counters found)',
+        difficulty: counterDifficulty,
+        highlights: []
+      })
+      return
+    }
+    
+    // Pick based on strategy
+    let selected
+    if (config.pickStrategy === 'top') {
+      // Strongest: always pick the best counter
+      selected = topMasters[0]
+    } else if (config.pickStrategy === 'random') {
+      // Well-matched: more random selection from larger pool
+      selected = topMasters[Math.floor(Math.random() * topMasters.length)]
+    } else {
+      // Challenging: weighted random from top contenders
+      const weights = topMasters.map((m, i) => Math.pow(0.6, i)) // 1, 0.6, 0.36, ...
+      const totalWeight = weights.reduce((a, b) => a + b, 0)
+      let random = Math.random() * totalWeight
+      let selectedIdx = 0
+      for (let i = 0; i < weights.length; i++) {
+        random -= weights[i]
+        if (random <= 0) {
+          selectedIdx = i
+          break
+        }
+      }
+      selected = topMasters[selectedIdx]
+    }
+    
+    // Set opponent faction and master (this triggers generateOpponentCrew via useEffect)
+    setOpponentFaction(selected.master.faction)
+    setOpponentMaster(selected.master)
+    
+    // Store reasoning
+    setCounterCrewReasoning({
+      masterName: selected.master.name,
+      masterReason: selected.reasons.length > 0 
+        ? selected.reasons[0] 
+        : 'Strong keyword for this matchup',
+      allReasons: selected.reasons,
+      difficulty: counterDifficulty,
+      playerProfile: {
+        conditionsApplied: playerProfile.conditionsApplied,
+        hasArmor: playerProfile.hasArmor,
+        hasHealing: playerProfile.hasHealing,
+        avgWp: playerProfile.avgWp.toFixed(1),
+        avgDf: playerProfile.avgDf.toFixed(1),
+      },
+      highlights: [] // Will be populated after crew is generated
+    })
+    
+  }, [analyzePlayerCrew, selectedMaster, cards, getKeywordProfile, counterDifficulty])
+
+  // ===========================================================================
   // CREW MATH - Comprehensive cost tracking with M4E hiring rules
-  // ═══════════════════════════════════════════════════════════════════════════════
+  // ===========================================================================
   
   const crewMath = useMemo(() => {
     if (!selectedMaster) {
@@ -963,11 +1382,11 @@ function App() {
     setCrewRoster([])
   }
 
-  // ═══════════════════════════════════════════════════════════════════════════════
+  // ===========================================================================
   // SUGGEST CREW - Auto-populate crew using objective scoring and heuristics
   // Priority: Strategy > Schemes, Diversity > Stacking, Target 44-46ss
   // ALWAYS fills to target - uses Versatile/OOK when keyword lacks objective fit
-  // ═══════════════════════════════════════════════════════════════════════════════
+  // ===========================================================================
   
   // Calculate keyword fit score for current objectives
   const keywordFitAnalysis = useMemo(() => {
@@ -1042,9 +1461,9 @@ function App() {
     }
   }, [selectedMaster, crewStrategy, crewSchemes, keywordModels, versatileModels, strategies, schemes])
   
-  // ═══════════════════════════════════════════════════════════════════════════════
+  // ===========================================================================
   // SYNERGY CALCULATOR - Reusable function for both player and opponent crews
-  // ═══════════════════════════════════════════════════════════════════════════════
+  // ===========================================================================
   const calculateCrewSynergies = useCallback((master, roster) => {
     if (!master || roster.length === 0) {
       return { synergies: [], antiSynergies: [], totalScore: 0, modelSynergyCounts: {} }
@@ -1068,7 +1487,7 @@ function App() {
         const idA = modelA.rosterId || modelA.opponentRosterId || modelA.id
         const idB = modelB.rosterId || modelB.opponentRosterId || modelB.id
         
-        // ═══ SYNERGY DETECTION ═══
+        // =========================================================================== SYNERGY DETECTION 
         
         // 1. Keyword synergies - model A's abilities reference model B's keyword
         const keywordA = modelA.primary_keyword || (modelA.keywords || [])[0]
@@ -1082,7 +1501,7 @@ function App() {
             direction: 'B_buffs_A',
             strength: 0.8,
             reason: `${modelB.name} buffs ${keywordA} models`,
-            icon: '🔗'
+            icon: '*'
           })
           modelSynergyCounts[idA].synergies++
           modelSynergyCounts[idB].synergies++
@@ -1096,7 +1515,7 @@ function App() {
             direction: 'A_buffs_B',
             strength: 0.8,
             reason: `${modelA.name} buffs ${keywordB} models`,
-            icon: '🔗'
+            icon: '*'
           })
           modelSynergyCounts[idA].synergies++
           modelSynergyCounts[idB].synergies++
@@ -1114,7 +1533,7 @@ function App() {
             direction: 'bidirectional',
             strength: 0.6,
             reason: `Share ${sharedKeywords[0]} keyword`,
-            icon: '👥'
+            icon: '*'
           })
           modelSynergyCounts[idA].synergies++
           modelSynergyCounts[idB].synergies++
@@ -1142,7 +1561,7 @@ function App() {
                     direction: 'bidirectional',
                     strength: 0.5,
                     reason: `${ROLE_DESCRIPTIONS[roleA]?.label || roleA} + ${ROLE_DESCRIPTIONS[roleB]?.label || roleB}`,
-                    icon: '⚡'
+                    icon: '*'
                   })
                   modelSynergyCounts[idA].synergies++
                   modelSynergyCounts[idB].synergies++
@@ -1168,7 +1587,7 @@ function App() {
               direction: 'bidirectional',
               strength: 0.7,
               reason: abilityData.reason,
-              icon: '🔥'
+              icon: '*'
             })
             modelSynergyCounts[idA].synergies++
             modelSynergyCounts[idB].synergies++
@@ -1188,7 +1607,7 @@ function App() {
               direction: 'A_supports_B',
               strength: charData.strength,
               reason: charData.reason,
-              icon: '✨'
+              icon: '*'
             })
             modelSynergyCounts[idA].synergies++
             modelSynergyCounts[idB].synergies++
@@ -1201,14 +1620,14 @@ function App() {
               direction: 'A_supports_B',
               strength: charData.strength,
               reason: charData.reason,
-              icon: '✨'
+              icon: '*'
             })
             modelSynergyCounts[idA].synergies++
             modelSynergyCounts[idB].synergies++
           }
         }
         
-        // 6. Resource generation → consumption synergy
+        // 6. Resource generation  consumption synergy
         const textA = getAbilityText(modelA)
         const textB = getAbilityText(modelB)
         
@@ -1226,7 +1645,7 @@ function App() {
               direction: 'A_feeds_B',
               strength: 0.75,
               reason: `${modelA.name} generates ${patterns.type} for ${modelB.name}`,
-              icon: '🔄'
+              icon: '*'
             })
             modelSynergyCounts[idA].synergies++
             modelSynergyCounts[idB].synergies++
@@ -1239,7 +1658,7 @@ function App() {
               direction: 'A_feeds_B',
               strength: 0.75,
               reason: `${modelB.name} generates ${patterns.type} for ${modelA.name}`,
-              icon: '🔄'
+              icon: '*'
             })
             modelSynergyCounts[idA].synergies++
             modelSynergyCounts[idB].synergies++
@@ -1253,7 +1672,7 @@ function App() {
               type: 'resource_competition',
               strength: 0.4,
               reason: `Both consume ${patterns.type} markers`,
-              icon: '⚠️'
+              icon: '*'
             })
             modelSynergyCounts[idA].antiSynergies++
             modelSynergyCounts[idB].antiSynergies++
@@ -1268,7 +1687,7 @@ function App() {
             type: 'activation_competition',
             strength: 0.3,
             reason: 'Multiple summoners compete for activations',
-            icon: '⚠️'
+            icon: '*'
           })
           modelSynergyCounts[idA].antiSynergies++
           modelSynergyCounts[idB].antiSynergies++
@@ -1510,7 +1929,7 @@ function App() {
   }
 
   // Render stars with colorblind-friendly styling
-  // Uses blue→purple→gold progression (safe for red-green colorblindness)
+  // Uses blue progression (safe for red-green colorblindness)
   const renderStars = (score, maxStars = 3) => {
     if (score <= 0) return null
     const displayScore = Math.min(score, maxStars)
@@ -1521,7 +1940,7 @@ function App() {
         className={`star-rating star-level-${levelClass}`}
         title={`Matches ${score} role(s) needed for your objectives`}
       >
-        {'★'.repeat(displayScore)}
+        {'*'.repeat(displayScore)}
       </span>
     )
   }
@@ -1574,9 +1993,9 @@ function App() {
     )
   }, [allCards])
   
-  // ═══════════════════════════════════════════════════════════════════════════════
+  // ===========================================================================
   // CREW CARD TEXT ANALYSIS - Extract and highlight relevant rules
-  // ═══════════════════════════════════════════════════════════════════════════════
+  // ===========================================================================
   const analyzeCrewCardText = useCallback((crewCard, hiredModels) => {
     if (!crewCard?.raw_text) return null
     
@@ -1686,6 +2105,128 @@ function App() {
     const allOppHired = [opponentMaster, ...opponentCrew]
     return analyzeCrewCardText(oppCrewCard, allOppHired)
   }, [opponentMaster, opponentCrew, getCrewCardForMaster, analyzeCrewCardText])
+  
+  // ===========================================================================
+  // CARD SYNERGIES - Find synergizing cards for any given card (used in modal)
+  // ===========================================================================
+  const getCardSynergies = useCallback((card) => {
+    if (!card) return { synergies: [], antiSynergies: [] }
+    
+    const synergies = []
+    const antiSynergies = []
+    const seenIds = new Set([card.id])
+    
+    const cardKeywords = card.keywords || []
+    const cardRoles = card.roles || []
+    const cardChars = card.characteristics || []
+    const cardAbilityText = getAbilityText(card)
+    const primaryKeyword = card.primary_keyword || cardKeywords[0]
+    
+    // Helper to add synergy if not duplicate
+    const addSynergy = (targetCard, type, strength, reason, icon) => {
+      if (seenIds.has(targetCard.id)) return
+      seenIds.add(targetCard.id)
+      synergies.push({ card: targetCard, type, strength, reason, icon })
+    }
+    
+    // Scan all cards for synergies
+    cards.forEach(other => {
+      if (other.id === card.id) return
+      
+      const otherKeywords = other.keywords || []
+      const otherRoles = other.roles || []
+      const otherChars = other.characteristics || []
+      const otherAbilityText = getAbilityText(other)
+      const otherPrimaryKeyword = other.primary_keyword || otherKeywords[0]
+      
+      // 1. SHARED KEYWORD - same keyword means designed to work together
+      const sharedKeywords = cardKeywords.filter(k => 
+        otherKeywords.includes(k) && k !== 'Versatile'
+      )
+      if (sharedKeywords.length > 0) {
+        addSynergy(other, 'shared_keyword', 0.8, `Shares ${sharedKeywords[0]} keyword`, '*')
+      }
+      
+      // 2. KEYWORD BUFF - other card's abilities reference this card's keyword
+      if (primaryKeyword && referencesKeyword(other, primaryKeyword)) {
+        addSynergy(other, 'keyword_buff', 0.9, `Buffs ${primaryKeyword} models`, '*')
+      }
+      
+      // 3. THIS CARD BUFFS OTHER - this card's abilities reference other's keyword  
+      if (otherPrimaryKeyword && referencesKeyword(card, otherPrimaryKeyword)) {
+        addSynergy(other, 'buffs_keyword', 0.85, `Benefits from ${card.name}'s buffs`, '*')
+      }
+      
+      // 4. ROLE COMPLEMENTARITY
+      for (const role of cardRoles) {
+        const synData = ROLE_SYNERGIES[role]
+        if (synData) {
+          for (const otherRole of otherRoles) {
+            if (synData.synergizes.includes(otherRole)) {
+              addSynergy(other, 'role_complement', 0.6, 
+                `${ROLE_DESCRIPTIONS[role]?.label || role} + ${ROLE_DESCRIPTIONS[otherRole]?.label || otherRole}`, '*')
+              break
+            }
+          }
+        }
+      }
+      
+      // 5. CHARACTERISTIC SYNERGY (Totem + Master, Effigy + Emissary)
+      for (const [charType, charData] of Object.entries(CHARACTERISTIC_SYNERGIES)) {
+        if (cardChars.includes(charType) && otherChars.includes(charData.synergizesWith)) {
+          addSynergy(other, 'characteristic', charData.strength, charData.reason, '*')
+        }
+        if (otherChars.includes(charType) && cardChars.includes(charData.synergizesWith)) {
+          addSynergy(other, 'characteristic', charData.strength, charData.reason, '*')
+        }
+      }
+      
+      // 6. ABILITY STACKING (Black Blood, etc.)
+      const cardAbilities = (card.abilities || []).map(a => (a.name || '').toLowerCase())
+      const otherAbilities = (other.abilities || []).map(a => (a.name || '').toLowerCase())
+      
+      for (const [abilityKey, abilityData] of Object.entries(ABILITY_SYNERGIES)) {
+        const hasCard = cardAbilities.some(a => a.includes(abilityKey.replace('_', ' ')))
+        const hasOther = otherAbilities.some(a => a.includes(abilityKey.replace('_', ' ')))
+        
+        if (hasCard && hasOther && abilityData.stacksWith?.includes(abilityKey)) {
+          addSynergy(other, 'ability_stack', 0.7, abilityData.reason, '*')
+        }
+      }
+      
+      // 7. RESOURCE FLOW - this card generates what other consumes (or vice versa)
+      for (const [resourceType, patterns] of Object.entries(RESOURCE_PATTERNS)) {
+        const cardGenerates = patterns.generators.some(p => cardAbilityText.includes(p.toLowerCase()))
+        const cardConsumes = patterns.consumers.some(p => new RegExp(p, 'i').test(cardAbilityText))
+        const otherGenerates = patterns.generators.some(p => otherAbilityText.includes(p.toLowerCase()))
+        const otherConsumes = patterns.consumers.some(p => new RegExp(p, 'i').test(otherAbilityText))
+        
+        if (cardGenerates && otherConsumes) {
+          addSynergy(other, 'resource_flow', 0.75, `Uses ${patterns.type} markers you create`, '*')
+        }
+        if (otherGenerates && cardConsumes) {
+          addSynergy(other, 'resource_flow', 0.75, `Creates ${patterns.type} markers you need`, '*')
+        }
+        
+        // Anti-synergy: both consume same resource
+        if (cardConsumes && otherConsumes && !cardGenerates && !otherGenerates) {
+          if (!antiSynergies.find(a => a.card.id === other.id)) {
+            antiSynergies.push({ 
+              card: other, 
+              type: 'resource_competition', 
+              reason: `Both compete for ${patterns.type} markers`,
+              icon: '*'
+            })
+          }
+        }
+      }
+    })
+    
+    // Sort by strength
+    synergies.sort((a, b) => b.strength - a.strength)
+    
+    return { synergies: synergies.slice(0, 12), antiSynergies: antiSynergies.slice(0, 4) }
+  }, [cards])
 
   // Helper to check if a model covers a requirement
   const modelCoversRequirement = (card, reqDef) => {
@@ -1866,9 +2407,9 @@ function App() {
   }, [selectedMaster, crewRoster, crewStrategy, crewSchemes, strategies, schemes, 
       keywordModels, versatileModels, remainingBudget])
 
-  // ═══════════════════════════════════════════════════════════════════════════════
+  // ===========================================================================
   // SCHEME COVERAGE ANALYSIS - Can your crew score EACH scheme in the pool?
-  // ═══════════════════════════════════════════════════════════════════════════════
+  // ===========================================================================
   const schemeCoverage = useMemo(() => {
     if (!selectedMaster || crewSchemes.length === 0) return []
     
@@ -1939,19 +2480,19 @@ function App() {
       
       if (count >= 3) {
         level = 'strong'
-        icon = '✓'
+        icon = '*'
         message = `${count} models can score this`
       } else if (count >= 2) {
         level = 'adequate'
-        icon = '○'
+        icon = '*'
         message = `${count} models - workable`
       } else if (count >= 1) {
         level = 'light'
-        icon = '⚠'
+        icon = '*'
         message = `Only ${count} model - risky`
       } else {
         level = 'missing'
-        icon = '✗'
+        icon = '*'
         message = 'No models can score this!'
       }
       
@@ -2025,6 +2566,39 @@ function App() {
       if (soulstoneFilter === 'yes' && !card.soulstone_cache) return false
       if (soulstoneFilter === 'no' && card.soulstone_cache) return false
       
+      // Station filter
+      if (stationFilter) {
+        const chars = card.characteristics || []
+        if (!chars.includes(stationFilter)) return false
+      }
+      
+      // Data issue filter (debug)
+      if (dataIssueFilter) {
+        const chars = card.characteristics || []
+        // Use the hireable field if present, otherwise fall back to station-based check
+        const isHireable = card.hireable !== undefined 
+          ? card.hireable 
+          : !['Master', 'Totem'].some(c => chars.includes(c))
+        const hasStation = ['Master', 'Henchman', 'Enforcer', 'Minion', 'Totem', 'Peon'].some(s => chars.includes(s))
+        
+        if (dataIssueFilter === 'missing_cost') {
+          if (!(card.cost == null && isHireable)) return false
+        } else if (dataIssueFilter === 'missing_chars') {
+          if (chars.length !== 0) return false
+        } else if (dataIssueFilter === 'missing_keywords') {
+          // Only show hireable cards without keywords
+          if (!(((!card.keywords || card.keywords.length === 0)) && card.hireable === true)) return false
+        } else if (dataIssueFilter === 'missing_station') {
+          if (!(chars.length > 0 && !hasStation)) return false
+        } else if (dataIssueFilter === 'any') {
+          const hasMissingCost = card.cost == null && isHireable
+          const hasMissingChars = chars.length === 0
+          const hasMissingKeywords = (!card.keywords || card.keywords.length === 0) && card.hireable === true
+          const hasMissingStation = chars.length > 0 && !hasStation
+          if (!hasMissingCost && !hasMissingChars && !hasMissingKeywords && !hasMissingStation) return false
+        }
+      }
+      
       return true
     }).map(card => {
       let objectiveScore = 0
@@ -2049,7 +2623,7 @@ function App() {
       return a.name.localeCompare(b.name)
     })
   }, [cards, search, faction, baseSize, cardType, minCost, maxCost, minHealth, maxHealth, 
-      soulstoneFilter, selectedSchemes, selectedStrategy, schemes, strategies])
+      soulstoneFilter, stationFilter, dataIssueFilter, selectedSchemes, selectedStrategy, schemes, strategies])
 
   // Filter objectives
   const filteredStrategies = useMemo(() => {
@@ -2071,19 +2645,26 @@ function App() {
   
   const openModal = (card, navigationList = null) => {
     setSelectedCard(card)
+    setSelectedVariant(card) // Start with the card itself as the variant
     setModalView('dual')
+    setModalImagesLoaded({ front: false, back: false })
     // Set navigation list - if provided, use it; otherwise default to filteredCards
     setModalNavigationList(navigationList || filteredCards)
   }
   
   const closeModal = () => {
     setSelectedCard(null)
+    setSelectedVariant(null)
     setModalNavigationList([])
+    setModalImagesLoaded({ front: false, back: false })
   }
 
   // Navigate between cards using the modal's navigation list
   const navigateCard = (direction) => {
     if (!selectedCard || modalNavigationList.length === 0) return
+    
+    // Reset loading state and variant for new card
+    setModalImagesLoaded({ front: false, back: false })
     
     // Find current card in navigation list (match by id or rosterId for crew cards)
     const currentIndex = modalNavigationList.findIndex(c => 
@@ -2091,14 +2672,13 @@ function App() {
     )
     if (currentIndex === -1) return
     
-    let newIndex
-    if (direction === 'next') {
-      newIndex = currentIndex + 1 >= modalNavigationList.length ? 0 : currentIndex + 1
-    } else {
-      newIndex = currentIndex - 1 < 0 ? modalNavigationList.length - 1 : currentIndex - 1
-    }
+    const newIndex = direction === 'next' 
+      ? (currentIndex + 1) % modalNavigationList.length
+      : (currentIndex - 1 + modalNavigationList.length) % modalNavigationList.length
     
-    setSelectedCard(modalNavigationList[newIndex])
+    const newCard = modalNavigationList[newIndex]
+    setSelectedCard(newCard)
+    setSelectedVariant(newCard) // Reset to primary variant
   }
 
   // Keyboard navigation
@@ -2231,8 +2811,8 @@ function App() {
               className="objective-chip strategy"
               onClick={() => setSelectedStrategy('')}
             >
-              ⚔ {strategies[selectedStrategy].name}
-              <span className="chip-remove">×</span>
+               {strategies[selectedStrategy].name}
+              <span className="chip-remove">*</span>
             </span>
           )}
           {selectedSchemes.map(schemeId => schemes[schemeId] && (
@@ -2241,8 +2821,8 @@ function App() {
               className="objective-chip scheme"
               onClick={() => toggleScheme(schemeId)}
             >
-              ◈ {schemes[schemeId].name}
-              <span className="chip-remove">×</span>
+               {schemes[schemeId].name}
+              <span className="chip-remove">*</span>
             </span>
           ))}
           <button className="clear-objectives" onClick={clearObjectives}>
@@ -2340,8 +2920,43 @@ function App() {
               onChange={e => setSoulstoneFilter(e.target.value)}
             >
               <option value="">Soulstone: All</option>
-              <option value="yes">✦ Soulstone Users</option>
+              <option value="yes">+ Soulstone Users</option>
               <option value="no">No Soulstone</option>
+            </select>
+            <select 
+              className="filter-select station-filter"
+              value={stationFilter}
+              onChange={e => setStationFilter(e.target.value)}
+            >
+              <option value="">All Stations</option>
+              <option value="Master">Master ({stationCounts.Master})</option>
+              <option value="Henchman">Henchman ({stationCounts.Henchman})</option>
+              <option value="Enforcer">Enforcer ({stationCounts.Enforcer})</option>
+              <option value="Minion">Minion ({stationCounts.Minion})</option>
+              <option value="Totem">Totem ({stationCounts.Totem})</option>
+              <option value="Peon">Peon ({stationCounts.Peon})</option>
+            </select>
+            <select 
+              className="filter-select data-issue-filter"
+              value={dataIssueFilter}
+              onChange={e => setDataIssueFilter(e.target.value)}
+            >
+              <option value="">! Data Issues</option>
+              {dataIssueCounts.any > 0 && (
+                <option value="any">Any Issue ({dataIssueCounts.any})</option>
+              )}
+              {dataIssueCounts.missing_cost > 0 && (
+                <option value="missing_cost">Missing Cost ({dataIssueCounts.missing_cost})</option>
+              )}
+              {dataIssueCounts.missing_chars > 0 && (
+                <option value="missing_chars">Missing Chars ({dataIssueCounts.missing_chars})</option>
+              )}
+              {dataIssueCounts.missing_keywords > 0 && (
+                <option value="missing_keywords">Missing Keywords ({dataIssueCounts.missing_keywords})</option>
+              )}
+              {dataIssueCounts.missing_station > 0 && (
+                <option value="missing_station">Missing Station ({dataIssueCounts.missing_station})</option>
+              )}
             </select>
             <span className="result-count">{filteredCards.length} cards</span>
           </div>
@@ -2371,16 +2986,37 @@ function App() {
                         {renderStars(card.objectiveScore)}
                       </div>
                     )}
+                    {/* Hover Stats Preview */}
                     {card.card_type === 'Stat' && (
-                      <div className="card-stats-overlay">
-                        {card.cost && <span className="stat-cost">{card.cost}</span>}
-                        {card.health && <span className="stat-health">♥{card.health}</span>}
+                      <div className="card-hover-stats">
+                        <div className="hover-stats-row">
+                          {card.defense && <span className="hover-stat core"><span className="hover-stat-val">{card.defense}</span><span className="hover-stat-lbl">Df</span></span>}
+                          {card.speed && <span className="hover-stat core"><span className="hover-stat-val">{card.speed}</span><span className="hover-stat-lbl">Sp</span></span>}
+                          {card.willpower && <span className="hover-stat core"><span className="hover-stat-val">{card.willpower}</span><span className="hover-stat-lbl">Wp</span></span>}
+                          {card.size && <span className="hover-stat core"><span className="hover-stat-val">{card.size}</span><span className="hover-stat-lbl">Sz</span></span>}
+                        </div>
+                        <div className="hover-stats-row secondary">
+                          {card.health && <span className="hover-stat health"><span className="hover-stat-val">{card.health}</span><span className="hover-stat-lbl">HP</span></span>}
+                          {card.soulstone_cache && <span className="hover-stat ss"><span className="hover-stat-val">*</span><span className="hover-stat-lbl">SS</span></span>}
+                        </div>
                       </div>
                     )}
                   </div>
                   <div className="card-info">
                     <div className="card-name">{card.name}</div>
                     <div className="card-faction">{card.faction}</div>
+                    {card.cost != null && (
+                      <span className="card-info-cost">{card.cost}ss</span>
+                    )}
+                    {/* Debug badges for data quality issues */}
+                    <div className="data-quality-badges">
+                      {card.cost == null && (card.hireable !== false) && !['Master', 'Totem'].some(c => (card.characteristics || []).includes(c)) && (
+                        <span className="debug-badge debug-no-cost" title="Missing cost data"> ! COST</span>
+                      )}
+                      {(!card.characteristics || card.characteristics.length === 0) && (
+                        <span className="debug-badge debug-no-char" title="Missing characteristics"> ! CHAR</span>
+                      )}
+                    </div>
                   </div>
                 </div>
               ))}
@@ -2404,7 +3040,7 @@ function App() {
               value={metaFaction}
               onChange={e => setMetaFaction(e.target.value)}
             >
-              <option value="">📊 Your Faction</option>
+              <option value="">Your Faction</option>
               {metaFactions.map(f => (
                 <option key={f} value={f}>{f} ({Math.round(FACTION_META[f].overall.win_rate * 100)}%)</option>
               ))}
@@ -2414,14 +3050,12 @@ function App() {
               value={opponentFaction}
               onChange={e => setOpponentFaction(e.target.value)}
             >
-              <option value="">👁️ Opponent</option>
+              <option value="">Opponent</option>
               {metaFactions.map(f => (
                 <option key={f} value={f}>{f} ({Math.round(FACTION_META[f].overall.win_rate * 100)}%)</option>
               ))}
             </select>
-            <span className="result-count">
-              {filteredSchemes.length} schemes • {filteredStrategies.length} strategies
-            </span>
+            <span className="result-count">*</span>
           </div>
 
           {/* Meta Recommendations Panel */}
@@ -2430,10 +3064,10 @@ function App() {
               <div className="meta-panel-header">
                 <h3>
                   {metaFaction && opponentFaction 
-                    ? `📊 ${metaFaction} vs ${opponentFaction}`
+                    ? ` ${metaFaction} vs ${opponentFaction}`
                     : metaFaction 
-                      ? `📊 ${metaFaction} Meta Insights`
-                      : `👁️ Scouting ${opponentFaction}`
+                      ? ` ${metaFaction} Meta Insights`
+                      : ` Scouting ${opponentFaction}`
                   }
                 </h3>
                 <span className="meta-faction-stats">
@@ -2442,7 +3076,7 @@ function App() {
                       You: {Math.round(FACTION_META[metaFaction].overall.win_rate * 100)}%
                     </span>
                   )}
-                  {metaFaction && opponentFaction && <span className="meta-stat-divider">•</span>}
+                  {metaFaction && opponentFaction && <span className="meta-stat-divider">*</span>}
                   {opponentFaction && (
                     <span className="meta-stat-opponent">
                       Opponent: {Math.round(FACTION_META[opponentFaction].overall.win_rate * 100)}%
@@ -2455,7 +3089,7 @@ function App() {
                 {metaFaction && (
                   <>
                     <div className="meta-rec-section">
-                      <span className="meta-rec-label">✓ Strong Schemes:</span>
+                      <span className="meta-rec-label">*</span>
                       <span className="meta-rec-items">
                         {Object.entries(FACTION_META[metaFaction].schemes_chosen)
                           .filter(([_, data]) => data.win_rate > FACTION_META[metaFaction].overall.win_rate + 0.03)
@@ -2470,7 +3104,7 @@ function App() {
                       </span>
                     </div>
                     <div className="meta-rec-section">
-                      <span className="meta-rec-label">✗ Weak Schemes:</span>
+                      <span className="meta-rec-label">*</span>
                       <span className="meta-rec-items">
                         {Object.entries(FACTION_META[metaFaction].schemes_chosen)
                           .filter(([_, data]) => data.win_rate < FACTION_META[metaFaction].overall.win_rate - 0.03)
@@ -2494,7 +3128,7 @@ function App() {
             {/* Strategies Section */}
             <section className="objectives-section">
               <h2 className="section-title">
-                <span className="section-icon">⚔</span>
+                <span className="section-icon">*</span>
                 Strategies
               </h2>
               <p className="section-desc">Select one strategy for the game</p>
@@ -2547,7 +3181,7 @@ function App() {
             {/* Schemes Section */}
             <section className="objectives-section">
               <h2 className="section-title">
-                <span className="section-icon">◈</span>
+                <span className="section-icon">*</span>
                 Schemes
               </h2>
               <p className="section-desc">Select up to two schemes ({selectedSchemes.length}/2)</p>
@@ -2611,9 +3245,9 @@ function App() {
 
       {viewMode === 'crew' && (
         <>
-          {/* ═══════════════════════════════════════════════════════════════════
+          {/* 
               STEP 1: ENCOUNTER SETUP - Strategy + Schemes Pool
-              ═══════════════════════════════════════════════════════════════════ */}
+               */}
           <div className="encounter-setup">
             <div className="step-indicator">
               <span className="step-number">1</span>
@@ -2653,7 +3287,7 @@ function App() {
                     }}
                     title="Randomly generate scheme pool (simulates flipping 3 scheme cards)"
                   >
-                    🎲 Random
+                     Random
                   </button>
                 </div>
                 <div className="scheme-chips">
@@ -2694,24 +3328,24 @@ function App() {
                 }}
                 title="Generate a complete random encounter (Strategy + 3 Schemes)"
               >
-                🎲 Generate Random Encounter
+                 Generate Random Encounter
               </button>
             </div>
           </div>
 
-          {/* ═══════════════════════════════════════════════════════════════════
+          {/* 
               A|B CREW COMPARISON - Side by Side
-              ═══════════════════════════════════════════════════════════════════ */}
+               */}
           <div className={`ab-comparison-layout ${!crewStrategy ? 'awaiting-step-1' : ''}`}>
             
-            {/* ═══ SIDE A: YOUR CREW ═══ */}
+            {/*  SIDE A: YOUR CREW  */}
             <div className="ab-side ab-side-a">
               <div className="step-indicator">
                 <span className="step-number">2</span>
                 <span className="step-label">BUILD</span>
               </div>
               <div className="ab-side-header your-side">
-                <h2>🔵 Your Crew</h2>
+                <h2> Your Crew</h2>
                 <div className="ab-side-budget">
                   {crewMath.totalCost}/{crewBudget}ss
                   {remainingBudget > 0 && <span className="remaining"> ({remainingBudget} left)</span>}
@@ -2721,14 +3355,14 @@ function App() {
               {/* 6ss Pool Cap Warning */}
               {remainingBudget > 6 && (
                 <div className="ab-ss-warning">
-                  ⚠ SS pool capped at 6 — <strong>{remainingBudget - 6}ss wasted!</strong>
+                    SS pool capped at 6  <strong>{remainingBudget - 6}ss wasted!</strong>
                 </div>
               )}
               
               {/* Optimal spending indicator */}
               {remainingBudget > 0 && remainingBudget <= 6 && crewRoster.length > 0 && (
                 <div className="ab-ss-optimal">
-                  ✓ {remainingBudget}ss → Soulstone Pool
+                   {remainingBudget}ss  Soulstone Pool
                 </div>
               )}
               
@@ -2737,7 +3371,7 @@ function App() {
                 <div className="master-picker">
                   <div className="master-picker-header">
                     <span>Select Your Master</span>
-                    <span className="master-picker-hint">Hover to preview • Click to lock in</span>
+                    <span className="master-picker-hint">*</span>
                   </div>
                   <input
                     type="text"
@@ -2812,9 +3446,7 @@ function App() {
               {selectedMaster && keywordFitAnalysis.warning && (crewStrategy || crewSchemes.length > 0) && (
                 <div className={`keyword-fit-warning ${keywordFitAnalysis.warning.level}`}>
                   <div className="keyword-fit-header">
-                    <span className="keyword-fit-icon">
-                      {keywordFitAnalysis.warning.level === 'severe' ? '⚠️' : '⚡'}
-                    </span>
+                    <span className="keyword-fit-icon">*</span>
                     <span className="keyword-fit-title">
                       Keyword Coverage: {keywordFitAnalysis.percentage}%
                     </span>
@@ -2840,7 +3472,7 @@ function App() {
                 </div>
               )}
               
-              {/* ═══ LEADER DISPLAY - Master + Crew Card Large ═══ */}
+              {/*  LEADER DISPLAY - Master + Crew Card Large  */}
               {selectedMaster && (
                 <div className="crew-leaders-display">
                   <div className="leader-card-large" onClick={() => openModal(selectedMaster, [selectedMaster, selectedCrewCard, ...crewRoster].filter(Boolean))}>
@@ -2925,7 +3557,7 @@ function App() {
                             )}
                             {synergyCount > 0 && (
                               <div className={`roster-card-synergy ${antiSynergyCount > 0 ? 'has-anti' : ''}`}>
-                                🔗{synergyCount}
+                                {synergyCount}
                               </div>
                             )}
                             <div className="roster-card-cost">{card.cost || 0}ss</div>
@@ -2933,7 +3565,7 @@ function App() {
                               className="ab-roster-remove"
                               onClick={(e) => { e.stopPropagation(); removeFromCrew(card.rosterId); }}
                             >
-                              ×
+                              x
                             </button>
                           </div>
                         )
@@ -2951,7 +3583,7 @@ function App() {
                     onClick={suggestCrew}
                     title="Auto-build crew based on selected objectives"
                   >
-                    ✨ Suggest Crew
+                     Suggest Crew
                   </button>
                   {crewRoster.length > 0 && (
                     <button className="ab-clear-btn" onClick={clearCrew}>Clear Crew</button>
@@ -2959,7 +3591,7 @@ function App() {
                 </div>
               )}
               
-              {/* ═══ SYNERGY PANEL - Collapsible ═══ */}
+              {/*  SYNERGY PANEL - Collapsible  */}
               {selectedMaster && crewRoster.length > 0 && (
                 <div className={`synergy-panel ${synergyPanelOpen ? 'open' : 'collapsed'}`}>
                   <div 
@@ -2967,16 +3599,14 @@ function App() {
                     onClick={() => setSynergyPanelOpen(!synergyPanelOpen)}
                   >
                     <span className="synergy-panel-title">
-                      🔗 Crew Synergies
+                       Crew Synergies
                       {crewSynergies.synergies.length > 0 && (
                         <span className="synergy-count-badge">
                           {crewSynergies.synergies.length}
                         </span>
                       )}
                     </span>
-                    <span className="synergy-panel-toggle">
-                      {synergyPanelOpen ? '▼' : '▶'}
-                    </span>
+                    <span className="synergy-panel-toggle">*</span>
                   </div>
                   
                   {synergyPanelOpen && (
@@ -2998,10 +3628,7 @@ function App() {
                               <div className="synergy-item-models">
                                 <span className="synergy-icon">{syn.icon}</span>
                                 <span className="synergy-model-name">{syn.modelA.name}</span>
-                                <span className="synergy-arrow">
-                                  {syn.direction === 'bidirectional' ? '↔' : 
-                                   syn.direction === 'A_buffs_B' || syn.direction === 'A_feeds_B' || syn.direction === 'A_supports_B' ? '→' : '←'}
-                                </span>
+                                <span className="synergy-arrow">*</span>
                                 <span className="synergy-model-name">{syn.modelB.name}</span>
                               </div>
                               <div className="synergy-item-reason">{syn.reason}</div>
@@ -3022,7 +3649,7 @@ function App() {
                       {/* Anti-Synergies Warning */}
                       {crewSynergies.antiSynergies.length > 0 && (
                         <div className="anti-synergy-list">
-                          <div className="anti-synergy-header">⚠️ Potential Conflicts</div>
+                          <div className="anti-synergy-header"> ! Potential Conflicts</div>
                           {crewSynergies.antiSynergies.map((anti, idx) => (
                             <div key={idx} className="anti-synergy-item">
                               <span className="anti-synergy-models">
@@ -3038,18 +3665,18 @@ function App() {
                 </div>
               )}
               
-              {/* ═══ CREW CARD RULES PANEL ═══ */}
+              {/*  CREW CARD RULES PANEL  */}
               {selectedCrewCard && crewCardAnalysis && (
                 <div className="crew-rules-panel">
                   <div className="crew-rules-header">
-                    <span className="crew-rules-title">📜 {selectedCrewCard.name}</span>
+                    <span className="crew-rules-title">*</span>
                     <span className="crew-rules-subtitle">Crew Card Rules</span>
                   </div>
                   
                   {crewCardAnalysis.activeRules.length > 0 && (
                     <div className="crew-rules-section active">
                       <div className="crew-rules-section-header">
-                        <span className="rules-status-icon">✓</span>
+                        <span className="rules-status-icon">*</span>
                         Active Rules ({crewCardAnalysis.activeRules.length})
                       </div>
                       {crewCardAnalysis.activeRules.slice(0, 5).map((rule, idx) => (
@@ -3069,7 +3696,7 @@ function App() {
                   {crewCardAnalysis.inactiveRules.length > 0 && (
                     <div className="crew-rules-section inactive">
                       <div className="crew-rules-section-header">
-                        <span className="rules-status-icon">○</span>
+                        <span className="rules-status-icon">*</span>
                         Unused Rules ({crewCardAnalysis.inactiveRules.length})
                       </div>
                       {crewCardAnalysis.inactiveRules.slice(0, 3).map((rule, idx) => (
@@ -3095,14 +3722,14 @@ function App() {
               )}
             </div>
             
-            {/* ═══ CENTER: MATCHUP INTEL ═══ */}
+            {/*  CENTER: MATCHUP INTEL  */}
             <div className="ab-intel-panel">
-              <h3>📊 Matchup Analysis</h3>
+              <h3> Matchup Analysis</h3>
               
               {/* Preview indicator when hovering */}
               {hoveredMaster && !selectedMaster && (
                 <div className="ab-intel-preview-badge">
-                  👁 Previewing: {hoveredMaster.name}
+                   Previewing: {hoveredMaster.name}
                 </div>
               )}
               
@@ -3176,10 +3803,10 @@ function App() {
                       schemeCoverage.filter(s => s.level === 'light').length > 0 ? 'has-risks' : 'all-good'
                     }`}>
                       {schemeCoverage.filter(s => s.level === 'missing').length > 0 
-                        ? `⚠ Cannot score ${schemeCoverage.filter(s => s.level === 'missing').length} scheme(s)!`
+                        ? `  Cannot score ${schemeCoverage.filter(s => s.level === 'missing').length} scheme(s)!`
                         : schemeCoverage.filter(s => s.level === 'light').length > 0
-                          ? `○ ${schemeCoverage.filter(s => s.level === 'light').length} scheme(s) at risk`
-                          : '✓ Good coverage on all schemes'
+                          ? ` ${schemeCoverage.filter(s => s.level === 'light').length} scheme(s) at risk`
+                          : '+ Good coverage on all schemes'
                       }
                     </div>
                   )}
@@ -3189,7 +3816,7 @@ function App() {
               {/* Crew Gaps Analysis */}
               {crewAnalysis.gaps.length > 0 && (
                 <div className="ab-intel-section ab-intel-gaps">
-                  <h4>⚠ Crew Gaps</h4>
+                  <h4>!  Crew Gaps</h4>
                   <ul>
                     {crewAnalysis.gaps.slice(0, 4).map((gap, i) => (
                       <li key={i}>Need: {gap.requirement}</li>
@@ -3201,7 +3828,7 @@ function App() {
               {/* All Good */}
               {crewAnalysis.gaps.length === 0 && crewAnalysis.objectives.length > 0 && (
                 <div className="ab-intel-section ab-intel-good">
-                  <span>✓ Crew covers objectives</span>
+                  <span>+ Crew covers objectives</span>
                 </div>
               )}
               
@@ -3212,17 +3839,64 @@ function App() {
               )}
             </div>
             
-            {/* ═══ SIDE B: OPPONENT CREW ═══ */}
+            {/* ========== */}
             <div className="ab-side ab-side-b">
               <div className="step-indicator optional">
                 <span className="step-number">3</span>
                 <span className="step-label">MATCHUP</span>
               </div>
               <div className="ab-side-header opponent-side">
-                <h2>🔴 Opponent</h2>
+                <h2>[B] Opponent</h2>
                 {opponentMaster && (
                   <div className="ab-side-budget">{opponentCrewCost}/50ss</div>
                 )}
+              </div>
+              
+              {/* Counter-Crew Generator Button */}
+              <div className="counter-crew-section">
+                <button 
+                  className={`counter-crew-btn ${(!selectedMaster || crewRoster.length === 0) ? 'disabled' : ''}`}
+                  onClick={generateCounterCrew}
+                  disabled={!selectedMaster || crewRoster.length === 0}
+                  title={!selectedMaster || crewRoster.length === 0 
+                    ? "Add models to your crew first" 
+                    : "Generate an opponent crew that counters your crew"}
+                >
+                   Build Counter-Crew
+                </button>
+                
+                {/* Difficulty Slider */}
+                <div className="difficulty-slider-container">
+                  <label className="difficulty-label">Difficulty:</label>
+                  <div className="difficulty-slider-wrapper">
+                    <input
+                      type="range"
+                      min="0"
+                      max="2"
+                      value={counterDifficulty === 'well-matched' ? 0 : counterDifficulty === 'challenging' ? 1 : 2}
+                      onChange={(e) => {
+                        const levels = ['well-matched', 'challenging', 'strongest']
+                        setCounterDifficulty(levels[parseInt(e.target.value)])
+                      }}
+                      className="difficulty-slider"
+                    />
+                    <div className="difficulty-labels">
+                      <span className={counterDifficulty === 'well-matched' ? 'active' : ''}>Well Matched</span>
+                      <span className={counterDifficulty === 'challenging' ? 'active' : ''}>Challenging</span>
+                      <span className={counterDifficulty === 'strongest' ? 'active' : ''}>Strongest</span>
+                    </div>
+                  </div>
+                </div>
+                
+                {(!selectedMaster || crewRoster.length === 0) && (
+                  <div className="counter-crew-hint">
+                    Add models to your crew to enable
+                  </div>
+                )}
+              </div>
+              
+              <div className="opponent-divider">
+                <span>-- or select manually --</span>
               </div>
               
               {/* Opponent Faction Selection */}
@@ -3232,6 +3906,7 @@ function App() {
                   onChange={e => {
                     setOpponentFaction(e.target.value)
                     setOpponentMaster(null)
+                    setCounterCrewReasoning(null) // Clear counter-crew reasoning on manual selection
                   }}
                   className="ab-master-dropdown opponent"
                 >
@@ -3250,6 +3925,7 @@ function App() {
                     onChange={e => {
                       const master = opponentMasters.find(m => m.id === e.target.value)
                       setOpponentMaster(master || null)
+                      setCounterCrewReasoning(null) // Clear counter-crew reasoning on manual selection
                     }}
                     className="ab-master-dropdown opponent"
                   >
@@ -3261,7 +3937,7 @@ function App() {
                 </div>
               )}
               
-              {/* ═══ OPPONENT LEADER DISPLAY - Master + Crew Card Large ═══ */}
+              {/*  OPPONENT LEADER DISPLAY - Master + Crew Card Large  */}
               {opponentMaster && (
                 <div className="crew-leaders-display opponent">
                   <div className="leader-card-large" onClick={() => openModal(opponentMaster, [opponentMaster, ...opponentCrew])}>
@@ -3341,7 +4017,7 @@ function App() {
                             )}
                             {synergyCount > 0 && (
                               <div className={`roster-card-synergy opponent ${antiSynergyCount > 0 ? 'has-anti' : ''}`}>
-                                🔗{synergyCount}
+                                {synergyCount}
                               </div>
                             )}
                             <div className="roster-card-cost">{card.cost || 0}ss</div>
@@ -3361,20 +4037,51 @@ function App() {
                     onClick={generateOpponentCrew}
                     title="Generate a different valid crew composition"
                   >
-                    🎲 Reroll Crew
+                     Reroll Crew
                   </button>
                   <div className="ab-opp-note">
-                    Simulated {opponentMaster.primary_keyword} crew • Not optimal, just plausible
+                    Simulated {opponentMaster.primary_keyword} crew - Not optimal, just plausible
                   </div>
                 </div>
               )}
               
-              {/* ═══ OPPONENT SYNERGY PANEL ═══ */}
+              {/* Counter-Crew Reasoning Display - Shows why this opponent was picked */}
+              {counterCrewReasoning && opponentMaster && (
+                <div className="counter-crew-reasoning">
+                  <div className="reasoning-header">
+                    <span className="reasoning-icon">*</span>
+                    <span className="reasoning-title">Counter Analysis</span>
+                    {counterCrewReasoning.difficulty && (
+                      <span className={`reasoning-difficulty ${counterCrewReasoning.difficulty}`}>
+                        {counterCrewReasoning.difficulty === 'well-matched' ? 'Well Matched' :
+                         counterCrewReasoning.difficulty === 'challenging' ? 'Challenging' : 'Strongest'}
+                      </span>
+                    )}
+                  </div>
+                  <div className="reasoning-content">
+                    <div className="reasoning-master">
+                      <strong>{counterCrewReasoning.masterName}</strong>
+                    </div>
+                    <div className="reasoning-main">
+                      {counterCrewReasoning.masterReason}
+                    </div>
+                    {counterCrewReasoning.allReasons?.length > 1 && (
+                      <ul className="reasoning-list">
+                        {counterCrewReasoning.allReasons.slice(1).map((reason, idx) => (
+                          <li key={idx}>{reason}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </div>
+              )}
+              
+              {/*  OPPONENT SYNERGY PANEL  */}
               {opponentMaster && opponentCrew.length > 0 && (
                 <div className="synergy-panel opponent">
                   <div className="synergy-panel-header">
                     <span className="synergy-panel-title">
-                      🔗 Opponent Synergies
+                       Opponent Synergies
                       {opponentCrewSynergies.synergies.length > 0 && (
                         <span className="synergy-count-badge">
                           {opponentCrewSynergies.synergies.length}
@@ -3393,9 +4100,7 @@ function App() {
                         <div key={idx} className="synergy-item compact">
                           <span className="synergy-icon">{syn.icon}</span>
                           <span className="synergy-model-name">{syn.modelA.name}</span>
-                          <span className="synergy-arrow">
-                            {syn.direction === 'bidirectional' ? '↔' : '→'}
-                          </span>
+                          <span className="synergy-arrow">*</span>
                           <span className="synergy-model-name">{syn.modelB.name}</span>
                         </div>
                       ))}
@@ -3410,28 +4115,26 @@ function App() {
                   {/* Anti-synergies */}
                   {opponentCrewSynergies.antiSynergies.length > 0 && (
                     <div className="synergy-panel-content compact anti">
-                      <span className="anti-synergy-note">
-                        ⚠️ {opponentCrewSynergies.antiSynergies.length} potential conflict(s)
-                      </span>
+                      <span className="anti-synergy-note">*</span>
                     </div>
                   )}
                 </div>
               )}
               
-              {/* ═══ OPPONENT CREW CARD RULES ═══ */}
+              {/*  OPPONENT CREW CARD RULES  */}
               {opponentMaster && opponentCrewCardAnalysis && (() => {
                 const oppCrewCard = getCrewCardForMaster(opponentMaster)
                 return oppCrewCard && (
                   <div className="crew-rules-panel opponent">
                     <div className="crew-rules-header">
-                      <span className="crew-rules-title">📜 {oppCrewCard.name}</span>
+                      <span className="crew-rules-title">*</span>
                       <span className="crew-rules-subtitle">Their Crew Rules</span>
                     </div>
                     
                     {opponentCrewCardAnalysis.activeRules.length > 0 && (
                       <div className="crew-rules-section active">
                         <div className="crew-rules-section-header">
-                          <span className="rules-status-icon">⚡</span>
+                          <span className="rules-status-icon">*</span>
                           Active ({opponentCrewCardAnalysis.activeRules.length})
                         </div>
                         {opponentCrewCardAnalysis.activeRules.slice(0, 3).map((rule, idx) => (
@@ -3450,9 +4153,9 @@ function App() {
             </div>
           </div>
 
-          {/* ═══════════════════════════════════════════════════════════════════
+          {/* 
               HIRING POOL - Available Models to Add
-              ═══════════════════════════════════════════════════════════════════ */}
+               */}
           {selectedMaster && (
             <div className="hiring-pool">
               <h2 className="hiring-pool-title">
@@ -3464,12 +4167,12 @@ function App() {
               {(crewStrategy || crewSchemes.length > 0) && (
                 <div className="scoring-legend">
                   <div className="scoring-legend-header">
-                    <span className="scoring-legend-icon">★</span>
+                    <span className="scoring-legend-icon">*</span>
                     <span className="scoring-legend-title">Objective Fit Score</span>
                   </div>
                   <p className="scoring-legend-explanation">
                     Stars indicate how well a model fits your selected objectives. 
-                    Each ★ means the model has a role that helps score your Strategy or Schemes.
+                    Each * means the model has a role that helps score your Strategy or Schemes.
                   </p>
                   {crewFavoredRoles.size > 0 && (
                     <div className="scoring-legend-roles">
@@ -3487,10 +4190,10 @@ function App() {
                     </div>
                   )}
                   <div className="scoring-legend-scale">
-                    <span className="score-example"><span className="stars star-level-excellent">★★★</span> Excellent fit</span>
-                    <span className="score-example"><span className="stars star-level-good">★★</span> Good fit</span>
-                    <span className="score-example"><span className="stars star-level-some">★</span> Some fit</span>
-                    <span className="score-example"><span className="stars dim">—</span> No match</span>
+                    <span className="score-example"><span className="stars star-level-excellent">*</span> Excellent fit</span>
+                    <span className="score-example"><span className="stars star-level-good">*</span> Good fit</span>
+                    <span className="score-example"><span className="stars star-level-some">*</span> Some fit</span>
+                    <span className="score-example"><span className="stars dim">*</span> No match</span>
                   </div>
                 </div>
               )}
@@ -3498,7 +4201,7 @@ function App() {
               {/* Badge Key */}
               <div className="hiring-badge-key">
                 <span className="badge-key-item">
-                  <span className="badge-key-icon hired">✓</span>
+                  <span className="badge-key-icon hired">*</span>
                   <span className="badge-key-label">In Crew</span>
                 </span>
                 <span className="badge-key-item">
@@ -3553,7 +4256,7 @@ function App() {
                           )}
                           {score > 0 && renderStars(score)}
                         </div>
-                        {inRoster && !isMinion && <div className="in-roster-badge">✓</div>}
+                        {inRoster && !isMinion && <div className="in-roster-badge">+</div>}
                         {atLimit && <div className="at-limit-badge">MAX</div>}
                       </div>
                     )
@@ -3606,7 +4309,7 @@ function App() {
                             )}
                             {score > 0 && renderStars(score)}
                           </div>
-                          {inRoster && !isMinion && <div className="in-roster-badge">✓</div>}
+                          {inRoster && !isMinion && <div className="in-roster-badge">+</div>}
                           {atLimit && <div className="at-limit-badge">MAX</div>}
                           {blockReason === 'ook-limit' && <div className="ook-limit-badge">OOK FULL</div>}
                         </div>
@@ -3620,9 +4323,9 @@ function App() {
         </>
       )}
 
-      {/* ═══════════════════════════════════════════════════════════════════════
+      {/* 
           ENHANCED CARD MODAL - Mobile-first dual card view
-          ═══════════════════════════════════════════════════════════════════════ */}
+           */}
       {selectedCard && (
         <div className="modal-overlay" onClick={closeModal}>
           <button 
@@ -3630,7 +4333,7 @@ function App() {
             onClick={(e) => { e.stopPropagation(); navigateCard('prev'); }}
             aria-label="Previous card"
           >
-            ‹
+            &lt;
           </button>
           
           <div className="modal card-detail-modal" onClick={e => e.stopPropagation()}>
@@ -3646,8 +4349,31 @@ function App() {
                   })()}
                 </span>
               )}
-              <button className="close-btn" onClick={closeModal}>×</button>
+              <button className="close-btn" onClick={closeModal}>x</button>
             </div>
+            
+            {/* Data Quality Debug Banner */}
+            {/* Only show MISSING COST for hireable models (not Masters, Totems, or summoned models) */}
+            {/* hireable flag is set by data pipeline - fall back to characteristics check if missing */}
+            {(() => {
+              const isHireable = selectedCard.hireable !== undefined 
+                ? selectedCard.hireable 
+                : !['Master', 'Totem'].some(c => (selectedCard.characteristics || []).includes(c));
+              const hasCostIssue = selectedCard.cost == null && isHireable;
+              const hasCharIssue = !selectedCard.characteristics || selectedCard.characteristics.length === 0;
+              
+              return (hasCostIssue || hasCharIssue) ? (
+              <div className="modal-debug-banner">
+                <span className="debug-banner-label">*</span>
+                {hasCostIssue && (
+                  <span className="debug-banner-item cost">Missing COST</span>
+                )}
+                {hasCharIssue && (
+                  <span className="debug-banner-item char">Missing CHARACTERISTICS</span>
+                )}
+              </div>
+            ) : null;
+            })()}
             
             <div className="card-detail-body">
               {/* View Mode Toggle */}
@@ -3675,79 +4401,134 @@ function App() {
               {/* Card Images - Dual view is the star! */}
               <div className={`card-images-container ${modalView}`}>
                 {(modalView === 'dual' || modalView === 'front') && (
-                  <div className="card-image-wrapper">
+                  <div className={`card-image-wrapper ${!modalImagesLoaded.front ? 'loading' : ''}`}>
+                    {!modalImagesLoaded.front && <div className="loading-spinner" />}
                     <img 
-                      className="detail-card-image"
-                      src={`${IMAGE_BASE}/${selectedCard.front_image}`}
+                      className={`detail-card-image ${modalImagesLoaded.front ? 'loaded' : ''}`}
+                      src={`${IMAGE_BASE}/${(selectedVariant || selectedCard).front_image}`}
                       alt={`${selectedCard.name} front`}
+                      onLoad={() => setModalImagesLoaded(prev => ({ ...prev, front: true }))}
                       onError={e => { 
                         e.target.onerror = null
-                        e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="420"><rect fill="%23333" width="300" height="420"/><text x="50%" y="50%" fill="%23666" text-anchor="middle" dy=".3em">No Image</text></svg>' 
+                        e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="420"><rect fill="%23333" width="300" height="420"/><text x="50%" y="50%" fill="%23666" text-anchor="middle" dy=".3em">No Image</text></svg>'
+                        setModalImagesLoaded(prev => ({ ...prev, front: true }))
                       }}
                     />
                   </div>
                 )}
-                {(modalView === 'dual' || modalView === 'back') && selectedCard.back_image && (
-                  <div className="card-image-wrapper">
+                {(modalView === 'dual' || modalView === 'back') && (selectedVariant || selectedCard).back_image && (
+                  <div className={`card-image-wrapper ${!modalImagesLoaded.back ? 'loading' : ''}`}>
+                    {!modalImagesLoaded.back && <div className="loading-spinner" />}
                     <img 
-                      className="detail-card-image"
-                      src={`${IMAGE_BASE}/${selectedCard.back_image}`}
+                      className={`detail-card-image ${modalImagesLoaded.back ? 'loaded' : ''}`}
+                      src={`${IMAGE_BASE}/${(selectedVariant || selectedCard).back_image}`}
                       alt={`${selectedCard.name} back`}
+                      onLoad={() => setModalImagesLoaded(prev => ({ ...prev, back: true }))}
                       onError={e => { 
                         e.target.onerror = null
-                        e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="420"><rect fill="%23333" width="300" height="420"/><text x="50%" y="50%" fill="%23666" text-anchor="middle" dy=".3em">No Image</text></svg>' 
+                        e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="420"><rect fill="%23333" width="300" height="420"/><text x="50%" y="50%" fill="%23666" text-anchor="middle" dy=".3em">No Image</text></svg>'
+                        setModalImagesLoaded(prev => ({ ...prev, back: true }))
                       }}
                     />
                   </div>
                 )}
               </div>
 
-              {/* Quick Stats Bar - Always visible */}
+              {/* Quick Stats Bar - Always visible, BEFORE variant picker */}
               <div className="quick-stats-bar">
+                {/* Cost - Left side, visually distinct */}
                 {selectedCard.cost != null && (
-                  <div className="quick-stat">
+                  <div className="quick-stat cost-stat">
                     <span className="quick-stat-value">{selectedCard.cost}</span>
                     <span className="quick-stat-label">Cost</span>
                   </div>
                 )}
-                {selectedCard.defense && (
-                  <div className="quick-stat">
-                    <span className="quick-stat-value">{selectedCard.defense}</span>
-                    <span className="quick-stat-label">Df</span>
-                  </div>
-                )}
-                {selectedCard.willpower && (
-                  <div className="quick-stat">
-                    <span className="quick-stat-value">{selectedCard.willpower}</span>
-                    <span className="quick-stat-label">Wp</span>
-                  </div>
-                )}
-                {selectedCard.speed && (
-                  <div className="quick-stat">
-                    <span className="quick-stat-value">{selectedCard.speed}</span>
-                    <span className="quick-stat-label">Mv</span>
-                  </div>
-                )}
-                {selectedCard.health && (
-                  <div className="quick-stat health">
-                    <span className="quick-stat-value">{selectedCard.health}</span>
-                    <span className="quick-stat-label">HP</span>
-                  </div>
-                )}
-                {selectedCard.soulstone_cache && (
-                  <div className="quick-stat soulstone">
-                    <span className="quick-stat-value">✦</span>
-                    <span className="quick-stat-label">SS</span>
-                  </div>
-                )}
+                
+                {/* Main 4 Stats - DF, SP, WP, SZ */}
+                <div className="core-stats-group">
+                  {selectedCard.defense && (
+                    <div className="quick-stat core-stat">
+                      <span className="quick-stat-value">{selectedCard.defense}</span>
+                      <span className="quick-stat-label">Df</span>
+                    </div>
+                  )}
+                  {selectedCard.speed && (
+                    <div className="quick-stat core-stat">
+                      <span className="quick-stat-value">{selectedCard.speed}</span>
+                      <span className="quick-stat-label">Sp</span>
+                    </div>
+                  )}
+                  {selectedCard.willpower && (
+                    <div className="quick-stat core-stat">
+                      <span className="quick-stat-value">{selectedCard.willpower}</span>
+                      <span className="quick-stat-label">Wp</span>
+                    </div>
+                  )}
+                  {selectedCard.size && (
+                    <div className="quick-stat core-stat">
+                      <span className="quick-stat-value">{selectedCard.size}</span>
+                      <span className="quick-stat-label">Sz</span>
+                    </div>
+                  )}
+                </div>
+                
+                {/* Resource Stats - HP, SS */}
+                <div className="resource-stats-group">
+                  {selectedCard.health && (
+                    <div className="quick-stat health">
+                      <span className="quick-stat-value">{selectedCard.health}</span>
+                      <span className="quick-stat-label">HP</span>
+                    </div>
+                  )}
+                  {selectedCard.soulstone_cache && (
+                    <div className="quick-stat soulstone">
+                      <span className="quick-stat-value">*</span>
+                      <span className="quick-stat-label">SS</span>
+                    </div>
+                  )}
+                </div>
               </div>
+              
+              {/* Variant Art Picker - Show when multiple variants exist, AFTER stats */}
+              {(() => {
+                const variants = getCardVariants(selectedCard)
+                if (variants.length <= 1) return null
+                
+                return (
+                  <div className="variant-picker">
+                    <div className="variant-picker-label">
+                      <span className="variant-icon">*</span>
+                      Art Variants ({variants.length})
+                    </div>
+                    <div className="variant-thumbnails">
+                      {variants.map((variant, idx) => (
+                        <button
+                          key={variant.id || idx}
+                          className={`variant-thumb ${(selectedVariant || selectedCard).id === variant.id ? 'active' : ''}`}
+                          onClick={() => {
+                            setSelectedVariant(variant)
+                            setModalImagesLoaded({ front: false, back: false })
+                          }}
+                          title={`Variant ${variant.variant || 'A'}`}
+                        >
+                          <img 
+                            src={`${IMAGE_BASE}/${variant.front_image}`}
+                            alt={`Variant ${variant.variant || 'A'}`}
+                          />
+                          <span className="variant-letter">{variant.variant || 'A'}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )
+              })()}
 
               {/* Collapsible Data Sections */}
               <div className="card-data-sections">
                 {/* Identity Section */}
                 <details className="data-section" open>
                   <summary className="data-section-header">
-                    <span className="section-icon">📋</span>
+                    <span className="section-icon">*</span>
                     Identity
                   </summary>
                   <div className="data-section-content">
@@ -3778,7 +4559,7 @@ function App() {
                 {selectedCard.characteristics?.length > 0 && (
                   <details className="data-section" open>
                     <summary className="data-section-header">
-                      <span className="section-icon">🏷️</span>
+                      <span className="section-icon">*</span>
                       Characteristics
                     </summary>
                     <div className="data-section-content">
@@ -3797,7 +4578,7 @@ function App() {
                 {selectedCard.keywords?.length > 0 && (
                   <details className="data-section" open>
                     <summary className="data-section-header">
-                      <span className="section-icon">🔑</span>
+                      <span className="section-icon">*</span>
                       Keywords
                     </summary>
                     <div className="data-section-content">
@@ -3814,14 +4595,14 @@ function App() {
                 {selectedCard.roles?.length > 0 && (
                   <details className="data-section" open>
                     <summary className="data-section-header">
-                      <span className="section-icon">🎭</span>
+                      <span className="section-icon">*</span>
                       Roles
                     </summary>
                     <div className="data-section-content">
                       <div className="tag-list">
                         {selectedCard.roles.map(r => (
                           <span key={r} className="detail-tag role">
-                            {ROLE_DESCRIPTIONS[r]?.icon || '•'} {ROLE_DESCRIPTIONS[r]?.label || r}
+                            {ROLE_DESCRIPTIONS[r]?.icon || '-'} {ROLE_DESCRIPTIONS[r]?.label || r}
                           </span>
                         ))}
                       </div>
@@ -3833,7 +4614,7 @@ function App() {
                 {getRelatedModels(selectedCard).length > 0 && (
                   <details className="data-section">
                     <summary className="data-section-header">
-                      <span className="section-icon">🔗</span>
+                      <span className="section-icon">*</span>
                       Keyword Family ({getRelatedModels(selectedCard).length})
                     </summary>
                     <div className="data-section-content">
@@ -3854,20 +4635,67 @@ function App() {
                   </details>
                 )}
 
-                {/* Synergies Placeholder - Future Feature */}
-                <details className="data-section synergies-placeholder">
-                  <summary className="data-section-header">
-                    <span className="section-icon">⚡</span>
-                    Synergies
-                    <span className="coming-soon-badge">Coming Soon</span>
-                  </summary>
-                  <div className="data-section-content">
-                    <p className="placeholder-text">
-                      Synergy analysis will show which models work well together based on 
-                      abilities, auras, and keyword interactions.
-                    </p>
-                  </div>
-                </details>
+                {/* Card Synergies - Real Implementation */}
+                {(() => {
+                  const cardSyns = getCardSynergies(selectedCard)
+                  return (
+                    <details className="data-section card-synergies-section" open={cardSyns.synergies.length > 0}>
+                      <summary className="data-section-header">
+                        <span className="section-icon">*</span>
+                        Synergies
+                        {cardSyns.synergies.length > 0 && (
+                          <span className="synergy-count">{cardSyns.synergies.length}</span>
+                        )}
+                      </summary>
+                      <div className="data-section-content">
+                        {cardSyns.synergies.length > 0 ? (
+                          <>
+                            <div className="card-synergies-grid">
+                              {cardSyns.synergies.map((syn, idx) => (
+                                <div 
+                                  key={idx} 
+                                  className="synergy-card-item"
+                                  onClick={(e) => {
+                                    e.stopPropagation()
+                                    setSelectedCard(syn.card)
+                                  }}
+                                >
+                                  <div className="synergy-card-img-wrap">
+                                    <img 
+                                      src={`${IMAGE_BASE}/${syn.card.front_image}`}
+                                      alt={syn.card.name}
+                                      className="synergy-card-img"
+                                    />
+                                    <span className="synergy-type-icon">{syn.icon}</span>
+                                  </div>
+                                  <div className="synergy-card-info">
+                                    <span className="synergy-card-name">{syn.card.name}</span>
+                                    <span className="synergy-card-reason">{syn.reason}</span>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                            {cardSyns.antiSynergies.length > 0 && (
+                              <div className="anti-synergies-section">
+                                <div className="anti-synergies-header"> ! Potential Conflicts</div>
+                                {cardSyns.antiSynergies.map((anti, idx) => (
+                                  <div key={idx} className="anti-synergy-card-item">
+                                    <span className="anti-synergy-name">{anti.card.name}</span>
+                                    <span className="anti-synergy-reason">{anti.reason}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+                          </>
+                        ) : (
+                          <p className="no-synergies-text">
+                            No strong synergies detected. This model may work independently or with any crew.
+                          </p>
+                        )}
+                      </div>
+                    </details>
+                  )
+                })()}
               </div>
             </div>
           </div>
@@ -3877,7 +4705,7 @@ function App() {
             onClick={(e) => { e.stopPropagation(); navigateCard('next'); }}
             aria-label="Next card"
           >
-            ›
+            &gt;
           </button>
         </div>
       )}
@@ -3888,12 +4716,10 @@ function App() {
           <div className="modal objective-modal" onClick={e => e.stopPropagation()}>
             <div className="modal-header">
               <h2>
-                <span className="objective-type-icon">
-                  {selectedObjective.card_type === 'strategy' ? '⚔' : '◈'}
-                </span>
+                <span className="objective-type-icon">*</span>
                 {selectedObjective.name}
               </h2>
-              <button className="close-btn" onClick={closeObjectiveModal}>×</button>
+              <button className="close-btn" onClick={closeObjectiveModal}>x</button>
             </div>
             <div className="objective-modal-body">
               <div className="objective-vp-display">
@@ -3920,11 +4746,11 @@ function App() {
                         : getSchemeMeta(metaFaction, selectedObjective.name)
                       return (
                         <div className="meta-faction-block you">
-                          <span className="meta-faction-label">📊 {metaFaction}</span>
+                          <span className="meta-faction-label">*</span>
                           {meta ? (
                             <div className="meta-detail">
                               <span className={`meta-rating ${meta.rating}`}>
-                                {meta.rating === 'strong' ? '✓ Strong' : meta.rating === 'weak' ? '✗ Weak' : '~ Neutral'}
+                                {meta.rating === 'strong' ? '<->' : meta.rating === 'weak' ? '<->' : '~ Neutral'}
                               </span>
                               <span className="meta-stats">
                                 {Math.round(meta.winRate * 100)}% ({meta.games}g)
@@ -3947,11 +4773,11 @@ function App() {
                         : getSchemeMeta(opponentFaction, selectedObjective.name)
                       return (
                         <div className="meta-faction-block opponent">
-                          <span className="meta-faction-label">👁️ {opponentFaction}</span>
+                          <span className="meta-faction-label">*</span>
                           {meta ? (
                             <div className="meta-detail">
                               <span className={`meta-rating ${meta.rating}`}>
-                                {meta.rating === 'strong' ? '✓ Strong' : meta.rating === 'weak' ? '✗ Weak' : '~ Neutral'}
+                                {meta.rating === 'strong' ? '<->' : meta.rating === 'weak' ? '<->' : '~ Neutral'}
                               </span>
                               <span className="meta-stats">
                                 {Math.round(meta.winRate * 100)}% ({meta.games}g)
@@ -4020,22 +4846,22 @@ function App() {
                 <h3>Requirements Analysis</h3>
                 <div className="requirements-grid">
                   {selectedObjective.requires_killing && (
-                    <div className="req-item active">⚔ Requires Killing</div>
+                    <div className="req-item active"> Requires Killing</div>
                   )}
                   {selectedObjective.requires_scheme_markers && (
-                    <div className="req-item active">📍 Scheme Markers</div>
+                    <div className="req-item active"> Scheme Markers</div>
                   )}
                   {selectedObjective.requires_strategy_markers && (
-                    <div className="req-item active">🎯 Strategy Markers</div>
+                    <div className="req-item active"> Strategy Markers</div>
                   )}
                   {selectedObjective.requires_positioning && (
-                    <div className="req-item active">📐 Positioning</div>
+                    <div className="req-item active"> Positioning</div>
                   )}
                   {selectedObjective.requires_terrain && (
-                    <div className="req-item active">🏔 Terrain</div>
+                    <div className="req-item active"> Terrain</div>
                   )}
                   {selectedObjective.requires_interact && (
-                    <div className="req-item active">👆 Interact Actions</div>
+                    <div className="req-item active"> Interact Actions</div>
                   )}
                 </div>
               </section>
@@ -4077,8 +4903,8 @@ function App() {
                   }}
                 >
                   {selectedObjective.card_type === 'strategy'
-                    ? (selectedStrategy === selectedObjective.id ? '✓ Strategy Selected' : 'Select Strategy')
-                    : (selectedSchemes.includes(selectedObjective.id) ? '✓ Scheme Selected' : 'Select Scheme')
+                    ? (selectedStrategy === selectedObjective.id ? '<->' : 'Select Strategy')
+                    : (selectedSchemes.includes(selectedObjective.id) ? '<->' : 'Select Scheme')
                   }
                 </button>
               </div>

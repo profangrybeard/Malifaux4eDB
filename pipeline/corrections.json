@@ -1,0 +1,28 @@
+{
+  "_comment": "Malifaux 4E Card Corrections - Persistent fixes that survive rebuilds",
+  "_usage": "Place this file in pipeline/ and it will be applied by fix_cards.py",
+  
+  "keyword_renames": {
+    "Witch Hunter": "Witch-Hunter",
+    "Big Hat": "Big-Hat",
+    "Tri Chi": "Tri-Chi",
+    "Wizz Bang": "Wizz-Bang"
+  },
+  
+  "keyword_additions": {
+    "lenny-jones": ["Big-Hat"],
+    "banjonista": ["Big-Hat"],
+    "good-ol-boy": ["Big-Hat"],
+    "catfish": ["Swampfiend"],
+    "spelunker": ["Explorer"]
+  },
+  
+  "keyword_removals": {
+  },
+  
+  "card_overrides": {
+  },
+  
+  "missing_cards": [
+  ]
+}

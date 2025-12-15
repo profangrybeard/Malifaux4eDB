@@ -137,6 +137,23 @@ class MalifauxCardParser:
         'f': 'focus',  # Focus/concentrate
     }
     
+    # Canonical keyword forms - normalize all variants to these
+    KEYWORD_CANONICAL = {
+        'big hat': 'Big-Hat',
+        'big-hat': 'Big-Hat',
+        'witch hunter': 'Witch-Hunter',
+        'witch-hunter': 'Witch-Hunter',
+        'tri chi': 'Tri-Chi',
+        'tri-chi': 'Tri-Chi',
+        'qi and gong': 'Qi and Gong',
+        'last blossom': 'Last Blossom',
+        'star theater': 'Star Theater',
+        'ten thunders': 'Ten Thunders',
+        "explorer's society": "Explorer's Society",
+        'wizz-bang': 'Wizz-Bang',
+        'wizz bang': 'Wizz-Bang',
+    }
+    
     # Common keywords in Malifaux
     COMMON_KEYWORDS = [
         'Versatile', 'Unique', 'Totem', 'Enforcer', 'Minion', 'Henchman', 'Master',
@@ -250,6 +267,55 @@ class MalifauxCardParser:
                 i += 1
         return ''.join(result)
     
+    def undouble_number(self, doubled: str) -> Optional[int]:
+        """
+        Convert doubled OCR number to actual value.
+        "66" -> 6, "1100" -> 10, "1177" -> 17
+        """
+        if not doubled:
+            return None
+        doubled = doubled.strip()
+        
+        if len(doubled) == 2 and doubled[0] == doubled[1]:
+            return int(doubled[0])
+        elif len(doubled) == 4 and doubled[0] == doubled[1] and doubled[2] == doubled[3]:
+            return int(doubled[0] + doubled[2])
+        try:
+            return int(doubled)
+        except:
+            return None
+
+    def extract_cost_improved(self, text: str) -> Optional[int]:
+        """
+        Extract cost from raw OCR text.
+        
+        The cost is ALWAYS on line 0 as a doubled number:
+            Line 0: "99"   -> cost = 9
+            Line 0: "1100" -> cost = 11
+            Line 0: "--"   -> no cost (Masters/Totems/Summoned)
+        
+        IMPORTANT: Do NOT look for numbers after CCOOSSTT - that grabs
+        the Defense stat instead! The cost is always on line 0.
+        """
+        if not text:
+            return None
+        
+        lines = text.split('\n')
+        if not lines:
+            return None
+        
+        line0 = lines[0].strip()
+        
+        # Check for dash at start (Masters/Totems have no cost)
+        if line0 == '--' or line0.startswith('--'):
+            return None
+        
+        # Cost is ALWAYS on line 0 as a doubled number
+        if re.match(r'^\d{2,4}$', line0):
+            return self.undouble_number(line0)
+        
+        return None
+
     def extract_stats_from_page1(self, text: str) -> dict:
         """Extract stats from front of card (page 1)."""
         stats = {
@@ -260,21 +326,8 @@ class MalifauxCardParser:
             'size': None,
         }
         
-        # The PDF has doubled text like "1100" for "10" and "55 77" for "5 7"
-        # Look for the raw doubled patterns first
-        
-        # Cost appears as doubled digits followed by COST (e.g., "1100" = 10, "88" = 8)
-        cost_match = re.search(r'(\d{2,4})\s*\n.*?CCOOSSTT|(\d{2,4})\s*CCOOSSTT', text)
-        if cost_match:
-            doubled = cost_match.group(1) or cost_match.group(2)
-            # Undouble: "1100" -> "10", "88" -> "8"
-            stats['cost'] = int(self.clean_doubled_text(doubled))
-        else:
-            # Fallback to cleaned text
-            cleaned = self.clean_doubled_text(text)
-            cost_match2 = re.search(r'(\d+)\s*COST|COST\s*(\d+)', cleaned, re.IGNORECASE)
-            if cost_match2:
-                stats['cost'] = int(cost_match2.group(1) or cost_match2.group(2))
+        # Use improved cost extraction that handles both OCR layouts
+        stats['cost'] = self.extract_cost_improved(text)
         
         # Stats appear as "55 77" on one line then "DDFF SSPP" on next
         # Pattern: two doubled numbers, then DF SP labels
@@ -371,6 +424,101 @@ class MalifauxCardParser:
             return int(match.group(1))
         return None
     
+    def extract_characteristics_improved(self, text: str) -> tuple:
+        """
+        Extract characteristics from the keyword section of the card.
+        Handles OCR doubling and text split across lines.
+        
+        Characteristics include:
+        - Station: Master, Henchman, Enforcer, Minion, Totem, Peon
+        - Creature type: Living, Undead, Construct, Beast, Spirit, Nightmare, etc.
+        - Special: Unique
+        
+        Returns: (characteristics list, minion_limit or None)
+        """
+        characteristics = []
+        minion_limit = None
+        
+        # Find the keyword section - between SSZZ and first ability
+        lines = text.split('\n')
+        
+        keyword_section = ''
+        in_section = False
+        
+        for line in lines:
+            # Start capturing after SSZZ (Size stat label)
+            if 'SSZZ' in line or 'SZ' in line.upper():
+                in_section = True
+                continue
+            
+            # Stop at ability text (contains colon with description)
+            if in_section and ':' in line and len(line) > 20:
+                break
+            
+            if in_section:
+                keyword_section += line + ' '
+        
+        # Fallback: use first 300 chars if SSZZ not found
+        if not keyword_section:
+            keyword_section = text[:300]
+        
+        # Compress text for pattern matching (remove spaces/newlines)
+        text_compressed = keyword_section.replace('\n', '').replace(' ', '').lower()
+        
+        # Characteristic patterns (doubled OCR, allowing some garbage between)
+        # Includes both STATION types and CREATURE types
+        char_patterns = [
+            # Station types
+            ('Minion', r'mm.{0,4}iinn.{0,4}iioonn'),
+            ('Minion', r'iinniioonn'),
+            ('Master', r'mmaasstteerr'),
+            ('Henchman', r'hheenncchhmmaa'),
+            ('Enforcer', r'eennffoorrcceerr'),
+            ('Totem', r'ttootteemm'),
+            ('Unique', r'uunniiqquuee'),
+            ('Unique', r'uu.{0,4}nniiqq.{0,4}uuee'),
+            ('Peon', r'ppeeoonn'),
+            # Creature types (these appear BEFORE the • on card)
+            ('Living', r'lliivviinngg'),
+            ('Undead', r'uunnddeeaadd'),
+            ('Construct', r'ccoonnssttrruucctt'),
+            ('Beast', r'bbeeaasstt'),
+            ('Spirit', r'ssppiirriitt'),
+            ('Nightmare', r'nniigghhttmmaarree'),
+            ('Tyrant', r'ttyyrraa'),
+            ('Elemental', r'eelleemmeennttaall'),
+        ]
+        
+        for char_name, pattern in char_patterns:
+            if re.search(pattern, text_compressed):
+                if char_name not in characteristics:
+                    characteristics.append(char_name)
+        
+        # Also check undoubled version
+        text_undoubled = re.sub(r'(.)\1', r'\1', text_compressed)
+        # Station types
+        for char in ['master', 'henchman', 'enforcer', 'minion', 'totem', 'unique', 'peon']:
+            title = char.title()
+            if title not in characteristics and char in text_undoubled:
+                characteristics.append(title)
+        # Creature types
+        for char in ['living', 'undead', 'construct', 'beast', 'spirit', 'nightmare', 'tyrant', 'elemental']:
+            title = char.title()
+            if title not in characteristics and char in text_undoubled:
+                characteristics.append(title)
+        
+        # Extract minion/peon limit from ((X)) pattern
+        limit_match = re.search(r'\(\((\d)\d\)\)', text)
+        if limit_match:
+            minion_limit = int(limit_match.group(1))
+        else:
+            # Try cleaned pattern
+            limit_match2 = re.search(r'[Mm]inion\s*\((\d+)\)', text)
+            if limit_match2:
+                minion_limit = int(limit_match2.group(1))
+        
+        return characteristics, minion_limit
+
     def extract_keywords(self, text: str) -> tuple:
         """Extract keywords, characteristics, and minion limit from card text."""
         keywords = []
@@ -397,64 +545,53 @@ class MalifauxCardParser:
         # Full text for fallback (but avoid ability descriptions)
         full_text = keyword_section + " " + raw_keyword_section.replace('\n', ' ')
         
-        # Look for Minion(X) pattern
-        minion_match = re.search(r'Minion\s*\((\d+)\)', full_text, re.IGNORECASE)
-        if minion_match:
-            minion_limit = int(minion_match.group(1))
-            characteristics.append('Minion')
-        # Also check for doubled pattern: "MMiinniioonn ((33))" or split across lines
-        minion_doubled = re.search(r'[Mm][Mm]iinniioonn\s*\(\((\d)\d\)\)', raw_keyword_section)
-        if minion_doubled:
-            minion_limit = int(minion_doubled.group(1))
-            if 'Minion' not in characteristics:
-                characteristics.append('Minion')
-        # Check for split doubled pattern (iinniioonn on one line, ((3)) on another)
-        if re.search(r'iinniioonn', raw_keyword_section, re.IGNORECASE):
-            if 'Minion' not in characteristics:
-                characteristics.append('Minion')
-            # Look for the limit on nearby lines
-            limit_match = re.search(r'\(\((\d)\d\)\)', raw_keyword_section)
-            if limit_match and minion_limit is None:
-                minion_limit = int(limit_match.group(1))
+        # Use improved characteristics extraction
+        characteristics, minion_limit = self.extract_characteristics_improved(text)
         
-        # Other characteristics - check only in keyword section
-        # Join the section removing newlines to catch split words
-        keyword_section_joined = keyword_section.replace('\n', ' ')
-        raw_section_joined = raw_keyword_section.replace('\n', '')
-        
-        for char in ['Henchman', 'Enforcer', 'Master', 'Totem', 'Unique']:
-            # Check in joined keyword section
-            if re.search(rf'\b{char}\b', keyword_section_joined, re.IGNORECASE):
-                if char not in characteristics:
-                    characteristics.append(char)
-            # Check doubled version in raw joined text
-            doubled = ''.join(c+c for c in char)
-            if doubled.lower() in raw_section_joined.lower():
-                if char not in characteristics:
-                    characteristics.append(char)
-        
-        # Comprehensive keyword list - all M4E keywords
+        # Comprehensive keyword list - all M4E HIRING keywords
+        # NOTE: Creature types (Living, Undead, Construct, Beast, Spirit, Nightmare, Tyrant, Elemental)
+        # are CHARACTERISTICS, not keywords - they are extracted separately
+        # IMPORTANT: Use canonical hyphenated forms where applicable (Big-Hat, not Big Hat)
         keyword_list = [
             # Universal keywords
             'Versatile', 
-            # Type keywords
-            'Elemental', 'Golem', 'Gamin', 'Undead', 'Spirit', 'Beast', 'Construct',
-            'Living', 'Nightmare', 'Tyrant', 'Effigy', 'Emissary',
-            # Hiring keywords (crew keywords)
-            'Academic', 'Amalgam', 'Ancestor', 'Augmented', 'Bandit',
-            'Big Hat', 'Boundary', 'Cavalier', 'Chimera', 'Crossroads', 
-            'December', 'Descendant', 'Elite', 'Executioner', 'Explorer',
-            'Fae', 'Family', 'Forgotten', 'Foundry', 'Frontier',
-            'Freikorps', 'Guard', 'Guild', 'Honeypot', 'Journalist', 'Kin',
-            'Last Blossom', 'Marshal', 'Mercenary', 
-            'Mimic', 'Monk', 'Neverborn', 'Oni', 'Outcast',
-            'Oxfordian', 'Performer', 'Pioneer', 'Qi and Gong', 'Rare', 
-            'Redchapel', 'Resurrectionist', 'Retainer', 'Revenant', 
-            'Savage', 'Seeker', 'Showgirl', 'Soulstone', 'Star Theater', 
-            'Swampfiend', 'Ten Thunders', 'Tormented', 'Transmortis', 'Tricksy',
-            'Urami', 'Wastrel', 'Watcher', 'Wildfire', 'Witch Hunter', 'Witness',
-            'Wizz-Bang', 'Woe',
-            # Note: 'Fate' and 'Fated' removed - too likely to false positive with "cheat fate"
+            # Special type keywords (these ARE keywords, not characteristics)
+            'Golem', 'Gamin', 'Effigy', 'Emissary',
+            # ═══════════════════════════════════════════════════════════════
+            # FACTION-SPECIFIC HIRING KEYWORDS - Complete M4E List
+            # ═══════════════════════════════════════════════════════════════
+            # Arcanists
+            'Academic', 'December', 'Foundry', 'Oxfordian', 'Performer',
+            'Showgirl', 'Star Theater', 'Wildfire', 'Witness',
+            # Bayou
+            'Bayou', 'Big-Hat', 'Kin', 'Sooey', 'Swampfiend', 'Tricksy', 'Wizz-Bang',
+            # Explorer's Society  
+            'Boundary', 'Descendant', 'Explorer', 'Seeker', 'Wastrel',
+            # Guild
+            'Augmented', 'Elite', 'Executioner', 'Family', 'Guard', 
+            'Journalist', 'Marshal', 'Witch-Hunter',
+            # Neverborn
+            'Cavalier', 'Chimera', 'Fae', 'Mimic', 'Nightmare', 'Woe',
+            # Outcasts
+            'Amalgam', 'Bandit', 'Crossroads', 'Freikorps', 'Mercenary', 
+            'Obliteration', 'Pioneer', 'Plague', 'Tormented',
+            # Resurrectionists
+            'Ancestor', 'Brood', 'Forgotten', 'Redchapel', 'Revenant', 
+            'Returned', 'Transmortis', 'Urami',
+            # Ten Thunders
+            'Honeypot', 'Last Blossom', 'Monk', 'Oni', 'Qi and Gong',
+            'Retainer', 'Tri-Chi',
+            # Cross-faction / Special
+            'Savage', 'Frontier', 'Rare',
+            # Faction names (some models have these as keywords)
+            'Guild', 'Arcanist', 'Neverborn', 'Resurrectionist', 
+            'Ten Thunders', 'Outcast', 'Bayou', "Explorer's Society",
+            # ═══════════════════════════════════════════════════════════════
+            # ALTERNATE SPELLINGS - Check both forms for robustness
+            # ═══════════════════════════════════════════════════════════════
+            'Big Hat',       # In case OCR produces non-hyphenated
+            'Witch Hunter',  # In case OCR produces non-hyphenated
+            'Tri Chi',       # In case OCR produces non-hyphenated
         ]
         
         for kw in keyword_list:
@@ -485,6 +622,15 @@ class MalifauxCardParser:
                                 break
         
         return keywords, characteristics, minion_limit
+    
+    def normalize_keywords(self, keywords: list) -> list:
+        """Normalize keywords to canonical forms (handle hyphen vs space variations)."""
+        normalized = []
+        for kw in keywords:
+            canonical = self.KEYWORD_CANONICAL.get(kw.lower(), kw)
+            if canonical not in normalized:
+                normalized.append(canonical)
+        return normalized
     
     def extract_abilities(self, text: str) -> list:
         """Extract passive abilities from front of card."""
@@ -827,6 +973,7 @@ class MalifauxCardParser:
             # Extract all data
             stats = self.extract_stats_from_page1(page1_text)
             keywords, characteristics, minion_limit = self.extract_keywords(page1_text)
+            keywords = self.normalize_keywords(keywords)  # Normalize to canonical forms
             abilities = self.extract_abilities(page1_text)
             attack_actions, tactical_actions = self.extract_actions(page2_text)
             base_size = self.extract_base_size(page2_text)
@@ -870,26 +1017,10 @@ class MalifauxCardParser:
             else:
                 self.log(f"  No front image found for health extraction")
             
-            # Derive soulstone cache - Masters and Henchmen can use soulstones
-            # Use inverse logic: if it's a Stat card and NOT a peon type, it can use soulstones
-            # Peon types: Minion, Enforcer, Totem
-            soulstone_cache = False
-            if card_type == 'Stat':
-                # Check if it's a peon type (cannot use soulstones)
-                is_peon = any(c in ('Minion', 'Enforcer', 'Totem') for c in characteristics)
-                
-                if not is_peon:
-                    # Also check raw text for doubled peon markers
-                    text_joined = page1_text.replace('\n', '').lower()
-                    # Doubled patterns: minion=mmiinniioonn, enforcer=eennffoorrcceerr, totem=ttootteemm
-                    if 'mmiinniioonn' in text_joined or 'iinniioonn' in text_joined:
-                        is_peon = True
-                    elif 'eennffoorrcceerr' in text_joined or 'nnffoorrcceerr' in text_joined:
-                        is_peon = True
-                    elif 'ttootteemm' in text_joined:
-                        is_peon = True
-                
-                soulstone_cache = not is_peon
+            # Derive soulstone cache - ONLY Masters and Henchmen can use soulstones
+            # This is the correct M4E rule: Masters and Henchmen have soulstone cache
+            # Minions, Enforcers, Totems, Peons do NOT have soulstone cache
+            soulstone_cache = 'Master' in characteristics or 'Henchman' in characteristics
                 
             if soulstone_cache:
                 self.log(f"  Soulstone user (Master/Henchman)")

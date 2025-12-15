@@ -94,14 +94,14 @@ class ExtractionPatterns:
     """
     
     # ─────────────────────────────────────────────────────────────────────────
-    # CONDITION PATTERNS
+    # CONDITION PATTERNS - Updated for M4E OCR text
     # ─────────────────────────────────────────────────────────────────────────
     
     # Conditions that get APPLIED to targets
     CONDITIONS_APPLIED = [
         # Standard "gains X token" patterns
         (r'gains?\s+(?:a\s+)?(\w+)\s+token', 1),
-        # "Target gains Burning"
+        # "Target gains Burning" (with or without "token")
         (r'target\s+gains?\s+(?:a\s+)?(\w+)', 1),
         # "give/grant X token"  
         (r'(?:give|grant)s?\s+(?:the\s+)?(?:target\s+)?(?:a\s+)?(\w+)\s+token', 1),
@@ -111,12 +111,20 @@ class ExtractionPatterns:
         (r'apply\s+(?:a\s+)?(\w+)', 1),
         # "suffer/suffers X" (for conditions)
         (r'suffers?\s+(?:a\s+)?(\w+)\s+token', 1),
+        # More flexible - "gain X" without "token" (common in M4E)
+        (r'(?:model|target|it|enemy)\s+gains?\s+(?:a\s+)?(\w+)', 1),
+        # "have the target gain X"
+        (r'have\s+(?:the\s+)?(?:target|model|enemy)\s+gain\s+(?:a\s+)?(\w+)', 1),
+        # "enemy gains X" / "target gains X"
+        (r'(?:enemy|friendly)\s+(?:model\s+)?gains?\s+(?:a\s+)?(\w+)', 1),
+        # "is Slow" / "becomes Slow"
+        (r'(?:is|becomes?)\s+(\w+)(?:\s|\.)', 1),
     ]
     
     # Conditions REQUIRED for effects to trigger
     CONDITIONS_REQUIRED = [
         # "if target has X"
-        (r'if\s+(?:the\s+)?target\s+has\s+(?:a\s+)?(\w+)', 1),
+        (r'if\s+(?:the\s+)?(?:target|model|enemy)\s+has\s+(?:a\s+)?(\w+)', 1),
         # "while this model has X"
         (r'while\s+(?:this\s+model\s+)?has\s+(?:a\s+)?(\w+)', 1),
         # "must have X token"
@@ -125,6 +133,12 @@ class ExtractionPatterns:
         (r'requires?\s+(?:a\s+)?(\w+)\s+token', 1),
         # "enemy/friendly with X"
         (r'(?:enemy|friendly)\s+(?:model\s+)?with\s+(?:a\s+)?(\w+)', 1),
+        # "if X" (for conditions mentioned in context)
+        (r'if\s+(?:it\s+)?has\s+(?:a\s+)?(\w+)', 1),
+        # "target with X"
+        (r'target\s+(?:with|has)\s+(?:a\s+)?(\w+)', 1),
+        # "models with X"
+        (r'models?\s+with\s+(?:a\s+)?(\w+)', 1),
     ]
     
     # Conditions that get REMOVED
@@ -137,6 +151,8 @@ class ExtractionPatterns:
         (r'ends?\s+(?:the\s+)?(\w+)\s+(?:condition|token)', 1),
         # "lose X token"
         (r'loses?\s+(?:a\s+)?(\w+)\s+token', 1),
+        # "remove X from" 
+        (r'removes?\s+(?:a\s+)?(\w+)\s+from', 1),
     ]
     
     # ─────────────────────────────────────────────────────────────────────────
