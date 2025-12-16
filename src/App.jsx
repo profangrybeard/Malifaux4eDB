@@ -223,42 +223,42 @@ const ROLE_DESCRIPTIONS = {
   'scheme_runner': {
     label: 'Scheme Runner',
     description: 'Fast, evasive models that score schemes',
-    icon: '*'
+    icon: 'ðŸƒ'
   },
   'beater': {
     label: 'Beater',
     description: 'High damage dealers',
-    icon: '*'
+    icon: 'âš”'
   },
   'tank': {
     label: 'Tank',
     description: 'Durable models that absorb damage',
-    icon: '*'
+    icon: 'ðŸ›¡'
   },
   'support': {
     label: 'Support',
     description: 'Buffs allies or heals',
-    icon: '*'
+    icon: 'ðŸ’«'
   },
   'control': {
     label: 'Control',
     description: 'Manipulates enemy positioning or actions',
-    icon: '*'
+    icon: 'ðŸŽ¯'
   },
   'summoner': {
     label: 'Summoner',
     description: 'Creates new models',
-    icon: '*'
+    icon: 'âœ¨'
   },
   'marker_manipulation': {
     label: 'Marker Manipulation',
     description: 'Interacts with strategy/scheme markers',
-    icon: '*'
+    icon: 'ðŸ“'
   },
   'condition_specialist': {
     label: 'Condition Specialist',
     description: 'Applies or removes conditions',
-    icon: '*'
+    icon: 'ðŸ”®'
   }
 }
 
@@ -658,11 +658,18 @@ function App() {
     STATIONS.forEach(s => counts[s] = 0)
     
     cards.forEach(card => {
-      const chars = card.characteristics || []
-      for (const station of STATIONS) {
-        if (chars.includes(station)) {
-          counts[station]++
-          break // Only count primary station
+      // Use card.station field if available, fall back to checking characteristics
+      const station = card.station
+      if (station && STATIONS.includes(station)) {
+        counts[station]++
+      } else {
+        // Fallback for legacy data format
+        const chars = card.characteristics || []
+        for (const s of STATIONS) {
+          if (chars.includes(s)) {
+            counts[s]++
+            break
+          }
         }
       }
     })
@@ -679,13 +686,18 @@ function App() {
       missing_station: 0,
     }
     
+    const STATIONS = ['Master', 'Henchman', 'Enforcer', 'Minion', 'Totem', 'Peon']
+    
     cards.forEach(card => {
       const chars = card.characteristics || []
+      // Use card.station field if available, fall back to checking characteristics
+      const station = card.station
+      const hasStation = station ? STATIONS.includes(station) : STATIONS.some(s => chars.includes(s))
+      
       // Use the hireable field if present, otherwise fall back to station-based check
       const isHireable = card.hireable !== undefined 
         ? card.hireable 
-        : !['Master', 'Totem'].some(c => chars.includes(c))
-      const hasStation = ['Master', 'Henchman', 'Enforcer', 'Minion', 'Totem', 'Peon'].some(s => chars.includes(s))
+        : !['Master', 'Totem'].includes(station)
       
       let hasIssue = false
       
@@ -701,8 +713,8 @@ function App() {
         hasIssue = true
       }
       
-      // Missing keywords - only flag hireable models (not Masters, Totems, or summoned-only)
-      if ((!card.keywords || card.keywords.length === 0) && card.hireable === true) {
+      // Missing keywords
+      if (!card.keywords || card.keywords.length === 0) {
         counts.missing_keywords++
         hasIssue = true
       }
@@ -1487,7 +1499,7 @@ function App() {
         const idA = modelA.rosterId || modelA.opponentRosterId || modelA.id
         const idB = modelB.rosterId || modelB.opponentRosterId || modelB.id
         
-        // =========================================================================== SYNERGY DETECTION 
+        // =========================================================================== SYNERGY DETECTION â•â•â•
         
         // 1. Keyword synergies - model A's abilities reference model B's keyword
         const keywordA = modelA.primary_keyword || (modelA.keywords || [])[0]
@@ -1501,7 +1513,7 @@ function App() {
             direction: 'B_buffs_A',
             strength: 0.8,
             reason: `${modelB.name} buffs ${keywordA} models`,
-            icon: '*'
+            icon: 'ðŸ”—'
           })
           modelSynergyCounts[idA].synergies++
           modelSynergyCounts[idB].synergies++
@@ -1515,7 +1527,7 @@ function App() {
             direction: 'A_buffs_B',
             strength: 0.8,
             reason: `${modelA.name} buffs ${keywordB} models`,
-            icon: '*'
+            icon: 'ðŸ”—'
           })
           modelSynergyCounts[idA].synergies++
           modelSynergyCounts[idB].synergies++
@@ -1533,7 +1545,7 @@ function App() {
             direction: 'bidirectional',
             strength: 0.6,
             reason: `Share ${sharedKeywords[0]} keyword`,
-            icon: '*'
+            icon: 'ðŸ‘¥'
           })
           modelSynergyCounts[idA].synergies++
           modelSynergyCounts[idB].synergies++
@@ -1561,7 +1573,7 @@ function App() {
                     direction: 'bidirectional',
                     strength: 0.5,
                     reason: `${ROLE_DESCRIPTIONS[roleA]?.label || roleA} + ${ROLE_DESCRIPTIONS[roleB]?.label || roleB}`,
-                    icon: '*'
+                    icon: 'âš¡'
                   })
                   modelSynergyCounts[idA].synergies++
                   modelSynergyCounts[idB].synergies++
@@ -1587,7 +1599,7 @@ function App() {
               direction: 'bidirectional',
               strength: 0.7,
               reason: abilityData.reason,
-              icon: '*'
+              icon: 'ðŸ”¥'
             })
             modelSynergyCounts[idA].synergies++
             modelSynergyCounts[idB].synergies++
@@ -1607,7 +1619,7 @@ function App() {
               direction: 'A_supports_B',
               strength: charData.strength,
               reason: charData.reason,
-              icon: '*'
+              icon: 'âœ¨'
             })
             modelSynergyCounts[idA].synergies++
             modelSynergyCounts[idB].synergies++
@@ -1620,14 +1632,14 @@ function App() {
               direction: 'A_supports_B',
               strength: charData.strength,
               reason: charData.reason,
-              icon: '*'
+              icon: 'âœ¨'
             })
             modelSynergyCounts[idA].synergies++
             modelSynergyCounts[idB].synergies++
           }
         }
         
-        // 6. Resource generation  consumption synergy
+        // 6. Resource generation â†’ consumption synergy
         const textA = getAbilityText(modelA)
         const textB = getAbilityText(modelB)
         
@@ -1645,7 +1657,7 @@ function App() {
               direction: 'A_feeds_B',
               strength: 0.75,
               reason: `${modelA.name} generates ${patterns.type} for ${modelB.name}`,
-              icon: '*'
+              icon: 'ðŸ”„'
             })
             modelSynergyCounts[idA].synergies++
             modelSynergyCounts[idB].synergies++
@@ -1658,7 +1670,7 @@ function App() {
               direction: 'A_feeds_B',
               strength: 0.75,
               reason: `${modelB.name} generates ${patterns.type} for ${modelA.name}`,
-              icon: '*'
+              icon: 'ðŸ”„'
             })
             modelSynergyCounts[idA].synergies++
             modelSynergyCounts[idB].synergies++
@@ -1672,7 +1684,7 @@ function App() {
               type: 'resource_competition',
               strength: 0.4,
               reason: `Both consume ${patterns.type} markers`,
-              icon: '*'
+              icon: 'âš ï¸'
             })
             modelSynergyCounts[idA].antiSynergies++
             modelSynergyCounts[idB].antiSynergies++
@@ -1687,7 +1699,7 @@ function App() {
             type: 'activation_competition',
             strength: 0.3,
             reason: 'Multiple summoners compete for activations',
-            icon: '*'
+            icon: 'âš ï¸'
           })
           modelSynergyCounts[idA].antiSynergies++
           modelSynergyCounts[idB].antiSynergies++
@@ -1929,7 +1941,7 @@ function App() {
   }
 
   // Render stars with colorblind-friendly styling
-  // Uses blue progression (safe for red-green colorblindness)
+  // Uses blueâ†’purpleâ†’gold progression (safe for red-green colorblindness)
   const renderStars = (score, maxStars = 3) => {
     if (score <= 0) return null
     const displayScore = Math.min(score, maxStars)
@@ -2149,12 +2161,12 @@ function App() {
       
       // 2. KEYWORD BUFF - other card's abilities reference this card's keyword
       if (primaryKeyword && referencesKeyword(other, primaryKeyword)) {
-        addSynergy(other, 'keyword_buff', 0.9, `Buffs ${primaryKeyword} models`, '*')
+        addSynergy(other, 'keyword_buff', 0.9, `Buffs ${primaryKeyword} models`, '+')
       }
       
       // 3. THIS CARD BUFFS OTHER - this card's abilities reference other's keyword  
       if (otherPrimaryKeyword && referencesKeyword(card, otherPrimaryKeyword)) {
-        addSynergy(other, 'buffs_keyword', 0.85, `Benefits from ${card.name}'s buffs`, '*')
+        addSynergy(other, 'buffs_keyword', 0.85, `Benefits from ${card.name}'s buffs`, '+')
       }
       
       // 4. ROLE COMPLEMENTARITY
@@ -2164,7 +2176,7 @@ function App() {
           for (const otherRole of otherRoles) {
             if (synData.synergizes.includes(otherRole)) {
               addSynergy(other, 'role_complement', 0.6, 
-                `${ROLE_DESCRIPTIONS[role]?.label || role} + ${ROLE_DESCRIPTIONS[otherRole]?.label || otherRole}`, '*')
+                `${ROLE_DESCRIPTIONS[role]?.label || role} + ${ROLE_DESCRIPTIONS[otherRole]?.label || otherRole}`, '=')
               break
             }
           }
@@ -2174,10 +2186,10 @@ function App() {
       // 5. CHARACTERISTIC SYNERGY (Totem + Master, Effigy + Emissary)
       for (const [charType, charData] of Object.entries(CHARACTERISTIC_SYNERGIES)) {
         if (cardChars.includes(charType) && otherChars.includes(charData.synergizesWith)) {
-          addSynergy(other, 'characteristic', charData.strength, charData.reason, '*')
+          addSynergy(other, 'characteristic', charData.strength, charData.reason, '~')
         }
         if (otherChars.includes(charType) && cardChars.includes(charData.synergizesWith)) {
-          addSynergy(other, 'characteristic', charData.strength, charData.reason, '*')
+          addSynergy(other, 'characteristic', charData.strength, charData.reason, '~')
         }
       }
       
@@ -2190,7 +2202,7 @@ function App() {
         const hasOther = otherAbilities.some(a => a.includes(abilityKey.replace('_', ' ')))
         
         if (hasCard && hasOther && abilityData.stacksWith?.includes(abilityKey)) {
-          addSynergy(other, 'ability_stack', 0.7, abilityData.reason, '*')
+          addSynergy(other, 'ability_stack', 0.7, abilityData.reason, '#')
         }
       }
       
@@ -2202,10 +2214,10 @@ function App() {
         const otherConsumes = patterns.consumers.some(p => new RegExp(p, 'i').test(otherAbilityText))
         
         if (cardGenerates && otherConsumes) {
-          addSynergy(other, 'resource_flow', 0.75, `Uses ${patterns.type} markers you create`, '*')
+          addSynergy(other, 'resource_flow', 0.75, `Uses ${patterns.type} markers you create`, '@')
         }
         if (otherGenerates && cardConsumes) {
-          addSynergy(other, 'resource_flow', 0.75, `Creates ${patterns.type} markers you need`, '*')
+          addSynergy(other, 'resource_flow', 0.75, `Creates ${patterns.type} markers you need`, '@')
         }
         
         // Anti-synergy: both consume same resource
@@ -2215,7 +2227,7 @@ function App() {
               card: other, 
               type: 'resource_competition', 
               reason: `Both compete for ${patterns.type} markers`,
-              icon: '*'
+              icon: 'âš ï¸'
             })
           }
         }
@@ -2480,19 +2492,19 @@ function App() {
       
       if (count >= 3) {
         level = 'strong'
-        icon = '*'
+        icon = 'âœ“'
         message = `${count} models can score this`
       } else if (count >= 2) {
         level = 'adequate'
-        icon = '*'
+        icon = 'â—‹'
         message = `${count} models - workable`
       } else if (count >= 1) {
         level = 'light'
-        icon = '*'
+        icon = 'âš '
         message = `Only ${count} model - risky`
       } else {
         level = 'missing'
-        icon = '*'
+        icon = 'âœ—'
         message = 'No models can score this!'
       }
       
@@ -2568,32 +2580,38 @@ function App() {
       
       // Station filter
       if (stationFilter) {
+        // Use card.station field if available, fall back to checking characteristics
+        const station = card.station
         const chars = card.characteristics || []
-        if (!chars.includes(stationFilter)) return false
+        const matchesStation = station === stationFilter || chars.includes(stationFilter)
+        if (!matchesStation) return false
       }
       
       // Data issue filter (debug)
       if (dataIssueFilter) {
         const chars = card.characteristics || []
+        const STATIONS = ['Master', 'Henchman', 'Enforcer', 'Minion', 'Totem', 'Peon']
+        // Use card.station field if available, fall back to checking characteristics
+        const station = card.station
+        const hasStation = station ? STATIONS.includes(station) : STATIONS.some(s => chars.includes(s))
+        
         // Use the hireable field if present, otherwise fall back to station-based check
         const isHireable = card.hireable !== undefined 
           ? card.hireable 
-          : !['Master', 'Totem'].some(c => chars.includes(c))
-        const hasStation = ['Master', 'Henchman', 'Enforcer', 'Minion', 'Totem', 'Peon'].some(s => chars.includes(s))
+          : !['Master', 'Totem'].includes(station)
         
         if (dataIssueFilter === 'missing_cost') {
           if (!(card.cost == null && isHireable)) return false
         } else if (dataIssueFilter === 'missing_chars') {
           if (chars.length !== 0) return false
         } else if (dataIssueFilter === 'missing_keywords') {
-          // Only show hireable cards without keywords
-          if (!(((!card.keywords || card.keywords.length === 0)) && card.hireable === true)) return false
+          if (card.keywords && card.keywords.length > 0) return false
         } else if (dataIssueFilter === 'missing_station') {
           if (!(chars.length > 0 && !hasStation)) return false
         } else if (dataIssueFilter === 'any') {
           const hasMissingCost = card.cost == null && isHireable
           const hasMissingChars = chars.length === 0
-          const hasMissingKeywords = (!card.keywords || card.keywords.length === 0) && card.hireable === true
+          const hasMissingKeywords = !card.keywords || card.keywords.length === 0
           const hasMissingStation = chars.length > 0 && !hasStation
           if (!hasMissingCost && !hasMissingChars && !hasMissingKeywords && !hasMissingStation) return false
         }
@@ -2811,8 +2829,8 @@ function App() {
               className="objective-chip strategy"
               onClick={() => setSelectedStrategy('')}
             >
-               {strategies[selectedStrategy].name}
-              <span className="chip-remove">*</span>
+              âš” {strategies[selectedStrategy].name}
+              <span className="chip-remove">Ã—</span>
             </span>
           )}
           {selectedSchemes.map(schemeId => schemes[schemeId] && (
@@ -2821,8 +2839,8 @@ function App() {
               className="objective-chip scheme"
               onClick={() => toggleScheme(schemeId)}
             >
-               {schemes[schemeId].name}
-              <span className="chip-remove">*</span>
+              â—ˆ {schemes[schemeId].name}
+              <span className="chip-remove">Ã—</span>
             </span>
           ))}
           <button className="clear-objectives" onClick={clearObjectives}>
@@ -2920,7 +2938,7 @@ function App() {
               onChange={e => setSoulstoneFilter(e.target.value)}
             >
               <option value="">Soulstone: All</option>
-              <option value="yes">+ Soulstone Users</option>
+              <option value="yes">âœ¦ Soulstone Users</option>
               <option value="no">No Soulstone</option>
             </select>
             <select 
@@ -2941,7 +2959,7 @@ function App() {
               value={dataIssueFilter}
               onChange={e => setDataIssueFilter(e.target.value)}
             >
-              <option value="">! Data Issues</option>
+              <option value="">⚠️ Data Issues</option>
               {dataIssueCounts.any > 0 && (
                 <option value="any">Any Issue ({dataIssueCounts.any})</option>
               )}
@@ -2997,7 +3015,7 @@ function App() {
                         </div>
                         <div className="hover-stats-row secondary">
                           {card.health && <span className="hover-stat health"><span className="hover-stat-val">{card.health}</span><span className="hover-stat-lbl">HP</span></span>}
-                          {card.soulstone_cache && <span className="hover-stat ss"><span className="hover-stat-val">*</span><span className="hover-stat-lbl">SS</span></span>}
+                          {card.soulstone_cache && <span className="hover-stat ss"><span className="hover-stat-val">âœ¦</span><span className="hover-stat-lbl">SS</span></span>}
                         </div>
                       </div>
                     )}
@@ -3011,10 +3029,10 @@ function App() {
                     {/* Debug badges for data quality issues */}
                     <div className="data-quality-badges">
                       {card.cost == null && (card.hireable !== false) && !['Master', 'Totem'].some(c => (card.characteristics || []).includes(c)) && (
-                        <span className="debug-badge debug-no-cost" title="Missing cost data"> ! COST</span>
+                        <span className="debug-badge debug-no-cost" title="Missing cost data">âš ï¸ COST</span>
                       )}
                       {(!card.characteristics || card.characteristics.length === 0) && (
-                        <span className="debug-badge debug-no-char" title="Missing characteristics"> ! CHAR</span>
+                        <span className="debug-badge debug-no-char" title="Missing characteristics">âš ï¸ CHAR</span>
                       )}
                     </div>
                   </div>
@@ -3040,7 +3058,7 @@ function App() {
               value={metaFaction}
               onChange={e => setMetaFaction(e.target.value)}
             >
-              <option value="">Your Faction</option>
+              <option value="">ðŸ“Š Your Faction</option>
               {metaFactions.map(f => (
                 <option key={f} value={f}>{f} ({Math.round(FACTION_META[f].overall.win_rate * 100)}%)</option>
               ))}
@@ -3050,12 +3068,14 @@ function App() {
               value={opponentFaction}
               onChange={e => setOpponentFaction(e.target.value)}
             >
-              <option value="">Opponent</option>
+              <option value="">ðŸ‘ï¸ Opponent</option>
               {metaFactions.map(f => (
                 <option key={f} value={f}>{f} ({Math.round(FACTION_META[f].overall.win_rate * 100)}%)</option>
               ))}
             </select>
-            <span className="result-count">*</span>
+            <span className="result-count">
+              {filteredSchemes.length} schemes â€¢ {filteredStrategies.length} strategies
+            </span>
           </div>
 
           {/* Meta Recommendations Panel */}
@@ -3064,10 +3084,10 @@ function App() {
               <div className="meta-panel-header">
                 <h3>
                   {metaFaction && opponentFaction 
-                    ? ` ${metaFaction} vs ${opponentFaction}`
+                    ? `ðŸ“Š ${metaFaction} vs ${opponentFaction}`
                     : metaFaction 
-                      ? ` ${metaFaction} Meta Insights`
-                      : ` Scouting ${opponentFaction}`
+                      ? `ðŸ“Š ${metaFaction} Meta Insights`
+                      : `ðŸ‘ï¸ Scouting ${opponentFaction}`
                   }
                 </h3>
                 <span className="meta-faction-stats">
@@ -3076,7 +3096,7 @@ function App() {
                       You: {Math.round(FACTION_META[metaFaction].overall.win_rate * 100)}%
                     </span>
                   )}
-                  {metaFaction && opponentFaction && <span className="meta-stat-divider">*</span>}
+                  {metaFaction && opponentFaction && <span className="meta-stat-divider">â€¢</span>}
                   {opponentFaction && (
                     <span className="meta-stat-opponent">
                       Opponent: {Math.round(FACTION_META[opponentFaction].overall.win_rate * 100)}%
@@ -3089,7 +3109,7 @@ function App() {
                 {metaFaction && (
                   <>
                     <div className="meta-rec-section">
-                      <span className="meta-rec-label">*</span>
+                      <span className="meta-rec-label">âœ“ Strong Schemes:</span>
                       <span className="meta-rec-items">
                         {Object.entries(FACTION_META[metaFaction].schemes_chosen)
                           .filter(([_, data]) => data.win_rate > FACTION_META[metaFaction].overall.win_rate + 0.03)
@@ -3104,7 +3124,7 @@ function App() {
                       </span>
                     </div>
                     <div className="meta-rec-section">
-                      <span className="meta-rec-label">*</span>
+                      <span className="meta-rec-label">âœ— Weak Schemes:</span>
                       <span className="meta-rec-items">
                         {Object.entries(FACTION_META[metaFaction].schemes_chosen)
                           .filter(([_, data]) => data.win_rate < FACTION_META[metaFaction].overall.win_rate - 0.03)
@@ -3128,7 +3148,7 @@ function App() {
             {/* Strategies Section */}
             <section className="objectives-section">
               <h2 className="section-title">
-                <span className="section-icon">*</span>
+                <span className="section-icon">âš”</span>
                 Strategies
               </h2>
               <p className="section-desc">Select one strategy for the game</p>
@@ -3181,7 +3201,7 @@ function App() {
             {/* Schemes Section */}
             <section className="objectives-section">
               <h2 className="section-title">
-                <span className="section-icon">*</span>
+                <span className="section-icon">â—ˆ</span>
                 Schemes
               </h2>
               <p className="section-desc">Select up to two schemes ({selectedSchemes.length}/2)</p>
@@ -3245,9 +3265,9 @@ function App() {
 
       {viewMode === 'crew' && (
         <>
-          {/* 
+          {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
               STEP 1: ENCOUNTER SETUP - Strategy + Schemes Pool
-               */}
+              â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
           <div className="encounter-setup">
             <div className="step-indicator">
               <span className="step-number">1</span>
@@ -3287,7 +3307,7 @@ function App() {
                     }}
                     title="Randomly generate scheme pool (simulates flipping 3 scheme cards)"
                   >
-                     Random
+                    ðŸŽ² Random
                   </button>
                 </div>
                 <div className="scheme-chips">
@@ -3328,24 +3348,24 @@ function App() {
                 }}
                 title="Generate a complete random encounter (Strategy + 3 Schemes)"
               >
-                 Generate Random Encounter
+                ðŸŽ² Generate Random Encounter
               </button>
             </div>
           </div>
 
-          {/* 
+          {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
               A|B CREW COMPARISON - Side by Side
-               */}
+              â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
           <div className={`ab-comparison-layout ${!crewStrategy ? 'awaiting-step-1' : ''}`}>
             
-            {/*  SIDE A: YOUR CREW  */}
+            {/* â•â•â• SIDE A: YOUR CREW â•â•â• */}
             <div className="ab-side ab-side-a">
               <div className="step-indicator">
                 <span className="step-number">2</span>
                 <span className="step-label">BUILD</span>
               </div>
               <div className="ab-side-header your-side">
-                <h2> Your Crew</h2>
+                <h2>ðŸ”µ Your Crew</h2>
                 <div className="ab-side-budget">
                   {crewMath.totalCost}/{crewBudget}ss
                   {remainingBudget > 0 && <span className="remaining"> ({remainingBudget} left)</span>}
@@ -3355,14 +3375,14 @@ function App() {
               {/* 6ss Pool Cap Warning */}
               {remainingBudget > 6 && (
                 <div className="ab-ss-warning">
-                    SS pool capped at 6  <strong>{remainingBudget - 6}ss wasted!</strong>
+                  âš  SS pool capped at 6 â€” <strong>{remainingBudget - 6}ss wasted!</strong>
                 </div>
               )}
               
               {/* Optimal spending indicator */}
               {remainingBudget > 0 && remainingBudget <= 6 && crewRoster.length > 0 && (
                 <div className="ab-ss-optimal">
-                   {remainingBudget}ss  Soulstone Pool
+                  âœ“ {remainingBudget}ss â†’ Soulstone Pool
                 </div>
               )}
               
@@ -3371,7 +3391,7 @@ function App() {
                 <div className="master-picker">
                   <div className="master-picker-header">
                     <span>Select Your Master</span>
-                    <span className="master-picker-hint">*</span>
+                    <span className="master-picker-hint">Hover to preview â€¢ Click to lock in</span>
                   </div>
                   <input
                     type="text"
@@ -3446,7 +3466,9 @@ function App() {
               {selectedMaster && keywordFitAnalysis.warning && (crewStrategy || crewSchemes.length > 0) && (
                 <div className={`keyword-fit-warning ${keywordFitAnalysis.warning.level}`}>
                   <div className="keyword-fit-header">
-                    <span className="keyword-fit-icon">*</span>
+                    <span className="keyword-fit-icon">
+                      {keywordFitAnalysis.warning.level === 'severe' ? 'âš ï¸' : 'âš¡'}
+                    </span>
                     <span className="keyword-fit-title">
                       Keyword Coverage: {keywordFitAnalysis.percentage}%
                     </span>
@@ -3472,7 +3494,7 @@ function App() {
                 </div>
               )}
               
-              {/*  LEADER DISPLAY - Master + Crew Card Large  */}
+              {/* â•â•â• LEADER DISPLAY - Master + Crew Card Large â•â•â• */}
               {selectedMaster && (
                 <div className="crew-leaders-display">
                   <div className="leader-card-large" onClick={() => openModal(selectedMaster, [selectedMaster, selectedCrewCard, ...crewRoster].filter(Boolean))}>
@@ -3557,7 +3579,7 @@ function App() {
                             )}
                             {synergyCount > 0 && (
                               <div className={`roster-card-synergy ${antiSynergyCount > 0 ? 'has-anti' : ''}`}>
-                                {synergyCount}
+                                ðŸ”—{synergyCount}
                               </div>
                             )}
                             <div className="roster-card-cost">{card.cost || 0}ss</div>
@@ -3565,7 +3587,7 @@ function App() {
                               className="ab-roster-remove"
                               onClick={(e) => { e.stopPropagation(); removeFromCrew(card.rosterId); }}
                             >
-                              x
+                              Ã—
                             </button>
                           </div>
                         )
@@ -3583,7 +3605,7 @@ function App() {
                     onClick={suggestCrew}
                     title="Auto-build crew based on selected objectives"
                   >
-                     Suggest Crew
+                    âœ¨ Suggest Crew
                   </button>
                   {crewRoster.length > 0 && (
                     <button className="ab-clear-btn" onClick={clearCrew}>Clear Crew</button>
@@ -3591,7 +3613,7 @@ function App() {
                 </div>
               )}
               
-              {/*  SYNERGY PANEL - Collapsible  */}
+              {/* â•â•â• SYNERGY PANEL - Collapsible â•â•â• */}
               {selectedMaster && crewRoster.length > 0 && (
                 <div className={`synergy-panel ${synergyPanelOpen ? 'open' : 'collapsed'}`}>
                   <div 
@@ -3599,14 +3621,16 @@ function App() {
                     onClick={() => setSynergyPanelOpen(!synergyPanelOpen)}
                   >
                     <span className="synergy-panel-title">
-                       Crew Synergies
+                      ðŸ”— Crew Synergies
                       {crewSynergies.synergies.length > 0 && (
                         <span className="synergy-count-badge">
                           {crewSynergies.synergies.length}
                         </span>
                       )}
                     </span>
-                    <span className="synergy-panel-toggle">*</span>
+                    <span className="synergy-panel-toggle">
+                      {synergyPanelOpen ? 'â–¼' : 'â–¶'}
+                    </span>
                   </div>
                   
                   {synergyPanelOpen && (
@@ -3628,7 +3652,10 @@ function App() {
                               <div className="synergy-item-models">
                                 <span className="synergy-icon">{syn.icon}</span>
                                 <span className="synergy-model-name">{syn.modelA.name}</span>
-                                <span className="synergy-arrow">*</span>
+                                <span className="synergy-arrow">
+                                  {syn.direction === 'bidirectional' ? 'â†”' : 
+                                   syn.direction === 'A_buffs_B' || syn.direction === 'A_feeds_B' || syn.direction === 'A_supports_B' ? 'â†’' : 'â†'}
+                                </span>
                                 <span className="synergy-model-name">{syn.modelB.name}</span>
                               </div>
                               <div className="synergy-item-reason">{syn.reason}</div>
@@ -3649,7 +3676,7 @@ function App() {
                       {/* Anti-Synergies Warning */}
                       {crewSynergies.antiSynergies.length > 0 && (
                         <div className="anti-synergy-list">
-                          <div className="anti-synergy-header"> ! Potential Conflicts</div>
+                          <div className="anti-synergy-header">âš ï¸ Potential Conflicts</div>
                           {crewSynergies.antiSynergies.map((anti, idx) => (
                             <div key={idx} className="anti-synergy-item">
                               <span className="anti-synergy-models">
@@ -3665,18 +3692,18 @@ function App() {
                 </div>
               )}
               
-              {/*  CREW CARD RULES PANEL  */}
+              {/* â•â•â• CREW CARD RULES PANEL â•â•â• */}
               {selectedCrewCard && crewCardAnalysis && (
                 <div className="crew-rules-panel">
                   <div className="crew-rules-header">
-                    <span className="crew-rules-title">*</span>
+                    <span className="crew-rules-title">ðŸ“œ {selectedCrewCard.name}</span>
                     <span className="crew-rules-subtitle">Crew Card Rules</span>
                   </div>
                   
                   {crewCardAnalysis.activeRules.length > 0 && (
                     <div className="crew-rules-section active">
                       <div className="crew-rules-section-header">
-                        <span className="rules-status-icon">*</span>
+                        <span className="rules-status-icon">âœ“</span>
                         Active Rules ({crewCardAnalysis.activeRules.length})
                       </div>
                       {crewCardAnalysis.activeRules.slice(0, 5).map((rule, idx) => (
@@ -3696,7 +3723,7 @@ function App() {
                   {crewCardAnalysis.inactiveRules.length > 0 && (
                     <div className="crew-rules-section inactive">
                       <div className="crew-rules-section-header">
-                        <span className="rules-status-icon">*</span>
+                        <span className="rules-status-icon">â—‹</span>
                         Unused Rules ({crewCardAnalysis.inactiveRules.length})
                       </div>
                       {crewCardAnalysis.inactiveRules.slice(0, 3).map((rule, idx) => (
@@ -3722,14 +3749,14 @@ function App() {
               )}
             </div>
             
-            {/*  CENTER: MATCHUP INTEL  */}
+            {/* â•â•â• CENTER: MATCHUP INTEL â•â•â• */}
             <div className="ab-intel-panel">
-              <h3> Matchup Analysis</h3>
+              <h3>ðŸ“Š Matchup Analysis</h3>
               
               {/* Preview indicator when hovering */}
               {hoveredMaster && !selectedMaster && (
                 <div className="ab-intel-preview-badge">
-                   Previewing: {hoveredMaster.name}
+                  ðŸ‘ Previewing: {hoveredMaster.name}
                 </div>
               )}
               
@@ -3803,10 +3830,10 @@ function App() {
                       schemeCoverage.filter(s => s.level === 'light').length > 0 ? 'has-risks' : 'all-good'
                     }`}>
                       {schemeCoverage.filter(s => s.level === 'missing').length > 0 
-                        ? `  Cannot score ${schemeCoverage.filter(s => s.level === 'missing').length} scheme(s)!`
+                        ? `âš  Cannot score ${schemeCoverage.filter(s => s.level === 'missing').length} scheme(s)!`
                         : schemeCoverage.filter(s => s.level === 'light').length > 0
-                          ? ` ${schemeCoverage.filter(s => s.level === 'light').length} scheme(s) at risk`
-                          : '+ Good coverage on all schemes'
+                          ? `â—‹ ${schemeCoverage.filter(s => s.level === 'light').length} scheme(s) at risk`
+                          : 'âœ“ Good coverage on all schemes'
                       }
                     </div>
                   )}
@@ -3816,7 +3843,7 @@ function App() {
               {/* Crew Gaps Analysis */}
               {crewAnalysis.gaps.length > 0 && (
                 <div className="ab-intel-section ab-intel-gaps">
-                  <h4>!  Crew Gaps</h4>
+                  <h4>âš  Crew Gaps</h4>
                   <ul>
                     {crewAnalysis.gaps.slice(0, 4).map((gap, i) => (
                       <li key={i}>Need: {gap.requirement}</li>
@@ -3828,7 +3855,7 @@ function App() {
               {/* All Good */}
               {crewAnalysis.gaps.length === 0 && crewAnalysis.objectives.length > 0 && (
                 <div className="ab-intel-section ab-intel-good">
-                  <span>+ Crew covers objectives</span>
+                  <span>âœ“ Crew covers objectives</span>
                 </div>
               )}
               
@@ -3839,14 +3866,14 @@ function App() {
               )}
             </div>
             
-            {/* ========== */}
+            {/* â•â•â• SIDE B: OPPONENT CREW â•â•â• */}
             <div className="ab-side ab-side-b">
               <div className="step-indicator optional">
                 <span className="step-number">3</span>
                 <span className="step-label">MATCHUP</span>
               </div>
               <div className="ab-side-header opponent-side">
-                <h2>[B] Opponent</h2>
+                <h2>ðŸ”´ Opponent</h2>
                 {opponentMaster && (
                   <div className="ab-side-budget">{opponentCrewCost}/50ss</div>
                 )}
@@ -3862,7 +3889,7 @@ function App() {
                     ? "Add models to your crew first" 
                     : "Generate an opponent crew that counters your crew"}
                 >
-                   Build Counter-Crew
+                  âš”ï¸ Build Counter-Crew
                 </button>
                 
                 {/* Difficulty Slider */}
@@ -3896,7 +3923,7 @@ function App() {
               </div>
               
               <div className="opponent-divider">
-                <span>-- or select manually --</span>
+                <span>â€” or select manually â€”</span>
               </div>
               
               {/* Opponent Faction Selection */}
@@ -3937,7 +3964,7 @@ function App() {
                 </div>
               )}
               
-              {/*  OPPONENT LEADER DISPLAY - Master + Crew Card Large  */}
+              {/* â•â•â• OPPONENT LEADER DISPLAY - Master + Crew Card Large â•â•â• */}
               {opponentMaster && (
                 <div className="crew-leaders-display opponent">
                   <div className="leader-card-large" onClick={() => openModal(opponentMaster, [opponentMaster, ...opponentCrew])}>
@@ -4017,7 +4044,7 @@ function App() {
                             )}
                             {synergyCount > 0 && (
                               <div className={`roster-card-synergy opponent ${antiSynergyCount > 0 ? 'has-anti' : ''}`}>
-                                {synergyCount}
+                                ðŸ”—{synergyCount}
                               </div>
                             )}
                             <div className="roster-card-cost">{card.cost || 0}ss</div>
@@ -4037,10 +4064,10 @@ function App() {
                     onClick={generateOpponentCrew}
                     title="Generate a different valid crew composition"
                   >
-                     Reroll Crew
+                    ðŸŽ² Reroll Crew
                   </button>
                   <div className="ab-opp-note">
-                    Simulated {opponentMaster.primary_keyword} crew - Not optimal, just plausible
+                    Simulated {opponentMaster.primary_keyword} crew â€¢ Not optimal, just plausible
                   </div>
                 </div>
               )}
@@ -4049,7 +4076,7 @@ function App() {
               {counterCrewReasoning && opponentMaster && (
                 <div className="counter-crew-reasoning">
                   <div className="reasoning-header">
-                    <span className="reasoning-icon">*</span>
+                    <span className="reasoning-icon">ðŸŽ¯</span>
                     <span className="reasoning-title">Counter Analysis</span>
                     {counterCrewReasoning.difficulty && (
                       <span className={`reasoning-difficulty ${counterCrewReasoning.difficulty}`}>
@@ -4076,12 +4103,12 @@ function App() {
                 </div>
               )}
               
-              {/*  OPPONENT SYNERGY PANEL  */}
+              {/* â•â•â• OPPONENT SYNERGY PANEL â•â•â• */}
               {opponentMaster && opponentCrew.length > 0 && (
                 <div className="synergy-panel opponent">
                   <div className="synergy-panel-header">
                     <span className="synergy-panel-title">
-                       Opponent Synergies
+                      ðŸ”— Opponent Synergies
                       {opponentCrewSynergies.synergies.length > 0 && (
                         <span className="synergy-count-badge">
                           {opponentCrewSynergies.synergies.length}
@@ -4100,7 +4127,9 @@ function App() {
                         <div key={idx} className="synergy-item compact">
                           <span className="synergy-icon">{syn.icon}</span>
                           <span className="synergy-model-name">{syn.modelA.name}</span>
-                          <span className="synergy-arrow">*</span>
+                          <span className="synergy-arrow">
+                            {syn.direction === 'bidirectional' ? 'â†”' : 'â†’'}
+                          </span>
                           <span className="synergy-model-name">{syn.modelB.name}</span>
                         </div>
                       ))}
@@ -4115,26 +4144,28 @@ function App() {
                   {/* Anti-synergies */}
                   {opponentCrewSynergies.antiSynergies.length > 0 && (
                     <div className="synergy-panel-content compact anti">
-                      <span className="anti-synergy-note">*</span>
+                      <span className="anti-synergy-note">
+                        âš ï¸ {opponentCrewSynergies.antiSynergies.length} potential conflict(s)
+                      </span>
                     </div>
                   )}
                 </div>
               )}
               
-              {/*  OPPONENT CREW CARD RULES  */}
+              {/* â•â•â• OPPONENT CREW CARD RULES â•â•â• */}
               {opponentMaster && opponentCrewCardAnalysis && (() => {
                 const oppCrewCard = getCrewCardForMaster(opponentMaster)
                 return oppCrewCard && (
                   <div className="crew-rules-panel opponent">
                     <div className="crew-rules-header">
-                      <span className="crew-rules-title">*</span>
+                      <span className="crew-rules-title">ðŸ“œ {oppCrewCard.name}</span>
                       <span className="crew-rules-subtitle">Their Crew Rules</span>
                     </div>
                     
                     {opponentCrewCardAnalysis.activeRules.length > 0 && (
                       <div className="crew-rules-section active">
                         <div className="crew-rules-section-header">
-                          <span className="rules-status-icon">*</span>
+                          <span className="rules-status-icon">âš¡</span>
                           Active ({opponentCrewCardAnalysis.activeRules.length})
                         </div>
                         {opponentCrewCardAnalysis.activeRules.slice(0, 3).map((rule, idx) => (
@@ -4153,9 +4184,9 @@ function App() {
             </div>
           </div>
 
-          {/* 
+          {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
               HIRING POOL - Available Models to Add
-               */}
+              â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
           {selectedMaster && (
             <div className="hiring-pool">
               <h2 className="hiring-pool-title">
@@ -4167,12 +4198,12 @@ function App() {
               {(crewStrategy || crewSchemes.length > 0) && (
                 <div className="scoring-legend">
                   <div className="scoring-legend-header">
-                    <span className="scoring-legend-icon">*</span>
+                    <span className="scoring-legend-icon">â˜…</span>
                     <span className="scoring-legend-title">Objective Fit Score</span>
                   </div>
                   <p className="scoring-legend-explanation">
                     Stars indicate how well a model fits your selected objectives. 
-                    Each * means the model has a role that helps score your Strategy or Schemes.
+                    Each â˜… means the model has a role that helps score your Strategy or Schemes.
                   </p>
                   {crewFavoredRoles.size > 0 && (
                     <div className="scoring-legend-roles">
@@ -4190,10 +4221,10 @@ function App() {
                     </div>
                   )}
                   <div className="scoring-legend-scale">
-                    <span className="score-example"><span className="stars star-level-excellent">*</span> Excellent fit</span>
-                    <span className="score-example"><span className="stars star-level-good">*</span> Good fit</span>
-                    <span className="score-example"><span className="stars star-level-some">*</span> Some fit</span>
-                    <span className="score-example"><span className="stars dim">*</span> No match</span>
+                    <span className="score-example"><span className="stars star-level-excellent">â˜…â˜…â˜…</span> Excellent fit</span>
+                    <span className="score-example"><span className="stars star-level-good">â˜…â˜…</span> Good fit</span>
+                    <span className="score-example"><span className="stars star-level-some">â˜…</span> Some fit</span>
+                    <span className="score-example"><span className="stars dim">â€”</span> No match</span>
                   </div>
                 </div>
               )}
@@ -4201,7 +4232,7 @@ function App() {
               {/* Badge Key */}
               <div className="hiring-badge-key">
                 <span className="badge-key-item">
-                  <span className="badge-key-icon hired">*</span>
+                  <span className="badge-key-icon hired">âœ“</span>
                   <span className="badge-key-label">In Crew</span>
                 </span>
                 <span className="badge-key-item">
@@ -4256,7 +4287,7 @@ function App() {
                           )}
                           {score > 0 && renderStars(score)}
                         </div>
-                        {inRoster && !isMinion && <div className="in-roster-badge">+</div>}
+                        {inRoster && !isMinion && <div className="in-roster-badge">âœ“</div>}
                         {atLimit && <div className="at-limit-badge">MAX</div>}
                       </div>
                     )
@@ -4309,7 +4340,7 @@ function App() {
                             )}
                             {score > 0 && renderStars(score)}
                           </div>
-                          {inRoster && !isMinion && <div className="in-roster-badge">+</div>}
+                          {inRoster && !isMinion && <div className="in-roster-badge">âœ“</div>}
                           {atLimit && <div className="at-limit-badge">MAX</div>}
                           {blockReason === 'ook-limit' && <div className="ook-limit-badge">OOK FULL</div>}
                         </div>
@@ -4323,9 +4354,9 @@ function App() {
         </>
       )}
 
-      {/* 
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           ENHANCED CARD MODAL - Mobile-first dual card view
-           */}
+          â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       {selectedCard && (
         <div className="modal-overlay" onClick={closeModal}>
           <button 
@@ -4333,7 +4364,7 @@ function App() {
             onClick={(e) => { e.stopPropagation(); navigateCard('prev'); }}
             aria-label="Previous card"
           >
-            &lt;
+            â€¹
           </button>
           
           <div className="modal card-detail-modal" onClick={e => e.stopPropagation()}>
@@ -4349,7 +4380,7 @@ function App() {
                   })()}
                 </span>
               )}
-              <button className="close-btn" onClick={closeModal}>x</button>
+              <button className="close-btn" onClick={closeModal}>Ã—</button>
             </div>
             
             {/* Data Quality Debug Banner */}
@@ -4364,7 +4395,7 @@ function App() {
               
               return (hasCostIssue || hasCharIssue) ? (
               <div className="modal-debug-banner">
-                <span className="debug-banner-label">*</span>
+                <span className="debug-banner-label">âš ï¸ Data Quality Issues:</span>
                 {hasCostIssue && (
                   <span className="debug-banner-item cost">Missing COST</span>
                 )}
@@ -4482,7 +4513,7 @@ function App() {
                   )}
                   {selectedCard.soulstone_cache && (
                     <div className="quick-stat soulstone">
-                      <span className="quick-stat-value">*</span>
+                      <span className="quick-stat-value">âœ¦</span>
                       <span className="quick-stat-label">SS</span>
                     </div>
                   )}
@@ -4497,7 +4528,7 @@ function App() {
                 return (
                   <div className="variant-picker">
                     <div className="variant-picker-label">
-                      <span className="variant-icon">*</span>
+                      <span className="variant-icon">ðŸŽ¨</span>
                       Art Variants ({variants.length})
                     </div>
                     <div className="variant-thumbnails">
@@ -4528,7 +4559,7 @@ function App() {
                 {/* Identity Section */}
                 <details className="data-section" open>
                   <summary className="data-section-header">
-                    <span className="section-icon">*</span>
+                    <span className="section-icon">ðŸ“‹</span>
                     Identity
                   </summary>
                   <div className="data-section-content">
@@ -4559,7 +4590,7 @@ function App() {
                 {selectedCard.characteristics?.length > 0 && (
                   <details className="data-section" open>
                     <summary className="data-section-header">
-                      <span className="section-icon">*</span>
+                      <span className="section-icon">ðŸ·ï¸</span>
                       Characteristics
                     </summary>
                     <div className="data-section-content">
@@ -4578,7 +4609,7 @@ function App() {
                 {selectedCard.keywords?.length > 0 && (
                   <details className="data-section" open>
                     <summary className="data-section-header">
-                      <span className="section-icon">*</span>
+                      <span className="section-icon">ðŸ”‘</span>
                       Keywords
                     </summary>
                     <div className="data-section-content">
@@ -4595,14 +4626,14 @@ function App() {
                 {selectedCard.roles?.length > 0 && (
                   <details className="data-section" open>
                     <summary className="data-section-header">
-                      <span className="section-icon">*</span>
+                      <span className="section-icon">ðŸŽ­</span>
                       Roles
                     </summary>
                     <div className="data-section-content">
                       <div className="tag-list">
                         {selectedCard.roles.map(r => (
                           <span key={r} className="detail-tag role">
-                            {ROLE_DESCRIPTIONS[r]?.icon || '-'} {ROLE_DESCRIPTIONS[r]?.label || r}
+                            {ROLE_DESCRIPTIONS[r]?.icon || 'â€¢'} {ROLE_DESCRIPTIONS[r]?.label || r}
                           </span>
                         ))}
                       </div>
@@ -4614,7 +4645,7 @@ function App() {
                 {getRelatedModels(selectedCard).length > 0 && (
                   <details className="data-section">
                     <summary className="data-section-header">
-                      <span className="section-icon">*</span>
+                      <span className="section-icon">ðŸ”—</span>
                       Keyword Family ({getRelatedModels(selectedCard).length})
                     </summary>
                     <div className="data-section-content">
@@ -4641,7 +4672,7 @@ function App() {
                   return (
                     <details className="data-section card-synergies-section" open={cardSyns.synergies.length > 0}>
                       <summary className="data-section-header">
-                        <span className="section-icon">*</span>
+                        <span className="section-icon">âš¡</span>
                         Synergies
                         {cardSyns.synergies.length > 0 && (
                           <span className="synergy-count">{cardSyns.synergies.length}</span>
@@ -4677,7 +4708,7 @@ function App() {
                             </div>
                             {cardSyns.antiSynergies.length > 0 && (
                               <div className="anti-synergies-section">
-                                <div className="anti-synergies-header"> ! Potential Conflicts</div>
+                                <div className="anti-synergies-header">âš ï¸ Potential Conflicts</div>
                                 {cardSyns.antiSynergies.map((anti, idx) => (
                                   <div key={idx} className="anti-synergy-card-item">
                                     <span className="anti-synergy-name">{anti.card.name}</span>
@@ -4705,7 +4736,7 @@ function App() {
             onClick={(e) => { e.stopPropagation(); navigateCard('next'); }}
             aria-label="Next card"
           >
-            &gt;
+            â€º
           </button>
         </div>
       )}
@@ -4716,10 +4747,12 @@ function App() {
           <div className="modal objective-modal" onClick={e => e.stopPropagation()}>
             <div className="modal-header">
               <h2>
-                <span className="objective-type-icon">*</span>
+                <span className="objective-type-icon">
+                  {selectedObjective.card_type === 'strategy' ? 'âš”' : 'â—ˆ'}
+                </span>
                 {selectedObjective.name}
               </h2>
-              <button className="close-btn" onClick={closeObjectiveModal}>x</button>
+              <button className="close-btn" onClick={closeObjectiveModal}>Ã—</button>
             </div>
             <div className="objective-modal-body">
               <div className="objective-vp-display">
@@ -4746,11 +4779,11 @@ function App() {
                         : getSchemeMeta(metaFaction, selectedObjective.name)
                       return (
                         <div className="meta-faction-block you">
-                          <span className="meta-faction-label">*</span>
+                          <span className="meta-faction-label">ðŸ“Š {metaFaction}</span>
                           {meta ? (
                             <div className="meta-detail">
                               <span className={`meta-rating ${meta.rating}`}>
-                                {meta.rating === 'strong' ? '<->' : meta.rating === 'weak' ? '<->' : '~ Neutral'}
+                                {meta.rating === 'strong' ? 'âœ“ Strong' : meta.rating === 'weak' ? 'âœ— Weak' : '~ Neutral'}
                               </span>
                               <span className="meta-stats">
                                 {Math.round(meta.winRate * 100)}% ({meta.games}g)
@@ -4773,11 +4806,11 @@ function App() {
                         : getSchemeMeta(opponentFaction, selectedObjective.name)
                       return (
                         <div className="meta-faction-block opponent">
-                          <span className="meta-faction-label">*</span>
+                          <span className="meta-faction-label">ðŸ‘ï¸ {opponentFaction}</span>
                           {meta ? (
                             <div className="meta-detail">
                               <span className={`meta-rating ${meta.rating}`}>
-                                {meta.rating === 'strong' ? '<->' : meta.rating === 'weak' ? '<->' : '~ Neutral'}
+                                {meta.rating === 'strong' ? 'âœ“ Strong' : meta.rating === 'weak' ? 'âœ— Weak' : '~ Neutral'}
                               </span>
                               <span className="meta-stats">
                                 {Math.round(meta.winRate * 100)}% ({meta.games}g)
@@ -4846,22 +4879,22 @@ function App() {
                 <h3>Requirements Analysis</h3>
                 <div className="requirements-grid">
                   {selectedObjective.requires_killing && (
-                    <div className="req-item active"> Requires Killing</div>
+                    <div className="req-item active">âš” Requires Killing</div>
                   )}
                   {selectedObjective.requires_scheme_markers && (
-                    <div className="req-item active"> Scheme Markers</div>
+                    <div className="req-item active">ðŸ“ Scheme Markers</div>
                   )}
                   {selectedObjective.requires_strategy_markers && (
-                    <div className="req-item active"> Strategy Markers</div>
+                    <div className="req-item active">ðŸŽ¯ Strategy Markers</div>
                   )}
                   {selectedObjective.requires_positioning && (
-                    <div className="req-item active"> Positioning</div>
+                    <div className="req-item active">ðŸ“ Positioning</div>
                   )}
                   {selectedObjective.requires_terrain && (
-                    <div className="req-item active"> Terrain</div>
+                    <div className="req-item active">ðŸ” Terrain</div>
                   )}
                   {selectedObjective.requires_interact && (
-                    <div className="req-item active"> Interact Actions</div>
+                    <div className="req-item active">ðŸ‘† Interact Actions</div>
                   )}
                 </div>
               </section>
@@ -4903,8 +4936,8 @@ function App() {
                   }}
                 >
                   {selectedObjective.card_type === 'strategy'
-                    ? (selectedStrategy === selectedObjective.id ? '<->' : 'Select Strategy')
-                    : (selectedSchemes.includes(selectedObjective.id) ? '<->' : 'Select Scheme')
+                    ? (selectedStrategy === selectedObjective.id ? 'âœ“ Strategy Selected' : 'Select Strategy')
+                    : (selectedSchemes.includes(selectedObjective.id) ? 'âœ“ Scheme Selected' : 'Select Scheme')
                   }
                 </button>
               </div>
