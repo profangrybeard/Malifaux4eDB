@@ -1,0 +1,186 @@
+[
+  {
+    "_error": "JSON parse error: Expecting value: line 1 column 1 (char 0)",
+    "_raw_response": "Looking at the Wind Gamin card:\n\n**Front of card:**\n- Name: Wind Gamin\n- Cost: 3\n- Stats: DF 4, SP 7, WP 3, SZ 1\n- Health track at bottom: coffin icon, then numbered circles 1, 2, 3 (highest number = 3)\n- Characteristics: Minion (3), Gamin, Elemental\n- Keyword: Academic\n- Abilities: Demise (To the Sky) and Flight\n\n**Back of card:**\n- Two attack actions: Sharp Claws and Wind Blast\n- Base size: 30mm\n\n```json\n{\n  \"name\": \"Wind Gamin\",\n  \"faction\": \"Arcanists\", \n  \"keywords\": [\"Academic\"],\n  \"card_type\": \"Stat\",\n  \"cost\": 3,\n  \"defense\": 4,\n  \"speed\": 7,\n  \"willpower\": 3,\n  \"size\": 1,\n  \"health\": 3,\n  \"base_size\": \"30mm\",\n  \"characteristics\": [\"Minion (3)\", \"Gamin\", \"Elemental\"],\n  \"abilities\": [\n    {\n      \"name\": \"Demise (To the Sky)\",\n      \"type\": \"demise\",\n      \"description\": \"After this model is killed, an ally within 6\\\" may place anywhere within 4\\\" of itself.\"\n    },\n    {\n      \"name\": \"Flight\",\n      \"type\": \"passive\", \n      \"description\": \"This model ignores terrain and othe",
+    "_source": {
+      "front": "M4E_Stat_Academic_Wind_Gamin_A_front.png",
+      "back": "M4E_Stat_Academic_Wind_Gamin_A_back.png"
+    }
+  },
+  {
+    "_error": "JSON parse error: Expecting value: line 1 column 1 (char 0)",
+    "_raw_response": "Looking at the Frontiersman card:\n\n**FRONT ANALYSIS:**\n- Name: Frontiersman\n- Cost: 5\n- Defense: 5, Speed: 6, Willpower: 5, Size: 2\n- Health track shows: coffin, 1, 2, 3, 4, 5, 6 \u2192 Health = 6\n- Characteristics: \"Minion (3), Living \u2022 Frontier\"\n- Keywords: Frontier\n- Abilities listed with exact text\n\n**BACK ANALYSIS:**\n- Attack actions with ranges, skills, resists, damage\n- Tactical action (Reveal)\n- Base size: 30mm\n- Triggers with suit symbols identified\n\n```json\n{\n  \"name\": \"Frontiersman\",\n  \"faction\": \"Arcanists\",\n  \"keywords\": [\"Frontier\"],\n  \"card_type\": \"Stat\",\n  \"cost\": 5,\n  \"defense\": 5,\n  \"speed\": 6,\n  \"willpower\": 5,\n  \"size\": 2,\n  \"health\": 6,\n  \"base_size\": \"30mm\",\n  \"characteristics\": [\"Minion\", \"Living\"],\n  \"abilities\": [\n    {\n      \"name\": \"Don't Turn Your Back\",\n      \"type\": \"passive\",\n      \"description\": \"Enemy models that activate engaged with this model may not declare the Interact action until the end of their activation.\"\n    },\n    {\n      \"name\": \"Favorable Terr",
+    "_source": {
+      "front": "M4E_Stat_Frontier_Frontiersman_B_front.png",
+      "back": "M4E_Stat_Frontier_Frontiersman_B_back.png"
+    }
+  },
+  {
+    "_error": "JSON parse error: Expecting value: line 1 column 1 (char 0)",
+    "_raw_response": "Looking at this Malifaux card, I can see:\n\n**Front of card:**\n- Name: TRAINED RAPTOR\n- Cost: 3\n- Defense (DF): 4, Speed (SP): 7, Willpower (WP): 4, Size (SZ): 1\n- Health track at bottom shows: coffin icon, 1, 2, 3 - so health = 3\n- Characteristics: Minion (3), Living, Beast\n- Keyword: Frontier\n- Abilities: Flight and Stealth\n\n**Back of card:**\n- Attack Actions: Raking Claws\n- Tactical Actions: Stoop\n- Base size: 40mm\n\n```json\n{\n  \"name\": \"Trained Raptor\",\n  \"faction\": \"Arcanists\",\n  \"keywords\": [\"Frontier\"],\n  \"card_type\": \"Stat\",\n  \"cost\": 3,\n  \"defense\": 4,\n  \"speed\": 7,\n  \"willpower\": 4,\n  \"size\": 1,\n  \"health\": 3,\n  \"base_size\": \"40mm\",\n  \"characteristics\": [\"Minion (3)\", \"Living\", \"Beast\"],\n  \"abilities\": [\n    {\n      \"name\": \"Flight\",\n      \"type\": \"passive\",\n      \"description\": \"This model ignores terrain and other models while moving.\"\n    },\n    {\n      \"name\": \"Stealth\",\n      \"type\": \"passive\",\n      \"description\": \"While more than 6\\\" away from this model, enemy models ca",
+    "_source": {
+      "front": "M4E_Stat_Frontier_Trained_Raptor_B_front.png",
+      "back": "M4E_Stat_Frontier_Trained_Raptor_B_back.png"
+    }
+  },
+  {
+    "_error": "JSON parse error: Expecting value: line 1 column 1 (char 0)",
+    "_raw_response": "Looking at the card carefully:\n\n**Front Analysis:**\n- Name: Elemental Boxer\n- Cost: 6\n- Defense: 6, Speed: 6, Willpower: 4, Size: 2\n- Health track shows: coffin, 1, 2, 3, 4, 5, 6, 7, 8 \u2192 Health = 8\n- Characteristics: \"Minion (2), Living\"\n- Keyword: \"Academic, M&SU\"\n\n**Back Analysis:**\n- Attack \"Quick Jab\": Range 1\", Skill 5, Resist X, Damage 2\n- \"Sparring Partner\": Range 1\", Skill 5, Resist Df, TN 10\n- Base size: 30 mm\n\n{\n  \"name\": \"Elemental Boxer\",\n  \"faction\": \"Arcanists\", \n  \"keywords\": [\"Academic\", \"M&SU\"],\n  \"card_type\": \"Stat\",\n  \"cost\": 6,\n  \"defense\": 6,\n  \"speed\": 6,\n  \"willpower\": 4,\n  \"size\": 2,\n  \"health\": 8,\n  \"base_size\": \"30mm\",\n  \"characteristics\": [\"Minion (2)\", \"Living\"],\n  \"abilities\": [\n    {\n      \"name\": \"Hard to Kill\",\n      \"type\": \"passive\",\n      \"description\": \"When this model suffers damage, if it has 2 or more health, it may not be reduced to below 1 health.\"\n    },\n    {\n      \"name\": \"Unionized\",\n      \"type\": \"passive\", \n      \"description\": \"While with",
+    "_source": {
+      "front": "M4E_Stat_Academic_M&SU_Elemental_Boxer_A_front.png",
+      "back": "M4E_Stat_Academic_M&SU_Elemental_Boxer_A_back.png"
+    }
+  },
+  {
+    "_error": "JSON parse error: Expecting value: line 1 column 1 (char 0)",
+    "_raw_response": "Looking at the Elemental Boxer card:\n\n**FRONT:**\n- Name: Elemental Boxer\n- Cost: 6\n- DF: 6, SP: 6, WP: 4, SZ: 2\n- Health track shows: coffin, 1, 2, 3, 4, 5, 6, 7, 8 (highest numbered circle = 8)\n- Characteristics: Minion (2), Living\n- Keyword: Academic, M&SU\n\n**BACK:**\n- Attack: Quick Jab with multiple triggers\n- Tactical: Sparring Partner\n- Base size: 30 mm\n\n```json\n{\n  \"name\": \"Elemental Boxer\",\n  \"faction\": \"Arcanists\",\n  \"keywords\": [\"Academic\", \"M&SU\"],\n  \"card_type\": \"Stat\",\n  \"cost\": 6,\n  \"defense\": 6,\n  \"speed\": 6,\n  \"willpower\": 4,\n  \"size\": 2,\n  \"health\": 8,\n  \"base_size\": \"30mm\",\n  \"characteristics\": [\"Minion (2)\", \"Living\"],\n  \"abilities\": [\n    {\n      \"name\": \"Hard to Kill\",\n      \"type\": \"passive\",\n      \"description\": \"When this model suffers damage, if it has 2 or more health, it may not be reduced to below 1 health.\"\n    },\n    {\n      \"name\": \"Unionized\",\n      \"type\": \"passive\",\n      \"description\": \"While within 3\\\" of another ally, this model receives a + to its D",
+    "_source": {
+      "front": "M4E_Stat_Academic_M&SU_Elemental_Boxer_B_front.png",
+      "back": "M4E_Stat_Academic_M&SU_Elemental_Boxer_B_back.png"
+    }
+  },
+  {
+    "_error": "JSON parse error: Expecting value: line 1 column 1 (char 0)",
+    "_raw_response": "Looking at the card carefully:\n\n```json\n{\n  \"name\": \"Good Ol' Boy\",\n  \"faction\": \"Bayou\",\n  \"keywords\": [\"Big Hat\"],\n  \"card_type\": \"Stat\",\n  \"cost\": 6,\n  \"defense\": 5,\n  \"speed\": 6,\n  \"willpower\": 5,\n  \"size\": 2,\n  \"health\": 8,\n  \"base_size\": \"30mm\",\n  \"characteristics\": [\"Minion (3)\", \"Living\"],\n  \"abilities\": [\n    {\n      \"name\": \"Don't Turn Your Back\",\n      \"type\": \"passive\",\n      \"description\": \"Enemy models that activate engaged with this model may not declare the Interact action until the end of their activation.\"\n    },\n    {\n      \"name\": \"Resilient\",\n      \"type\": \"defensive\",\n      \"description\": \"Attacks targeting this model reduce raises they receive by 1 (to a minimum of 0).\"\n    },\n    {\n      \"name\": \"Seasoned Looter\",\n      \"type\": \"passive\",\n      \"description\": \"When this model activates, it may remove a marker within 2\\\" to gain an Impact token.\"\n    }\n  ],\n  \"attack_actions\": [\n    {\n      \"name\": \"Broken Bottle\",\n      \"type\": \"melee\",\n      \"range\": \"1\\\"\",\n   ",
+    "_source": {
+      "front": "M4E_Stat_Big-Hat_Good_Ol_Boy_B_front.png",
+      "back": "M4E_Stat_Big-Hat_Good_Ol_Boy_B_back.png"
+    }
+  },
+  {
+    "_error": "JSON parse error: Expecting value: line 1 column 1 (char 0)",
+    "_raw_response": "Looking at this Malifaux card, I can see:\n\n**Front of card:**\n- Name: \"HABBER-DASHER\" \n- Cost: \"-\" (indicating totem)\n- Stats: DF 7, SP 7, WP 3, SZ 1\n- Health track at bottom: I can see a coffin icon followed by numbered circle \"1\" - so health = 1\n- Characteristics: \"Peon (3), Construct\" and \"Big Hat, Tricksy\"\n- Ability: \"Demise (Just a Normal Hat): After this model is killed, make a Scheme marker within 2\" of this model.\"\n\n**Back of card:**\n- Attack Action: \"Hidden Pistol\" - Range 6\", Skill 3, Resist Df, Damage 1, with effect \"This action ignores \u2694 abilities.\"\n- Tactical Action: \"Hat's Trick\" - Kill this model, enemy models within (X) 3\" must pass TN 13 Sp duel or be dealt 2 damage.\n- Base size: 30mm\n\n```json\n{\n  \"name\": \"Habber-Dasher\",\n  \"faction\": \"Bayou\",\n  \"keywords\": [\"Tricksy\"],\n  \"card_type\": \"Stat\",\n  \"cost\": null,\n  \"defense\": 7,\n  \"speed\": 7,\n  \"willpower\": 3,\n  \"size\": 1,\n  \"health\": 1,\n  \"base_size\": \"30mm\",\n  \"characteristics\": [\"Peon (3)\", \"Construct\", \"Big Hat\", \"Trick",
+    "_source": {
+      "front": "M4E_Stat_Big-Hat_Tricksy_Habber_Dasher_B_front.png",
+      "back": "M4E_Stat_Big-Hat_Tricksy_Habber_Dasher_B_back.png"
+    }
+  },
+  {
+    "_error": "JSON parse error: Expecting value: line 1 column 1 (char 0)",
+    "_raw_response": "Looking at the card carefully:\n\n**Front of card:**\n- Name: Trixiebelle\n- Cost: 8\n- Defense: 5, Speed: 6, Willpower: 5, Size: 3\n- Health track shows: coffin, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 (highest number = 11)\n- Characteristics: Henchman, Unique, Construct, Loyal, Tricksy\n- Keyword: Tricksy (after bullet point)\n\n**Back of card:**\n- Base size: 30 mm\n- Attack actions and tactical actions listed\n\n```json\n{\n  \"name\": \"Trixiebelle\",\n  \"faction\": \"Bayou\",\n  \"keywords\": [\"Tricksy\"],\n  \"card_type\": \"Stat\",\n  \"cost\": 8,\n  \"defense\": 5,\n  \"speed\": 6,\n  \"willpower\": 5,\n  \"size\": 3,\n  \"health\": 11,\n  \"base_size\": \"30mm\",\n  \"characteristics\": [\"Henchman\", \"Unique\", \"Construct\", \"Loyal\", \"Tricksy\"],\n  \"abilities\": [\n    {\n      \"name\": \"Armor\",\n      \"type\": \"defensive\",\n      \"description\": \"Once per activation. This model may reduce damage dealt to it by 1.\"\n    },\n    {\n      \"name\": \"Don't Mind Me\",\n      \"type\": \"passive\",\n      \"description\": \"The following do not restrict this model from t",
+    "_source": {
+      "front": "M4E_Stat_Tricksy_Trixiebelle_front.png",
+      "back": "M4E_Stat_Tricksy_Trixiebelle_back.png"
+    }
+  },
+  {
+    "_error": "JSON parse error: Expecting value: line 1 column 1 (char 0)",
+    "_raw_response": "Looking at the card carefully:\n\n**FRONT:**\n- Name: BO PEEP\n- Cost: 7\n- DF: 5, SP: 7, WP: 5, SZ: 2\n- Characteristics: Henchman, Unique, Living, Beast, Versatile, Sooey, Jockey\n- Health track shows coffin + numbers 1,2,3,4,5,6,7,8,9 = health 9\n\n**BACK:**\n- Attack: Hogwash Slosh with triggers\n- Tactical Actions: Nitro Boost, Pork Roast Rodeo, Expanding Influence\n- Base size: 40mm\n\n```json\n{\n  \"name\": \"Bo Peep\",\n  \"faction\": \"Bayou\",\n  \"keywords\": [\"Versatile\", \"Sooey\", \"Jockey\"],\n  \"card_type\": \"Stat\",\n  \"cost\": 7,\n  \"defense\": 5,\n  \"speed\": 7,\n  \"willpower\": 5,\n  \"size\": 2,\n  \"health\": 9,\n  \"base_size\": \"40mm\",\n  \"characteristics\": [\"Henchman\", \"Unique\", \"Living\", \"Beast\", \"Versatile\", \"Sooey\", \"Jockey\"],\n  \"abilities\": [\n    {\n      \"name\": \"And the Crowd Goes Wild!\",\n      \"type\": \"passive\",\n      \"description\": \"Once per activation. When a friendly model within 8\\\" of this model damages an enemy model, the friendly model may heal 1.\"\n    },\n    {\n      \"name\": \"Hard to Kill\",\n      \"t",
+    "_source": {
+      "front": "M4E_Stat_Byu-Versatile_Sooey_Jockey_Bo_Peep_front.png",
+      "back": "M4E_Stat_Byu-Versatile_Sooey_Jockey_Bo_Peep_back.png"
+    }
+  },
+  {
+    "_error": "JSON parse error: Expecting value: line 1 column 1 (char 0)",
+    "_raw_response": "Looking at the card carefully:\n\n```json\n{\n  \"name\": \"Guild Hound\",\n  \"faction\": \"Guild\",\n  \"keywords\": [\"Guard\"],\n  \"card_type\": \"Stat\",\n  \"cost\": 3,\n  \"defense\": 4,\n  \"speed\": 7,\n  \"willpower\": 3,\n  \"size\": 1,\n  \"health\": 4,\n  \"base_size\": \"30mm\",\n  \"characteristics\": [\"Minion (4)\", \"Beast\"],\n  \"abilities\": [\n    {\n      \"name\": \"Call the Pack\",\n      \"type\": \"passive\",\n      \"description\": \"When this model is chosen to be summoned, the Stn may be increased by 4. If it does so, after summoning, summon an additional model with the same name in base contact with the summoned model.\"\n    }\n  ],\n  \"attack_actions\": [\n    {\n      \"name\": \"Snapping Jaws\",\n      \"type\": \"melee\",\n      \"range\": \"1\\\"\",\n      \"skill\": 4,\n      \"resist\": \"Df\",\n      \"tn\": null,\n      \"damage\": \"1\",\n      \"description\": \"\",\n      \"triggers\": [\n        {\n          \"suit\": \"Tome\",\n          \"name\": \"Grab On\",\n          \"effect\": \"Target gains a Slow token. End this model's activation.\"\n        }\n      ]\n    },\n    ",
+    "_source": {
+      "front": "M4E_Stat_Guard_Guild_Hound_C_front.png",
+      "back": "M4E_Stat_Guard_Guild_Hound_C_back.png"
+    }
+  },
+  {
+    "_error": "JSON parse error: Expecting value: line 1 column 1 (char 0)",
+    "_raw_response": "Looking at the Ashbringer card:\n\n**Front Analysis:**\n- Name: \"ASHBRINGER\" \n- Cost: 5\n- Defense: 5, Speed: 6, Willpower: 6, Size: 2\n- Health track: coffin icon + circles numbered 1,2,3,4,5,6 \u2192 Health = 6\n- Characteristics: \"Minion (2), Living\" and \"Witch Hunter, Marshal\"\n- STN: 8 (stamina)\n\n**Back Analysis:**\n- Attack: \"Scorching Embers\" - ranged 6\", skill 5, resist Df, damage 1\n- Tactical: \"Carry the Flame\" - range 6\", TN 6\n- Base size: 30 mm\n\n```json\n{\n  \"name\": \"Ashbringer\",\n  \"faction\": \"Guild\",\n  \"keywords\": [\"Witch Hunter\", \"Marshal\"],\n  \"card_type\": \"Stat\",\n  \"cost\": 5,\n  \"defense\": 5,\n  \"speed\": 6,\n  \"willpower\": 6,\n  \"size\": 2,\n  \"health\": 6,\n  \"base_size\": \"30mm\",\n  \"characteristics\": [\"Minion (2)\", \"Living\"],\n  \"abilities\": [\n    {\n      \"name\": \"Aegis\",\n      \"type\": \"passive\",\n      \"description\": \"Once per activation. This model may reduce damage dealt to it by 1.\"\n    },\n    {\n      \"name\": \"One Foot in the Grave\",\n      \"type\": \"passive\",\n      \"description\": \"When this ",
+    "_source": {
+      "front": "M4E_Stat_Witch-Hunter_Marshal_Ashbringer_A_front.png",
+      "back": "M4E_Stat_Witch-Hunter_Marshal_Ashbringer_A_back.png"
+    }
+  },
+  {
+    "_error": "JSON parse error: Expecting value: line 1 column 1 (char 0)",
+    "_raw_response": "Looking at this Malifaux card for \"Gift of Thorns\":\n\n**Front Analysis:**\n- Name: Gift of Thorns\n- Cost: \"-\" (indicated by dash, so null for totem)\n- Stats: DF 3, SP 8, WP 3, SZ 1\n- Health track at bottom: I can see a coffin icon followed by numbered circle \"1\" - so health = 1\n- Characteristics: \"Peon (3), Living\" and \"Banished\" (keyword)\n- Three abilities listed with their exact text\n\n**Back Analysis:**\n- One attack action \"The Joining\"\n- Range: 3\" with two symbols (appears to be suit symbols)\n- Skill: 6, Resist: Df\n- Effect text about attaching Wreathed upgrade and killing this model\n- Base size: 30mm\n\n```json\n{\n  \"name\": \"Gift of Thorns\",\n  \"faction\": \"Neverborn\", \n  \"keywords\": [\"Banished\"],\n  \"card_type\": \"Stat\",\n  \"cost\": null,\n  \"defense\": 3,\n  \"speed\": 8,\n  \"willpower\": 3,\n  \"size\": 1,\n  \"health\": 1,\n  \"base_size\": \"30mm\",\n  \"characteristics\": [\"Peon\", \"Living\"],\n  \"abilities\": [\n    {\n      \"name\": \"Made to Kill\",\n      \"type\": \"passive\",\n      \"description\": \"Once per activati",
+    "_source": {
+      "front": "M4E_Stat_Banished_Gift_of_Thorns_B_front.png",
+      "back": "M4E_Stat_Banished_Gift_of_Thorns_B_back.png"
+    }
+  },
+  {
+    "_error": "JSON parse error: Expecting value: line 1 column 1 (char 0)",
+    "_raw_response": "Looking at the card, I can extract the following information:\n\nFrom the FRONT:\n- Name: \"THE CROWNED\" \n- Cost: 6\n- DF: 5, SP: 6, WP: 5, SZ: 2\n- Health track shows: coffin, 1, 2, 3, 4, 5, 6, 7 (highest number is 7)\n- Characteristics: \"Minion (3), Living \u2022 Banished\"\n- Three abilities listed\n\nFrom the BACK:\n- One attack action \"Eldertide\"\n- One tactical action \"To the Pools, At Last\"\n- Base size: 30mm\n\n```json\n{\n  \"name\": \"The Crowned\",\n  \"faction\": \"Neverborn\",\n  \"keywords\": [\"Banished\"],\n  \"card_type\": \"Stat\",\n  \"cost\": 6,\n  \"defense\": 5,\n  \"speed\": 6,\n  \"willpower\": 5,\n  \"size\": 2,\n  \"health\": 7,\n  \"base_size\": \"30mm\",\n  \"characteristics\": [\"Minion\", \"Living\"],\n  \"abilities\": [\n    {\n      \"name\": \"Demise (Scatter 1)\",\n      \"type\": \"demise\",\n      \"description\": \"After this model is killed, summon up to one Gift of Thorns within 3\\\".\"\n    },\n    {\n      \"name\": \"Don't Turn Your Back\",\n      \"type\": \"passive\",\n      \"description\": \"Enemy models that activate engaged with this model may ",
+    "_source": {
+      "front": "M4E_Stat_Banished_The_Crowned_C_front.png",
+      "back": "M4E_Stat_Banished_The_Crowned_C_back.png"
+    }
+  },
+  {
+    "_error": "JSON parse error: Expecting value: line 1 column 1 (char 0)",
+    "_raw_response": "Looking at the card carefully:\n\n**Front:**\n- Name: Parker Barrows\n- Cost: \"-\" (shown in top right)\n- Stats: DF 6, SP 6, WP 6, SZ 2\n- Health track at bottom: coffin, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 (highest number = 14)\n- Characteristics: Master, Unique, Living, Bandit\n- Faction symbol indicates Outcasts\n\n**Back:**\n- Attack Actions: Six-Shooters\n- Tactical Actions: \"Scatter! Law's Comin'!\" and Ransack\n- Base size: 30 mm (shown at bottom)\n\n```json\n{\n  \"name\": \"Parker Barrows\",\n  \"faction\": \"Outcasts\",\n  \"keywords\": [\"Bandit\"],\n  \"card_type\": \"Stat\",\n  \"cost\": null,\n  \"defense\": 6,\n  \"speed\": 6,\n  \"willpower\": 6,\n  \"size\": 2,\n  \"health\": 14,\n  \"base_size\": \"30mm\",\n  \"characteristics\": [\"Master\", \"Unique\", \"Living\", \"Bandit\"],\n  \"abilities\": [\n    {\n      \"name\": \"Found Fortune\",\n      \"type\": \"passive\",\n      \"description\": \"Once per activation. After this model resolves a Walk action, it may remove a Scheme marker within 2\\\" to draw a card.\"\n    },\n    {\n      \"name\": \"Hard",
+    "_source": {
+      "front": "M4E_Stat_Bandit_Parker_Barrows_Most_Wanted_front.png",
+      "back": "M4E_Stat_Bandit_Parker_Barrows_Most_Wanted_back.png"
+    }
+  },
+  {
+    "_error": "JSON parse error: Expecting value: line 1 column 1 (char 0)",
+    "_raw_response": "Looking at this Ronin card carefully:\n\n**FRONT OF CARD:**\n- Name: RONIN\n- Cost: 6\n- DF: 5, SP: 7, WP: 5, SZ: 2\n- Health track at bottom shows: coffin, 1, 2, 3, 4, 5, 6 (so health = 6)\n- Characteristics: Minion (3), Living \u25c6 Mercenary\n- Three abilities listed\n\n**BACK OF CARD:**\n- Two attack actions: Daito and Collier Revolver\n- Base size: 30 mm\n\n```json\n{\n  \"name\": \"Ronin\",\n  \"faction\": \"Outcasts\",\n  \"keywords\": [\"Mercenary\"],\n  \"card_type\": \"Stat\",\n  \"cost\": 6,\n  \"defense\": 5,\n  \"speed\": 7,\n  \"willpower\": 5,\n  \"size\": 2,\n  \"health\": 6,\n  \"base_size\": \"30mm\",\n  \"characteristics\": [\"Minion\", \"Living\"],\n  \"abilities\": [\n    {\n      \"name\": \"Demise (Final Sacrifice)\",\n      \"type\": \"demise\",\n      \"description\": \"After this model is killed, it infuses two \u2666 instead of one.\"\n    },\n    {\n      \"name\": \"Hard to Kill\",\n      \"type\": \"defensive\",\n      \"description\": \"When this model suffers damage, if it has 2 or more health, it may not be reduced to below 1 health.\"\n    },\n    {\n      \"name\"",
+    "_source": {
+      "front": "M4E_Stat_Mercenary_Ronin_B_front.png",
+      "back": "M4E_Stat_Mercenary_Ronin_B_back.png"
+    }
+  },
+  {
+    "_error": "JSON parse error: Expecting value: line 1 column 1 (char 0)",
+    "_raw_response": "Looking at this Malifaux card, I can see:\n\n**Front of card:**\n- Name: \"MALIFAUX RAT\"\n- Cost: 2 (top right)\n- Stats: DF 3, SP 6, WP 3, SZ 1\n- Health track at bottom: I see a coffin icon followed by numbered circle \"1\" - so health = 1\n- Characteristics: \"Peon (8), Living, Vermin\"\n- Keyword: \"Plague\"\n- Three abilities listed with their descriptions\n\n**Back of card:**\n- One tactical action \"Tangle Together\"\n- Base size: 30mm (shown at bottom)\n\n```json\n{\n  \"name\": \"Malifaux Rat\",\n  \"faction\": \"Outcasts\",\n  \"keywords\": [\"Plague\"],\n  \"card_type\": \"Stat\",\n  \"cost\": 2,\n  \"defense\": 3,\n  \"speed\": 6,\n  \"willpower\": 3,\n  \"size\": 1,\n  \"health\": 1,\n  \"base_size\": \"30mm\",\n  \"characteristics\": [\"Peon (8)\", \"Living\", \"Vermin\"],\n  \"abilities\": [\n    {\n      \"name\": \"Disease Carrier\",\n      \"type\": \"passive\",\n      \"description\": \"When this model ends its activation, an enemy model in base contact with this model gains a Blight token.\"\n    },\n    {\n      \"name\": \"Unimpeded\",\n      \"type\": \"passive\",\n    ",
+    "_source": {
+      "front": "M4E_Stat_Plague_Malifaux_Rat_C_front.png",
+      "back": "M4E_Stat_Plague_Malifaux_Rat_C_back.png"
+    }
+  },
+  {
+    "_error": "JSON parse error: Expecting value: line 1 column 1 (char 0)",
+    "_raw_response": "Looking at the card carefully:\n\n**Front of card shows:**\n- Name: Night Terror\n- Cost: 6\n- Defense: 5, Speed: 6, Willpower: 5, Size: 2\n- Health track at bottom: coffin icon, then numbered circles 1, 2, 3, 4, 5, 6, 7 (highest number = 7)\n- Characteristics: \"Minion (2), Undead\"\n- Keyword: \"Forgotten\"\n\n**Back of card shows:**\n- Base size: 30 mm\n- Attack action: Supersonic Screech\n- Tactical action: Leap\n- Multiple triggers with suit symbols\n\n```json\n{\n  \"name\": \"Night Terror\",\n  \"faction\": \"Resurrectionists\", \n  \"keywords\": [\"Forgotten\"],\n  \"card_type\": \"Stat\",\n  \"cost\": 6,\n  \"defense\": 5,\n  \"speed\": 6,\n  \"willpower\": 5,\n  \"size\": 2,\n  \"health\": 7,\n  \"base_size\": \"30mm\",\n  \"characteristics\": [\"Minion (2)\", \"Undead\"],\n  \"abilities\": [\n    {\n      \"name\": \"Enveloping Darkness\",\n      \"type\": \"passive\",\n      \"description\": \"The area within 4\\\" of this model is concealing terrain. Friendly models may choose to be unaffected by this terrain.\"\n    },\n    {\n      \"name\": \"Flight\",\n      \"type\": ",
+    "_source": {
+      "front": "M4E_Stat_Forgotten_Night_Terror_B_front.png",
+      "back": "M4E_Stat_Forgotten_Night_Terror_B_back.png"
+    }
+  },
+  {
+    "_error": "JSON parse error: Expecting value: line 1 column 1 (char 0)",
+    "_raw_response": "Looking at this Malifaux card for Necropunk:\n\n**FRONT:**\n- Name: NECROPUNK\n- Cost: 3\n- Defense: 4, Speed: 6, Willpower: 4, Size: 1\n- Health track shows: coffin, 1, 2, 3, 4 (highest numbered circle = 4)\n- Characteristics: Minion (3), Construct, Undead, Student\n- Keyword: Amalgam, Transmortis\n- Ability: Armor with shield symbol\n\n**BACK:**\n- Attack: Repurposed Claws with Onslaught and Stunning Strike triggers\n- Tactical: Leap action\n- Base size: 30mm\n\n```json\n{\n  \"name\": \"Necropunk\",\n  \"faction\": \"Resurrectionists\",\n  \"keywords\": [\"Transmortis\"],\n  \"card_type\": \"Stat\",\n  \"cost\": 3,\n  \"defense\": 4,\n  \"speed\": 6,\n  \"willpower\": 4,\n  \"size\": 1,\n  \"health\": 4,\n  \"base_size\": \"30mm\",\n  \"characteristics\": [\"Minion (3)\", \"Construct\", \"Undead\", \"Student\"],\n  \"abilities\": [\n    {\n      \"name\": \"Armor\",\n      \"type\": \"defensive\",\n      \"description\": \"Once per activation. This model may reduce damage dealt to it by 1.\"\n    }\n  ],\n  \"attack_actions\": [\n    {\n      \"name\": \"Repurposed Claws\",\n      \"",
+    "_source": {
+      "front": "M4E_Stat_Transmortis_Necropunk_B_front.png",
+      "back": "M4E_Stat_Transmortis_Necropunk_B_back.png"
+    }
+  },
+  {
+    "_error": "JSON parse error: Expecting value: line 1 column 1 (char 0)",
+    "_raw_response": "Looking at the card carefully:\n\n**Front Analysis:**\n- Name: Carrion Fate\n- Cost: 2 (top right)\n- Defense: 4, Speed: 6, Willpower: 4, Size: 1\n- Health track at bottom: coffin icon, then numbered circles 1, 2, 3 = health 3\n- Characteristics: \"Unique, Effigy, Versatile\"\n- Keyword: \"EFFIGY\"\n\n**Back Analysis:**\n- Attack: Carrion Curse with Crow and Ram triggers\n- Tactical: Graveyard Ambiance\n- Base size: 30 mm\n\n```json\n{\n  \"name\": \"Res-Versatile Carrion Fate Effigy\",\n  \"faction\": \"Resurrectionists\",\n  \"keywords\": [\"Versatile - Resurrectionists\"],\n  \"card_type\": \"Stat\",\n  \"cost\": 2,\n  \"defense\": 4,\n  \"speed\": 6,\n  \"willpower\": 4,\n  \"size\": 1,\n  \"health\": 3,\n  \"base_size\": \"30mm\",\n  \"characteristics\": [\"Unique\", \"Effigy\", \"Versatile\"],\n  \"abilities\": [\n    {\n      \"name\": \"Insignificant\",\n      \"type\": \"passive\",\n      \"description\": \"This model cannot declare the Interact action and is ignored for strategies and schemes.\"\n    },\n    {\n      \"name\": \"Quick Study\",\n      \"type\": \"passive\", \n  ",
+    "_source": {
+      "front": "M4E_Stat_Res-Versatile_Carrion_Fate_Effigy_front.png",
+      "back": "M4E_Stat_Res-Versatile_Carrion_Fate_Effigy_back.png"
+    }
+  },
+  {
+    "_error": "JSON parse error: Expecting value: line 1 column 1 (char 0)",
+    "_raw_response": "Looking at the Mindless Zombie card:\n\n**FRONT:**\n- Name: Mindless Zombie\n- Cost: 2 (shown in top right)\n- Defense: 3, Speed: 5, Willpower: 3, Size: 2\n- Health track at bottom shows: coffin icon, then numbered circles 1. The highest numbered circle is 1, so health = 1\n- Characteristics: Peon (3), Undead, Versatile, Zombie\n- Abilities listed with their exact text\n\n**BACK:**\n- Attack action \"Gnaw On Your Ear\" with Crow trigger \"Braaaaiiins\"\n- Tactical action \"Return to the Grave\"\n- Base size: 30mm (shown at bottom)\n\n```json\n{\n  \"name\": \"Mindless Zombie\",\n  \"faction\": \"Resurrectionists\",\n  \"keywords\": [\"Versatile\"],\n  \"card_type\": \"Stat\",\n  \"cost\": 2,\n  \"defense\": 3,\n  \"speed\": 5,\n  \"willpower\": 3,\n  \"size\": 2,\n  \"health\": 1,\n  \"base_size\": \"30mm\",\n  \"characteristics\": [\"Peon (3)\", \"Undead\", \"Versatile\", \"Zombie\"],\n  \"abilities\": [\n    {\n      \"name\": \"Demise (Walking Dead)\",\n      \"type\": \"demise\",\n      \"description\": \"Make a Remains marker in base contact with this model when it is kill",
+    "_source": {
+      "front": "M4E_Stat_Res-Versatile_Mindless_Zombie_B_front.png",
+      "back": "M4E_Stat_Res-Versatile_Mindless_Zombie_B_back.png"
+    }
+  },
+  {
+    "_error": "JSON parse error: Expecting value: line 1 column 1 (char 0)",
+    "_raw_response": "Looking at the Mindless Zombie card:\n\n**FRONT:** Cost 2, DF 3, SP 5, WP 3, SZ 2. Health track shows coffin icon followed by numbered circle \"1\", so health = 1. Characteristics: \"Peon (3), Undead, Versatile, Zombie\"\n\n**BACK:** One attack action \"Gnaw On Your Ear\" and one tactical action \"Return to the Grave\"\n\n```json\n{\n  \"name\": \"Res-Versatile Mindless Zombie G\",\n  \"faction\": \"Resurrectionists\",\n  \"keywords\": [\"Versatile - Resurrectionists\"],\n  \"card_type\": \"Stat\",\n  \"cost\": 2,\n  \"defense\": 3,\n  \"speed\": 5,\n  \"willpower\": 3,\n  \"size\": 2,\n  \"health\": 1,\n  \"base_size\": \"30mm\",\n  \"characteristics\": [\"Peon (3)\", \"Undead\", \"Versatile\", \"Zombie\"],\n  \"abilities\": [\n    {\n      \"name\": \"Demise (Walking Dead)\",\n      \"type\": \"demise\",\n      \"description\": \"Make a Remains marker in base contact with this model when it is killed.\"\n    },\n    {\n      \"name\": \"Latch On\",\n      \"type\": \"passive\",\n      \"description\": \"Enemy models in base contact with this model suffer -1 Df.\"\n    },\n    {\n      \"nam",
+    "_source": {
+      "front": "M4E_Stat_Res-Versatile_Mindless_Zombie_G_front.png",
+      "back": "M4E_Stat_Res-Versatile_Mindless_Zombie_G_back.png"
+    }
+  },
+  {
+    "_error": "JSON parse error: Expecting value: line 1 column 1 (char 0)",
+    "_raw_response": "Looking at this Malifaux card for Jorogumo:\n\n**FRONT OF CARD:**\n- Name: JOROGUMO\n- Cost: 8\n- Defense: 5, Speed: 6, Willpower: 4, Size: 3\n- Health track shows: coffin, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 (highest number = 11)\n- Characteristics: Minion (3), Oni\n- STN: 11\n\n**BACK OF CARD:**\n- Base size: 50mm\n- Three attack actions: Glaive, Spider's Trance, Bewitching Weave\n\n```json\n{\n  \"name\": \"Jorogumo\",\n  \"faction\": \"Ten Thunders\",\n  \"keywords\": [\"Oni\"],\n  \"card_type\": \"Stat\",\n  \"cost\": 8,\n  \"defense\": 5,\n  \"speed\": 6,\n  \"willpower\": 4,\n  \"size\": 3,\n  \"health\": 11,\n  \"base_size\": \"50mm\",\n  \"characteristics\": [\"Minion (3)\", \"Oni\"],\n  \"abilities\": [\n    {\n      \"name\": \"Abyssal Hunger\",\n      \"type\": \"passive\",\n      \"description\": \"When this model activates, it may kill an ally within 2\\\" to gain a Fast token.\"\n    },\n    {\n      \"name\": \"Eat Your Fill\",\n      \"type\": \"passive\",\n      \"description\": \"After killing an enemy model with a /// action, this model heals 2.\"\n    },\n    {\n      \"n",
+    "_source": {
+      "front": "M4E_Stat_Oni_Jorogumo_A_front.png",
+      "back": "M4E_Stat_Oni_Jorogumo_A_back.png"
+    }
+  },
+  {
+    "_error": "JSON parse error: Expecting value: line 1 column 1 (char 0)",
+    "_raw_response": "Looking at the card details:\n\n**Front of card:**\n- Name: BUNRAKU\n- Cost: 5\n- Defense: 5, Speed: 6, Willpower: 4, Size: 2\n- Health track: coffin, 1, 2, 3, 4, 5, 6, 7 (highest number = 7)\n- Characteristics: Minion (3), Puppet\n- Keyword: Qi and Gong\n- Abilities: Expert Climber and Stealth\n\n**Back of card:**\n- Attack: Tanto (melee, range 1\", skill 5, resist Df, damage 2)\n- Tactical Action: Onward (skill 0, TN 7)\n- Base size: 30 mm\n\n```json\n{\n  \"name\": \"Bunraku\",\n  \"faction\": \"Ten Thunders\",\n  \"keywords\": [\"Qi and Gong\"],\n  \"card_type\": \"Stat\",\n  \"cost\": 5,\n  \"defense\": 5,\n  \"speed\": 6,\n  \"willpower\": 4,\n  \"size\": 2,\n  \"health\": 7,\n  \"base_size\": \"30mm\",\n  \"characteristics\": [\"Minion (3)\", \"Puppet\"],\n  \"abilities\": [\n    {\n      \"name\": \"Expert Climber\",\n      \"type\": \"passive\",\n      \"description\": \"Once per activation. This model may ignore vertical distance while resolving the Walk or Charge action.\"\n    },\n    {\n      \"name\": \"Stealth\",\n      \"type\": \"passive\",\n      \"description\": \"Whi",
+    "_source": {
+      "front": "M4E_Stat_Qi-and-Gong_Bunraku_B_front.png",
+      "back": "M4E_Stat_Qi-and-Gong_Bunraku_B_back.png"
+    }
+  }
+]
