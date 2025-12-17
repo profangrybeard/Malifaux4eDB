@@ -4189,117 +4189,306 @@ function App() {
               )}
             </div>
             
-            {/*  CENTER: MATCHUP INTEL  */}
-            <div className="ab-intel-panel">
-              <h3>Matchup Analysis</h3>
+            {/* ═══ CENTER: POOL ANALYSIS ═══ */}
+            <div className="ab-intel-panel pool-analysis-panel">
+              <h3>🏛️ POOL ANALYSIS</h3>
               
-              {/* Preview indicator when hovering */}
-              {hoveredMaster && !selectedMaster && (
-                <div className="ab-intel-preview-badge">Previewing: {hoveredMaster.name}
+              {/* No objectives yet */}
+              {!crewStrategy && crewSchemes.length === 0 && (
+                <div className="ab-intel-empty">
+                  <p>Select Strategy & Schemes above to see pool analysis</p>
                 </div>
               )}
               
-              {/* Strategy Analysis - works with hover preview */}
-              {crewStrategy && (selectedMaster || hoveredMaster) && (
-                <div className="ab-intel-section">
-                  <h4>Strategy: {strategies[crewStrategy]?.name || crewStrategy}</h4>
-                  {(() => {
-                    const previewMaster = selectedMaster || hoveredMaster
-                    const factionMeta = FACTION_META[previewMaster.faction]
-                    const strategyData = factionMeta?.strategies_m4e?.[crewStrategy]
-                    return strategyData && (
-                      <div className="ab-intel-stat">
-                        <span>{previewMaster.faction} win rate:</span>
-                        <span className={`ab-winrate ${strategyData.win_rate >= 0.5 ? 'good' : 'bad'}`}>
-                          {Math.round(strategyData.win_rate * 100)}%
-                        </span>
-                      </div>
-                    )
-                  })()}
-                  {opponentMaster && FACTION_META[opponentMaster.faction]?.strategies_m4e?.[crewStrategy] && (
-                    <div className="ab-intel-stat">
-                      <span>Opponent win rate:</span>
-                      <span className={`ab-winrate ${FACTION_META[opponentMaster.faction].strategies_m4e[crewStrategy].win_rate >= 0.5 ? 'good' : 'bad'}`}>
-                        {Math.round(FACTION_META[opponentMaster.faction].strategies_m4e[crewStrategy].win_rate * 100)}%
-                      </span>
-                    </div>
-                  )}
-                </div>
-              )}
-              
-              {/* Scheme Pool Coverage - Can you score EACH scheme? */}
-              {crewSchemes.length > 0 && selectedMaster && (
-                <div className="ab-intel-section scheme-coverage">
-                  <h4>Scheme Pool Coverage</h4>
-                  <p className="scheme-coverage-hint">Can your crew score each scheme?</p>
-                  {schemeCoverage.map(coverage => (
-                    <div key={coverage.id} className={`scheme-coverage-item ${coverage.level}`}>
-                      <div className="scheme-coverage-header">
-                        <span className="scheme-coverage-icon">{coverage.icon}</span>
-                        <span className="scheme-coverage-name">{coverage.name}</span>
-                        {coverage.winRate && (
-                          <span className={`scheme-coverage-winrate ${coverage.winRate >= 0.5 ? 'good' : 'bad'}`}>
-                            {Math.round(coverage.winRate * 100)}%
-                          </span>
-                        )}
-                      </div>
-                      <div className="scheme-coverage-detail">
-                        <span className="scheme-coverage-message">{coverage.message}</span>
-                      </div>
-                      {coverage.count > 0 && (
-                        <div className="scheme-coverage-models">
-                          {coverage.models.slice(0, 3).join(', ')}
-                          {coverage.models.length > 3 && ` +${coverage.models.length - 3} more`}
-                        </div>
-                      )}
-                      {coverage.level === 'missing' && coverage.favoredRoles.length > 0 && (
-                        <div className="scheme-coverage-need">Need: {coverage.favoredRoles.slice(0, 2).map(r =>ROLE_DESCRIPTIONS[r]?.label || r
-                          ).join(', ')}
-                        </div>
-                      )}
-                    </div>
-                  ))}
+              {/* Pool Analysis Content */}
+              {(crewStrategy || crewSchemes.length > 0) && (() => {
+                const previewMaster = selectedMaster || hoveredMaster
+                const stratName = strategies[crewStrategy]?.name || ''
+                const schemeNames = crewSchemes.map(id => schemes[id]?.name).filter(Boolean)
+                
+                // Build pool requirements
+                const POOL_STRATEGY_NEEDS = {
+                  'Plant Explosives': { scheme_markers: 3, mobility: 3, survivability: 2 },
+                  'Boundary Dispute': { melee: 3, survivability: 3, mobility: 1 },
+                  'Recover Evidence': { damage: 2, mobility: 2, interact: 2 },
+                  'Informants': { survivability: 3, spread: 2, cheap_activations: 2 },
+                  'Clashing Forces': { melee: 3, damage: 2, survivability: 2 },
+                }
+                const POOL_SCHEME_NEEDS = {
+                  'Breakthrough': { scheme_markers: 2, mobility: 3 },
+                  'Assassinate': { damage: 3, mobility: 2 },
+                  'Detonate Charges': { scheme_markers: 3, interact: 2 },
+                  'Harness the Ley Line': { scheme_markers: 2, spread: 2 },
+                  'Leave Your Mark': { scheme_markers: 2, survivability: 1 },
+                  'Ensnare': { engagement: 2, survivability: 2 },
+                  'Frame Job': { scheme_markers: 2, mobility: 2 },
+                  'Take the Highground': { mobility: 2, survivability: 2 },
+                  'Runic Binding': { scheme_markers: 2, spread: 2 },
+                  'Scout the Rooftops': { mobility: 3, spread: 2 },
+                  'Search the Area': { interact: 2, spread: 2 },
+                  'Reshape the Land': { marker_creation: 3, scheme_markers: 2 },
+                }
+                const POOL_TIPS = {
+                  'Plant Explosives': 'Spread out, fast models with Interact abilities shine',
+                  'Boundary Dispute': 'Durable beaters that can hold a quarter',
+                  'Recover Evidence': 'Kill models, grab the evidence they drop',
+                  'Breakthrough': 'Fast schemer that can survive in enemy deployment',
+                  'Assassinate': 'High damage output, ability to reach enemy master',
+                  'Detonate Charges': 'Drop 2 markers within 3" then remove them',
+                }
+                const CAP_LABELS = {
+                  scheme_markers: { label: 'Scheme Running', icon: '📍' },
+                  mobility: { label: 'Mobility', icon: '💨' },
+                  survivability: { label: 'Survivability', icon: '🛡️' },
+                  damage: { label: 'Damage Output', icon: '⚔️' },
+                  melee: { label: 'Melee Presence', icon: '🗡️' },
+                  interact: { label: 'Interact Actions', icon: '👆' },
+                  cheap_activations: { label: 'Cheap Activations', icon: '💰' },
+                  spread: { label: 'Board Coverage', icon: '📡' },
+                  engagement: { label: 'Engagement', icon: '⛓️' },
+                  marker_creation: { label: 'Marker Creation', icon: '🔷' },
+                }
+                
+                // Calculate requirements from pool
+                const requirements = {}
+                if (stratName && POOL_STRATEGY_NEEDS[stratName]) {
+                  Object.entries(POOL_STRATEGY_NEEDS[stratName]).forEach(([k, v]) => {
+                    requirements[k] = (requirements[k] || 0) + v
+                  })
+                }
+                schemeNames.forEach(name => {
+                  if (POOL_SCHEME_NEEDS[name]) {
+                    Object.entries(POOL_SCHEME_NEEDS[name]).forEach(([k, v]) => {
+                      requirements[k] = (requirements[k] || 0) + v
+                    })
+                  }
+                })
+                
+                // Calculate crew capabilities
+                const crewCaps = {}
+                const allModels = selectedMaster ? [selectedMaster, ...crewRoster] : []
+                allModels.forEach(model => {
+                  const roles = model.roles || []
+                  const chars = (model.characteristics || []).join(' ').toLowerCase()
+                  const cost = model.cost || 0
                   
-                  {/* Overall Coverage Summary */}
-                  {schemeCoverage.length === 3 && (
-                    <div className={`scheme-coverage-summary ${
-                      schemeCoverage.filter(s => s.level === 'missing').length > 0 ? 'has-gaps' :
-                      schemeCoverage.filter(s => s.level === 'light').length > 0 ? 'has-risks' : 'all-good'
-                    }`}>
-                      {schemeCoverage.filter(s => s.level === 'missing').length > 0 
-                        ? ` Cannot score ${schemeCoverage.filter(s => s.level === 'missing').length} scheme(s)!`
-                        : schemeCoverage.filter(s => s.level === 'light').length > 0
-                          ? ` ${schemeCoverage.filter(s => s.level === 'light').length} scheme(s) at risk`
-                          : ' Good coverage on all schemes'
-                      }
+                  // Scheme running
+                  if (roles.includes('scheme_runner')) crewCaps.scheme_markers = (crewCaps.scheme_markers || 0) + 3
+                  if (roles.includes('marker_manipulation')) crewCaps.scheme_markers = (crewCaps.scheme_markers || 0) + 2
+                  
+                  // Mobility
+                  const spd = model.speed || 0
+                  if (spd >= 6) crewCaps.mobility = (crewCaps.mobility || 0) + 2
+                  if (spd >= 7) crewCaps.mobility = (crewCaps.mobility || 0) + 1
+                  if (roles.includes('scheme_runner')) crewCaps.mobility = (crewCaps.mobility || 0) + 2
+                  
+                  // Survivability
+                  const hp = model.health || 0
+                  const df = model.defense || 0
+                  if (hp >= 8) crewCaps.survivability = (crewCaps.survivability || 0) + 2
+                  if (hp >= 10) crewCaps.survivability = (crewCaps.survivability || 0) + 1
+                  if (df >= 6) crewCaps.survivability = (crewCaps.survivability || 0) + 1
+                  if (roles.includes('tank')) crewCaps.survivability = (crewCaps.survivability || 0) + 2
+                  
+                  // Damage
+                  if (roles.includes('beater')) crewCaps.damage = (crewCaps.damage || 0) + 3
+                  
+                  // Melee
+                  if (roles.includes('beater')) crewCaps.melee = (crewCaps.melee || 0) + 2
+                  
+                  // Interact
+                  if (roles.includes('scheme_runner')) crewCaps.interact = (crewCaps.interact || 0) + 2
+                  
+                  // Cheap activations
+                  if (chars.includes('minion') && cost <= 5) crewCaps.cheap_activations = (crewCaps.cheap_activations || 0) + 1
+                  
+                  // Spread
+                  if (roles.includes('scheme_runner')) crewCaps.spread = (crewCaps.spread || 0) + 2
+                  crewCaps.spread = (crewCaps.spread || 0) + 1 // Each model helps
+                  
+                  // Engagement
+                  if (roles.includes('control')) crewCaps.engagement = (crewCaps.engagement || 0) + 2
+                  if (roles.includes('tank')) crewCaps.engagement = (crewCaps.engagement || 0) + 1
+                })
+                
+                // Find gaps and strengths
+                const gaps = []
+                const strengths = []
+                Object.entries(requirements).forEach(([cap, needed]) => {
+                  const have = crewCaps[cap] || 0
+                  const ratio = have / needed
+                  if (ratio < 1) {
+                    gaps.push({ cap, needed, have, severity: ratio < 0.5 ? 'critical' : 'warning' })
+                  } else if (ratio >= 1.5) {
+                    strengths.push({ cap, needed, have })
+                  }
+                })
+                gaps.sort((a, b) => (a.have / a.needed) - (b.have / b.needed))
+                
+                // Find recommendations
+                const recommendations = []
+                if (gaps.length > 0 && selectedMaster) {
+                  const crewIds = new Set(crewRoster.map(c => c.id))
+                  const candidates = [...keywordModels, ...versatileModels].filter(m => !crewIds.has(m.id))
+                  
+                  candidates.forEach(model => {
+                    let score = 0
+                    const roles = model.roles || []
+                    gaps.forEach(({ cap }) => {
+                      if (cap === 'scheme_markers' && roles.includes('scheme_runner')) score += 3
+                      if (cap === 'mobility' && roles.includes('scheme_runner')) score += 2
+                      if (cap === 'damage' && roles.includes('beater')) score += 3
+                      if (cap === 'survivability' && roles.includes('tank')) score += 2
+                      if (cap === 'interact' && roles.includes('scheme_runner')) score += 2
+                    })
+                    if (score > 0) recommendations.push({ model, score })
+                  })
+                  recommendations.sort((a, b) => b.score - a.score)
+                }
+                
+                return (
+                  <div className="pool-analysis-content">
+                    {/* Tips */}
+                    <div className="pool-tips">
+                      {stratName && POOL_TIPS[stratName] && (
+                        <div className="pool-tip strategy-tip">
+                          <span className="tip-icon">⚔️</span>
+                          <span className="tip-text">{POOL_TIPS[stratName]}</span>
+                        </div>
+                      )}
+                      {schemeNames.slice(0, 2).map(name => POOL_TIPS[name] && (
+                        <div key={name} className="pool-tip scheme-tip">
+                          <span className="tip-icon">◈</span>
+                          <span className="tip-text">{POOL_TIPS[name]}</span>
+                        </div>
+                      ))}
                     </div>
-                  )}
-                </div>
-              )}
-              
-              {/* Crew Gaps Analysis */}
-              {crewAnalysis.gaps.length > 0 && (
-                <div className="ab-intel-section ab-intel-gaps">
-                  <h4>Crew Gaps</h4>
-                  <ul>
-                    {crewAnalysis.gaps.slice(0, 4).map((gap, i) => (
-                      <li key={i}>Need: {gap.requirement}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-              
-              {/* All Good */}
-              {crewAnalysis.gaps.length === 0 && crewAnalysis.objectives.length > 0 && (
-                <div className="ab-intel-section ab-intel-good">
-                  <span>Crew covers objectives</span>
-                </div>
-              )}
-              
-              {!crewStrategy && !selectedMaster && (
-                <div className="ab-intel-empty">Select objectives and masters to see matchup analysis
-                </div>
-              )}
+                    
+                    {/* Capability Bars */}
+                    {selectedMaster && Object.keys(requirements).length > 0 && (
+                      <div className="capability-bars">
+                        <h4>Crew Capabilities</h4>
+                        {Object.entries(requirements)
+                          .sort((a, b) => {
+                            const aRatio = (crewCaps[a[0]] || 0) / a[1]
+                            const bRatio = (crewCaps[b[0]] || 0) / b[1]
+                            return aRatio - bRatio
+                          })
+                          .map(([cap, needed]) => {
+                            const have = crewCaps[cap] || 0
+                            const ratio = have / needed
+                            const level = ratio >= 1 ? 'good' : ratio >= 0.5 ? 'warning' : 'critical'
+                            const label = CAP_LABELS[cap] || { label: cap, icon: '•' }
+                            return (
+                              <div key={cap} className={`capability-row ${level}`}>
+                                <span className="cap-icon">{label.icon}</span>
+                                <span className="cap-label">{label.label}</span>
+                                <div className="cap-bar-container">
+                                  <div 
+                                    className="cap-bar-fill" 
+                                    style={{ width: `${Math.min(100, ratio * 100)}%` }}
+                                  />
+                                </div>
+                                <span className="cap-values">{have}/{needed}</span>
+                              </div>
+                            )
+                          })}
+                      </div>
+                    )}
+                    
+                    {/* Strengths */}
+                    {strengths.length > 0 && (
+                      <div className="pool-strengths">
+                        <span className="strengths-label">✓ Strong:</span>
+                        {strengths.slice(0, 3).map(({ cap }) => (
+                          <span key={cap} className="strength-badge">
+                            {CAP_LABELS[cap]?.label || cap}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    
+                    {/* Recommendations */}
+                    {recommendations.length > 0 && (
+                      <div className="pool-recommendations">
+                        <h4>CONSIDER ADDING</h4>
+                        <div className="recommendation-list">
+                          {recommendations.slice(0, 3).map(({ model }) => (
+                            <div 
+                              key={model.id} 
+                              className="recommendation-item"
+                              onClick={() => openModal(model)}
+                            >
+                              <span className="rec-name">{model.name}</span>
+                              <span className="rec-cost">{model.cost}ss</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    
+                    {/* Scheme Scoring Buttons */}
+                    {crewSchemes.length > 0 && (
+                      <div className="scheme-scoring-section">
+                        <h4>SCHEME SCORING</h4>
+                        <div className="scheme-buttons">
+                          {schemeNames.map(name => (
+                            <button key={name} className="scheme-score-btn">
+                              {name}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    
+                    {/* Tournament Meta - Collapsible */}
+                    {previewMaster && (
+                      <details className="meta-insights-collapsible">
+                        <summary className="meta-insights-header">
+                          <input type="checkbox" className="meta-checkbox" readOnly checked={!!FACTION_META[previewMaster.faction]} />
+                          <span className="meta-toggle-text">Tournament Meta (Longshanks data)</span>
+                        </summary>
+                        <div className="meta-insights-content">
+                          {(() => {
+                            const factionData = FACTION_META[previewMaster.faction]
+                            if (!factionData) return <p className="meta-no-data">No data for {previewMaster.faction}</p>
+                            
+                            const normalize = (key) => key?.toLowerCase().replace(/['']/g, '').replace(/\s+/g, '_')
+                            const stratMeta = factionData.strategies_m4e?.[normalize(stratName)]
+                            const factionWR = factionData.overall?.win_rate || 0.5
+                            
+                            return (
+                              <>
+                                <div className="meta-faction-line">
+                                  <span className="meta-faction-name">{previewMaster.faction}</span>
+                                  <span className="meta-faction-wr">{Math.round(factionWR * 100)}% overall</span>
+                                </div>
+                                {stratMeta && (
+                                  <div className={`meta-objective-line ${stratMeta.win_rate >= factionWR ? 'positive' : 'negative'}`}>
+                                    <span className="meta-obj-name">⚔️ {stratName}</span>
+                                    <span className="meta-obj-wr">{Math.round(stratMeta.win_rate * 100)}%</span>
+                                  </div>
+                                )}
+                                {schemeNames.map(name => {
+                                  const key = normalize(name)
+                                  const data = factionData.schemes_chosen?.[key]
+                                  if (!data) return null
+                                  return (
+                                    <div key={key} className={`meta-objective-line ${data.win_rate >= factionWR ? 'positive' : 'negative'}`}>
+                                      <span className="meta-obj-name">◈ {name}</span>
+                                      <span className="meta-obj-wr">{Math.round(data.win_rate * 100)}%</span>
+                                    </div>
+                                  )
+                                })}
+                              </>
+                            )
+                          })()}
+                        </div>
+                      </details>
+                    )}
+                  </div>
+                )
+              })()}
             </div>
             
             {/*  SIDE B: OPPONENT CREW  */}

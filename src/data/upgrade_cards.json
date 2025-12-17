@@ -1,0 +1,1269 @@
+{
+  "version": "1.0",
+  "generated": "2025-12-17T12:31:53.073343",
+  "source": "filename_extraction",
+  "ocr_used": false,
+  "total_cards": 70,
+  "cards": [
+    {
+      "id": "M4E_Upgrade_Academic_Visions_in_Air",
+      "name": "Visions in Air",
+      "card_type": "Upgrade",
+      "faction": "Arcanists",
+      "subfaction": "Academic",
+      "primary_keyword": "Academic",
+      "keywords": [
+        "Academic"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Arcanists/Academic/M4E_Upgrade_Academic_Visions_in_Air_front.png",
+      "back_image": "Arcanists/Academic/M4E_Upgrade_Academic_Visions_in_Air_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Academic_Visions_in_Heat",
+      "name": "Visions in Heat",
+      "card_type": "Upgrade",
+      "faction": "Arcanists",
+      "subfaction": "Academic",
+      "primary_keyword": "Academic",
+      "keywords": [
+        "Academic"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Arcanists/Academic/M4E_Upgrade_Academic_Visions_in_Heat_front.png",
+      "back_image": "Arcanists/Academic/M4E_Upgrade_Academic_Visions_in_Heat_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Academic_Visions_in_Ice",
+      "name": "Visions in Ice",
+      "card_type": "Upgrade",
+      "faction": "Arcanists",
+      "subfaction": "Academic",
+      "primary_keyword": "Academic",
+      "keywords": [
+        "Academic"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Arcanists/Academic/M4E_Upgrade_Academic_Visions_in_Ice_front.png",
+      "back_image": "Arcanists/Academic/M4E_Upgrade_Academic_Visions_in_Ice_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Angler_White_Whale",
+      "name": "White Whale",
+      "card_type": "Upgrade",
+      "faction": "Bayou",
+      "subfaction": "Angler",
+      "primary_keyword": "Angler",
+      "keywords": [
+        "Angler"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Bayou/Angler/M4E_Upgrade_Angler_White_Whale_front.png",
+      "back_image": "Bayou/Angler/M4E_Upgrade_Angler_White_Whale_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Infamous_Dashing_Hat",
+      "name": "Dashing Hat",
+      "card_type": "Upgrade",
+      "faction": "Bayou",
+      "subfaction": "Infamous",
+      "primary_keyword": "Infamous",
+      "keywords": [
+        "Infamous"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Outcasts/Infamous/M4E_Upgrade_Infamous_Dashing_Hat_front.png",
+      "back_image": "Outcasts/Infamous/M4E_Upgrade_Infamous_Dashing_Hat_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Infamous_Powder_Keg",
+      "name": "Powder Keg",
+      "card_type": "Upgrade",
+      "faction": "Bayou",
+      "subfaction": "Infamous",
+      "primary_keyword": "Infamous",
+      "keywords": [
+        "Infamous"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Outcasts/Infamous/M4E_Upgrade_Infamous_Powder_Keg_front.png",
+      "back_image": "Outcasts/Infamous/M4E_Upgrade_Infamous_Powder_Keg_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Infamous_Treasure_Map",
+      "name": "Treasure Map",
+      "card_type": "Upgrade",
+      "faction": "Bayou",
+      "subfaction": "Infamous",
+      "primary_keyword": "Infamous",
+      "keywords": [
+        "Infamous"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Outcasts/Infamous/M4E_Upgrade_Infamous_Treasure_Map_front.png",
+      "back_image": "Outcasts/Infamous/M4E_Upgrade_Infamous_Treasure_Map_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Kin_Flaming_Sack",
+      "name": "Flaming Sack",
+      "card_type": "Upgrade",
+      "faction": "Bayou",
+      "subfaction": "Kin",
+      "primary_keyword": "Kin",
+      "keywords": [
+        "Kin"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Bayou/Kin/M4E_Upgrade_Kin_Flaming_Sack_front.png",
+      "back_image": "Bayou/Kin/M4E_Upgrade_Kin_Flaming_Sack_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Kin_Hair_Trigger",
+      "name": "Hair Trigger",
+      "card_type": "Upgrade",
+      "faction": "Bayou",
+      "subfaction": "Kin",
+      "primary_keyword": "Kin",
+      "keywords": [
+        "Kin"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Bayou/Kin/M4E_Upgrade_Kin_Hair_Trigger_front.png",
+      "back_image": "Bayou/Kin/M4E_Upgrade_Kin_Hair_Trigger_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Kin_Ratcheting_Leg_Spring",
+      "name": "Ratcheting Leg Spring",
+      "card_type": "Upgrade",
+      "faction": "Bayou",
+      "subfaction": "Kin",
+      "primary_keyword": "Kin",
+      "keywords": [
+        "Kin"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Bayou/Kin/M4E_Upgrade_Kin_Ratcheting_Leg_Spring_front.png",
+      "back_image": "Bayou/Kin/M4E_Upgrade_Kin_Ratcheting_Leg_Spring_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Swampfiend_Voodoo",
+      "name": "Voodoo",
+      "card_type": "Upgrade",
+      "faction": "Bayou",
+      "subfaction": "Swampfiend",
+      "primary_keyword": "Swampfiend",
+      "keywords": [
+        "Swampfiend"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Bayou/Swampfiend/M4E_Upgrade_Swampfiend_Voodoo_front.png",
+      "back_image": "Bayou/Swampfiend/M4E_Upgrade_Swampfiend_Voodoo_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Tricksy_Intentional_Decay",
+      "name": "Intentional Decay",
+      "card_type": "Upgrade",
+      "faction": "Bayou",
+      "subfaction": "Tricksy",
+      "primary_keyword": "Tricksy",
+      "keywords": [
+        "Tricksy"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Bayou/Tricksy/M4E_Upgrade_Tricksy_Intentional_Decay_front.png",
+      "back_image": "Bayou/Tricksy/M4E_Upgrade_Tricksy_Intentional_Decay_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Exs-Versatile_Bells_and_Whistles",
+      "name": "Bells and Whistles",
+      "card_type": "Upgrade",
+      "faction": "Explorer's Society",
+      "subfaction": "Exs-Versatile",
+      "primary_keyword": "Exs-Versatile",
+      "keywords": [
+        "Exs-Versatile"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Explorer's Society/Versatile - Explorer's Society/M4E_Upgrade_Exs-Versatile_Bells_and_Whistles_front.png",
+      "back_image": "Explorer's Society/Versatile - Explorer's Society/M4E_Upgrade_Exs-Versatile_Bells_and_Whistles_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Exs-Versatile_Core_Stabilization",
+      "name": "Core Stabilization",
+      "card_type": "Upgrade",
+      "faction": "Explorer's Society",
+      "subfaction": "Exs-Versatile",
+      "primary_keyword": "Exs-Versatile",
+      "keywords": [
+        "Exs-Versatile"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Explorer's Society/Versatile - Explorer's Society/M4E_Upgrade_Exs-Versatile_Core_Stabilization_front.png",
+      "back_image": "Explorer's Society/Versatile - Explorer's Society/M4E_Upgrade_Exs-Versatile_Core_Stabilization_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Exs-Versatile_Firing_Turret",
+      "name": "Firing Turret",
+      "card_type": "Upgrade",
+      "faction": "Explorer's Society",
+      "subfaction": "Exs-Versatile",
+      "primary_keyword": "Exs-Versatile",
+      "keywords": [
+        "Exs-Versatile"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Explorer's Society/Versatile - Explorer's Society/M4E_Upgrade_Exs-Versatile_Firing_Turret_front.png",
+      "back_image": "Explorer's Society/Versatile - Explorer's Society/M4E_Upgrade_Exs-Versatile_Firing_Turret_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Exs-Versatile_Imposing_Pressure",
+      "name": "Imposing Pressure",
+      "card_type": "Upgrade",
+      "faction": "Explorer's Society",
+      "subfaction": "Exs-Versatile",
+      "primary_keyword": "Exs-Versatile",
+      "keywords": [
+        "Exs-Versatile"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Explorer's Society/Versatile - Explorer's Society/M4E_Upgrade_Exs-Versatile_Imposing_Pressure_front.png",
+      "back_image": "Explorer's Society/Versatile - Explorer's Society/M4E_Upgrade_Exs-Versatile_Imposing_Pressure_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Seeker_Consumed",
+      "name": "Consumed",
+      "card_type": "Upgrade",
+      "faction": "Explorer's Society",
+      "subfaction": "Seeker",
+      "primary_keyword": "Seeker",
+      "keywords": [
+        "Seeker"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Explorer's Society/Seeker/M4E_Upgrade_Seeker_Consumed_front.png",
+      "back_image": "Explorer's Society/Seeker/M4E_Upgrade_Seeker_Consumed_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Wastrel_Phantasmal_Mask",
+      "name": "Phantasmal Mask",
+      "card_type": "Upgrade",
+      "faction": "Explorer's Society",
+      "subfaction": "Wastrel",
+      "primary_keyword": "Wastrel",
+      "keywords": [
+        "Wastrel"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Explorer's Society/Wastrel/M4E_Upgrade_Wastrel_Phantasmal_Mask_front.png",
+      "back_image": "Explorer's Society/Wastrel/M4E_Upgrade_Wastrel_Phantasmal_Mask_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Wastrel_Tarnished_Mirror",
+      "name": "Tarnished Mirror",
+      "card_type": "Upgrade",
+      "faction": "Explorer's Society",
+      "subfaction": "Wastrel",
+      "primary_keyword": "Wastrel",
+      "keywords": [
+        "Wastrel"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Explorer's Society/Wastrel/M4E_Upgrade_Wastrel_Tarnished_Mirror_front.png",
+      "back_image": "Explorer's Society/Wastrel/M4E_Upgrade_Wastrel_Tarnished_Mirror_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Wastrel_Timeworn_Blade",
+      "name": "Timeworn Blade",
+      "card_type": "Upgrade",
+      "faction": "Explorer's Society",
+      "subfaction": "Wastrel",
+      "primary_keyword": "Wastrel",
+      "keywords": [
+        "Wastrel"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Explorer's Society/Wastrel/M4E_Upgrade_Wastrel_Timeworn_Blade_front.png",
+      "back_image": "Explorer's Society/Wastrel/M4E_Upgrade_Wastrel_Timeworn_Blade_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Elite_Silver_Tongue",
+      "name": "Silver Tongue",
+      "card_type": "Upgrade",
+      "faction": "Guild",
+      "subfaction": "Elite",
+      "primary_keyword": "Elite",
+      "keywords": [
+        "Elite"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Guild/Elite/M4E_Upgrade_Elite_Silver_Tongue_front.png",
+      "back_image": "Guild/Elite/M4E_Upgrade_Elite_Silver_Tongue_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Elite_Slip_Into_Obscurity",
+      "name": "Slip Into Obscurity",
+      "card_type": "Upgrade",
+      "faction": "Guild",
+      "subfaction": "Elite",
+      "primary_keyword": "Elite",
+      "keywords": [
+        "Elite"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Guild/Elite/M4E_Upgrade_Elite_Slip_Into_Obscurity_front.png",
+      "back_image": "Guild/Elite/M4E_Upgrade_Elite_Slip_Into_Obscurity_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Elite_The_Smile_Beneath",
+      "name": "The Smile Beneath",
+      "card_type": "Upgrade",
+      "faction": "Guild",
+      "subfaction": "Elite",
+      "primary_keyword": "Elite",
+      "keywords": [
+        "Elite"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Guild/Elite/M4E_Upgrade_Elite_The_Smile_Beneath_front.png",
+      "back_image": "Guild/Elite/M4E_Upgrade_Elite_The_Smile_Beneath_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Family_No_One_Left_Behind",
+      "name": "No One Left Behind",
+      "card_type": "Upgrade",
+      "faction": "Guild",
+      "subfaction": "Family",
+      "primary_keyword": "Family",
+      "keywords": [
+        "Family"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Guild/Family/M4E_Upgrade_Family_No_One_Left_Behind_front.png",
+      "back_image": "Guild/Family/M4E_Upgrade_Family_No_One_Left_Behind_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Family_Through_and_Through",
+      "name": "Through and Through",
+      "card_type": "Upgrade",
+      "faction": "Guild",
+      "subfaction": "Family",
+      "primary_keyword": "Family",
+      "keywords": [
+        "Family"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Guild/Family/M4E_Upgrade_Family_Through_and_Through_front.png",
+      "back_image": "Guild/Family/M4E_Upgrade_Family_Through_and_Through_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Family_Up_the_Pace",
+      "name": "Up the Pace",
+      "card_type": "Upgrade",
+      "faction": "Guild",
+      "subfaction": "Family",
+      "primary_keyword": "Family",
+      "keywords": [
+        "Family"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Guild/Family/M4E_Upgrade_Family_Up_the_Pace_front.png",
+      "back_image": "Guild/Family/M4E_Upgrade_Family_Up_the_Pace_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Gld-Versatile_Brainwashed",
+      "name": "Brainwashed",
+      "card_type": "Upgrade",
+      "faction": "Guild",
+      "subfaction": "Gld-Versatile",
+      "primary_keyword": "Gld-Versatile",
+      "keywords": [
+        "Gld-Versatile"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Guild/Versatile - Guild/M4E_Upgrade_Gld-Versatile_Brainwashed_front.png",
+      "back_image": "Guild/Versatile - Guild/M4E_Upgrade_Gld-Versatile_Brainwashed_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Gld-Versatile_Indoctrinated",
+      "name": "Indoctrinated",
+      "card_type": "Upgrade",
+      "faction": "Guild",
+      "subfaction": "Gld-Versatile",
+      "primary_keyword": "Gld-Versatile",
+      "keywords": [
+        "Gld-Versatile"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Guild/Versatile - Guild/M4E_Upgrade_Gld-Versatile_Indoctrinated_front.png",
+      "back_image": "Guild/Versatile - Guild/M4E_Upgrade_Gld-Versatile_Indoctrinated_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Witch-Hunter_Flaming_Blade",
+      "name": "Flaming Blade",
+      "card_type": "Upgrade",
+      "faction": "Guild",
+      "subfaction": "Witch-Hunter",
+      "primary_keyword": "Witch-Hunter",
+      "keywords": [
+        "Witch-Hunter"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Guild/Witch Hunter/M4E_Upgrade_Witch-Hunter_Flaming_Blade_front.png",
+      "back_image": "Guild/Witch Hunter/M4E_Upgrade_Witch-Hunter_Flaming_Blade_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Banished_Divulge_Secrets",
+      "name": "Divulge Secrets",
+      "card_type": "Upgrade",
+      "faction": "Neverborn",
+      "subfaction": "Banished",
+      "primary_keyword": "Banished",
+      "keywords": [
+        "Banished"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Neverborn/Banished/M4E_Upgrade_Banished_Divulge_Secrets_front.png",
+      "back_image": "Neverborn/Banished/M4E_Upgrade_Banished_Divulge_Secrets_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Banished_Stolen_Life",
+      "name": "Stolen Life",
+      "card_type": "Upgrade",
+      "faction": "Neverborn",
+      "subfaction": "Banished",
+      "primary_keyword": "Banished",
+      "keywords": [
+        "Banished"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Neverborn/Banished/M4E_Upgrade_Banished_Stolen_Life_front.png",
+      "back_image": "Neverborn/Banished/M4E_Upgrade_Banished_Stolen_Life_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Banished_Temptation",
+      "name": "Temptation",
+      "card_type": "Upgrade",
+      "faction": "Neverborn",
+      "subfaction": "Banished",
+      "primary_keyword": "Banished",
+      "keywords": [
+        "Banished"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Neverborn/Banished/M4E_Upgrade_Banished_Temptation_front.png",
+      "back_image": "Neverborn/Banished/M4E_Upgrade_Banished_Temptation_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Chimera_Armored_Plating",
+      "name": "Armored Plating",
+      "card_type": "Upgrade",
+      "faction": "Neverborn",
+      "subfaction": "Chimera",
+      "primary_keyword": "Chimera",
+      "keywords": [
+        "Chimera"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Neverborn/Chimera/M4E_Upgrade_Chimera_Armored_Plating_front.png",
+      "back_image": "Neverborn/Chimera/M4E_Upgrade_Chimera_Armored_Plating_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Chimera_Bestial_Form",
+      "name": "Bestial Form",
+      "card_type": "Upgrade",
+      "faction": "Neverborn",
+      "subfaction": "Chimera",
+      "primary_keyword": "Chimera",
+      "keywords": [
+        "Chimera"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Neverborn/Chimera/M4E_Upgrade_Chimera_Bestial_Form_front.png",
+      "back_image": "Neverborn/Chimera/M4E_Upgrade_Chimera_Bestial_Form_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Chimera_Feathered_Wings",
+      "name": "Feathered Wings",
+      "card_type": "Upgrade",
+      "faction": "Neverborn",
+      "subfaction": "Chimera",
+      "primary_keyword": "Chimera",
+      "keywords": [
+        "Chimera"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Neverborn/Chimera/M4E_Upgrade_Chimera_Feathered_Wings_front.png",
+      "back_image": "Neverborn/Chimera/M4E_Upgrade_Chimera_Feathered_Wings_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Chimera_Natural_Camouflage",
+      "name": "Natural Camouflage",
+      "card_type": "Upgrade",
+      "faction": "Neverborn",
+      "subfaction": "Chimera",
+      "primary_keyword": "Chimera",
+      "keywords": [
+        "Chimera"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Neverborn/Chimera/M4E_Upgrade_Chimera_Natural_Camouflage_front.png",
+      "back_image": "Neverborn/Chimera/M4E_Upgrade_Chimera_Natural_Camouflage_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Chimera_Retractable_Claws",
+      "name": "Retractable Claws",
+      "card_type": "Upgrade",
+      "faction": "Neverborn",
+      "subfaction": "Chimera",
+      "primary_keyword": "Chimera",
+      "keywords": [
+        "Chimera"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Neverborn/Chimera/M4E_Upgrade_Chimera_Retractable_Claws_front.png",
+      "back_image": "Neverborn/Chimera/M4E_Upgrade_Chimera_Retractable_Claws_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Nvb-Versatile_A_Pale_Light",
+      "name": "A Pale Light",
+      "card_type": "Upgrade",
+      "faction": "Neverborn",
+      "subfaction": "Nvb-Versatile",
+      "primary_keyword": "Nvb-Versatile",
+      "keywords": [
+        "Nvb-Versatile"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Neverborn/Versatile - Neverborn/M4E_Upgrade_Nvb-Versatile_A_Pale_Light_front.png",
+      "back_image": "Neverborn/Versatile - Neverborn/M4E_Upgrade_Nvb-Versatile_A_Pale_Light_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Nvb-Versatile_The_Dark_Stone",
+      "name": "The Dark Stone",
+      "card_type": "Upgrade",
+      "faction": "Neverborn",
+      "subfaction": "Nvb-Versatile",
+      "primary_keyword": "Nvb-Versatile",
+      "keywords": [
+        "Nvb-Versatile"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Neverborn/Versatile - Neverborn/M4E_Upgrade_Nvb-Versatile_The_Dark_Stone_front.png",
+      "back_image": "Neverborn/Versatile - Neverborn/M4E_Upgrade_Nvb-Versatile_The_Dark_Stone_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Freikorps_Breaching_Axe",
+      "name": "Breaching Axe",
+      "card_type": "Upgrade",
+      "faction": "Outcasts",
+      "subfaction": "Freikorps",
+      "primary_keyword": "Freikorps",
+      "keywords": [
+        "Freikorps"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Outcasts/Freikorps/M4E_Upgrade_Freikorps_Breaching_Axe_front.png",
+      "back_image": "Outcasts/Freikorps/M4E_Upgrade_Freikorps_Breaching_Axe_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Freikorps_Grenade_Belt",
+      "name": "Grenade Belt",
+      "card_type": "Upgrade",
+      "faction": "Outcasts",
+      "subfaction": "Freikorps",
+      "primary_keyword": "Freikorps",
+      "keywords": [
+        "Freikorps"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Outcasts/Freikorps/M4E_Upgrade_Freikorps_Grenade_Belt_front.png",
+      "back_image": "Outcasts/Freikorps/M4E_Upgrade_Freikorps_Grenade_Belt_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Freikorps_Rocket_Boots",
+      "name": "Rocket Boots",
+      "card_type": "Upgrade",
+      "faction": "Outcasts",
+      "subfaction": "Freikorps",
+      "primary_keyword": "Freikorps",
+      "keywords": [
+        "Freikorps"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Outcasts/Freikorps/M4E_Upgrade_Freikorps_Rocket_Boots_front.png",
+      "back_image": "Outcasts/Freikorps/M4E_Upgrade_Freikorps_Rocket_Boots_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Freikorps_Support_Shield",
+      "name": "Support Shield",
+      "card_type": "Upgrade",
+      "faction": "Outcasts",
+      "subfaction": "Freikorps",
+      "primary_keyword": "Freikorps",
+      "keywords": [
+        "Freikorps"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Outcasts/Freikorps/M4E_Upgrade_Freikorps_Support_Shield_front.png",
+      "back_image": "Outcasts/Freikorps/M4E_Upgrade_Freikorps_Support_Shield_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Freikorps_The_Big_Guns",
+      "name": "The Big Guns",
+      "card_type": "Upgrade",
+      "faction": "Outcasts",
+      "subfaction": "Freikorps",
+      "primary_keyword": "Freikorps",
+      "keywords": [
+        "Freikorps"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Outcasts/Freikorps/M4E_Upgrade_Freikorps_The_Big_Guns_front.png",
+      "back_image": "Outcasts/Freikorps/M4E_Upgrade_Freikorps_The_Big_Guns_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Out-Versatile_Impending_Doom",
+      "name": "Impending Doom",
+      "card_type": "Upgrade",
+      "faction": "Outcasts",
+      "subfaction": "Out-Versatile",
+      "primary_keyword": "Out-Versatile",
+      "keywords": [
+        "Out-Versatile"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Outcasts/Versatile - Outcasts/M4E_Upgrade_Out-Versatile_Impending_Doom_front.png",
+      "back_image": "Outcasts/Versatile - Outcasts/M4E_Upgrade_Out-Versatile_Impending_Doom_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Out-Versatile_Monkey's_Paw",
+      "name": "Monkey's Paw",
+      "card_type": "Upgrade",
+      "faction": "Outcasts",
+      "subfaction": "Out-Versatile",
+      "primary_keyword": "Out-Versatile",
+      "keywords": [
+        "Out-Versatile"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Outcasts/Versatile - Outcasts/M4E_Upgrade_Out-Versatile_Monkey's_Paw_front.png",
+      "back_image": "Outcasts/Versatile - Outcasts/M4E_Upgrade_Out-Versatile_Monkey's_Paw_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Out-Versatile_Pretty_Floral_Bonnet",
+      "name": "Pretty Floral Bonnet",
+      "card_type": "Upgrade",
+      "faction": "Outcasts",
+      "subfaction": "Out-Versatile",
+      "primary_keyword": "Out-Versatile",
+      "keywords": [
+        "Out-Versatile"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Outcasts/Versatile - Outcasts/M4E_Upgrade_Out-Versatile_Pretty_Floral_Bonnet_front.png",
+      "back_image": "Outcasts/Versatile - Outcasts/M4E_Upgrade_Out-Versatile_Pretty_Floral_Bonnet_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Out-Versatile_Through_the_Badlands",
+      "name": "Through the Badlands",
+      "card_type": "Upgrade",
+      "faction": "Outcasts",
+      "subfaction": "Out-Versatile",
+      "primary_keyword": "Out-Versatile",
+      "keywords": [
+        "Out-Versatile"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Outcasts/Versatile - Outcasts/M4E_Upgrade_Out-Versatile_Through_the_Badlands_front.png",
+      "back_image": "Outcasts/Versatile - Outcasts/M4E_Upgrade_Out-Versatile_Through_the_Badlands_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Out-Versatile_Well-Worn_Boots",
+      "name": "Well-Worn Boots",
+      "card_type": "Upgrade",
+      "faction": "Outcasts",
+      "subfaction": "Out-Versatile",
+      "primary_keyword": "Out-Versatile",
+      "keywords": [
+        "Out-Versatile"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Outcasts/Versatile - Outcasts/M4E_Upgrade_Out-Versatile_Well-Worn_Boots_front.png",
+      "back_image": "Outcasts/Versatile - Outcasts/M4E_Upgrade_Out-Versatile_Well-Worn_Boots_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Tormented_Catch_of_the_Day",
+      "name": "Catch of the Day",
+      "card_type": "Upgrade",
+      "faction": "Outcasts",
+      "subfaction": "Tormented",
+      "primary_keyword": "Tormented",
+      "keywords": [
+        "Tormented"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Resurrectionists/Tormented/M4E_Upgrade_Tormented_Catch_of_the_Day_front.png",
+      "back_image": "Resurrectionists/Tormented/M4E_Upgrade_Tormented_Catch_of_the_Day_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Tormented_Set_Adrift",
+      "name": "Set Adrift",
+      "card_type": "Upgrade",
+      "faction": "Outcasts",
+      "subfaction": "Tormented",
+      "primary_keyword": "Tormented",
+      "keywords": [
+        "Tormented"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Resurrectionists/Tormented/M4E_Upgrade_Tormented_Set_Adrift_front.png",
+      "back_image": "Resurrectionists/Tormented/M4E_Upgrade_Tormented_Set_Adrift_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Tormented_Shipwrecked",
+      "name": "Shipwrecked",
+      "card_type": "Upgrade",
+      "faction": "Outcasts",
+      "subfaction": "Tormented",
+      "primary_keyword": "Tormented",
+      "keywords": [
+        "Tormented"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Resurrectionists/Tormented/M4E_Upgrade_Tormented_Shipwrecked_front.png",
+      "back_image": "Resurrectionists/Tormented/M4E_Upgrade_Tormented_Shipwrecked_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Tormented_Siren's_Sway",
+      "name": "Siren's Sway",
+      "card_type": "Upgrade",
+      "faction": "Outcasts",
+      "subfaction": "Tormented",
+      "primary_keyword": "Tormented",
+      "keywords": [
+        "Tormented"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Resurrectionists/Tormented/M4E_Upgrade_Tormented_Siren's_Sway_front.png",
+      "back_image": "Resurrectionists/Tormented/M4E_Upgrade_Tormented_Siren's_Sway_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Tormented_Unjustly_Accused",
+      "name": "Unjustly Accused",
+      "card_type": "Upgrade",
+      "faction": "Outcasts",
+      "subfaction": "Tormented",
+      "primary_keyword": "Tormented",
+      "keywords": [
+        "Tormented"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Resurrectionists/Tormented/M4E_Upgrade_Tormented_Unjustly_Accused_front.png",
+      "back_image": "Resurrectionists/Tormented/M4E_Upgrade_Tormented_Unjustly_Accused_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Ancestor_Soul_Restoration",
+      "name": "Soul Restoration",
+      "card_type": "Upgrade",
+      "faction": "Resurrectionists",
+      "subfaction": "Ancestor",
+      "primary_keyword": "Ancestor",
+      "keywords": [
+        "Ancestor"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Resurrectionists/Ancestor/M4E_Upgrade_Ancestor_Soul_Restoration_front.png",
+      "back_image": "Resurrectionists/Ancestor/M4E_Upgrade_Ancestor_Soul_Restoration_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Ancestor_The_Path_of_Ash",
+      "name": "The Path of Ash",
+      "card_type": "Upgrade",
+      "faction": "Resurrectionists",
+      "subfaction": "Ancestor",
+      "primary_keyword": "Ancestor",
+      "keywords": [
+        "Ancestor"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Resurrectionists/Ancestor/M4E_Upgrade_Ancestor_The_Path_of_Ash_front.png",
+      "back_image": "Resurrectionists/Ancestor/M4E_Upgrade_Ancestor_The_Path_of_Ash_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Ancestor_The_Path_of_Bone",
+      "name": "The Path of Bone",
+      "card_type": "Upgrade",
+      "faction": "Resurrectionists",
+      "subfaction": "Ancestor",
+      "primary_keyword": "Ancestor",
+      "keywords": [
+        "Ancestor"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Resurrectionists/Ancestor/M4E_Upgrade_Ancestor_The_Path_of_Bone_front.png",
+      "back_image": "Resurrectionists/Ancestor/M4E_Upgrade_Ancestor_The_Path_of_Bone_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Ancestor_The_Path_of_Spirit",
+      "name": "The Path of Spirit",
+      "card_type": "Upgrade",
+      "faction": "Resurrectionists",
+      "subfaction": "Ancestor",
+      "primary_keyword": "Ancestor",
+      "keywords": [
+        "Ancestor"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Resurrectionists/Ancestor/M4E_Upgrade_Ancestor_The_Path_of_Spirit_front.png",
+      "back_image": "Resurrectionists/Ancestor/M4E_Upgrade_Ancestor_The_Path_of_Spirit_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Res-Lethal_Tantrum",
+      "name": "Tantrum",
+      "card_type": "Upgrade",
+      "faction": "Resurrectionists",
+      "subfaction": "Res-Lethal",
+      "primary_keyword": "Res-Lethal",
+      "keywords": [
+        "Res-Lethal"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Resurrectionists/Versatile - Resurrectionists/M4E_Upgrade_Res-Lethal_Tantrum_front.png",
+      "back_image": "Resurrectionists/Versatile - Resurrectionists/M4E_Upgrade_Res-Lethal_Tantrum_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Monk_Fermented_River_Style",
+      "name": "Fermented River Style",
+      "card_type": "Upgrade",
+      "faction": "Ten Thunders",
+      "subfaction": "Monk",
+      "primary_keyword": "Monk",
+      "keywords": [
+        "Monk"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Ten Thunders/Monk/M4E_Upgrade_Monk_Fermented_River_Style_front.png",
+      "back_image": "Ten Thunders/Monk/M4E_Upgrade_Monk_Fermented_River_Style_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Monk_High_River_Style",
+      "name": "High River Style",
+      "card_type": "Upgrade",
+      "faction": "Ten Thunders",
+      "subfaction": "Monk",
+      "primary_keyword": "Monk",
+      "keywords": [
+        "Monk"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Ten Thunders/Monk/M4E_Upgrade_Monk_High_River_Style_front.png",
+      "back_image": "Ten Thunders/Monk/M4E_Upgrade_Monk_High_River_Style_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Monk_Low_River_Style",
+      "name": "Low River Style",
+      "card_type": "Upgrade",
+      "faction": "Ten Thunders",
+      "subfaction": "Monk",
+      "primary_keyword": "Monk",
+      "keywords": [
+        "Monk"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Ten Thunders/Monk/M4E_Upgrade_Monk_Low_River_Style_front.png",
+      "back_image": "Ten Thunders/Monk/M4E_Upgrade_Monk_Low_River_Style_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_Monk_Wandering_River_Style",
+      "name": "Wandering River Style",
+      "card_type": "Upgrade",
+      "faction": "Ten Thunders",
+      "subfaction": "Monk",
+      "primary_keyword": "Monk",
+      "keywords": [
+        "Monk"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Ten Thunders/Monk/M4E_Upgrade_Monk_Wandering_River_Style_front.png",
+      "back_image": "Ten Thunders/Monk/M4E_Upgrade_Monk_Wandering_River_Style_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_TT-Versatile_Abyssal_Dragon",
+      "name": "Abyssal Dragon",
+      "card_type": "Upgrade",
+      "faction": "Ten Thunders",
+      "subfaction": "TT-Versatile",
+      "primary_keyword": "TT-Versatile",
+      "keywords": [
+        "TT-Versatile"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Ten Thunders/Versatile - Ten Thunders/M4E_Upgrade_TT-Versatile_Abyssal_Dragon_front.png",
+      "back_image": "Ten Thunders/Versatile - Ten Thunders/M4E_Upgrade_TT-Versatile_Abyssal_Dragon_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_TT-Versatile_Brilliant_Dragon",
+      "name": "Brilliant Dragon",
+      "card_type": "Upgrade",
+      "faction": "Ten Thunders",
+      "subfaction": "TT-Versatile",
+      "primary_keyword": "TT-Versatile",
+      "keywords": [
+        "TT-Versatile"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Ten Thunders/Versatile - Ten Thunders/M4E_Upgrade_TT-Versatile_Brilliant_Dragon_front.png",
+      "back_image": "Ten Thunders/Versatile - Ten Thunders/M4E_Upgrade_TT-Versatile_Brilliant_Dragon_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_TT-Versatile_Karmic_Fate",
+      "name": "Karmic Fate",
+      "card_type": "Upgrade",
+      "faction": "Ten Thunders",
+      "subfaction": "TT-Versatile",
+      "primary_keyword": "TT-Versatile",
+      "keywords": [
+        "TT-Versatile"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Ten Thunders/Versatile - Ten Thunders/M4E_Upgrade_TT-Versatile_Karmic_Fate_front.png",
+      "back_image": "Ten Thunders/Versatile - Ten Thunders/M4E_Upgrade_TT-Versatile_Karmic_Fate_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_TT-Versatile_Peal_in_the_Wind",
+      "name": "Peal in the Wind",
+      "card_type": "Upgrade",
+      "faction": "Ten Thunders",
+      "subfaction": "TT-Versatile",
+      "primary_keyword": "TT-Versatile",
+      "keywords": [
+        "TT-Versatile"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Ten Thunders/Versatile - Ten Thunders/M4E_Upgrade_TT-Versatile_Peal_in_the_Wind_front.png",
+      "back_image": "Ten Thunders/Versatile - Ten Thunders/M4E_Upgrade_TT-Versatile_Peal_in_the_Wind_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_TT-Versatile_Petrified_Sentinel",
+      "name": "Petrified Sentinel",
+      "card_type": "Upgrade",
+      "faction": "Ten Thunders",
+      "subfaction": "TT-Versatile",
+      "primary_keyword": "TT-Versatile",
+      "keywords": [
+        "TT-Versatile"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Ten Thunders/Versatile - Ten Thunders/M4E_Upgrade_TT-Versatile_Petrified_Sentinel_front.png",
+      "back_image": "Ten Thunders/Versatile - Ten Thunders/M4E_Upgrade_TT-Versatile_Petrified_Sentinel_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_TT-Versatile_Soaring_Dragon",
+      "name": "Soaring Dragon",
+      "card_type": "Upgrade",
+      "faction": "Ten Thunders",
+      "subfaction": "TT-Versatile",
+      "primary_keyword": "TT-Versatile",
+      "keywords": [
+        "TT-Versatile"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Ten Thunders/Versatile - Ten Thunders/M4E_Upgrade_TT-Versatile_Soaring_Dragon_front.png",
+      "back_image": "Ten Thunders/Versatile - Ten Thunders/M4E_Upgrade_TT-Versatile_Soaring_Dragon_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Upgrade_TT-Versatile_Tragedy_Repeats",
+      "name": "Tragedy Repeats",
+      "card_type": "Upgrade",
+      "faction": "Ten Thunders",
+      "subfaction": "TT-Versatile",
+      "primary_keyword": "TT-Versatile",
+      "keywords": [
+        "TT-Versatile"
+      ],
+      "characteristics": [
+        "Upgrade"
+      ],
+      "front_image": "Ten Thunders/Versatile - Ten Thunders/M4E_Upgrade_TT-Versatile_Tragedy_Repeats_front.png",
+      "back_image": "Ten Thunders/Versatile - Ten Thunders/M4E_Upgrade_TT-Versatile_Tragedy_Repeats_back.png",
+      "raw_text": null,
+      "rules_text": null
+    }
+  ]
+}

@@ -1,0 +1,2089 @@
+{
+  "version": "1.0",
+  "generated": "2025-12-17T12:32:04.224561",
+  "source": "filename_extraction",
+  "ocr_used": false,
+  "total_cards": 130,
+  "cards": [
+    {
+      "id": "M4E_Crew_Academic_Sandeep_Font_of_Magic",
+      "name": "Sandeep Font of Magic",
+      "card_type": "Crew",
+      "faction": "Arcanists",
+      "subfaction": "Academic",
+      "primary_keyword": "Academic",
+      "keywords": [
+        "Academic"
+      ],
+      "characteristics": [],
+      "front_image": "Arcanists/Academic/M4E_Crew_Academic_Sandeep_Font_of_Magic_front.png",
+      "back_image": "Arcanists/Academic/M4E_Crew_Academic_Sandeep_Font_of_Magic_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Academic_Sandeep_The_Quiet_Flame",
+      "name": "Sandeep The Quiet Flame",
+      "card_type": "Crew",
+      "faction": "Arcanists",
+      "subfaction": "Academic",
+      "primary_keyword": "Academic",
+      "keywords": [
+        "Academic"
+      ],
+      "characteristics": [],
+      "front_image": "Arcanists/Academic/M4E_Crew_Academic_Sandeep_The_Quiet_Flame_front.png",
+      "back_image": "Arcanists/Academic/M4E_Crew_Academic_Sandeep_The_Quiet_Flame_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_December_Rasputina_Abominable",
+      "name": "Rasputina Abominable",
+      "card_type": "Crew",
+      "faction": "Arcanists",
+      "subfaction": "December",
+      "primary_keyword": "December",
+      "keywords": [
+        "December"
+      ],
+      "characteristics": [],
+      "front_image": "Arcanists/December/M4E_Crew_December_Rasputina_Abominable_front.png",
+      "back_image": "Arcanists/December/M4E_Crew_December_Rasputina_Abominable_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_December_Rasputina_Winter's_Teeth",
+      "name": "Rasputina Winter's Teeth",
+      "card_type": "Crew",
+      "faction": "Arcanists",
+      "subfaction": "December",
+      "primary_keyword": "December",
+      "keywords": [
+        "December"
+      ],
+      "characteristics": [],
+      "front_image": "Arcanists/December/M4E_Crew_December_Rasputina_Winter's_Teeth_front.png",
+      "back_image": "Arcanists/December/M4E_Crew_December_Rasputina_Winter's_Teeth_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Foundry_Mei_Feng_Foreman",
+      "name": "Mei Feng Foreman",
+      "card_type": "Crew",
+      "faction": "Arcanists",
+      "subfaction": "Foundry",
+      "primary_keyword": "Foundry",
+      "keywords": [
+        "Foundry"
+      ],
+      "characteristics": [],
+      "front_image": "Ten Thunders/Foundry/M4E_Crew_Foundry_Mei_Feng_Foreman_front.png",
+      "back_image": "Ten Thunders/Foundry/M4E_Crew_Foundry_Mei_Feng_Foreman_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Foundry_Mei_Feng_Sentinel_of_Steel",
+      "name": "Mei Feng Sentinel of Steel",
+      "card_type": "Crew",
+      "faction": "Arcanists",
+      "subfaction": "Foundry",
+      "primary_keyword": "Foundry",
+      "keywords": [
+        "Foundry"
+      ],
+      "characteristics": [],
+      "front_image": "Ten Thunders/Foundry/M4E_Crew_Foundry_Mei_Feng_Sentinel_of_Steel_front.png",
+      "back_image": "Ten Thunders/Foundry/M4E_Crew_Foundry_Mei_Feng_Sentinel_of_Steel_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Frontier_Cornelius_Basse_Badlands_Sheriff",
+      "name": "Cornelius Basse Badlands Sheriff",
+      "card_type": "Crew",
+      "faction": "Arcanists",
+      "subfaction": "Frontier",
+      "primary_keyword": "Frontier",
+      "keywords": [
+        "Frontier"
+      ],
+      "characteristics": [],
+      "front_image": "Arcanists/Frontier/M4E_Crew_Frontier_Cornelius_Basse_Badlands_Sheriff_front.png",
+      "back_image": "Arcanists/Frontier/M4E_Crew_Frontier_Cornelius_Basse_Badlands_Sheriff_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Frontier_Cornelius_Basse_Lone_Verdict",
+      "name": "Cornelius Basse Lone Verdict",
+      "card_type": "Crew",
+      "faction": "Arcanists",
+      "subfaction": "Frontier",
+      "primary_keyword": "Frontier",
+      "keywords": [
+        "Frontier"
+      ],
+      "characteristics": [],
+      "front_image": "Arcanists/Frontier/M4E_Crew_Frontier_Cornelius_Basse_Lone_Verdict_front.png",
+      "back_image": "Arcanists/Frontier/M4E_Crew_Frontier_Cornelius_Basse_Lone_Verdict_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_MSU_Toni_Ironsides_Troubleshooter",
+      "name": "Toni Ironsides Troubleshooter",
+      "card_type": "Crew",
+      "faction": "Arcanists",
+      "subfaction": "MSU",
+      "primary_keyword": "MSU",
+      "keywords": [
+        "MSU"
+      ],
+      "characteristics": [],
+      "front_image": "Arcanists/M&SU/M4E_Crew_MSU_Toni_Ironsides_Troubleshooter_front.png",
+      "back_image": "Arcanists/M&SU/M4E_Crew_MSU_Toni_Ironsides_Troubleshooter_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_MSU_Toni_Ironsides_Union_President",
+      "name": "Toni Ironsides Union President",
+      "card_type": "Crew",
+      "faction": "Arcanists",
+      "subfaction": "MSU",
+      "primary_keyword": "MSU",
+      "keywords": [
+        "MSU"
+      ],
+      "characteristics": [],
+      "front_image": "Arcanists/M&SU/M4E_Crew_MSU_Toni_Ironsides_Union_President_front.png",
+      "back_image": "Arcanists/M&SU/M4E_Crew_MSU_Toni_Ironsides_Union_President_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Performer_Colette_Du_Bois_Smuggler",
+      "name": "Colette Du Bois Smuggler",
+      "card_type": "Crew",
+      "faction": "Arcanists",
+      "subfaction": "Performer",
+      "primary_keyword": "Performer",
+      "keywords": [
+        "Performer"
+      ],
+      "characteristics": [],
+      "front_image": "Arcanists/Performer/M4E_Crew_Performer_Colette_Du_Bois_Smuggler_front.png",
+      "back_image": "Arcanists/Performer/M4E_Crew_Performer_Colette_Du_Bois_Smuggler_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Performer_Colette_Du_Bois_Star_of_the_Show",
+      "name": "Colette Du Bois Star of the Show",
+      "card_type": "Crew",
+      "faction": "Arcanists",
+      "subfaction": "Performer",
+      "primary_keyword": "Performer",
+      "keywords": [
+        "Performer"
+      ],
+      "characteristics": [],
+      "front_image": "Arcanists/Performer/M4E_Crew_Performer_Colette_Du_Bois_Star_of_the_Show_front.png",
+      "back_image": "Arcanists/Performer/M4E_Crew_Performer_Colette_Du_Bois_Star_of_the_Show_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Wildfire_Kaeris_Iron-Threaded",
+      "name": "Kaeris Iron-Threaded",
+      "card_type": "Crew",
+      "faction": "Arcanists",
+      "subfaction": "Wildfire",
+      "primary_keyword": "Wildfire",
+      "keywords": [
+        "Wildfire"
+      ],
+      "characteristics": [],
+      "front_image": "Arcanists/Wildfire/M4E_Crew_Wildfire_Kaeris_Iron-Threaded_front.png",
+      "back_image": "Arcanists/Wildfire/M4E_Crew_Wildfire_Kaeris_Iron-Threaded_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Wildfire_Kaeris_Reborn",
+      "name": "Kaeris Reborn",
+      "card_type": "Crew",
+      "faction": "Arcanists",
+      "subfaction": "Wildfire",
+      "primary_keyword": "Wildfire",
+      "keywords": [
+        "Wildfire"
+      ],
+      "characteristics": [],
+      "front_image": "Arcanists/Wildfire/M4E_Crew_Wildfire_Kaeris_Reborn_front.png",
+      "back_image": "Arcanists/Wildfire/M4E_Crew_Wildfire_Kaeris_Reborn_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Witness_Damian_Ravencroft_Aspirant",
+      "name": "Damian Ravencroft Aspirant",
+      "card_type": "Crew",
+      "faction": "Arcanists",
+      "subfaction": "Witness",
+      "primary_keyword": "Witness",
+      "keywords": [
+        "Witness"
+      ],
+      "characteristics": [],
+      "front_image": "Arcanists/Witness/M4E_Crew_Witness_Damian_Ravencroft_Aspirant_front.png",
+      "back_image": "Arcanists/Witness/M4E_Crew_Witness_Damian_Ravencroft_Aspirant_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Witness_Damian_Ravencroft_Unbound",
+      "name": "Damian Ravencroft Unbound",
+      "card_type": "Crew",
+      "faction": "Arcanists",
+      "subfaction": "Witness",
+      "primary_keyword": "Witness",
+      "keywords": [
+        "Witness"
+      ],
+      "characteristics": [],
+      "front_image": "Arcanists/Witness/M4E_Crew_Witness_Damian_Ravencroft_Unbound_front.png",
+      "back_image": "Arcanists/Witness/M4E_Crew_Witness_Damian_Ravencroft_Unbound_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Angler_The_Clampetts_Bally-Hoo_Bucket",
+      "name": "The Clampetts Bally-Hoo Bucket",
+      "card_type": "Crew",
+      "faction": "Bayou",
+      "subfaction": "Angler",
+      "primary_keyword": "Angler",
+      "keywords": [
+        "Angler"
+      ],
+      "characteristics": [],
+      "front_image": "Bayou/Angler/M4E_Crew_Angler_The_Clampetts_Bally-Hoo_Bucket_front.png",
+      "back_image": "Bayou/Angler/M4E_Crew_Angler_The_Clampetts_Bally-Hoo_Bucket_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Angler_The_Clampetts_Fisherfolk",
+      "name": "The Clampetts Fisherfolk",
+      "card_type": "Crew",
+      "faction": "Bayou",
+      "subfaction": "Angler",
+      "primary_keyword": "Angler",
+      "keywords": [
+        "Angler"
+      ],
+      "characteristics": [],
+      "front_image": "Bayou/Angler/M4E_Crew_Angler_The_Clampetts_Fisherfolk_front.png",
+      "back_image": "Bayou/Angler/M4E_Crew_Angler_The_Clampetts_Fisherfolk_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Big-Hat_Som'er_Teeth_Jones_Bayou_Boss",
+      "name": "Som'er Teeth Jones Bayou Boss",
+      "card_type": "Crew",
+      "faction": "Bayou",
+      "subfaction": "Big-Hat",
+      "primary_keyword": "Big-Hat",
+      "keywords": [
+        "Big-Hat"
+      ],
+      "characteristics": [],
+      "front_image": "Bayou/Big Hat/M4E_Crew_Big-Hat_Som'er_Teeth_Jones_Bayou_Boss_front.png",
+      "back_image": "Bayou/Big Hat/M4E_Crew_Big-Hat_Som'er_Teeth_Jones_Bayou_Boss_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Big-Hat_Som'er_Teeth_Jones_Loot_Monger",
+      "name": "Som'er Teeth Jones Loot Monger",
+      "card_type": "Crew",
+      "faction": "Bayou",
+      "subfaction": "Big-Hat",
+      "primary_keyword": "Big-Hat",
+      "keywords": [
+        "Big-Hat"
+      ],
+      "characteristics": [],
+      "front_image": "Bayou/Big Hat/M4E_Crew_Big-Hat_Som'er_Teeth_Jones_Loot_Monger_front.png",
+      "back_image": "Bayou/Big Hat/M4E_Crew_Big-Hat_Som'er_Teeth_Jones_Loot_Monger_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Infamous_Captain_Zipp_Cloudchaser",
+      "name": "Captain Zipp Cloudchaser",
+      "card_type": "Crew",
+      "faction": "Bayou",
+      "subfaction": "Infamous",
+      "primary_keyword": "Infamous",
+      "keywords": [
+        "Infamous"
+      ],
+      "characteristics": [],
+      "front_image": "Outcasts/Infamous/M4E_Crew_Infamous_Captain_Zipp_Cloudchaser_front.png",
+      "back_image": "Outcasts/Infamous/M4E_Crew_Infamous_Captain_Zipp_Cloudchaser_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Infamous_Captain_Zipp_Dread_Pirate",
+      "name": "Captain Zipp Dread Pirate",
+      "card_type": "Crew",
+      "faction": "Bayou",
+      "subfaction": "Infamous",
+      "primary_keyword": "Infamous",
+      "keywords": [
+        "Infamous"
+      ],
+      "characteristics": [],
+      "front_image": "Outcasts/Infamous/M4E_Crew_Infamous_Captain_Zipp_Dread_Pirate_front.png",
+      "back_image": "Outcasts/Infamous/M4E_Crew_Infamous_Captain_Zipp_Dread_Pirate_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Kin_Ophelia_LaCroix_Overloaded",
+      "name": "Ophelia LaCroix Overloaded",
+      "card_type": "Crew",
+      "faction": "Bayou",
+      "subfaction": "Kin",
+      "primary_keyword": "Kin",
+      "keywords": [
+        "Kin"
+      ],
+      "characteristics": [],
+      "front_image": "Bayou/Kin/M4E_Crew_Kin_Ophelia_LaCroix_Overloaded_front.png",
+      "back_image": "Bayou/Kin/M4E_Crew_Kin_Ophelia_LaCroix_Overloaded_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Kin_Ophelia_LaCroix_Red_Cage_Raider",
+      "name": "Ophelia LaCroix Red Cage Raider",
+      "card_type": "Crew",
+      "faction": "Bayou",
+      "subfaction": "Kin",
+      "primary_keyword": "Kin",
+      "keywords": [
+        "Kin"
+      ],
+      "characteristics": [],
+      "front_image": "Bayou/Kin/M4E_Crew_Kin_Ophelia_LaCroix_Red_Cage_Raider_front.png",
+      "back_image": "Bayou/Kin/M4E_Crew_Kin_Ophelia_LaCroix_Red_Cage_Raider_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Sooey_Ulix_Turner_Hogfather",
+      "name": "Ulix Turner Hogfather",
+      "card_type": "Crew",
+      "faction": "Bayou",
+      "subfaction": "Sooey",
+      "primary_keyword": "Sooey",
+      "keywords": [
+        "Sooey"
+      ],
+      "characteristics": [],
+      "front_image": "Bayou/Sooey/M4E_Crew_Sooey_Ulix_Turner_Hogfather_front.png",
+      "back_image": "Bayou/Sooey/M4E_Crew_Sooey_Ulix_Turner_Hogfather_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Sooey_Ulix_Turner_Porkbelly_Protector",
+      "name": "Ulix Turner Porkbelly Protector",
+      "card_type": "Crew",
+      "faction": "Bayou",
+      "subfaction": "Sooey",
+      "primary_keyword": "Sooey",
+      "keywords": [
+        "Sooey"
+      ],
+      "characteristics": [],
+      "front_image": "Bayou/Sooey/M4E_Crew_Sooey_Ulix_Turner_Porkbelly_Protector_front.png",
+      "back_image": "Bayou/Sooey/M4E_Crew_Sooey_Ulix_Turner_Porkbelly_Protector_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Swampfiend_Zoraida_Bog_Witch",
+      "name": "Zoraida Bog Witch",
+      "card_type": "Crew",
+      "faction": "Bayou",
+      "subfaction": "Swampfiend",
+      "primary_keyword": "Swampfiend",
+      "keywords": [
+        "Swampfiend"
+      ],
+      "characteristics": [],
+      "front_image": "Bayou/Swampfiend/M4E_Crew_Swampfiend_Zoraida_Bog_Witch_front.png",
+      "back_image": "Bayou/Swampfiend/M4E_Crew_Swampfiend_Zoraida_Bog_Witch_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Swampfiend_Zoraida_Swamp_Hag",
+      "name": "Zoraida Swamp Hag",
+      "card_type": "Crew",
+      "faction": "Bayou",
+      "subfaction": "Swampfiend",
+      "primary_keyword": "Swampfiend",
+      "keywords": [
+        "Swampfiend"
+      ],
+      "characteristics": [],
+      "front_image": "Bayou/Swampfiend/M4E_Crew_Swampfiend_Zoraida_Swamp_Hag_front.png",
+      "back_image": "Bayou/Swampfiend/M4E_Crew_Swampfiend_Zoraida_Swamp_Hag_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Tri-Chi_The_Brewmaster_Moonshiner",
+      "name": "The Brewmaster Moonshiner",
+      "card_type": "Crew",
+      "faction": "Bayou",
+      "subfaction": "Tri-Chi",
+      "primary_keyword": "Tri-Chi",
+      "keywords": [
+        "Tri-Chi"
+      ],
+      "characteristics": [],
+      "front_image": "Bayou/Tri-Chi/M4E_Crew_Tri-Chi_The_Brewmaster_Moonshiner_front.png",
+      "back_image": "Bayou/Tri-Chi/M4E_Crew_Tri-Chi_The_Brewmaster_Moonshiner_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Tri-Chi_The_Brewmaster_Proof-Prophet",
+      "name": "The Brewmaster Proof-Prophet",
+      "card_type": "Crew",
+      "faction": "Bayou",
+      "subfaction": "Tri-Chi",
+      "primary_keyword": "Tri-Chi",
+      "keywords": [
+        "Tri-Chi"
+      ],
+      "characteristics": [],
+      "front_image": "Bayou/Tri-Chi/M4E_Crew_Tri-Chi_The_Brewmaster_Proof-Prophet_front.png",
+      "back_image": "Bayou/Tri-Chi/M4E_Crew_Tri-Chi_The_Brewmaster_Proof-Prophet_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Tricksy_Mah_Tucket_Mecha_Meemaw",
+      "name": "Mah Tucket Mecha Meemaw",
+      "card_type": "Crew",
+      "faction": "Bayou",
+      "subfaction": "Tricksy",
+      "primary_keyword": "Tricksy",
+      "keywords": [
+        "Tricksy"
+      ],
+      "characteristics": [],
+      "front_image": "Bayou/Tricksy/M4E_Crew_Tricksy_Mah_Tucket_Mecha_Meemaw_front.png",
+      "back_image": "Bayou/Tricksy/M4E_Crew_Tricksy_Mah_Tucket_Mecha_Meemaw_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Tricksy_Mah_Tucket_Metal_Magpie",
+      "name": "Mah Tucket Metal Magpie",
+      "card_type": "Crew",
+      "faction": "Bayou",
+      "subfaction": "Tricksy",
+      "primary_keyword": "Tricksy",
+      "keywords": [
+        "Tricksy"
+      ],
+      "characteristics": [],
+      "front_image": "Bayou/Tricksy/M4E_Crew_Tricksy_Mah_Tucket_Metal_Magpie_front.png",
+      "back_image": "Bayou/Tricksy/M4E_Crew_Tricksy_Mah_Tucket_Metal_Magpie_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Wizz-Bang_Wong_Enchanter",
+      "name": "Wong Enchanter",
+      "card_type": "Crew",
+      "faction": "Bayou",
+      "subfaction": "Wizz-Bang",
+      "primary_keyword": "Wizz-Bang",
+      "keywords": [
+        "Wizz-Bang"
+      ],
+      "characteristics": [],
+      "front_image": "Bayou/Wizz-Bang/M4E_Crew_Wizz-Bang_Wong_Enchanter_front.png",
+      "back_image": "Bayou/Wizz-Bang/M4E_Crew_Wizz-Bang_Wong_Enchanter_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Wizz-Bang_Wong_The_Wonderful",
+      "name": "Wong The Wonderful",
+      "card_type": "Crew",
+      "faction": "Bayou",
+      "subfaction": "Wizz-Bang",
+      "primary_keyword": "Wizz-Bang",
+      "keywords": [
+        "Wizz-Bang"
+      ],
+      "characteristics": [],
+      "front_image": "Bayou/Wizz-Bang/M4E_Crew_Wizz-Bang_Wong_The_Wonderful_front.png",
+      "back_image": "Bayou/Wizz-Bang/M4E_Crew_Wizz-Bang_Wong_The_Wonderful_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Apex_Lord_Cooper_Huntmaster",
+      "name": "Lord Cooper Huntmaster",
+      "card_type": "Crew",
+      "faction": "Explorer's Society",
+      "subfaction": "Apex",
+      "primary_keyword": "Apex",
+      "keywords": [
+        "Apex"
+      ],
+      "characteristics": [],
+      "front_image": "Explorer's Society/Apex/M4E_Crew_Apex_Lord_Cooper_Huntmaster_front.png",
+      "back_image": "Explorer's Society/Apex/M4E_Crew_Apex_Lord_Cooper_Huntmaster_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Apex_Lord_Cooper_Manhunter",
+      "name": "Lord Cooper Manhunter",
+      "card_type": "Crew",
+      "faction": "Explorer's Society",
+      "subfaction": "Apex",
+      "primary_keyword": "Apex",
+      "keywords": [
+        "Apex"
+      ],
+      "characteristics": [],
+      "front_image": "Explorer's Society/Apex/M4E_Crew_Apex_Lord_Cooper_Manhunter_front.png",
+      "back_image": "Explorer's Society/Apex/M4E_Crew_Apex_Lord_Cooper_Manhunter_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Bygone_Tiri_The_Architect",
+      "name": "Tiri The Architect",
+      "card_type": "Crew",
+      "faction": "Explorer's Society",
+      "subfaction": "Bygone",
+      "primary_keyword": "Bygone",
+      "keywords": [
+        "Bygone"
+      ],
+      "characteristics": [],
+      "front_image": "Explorer's Society/Bygone/M4E_Crew_Bygone_Tiri_The_Architect_front.png",
+      "back_image": "Explorer's Society/Bygone/M4E_Crew_Bygone_Tiri_The_Architect_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Bygone_Tiri_The_Nomad",
+      "name": "Tiri The Nomad",
+      "card_type": "Crew",
+      "faction": "Explorer's Society",
+      "subfaction": "Bygone",
+      "primary_keyword": "Bygone",
+      "keywords": [
+        "Bygone"
+      ],
+      "characteristics": [],
+      "front_image": "Explorer's Society/Bygone/M4E_Crew_Bygone_Tiri_The_Nomad_front.png",
+      "back_image": "Explorer's Society/Bygone/M4E_Crew_Bygone_Tiri_The_Nomad_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Cadmus_Nexus_Heart_of_the_Hive",
+      "name": "Nexus Heart of the Hive",
+      "card_type": "Crew",
+      "faction": "Explorer's Society",
+      "subfaction": "Cadmus",
+      "primary_keyword": "Cadmus",
+      "keywords": [
+        "Cadmus"
+      ],
+      "characteristics": [],
+      "front_image": "Explorer's Society/Cadmus/M4E_Crew_Cadmus_Nexus_Heart_of_the_Hive_front.png",
+      "back_image": "Explorer's Society/Cadmus/M4E_Crew_Cadmus_Nexus_Heart_of_the_Hive_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Cadmus_Nexus_One_of_Many",
+      "name": "Nexus One of Many",
+      "card_type": "Crew",
+      "faction": "Explorer's Society",
+      "subfaction": "Cadmus",
+      "primary_keyword": "Cadmus",
+      "keywords": [
+        "Cadmus"
+      ],
+      "characteristics": [],
+      "front_image": "Explorer's Society/Cadmus/M4E_Crew_Cadmus_Nexus_One_of_Many_front.png",
+      "back_image": "Explorer's Society/Cadmus/M4E_Crew_Cadmus_Nexus_One_of_Many_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Cavalier_Harold_Tull_Artilerist_1",
+      "name": "Harold Tull Artilerist 1",
+      "card_type": "Crew",
+      "faction": "Explorer's Society",
+      "subfaction": "Cavalier",
+      "primary_keyword": "Cavalier",
+      "keywords": [
+        "Cavalier"
+      ],
+      "characteristics": [],
+      "front_image": "Guild/Cavalier/M4E_Crew_Cavalier_Harold_Tull_Artilerist_1_front.png",
+      "back_image": "Guild/Cavalier/M4E_Crew_Cavalier_Harold_Tull_Artilerist_1_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Cavalier_Harold_Tull_Artilerist_2",
+      "name": "Harold Tull Artilerist 2",
+      "card_type": "Crew",
+      "faction": "Explorer's Society",
+      "subfaction": "Cavalier",
+      "primary_keyword": "Cavalier",
+      "keywords": [
+        "Cavalier"
+      ],
+      "characteristics": [],
+      "front_image": "Guild/Cavalier/M4E_Crew_Cavalier_Harold_Tull_Artilerist_2_front.png",
+      "back_image": "Guild/Cavalier/M4E_Crew_Cavalier_Harold_Tull_Artilerist_2_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Cavalier_Harold_Tull_Dead_Silent_1",
+      "name": "Harold Tull Dead Silent 1",
+      "card_type": "Crew",
+      "faction": "Explorer's Society",
+      "subfaction": "Cavalier",
+      "primary_keyword": "Cavalier",
+      "keywords": [
+        "Cavalier"
+      ],
+      "characteristics": [],
+      "front_image": "Guild/Cavalier/M4E_Crew_Cavalier_Harold_Tull_Dead_Silent_1_front.png",
+      "back_image": "Guild/Cavalier/M4E_Crew_Cavalier_Harold_Tull_Dead_Silent_1_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Cavalier_Harold_Tull_Dead_Silent_2",
+      "name": "Harold Tull Dead Silent 2",
+      "card_type": "Crew",
+      "faction": "Explorer's Society",
+      "subfaction": "Cavalier",
+      "primary_keyword": "Cavalier",
+      "keywords": [
+        "Cavalier"
+      ],
+      "characteristics": [],
+      "front_image": "Guild/Cavalier/M4E_Crew_Cavalier_Harold_Tull_Dead_Silent_2_front.png",
+      "back_image": "Guild/Cavalier/M4E_Crew_Cavalier_Harold_Tull_Dead_Silent_2_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_DUA_English_Ivan_Double_Agent",
+      "name": "English Ivan Double Agent",
+      "card_type": "Crew",
+      "faction": "Explorer's Society",
+      "subfaction": "DUA",
+      "primary_keyword": "DUA",
+      "keywords": [
+        "DUA"
+      ],
+      "characteristics": [],
+      "front_image": "Explorer's Society/DUA/M4E_Crew_DUA_English_Ivan_Double_Agent_front.png",
+      "back_image": "Explorer's Society/DUA/M4E_Crew_DUA_English_Ivan_Double_Agent_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_DUA_English_Ivan_Obscura",
+      "name": "English Ivan Obscura",
+      "card_type": "Crew",
+      "faction": "Explorer's Society",
+      "subfaction": "DUA",
+      "primary_keyword": "DUA",
+      "keywords": [
+        "DUA"
+      ],
+      "characteristics": [],
+      "front_image": "Explorer's Society/DUA/M4E_Crew_DUA_English_Ivan_Obscura_front.png",
+      "back_image": "Explorer's Society/DUA/M4E_Crew_DUA_English_Ivan_Obscura_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_EVS_Maxine_Agassiz_Monomaniacal",
+      "name": "Maxine Agassiz Monomaniacal",
+      "card_type": "Crew",
+      "faction": "Explorer's Society",
+      "subfaction": "EVS",
+      "primary_keyword": "EVS",
+      "keywords": [
+        "EVS"
+      ],
+      "characteristics": [],
+      "front_image": "Explorer's Society/EVS/M4E_Crew_EVS_Maxine_Agassiz_Monomaniacal_front.png",
+      "back_image": "Explorer's Society/EVS/M4E_Crew_EVS_Maxine_Agassiz_Monomaniacal_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_EVS_Maxine_Agassiz_The_Renowned",
+      "name": "Maxine Agassiz The Renowned",
+      "card_type": "Crew",
+      "faction": "Explorer's Society",
+      "subfaction": "EVS",
+      "primary_keyword": "EVS",
+      "keywords": [
+        "EVS"
+      ],
+      "characteristics": [],
+      "front_image": "Explorer's Society/EVS/M4E_Crew_EVS_Maxine_Agassiz_The_Renowned_front.png",
+      "back_image": "Explorer's Society/EVS/M4E_Crew_EVS_Maxine_Agassiz_The_Renowned_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Forgotten_Molly_Squidpiddge_Chaotic_Conductor",
+      "name": "Molly Squidpiddge Chaotic Conductor",
+      "card_type": "Crew",
+      "faction": "Explorer's Society",
+      "subfaction": "Forgotten",
+      "primary_keyword": "Forgotten",
+      "keywords": [
+        "Forgotten"
+      ],
+      "characteristics": [],
+      "front_image": "Resurrectionists/Forgotten/M4E_Crew_Forgotten_Molly_Squidpiddge_Chaotic_Conductor_front.png",
+      "back_image": "Resurrectionists/Forgotten/M4E_Crew_Forgotten_Molly_Squidpiddge_Chaotic_Conductor_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Forgotten_Molly_Squidpiddge_Harbinger_of_Havoc",
+      "name": "Molly Squidpiddge Harbinger of Havoc",
+      "card_type": "Crew",
+      "faction": "Explorer's Society",
+      "subfaction": "Forgotten",
+      "primary_keyword": "Forgotten",
+      "keywords": [
+        "Forgotten"
+      ],
+      "characteristics": [],
+      "front_image": "Resurrectionists/Forgotten/M4E_Crew_Forgotten_Molly_Squidpiddge_Harbinger_of_Havoc_front.png",
+      "back_image": "Resurrectionists/Forgotten/M4E_Crew_Forgotten_Molly_Squidpiddge_Harbinger_of_Havoc_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Seeker_Jedza_Everlasting",
+      "name": "Jedza Everlasting",
+      "card_type": "Crew",
+      "faction": "Explorer's Society",
+      "subfaction": "Seeker",
+      "primary_keyword": "Seeker",
+      "keywords": [
+        "Seeker"
+      ],
+      "characteristics": [],
+      "front_image": "Explorer's Society/Seeker/M4E_Crew_Seeker_Jedza_Everlasting_front.png",
+      "back_image": "Explorer's Society/Seeker/M4E_Crew_Seeker_Jedza_Everlasting_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Seeker_Jedza_the_Wanderer",
+      "name": "Jedza the Wanderer",
+      "card_type": "Crew",
+      "faction": "Explorer's Society",
+      "subfaction": "Seeker",
+      "primary_keyword": "Seeker",
+      "keywords": [
+        "Seeker"
+      ],
+      "characteristics": [],
+      "front_image": "Explorer's Society/Seeker/M4E_Crew_Seeker_Jedza_the_Wanderer_front.png",
+      "back_image": "Explorer's Society/Seeker/M4E_Crew_Seeker_Jedza_the_Wanderer_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Syndicate_Anya_Lycarayen_Rail_Magnate",
+      "name": "Anya Lycarayen Rail Magnate",
+      "card_type": "Crew",
+      "faction": "Explorer's Society",
+      "subfaction": "Syndicate",
+      "primary_keyword": "Syndicate",
+      "keywords": [
+        "Syndicate"
+      ],
+      "characteristics": [],
+      "front_image": "Explorer's Society/Syndicate/M4E_Crew_Syndicate_Anya_Lycarayen_Rail_Magnate_front.png",
+      "back_image": "Explorer's Society/Syndicate/M4E_Crew_Syndicate_Anya_Lycarayen_Rail_Magnate_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Syndicate_Anya_Lycarayen_The_Resolute",
+      "name": "Anya Lycarayen The Resolute",
+      "card_type": "Crew",
+      "faction": "Explorer's Society",
+      "subfaction": "Syndicate",
+      "primary_keyword": "Syndicate",
+      "keywords": [
+        "Syndicate"
+      ],
+      "characteristics": [],
+      "front_image": "Explorer's Society/Syndicate/M4E_Crew_Syndicate_Anya_Lycarayen_The_Resolute_front.png",
+      "back_image": "Explorer's Society/Syndicate/M4E_Crew_Syndicate_Anya_Lycarayen_The_Resolute_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Wastrel_Lucas_McCabe_Relic_Hunter_Dismounted_Hunter",
+      "name": "Lucas McCabe Relic Hunter Dismounted Hunter",
+      "card_type": "Crew",
+      "faction": "Explorer's Society",
+      "subfaction": "Wastrel",
+      "primary_keyword": "Wastrel",
+      "keywords": [
+        "Wastrel"
+      ],
+      "characteristics": [],
+      "front_image": "Explorer's Society/Wastrel/M4E_Crew_Wastrel_Lucas_McCabe_Relic_Hunter_Dismounted_Hunter_front.png",
+      "back_image": "Explorer's Society/Wastrel/M4E_Crew_Wastrel_Lucas_McCabe_Relic_Hunter_Dismounted_Hunter_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Wastrel_Lucas_McCabe_Tomb_Delver",
+      "name": "Lucas McCabe Tomb Delver",
+      "card_type": "Crew",
+      "faction": "Explorer's Society",
+      "subfaction": "Wastrel",
+      "primary_keyword": "Wastrel",
+      "keywords": [
+        "Wastrel"
+      ],
+      "characteristics": [],
+      "front_image": "Explorer's Society/Wastrel/M4E_Crew_Wastrel_Lucas_McCabe_Tomb_Delver_front.png",
+      "back_image": "Explorer's Society/Wastrel/M4E_Crew_Wastrel_Lucas_McCabe_Tomb_Delver_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Augmented_Charles_Hoffman_Inventor",
+      "name": "Charles Hoffman Inventor",
+      "card_type": "Crew",
+      "faction": "Guild",
+      "subfaction": "Augmented",
+      "primary_keyword": "Augmented",
+      "keywords": [
+        "Augmented"
+      ],
+      "characteristics": [],
+      "front_image": "Guild/Augmented/M4E_Crew_Augmented_Charles_Hoffman_Inventor_front.png",
+      "back_image": "Guild/Augmented/M4E_Crew_Augmented_Charles_Hoffman_Inventor_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Augmented_Charles_Hoffman_Steel_Sculptor",
+      "name": "Charles Hoffman Steel Sculptor",
+      "card_type": "Crew",
+      "faction": "Guild",
+      "subfaction": "Augmented",
+      "primary_keyword": "Augmented",
+      "keywords": [
+        "Augmented"
+      ],
+      "characteristics": [],
+      "front_image": "Guild/Augmented/M4E_Crew_Augmented_Charles_Hoffman_Steel_Sculptor_front.png",
+      "back_image": "Guild/Augmented/M4E_Crew_Augmented_Charles_Hoffman_Steel_Sculptor_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Elite_Lucius_Mattheson_Dishonorable",
+      "name": "Lucius Mattheson Dishonorable",
+      "card_type": "Crew",
+      "faction": "Guild",
+      "subfaction": "Elite",
+      "primary_keyword": "Elite",
+      "keywords": [
+        "Elite"
+      ],
+      "characteristics": [],
+      "front_image": "Guild/Elite/M4E_Crew_Elite_Lucius_Mattheson_Dishonorable_front.png",
+      "back_image": "Guild/Elite/M4E_Crew_Elite_Lucius_Mattheson_Dishonorable_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Elite_Lucius_Mattheson_In_Plain_Sight",
+      "name": "Lucius Mattheson In Plain Sight",
+      "card_type": "Crew",
+      "faction": "Guild",
+      "subfaction": "Elite",
+      "primary_keyword": "Elite",
+      "keywords": [
+        "Elite"
+      ],
+      "characteristics": [],
+      "front_image": "Guild/Elite/M4E_Crew_Elite_Lucius_Mattheson_In_Plain_Sight_front.png",
+      "back_image": "Guild/Elite/M4E_Crew_Elite_Lucius_Mattheson_In_Plain_Sight_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Family_Perdita_Ortega_La_Diabla",
+      "name": "Perdita Ortega La Diabla",
+      "card_type": "Crew",
+      "faction": "Guild",
+      "subfaction": "Family",
+      "primary_keyword": "Family",
+      "keywords": [
+        "Family"
+      ],
+      "characteristics": [],
+      "front_image": "Guild/Family/M4E_Crew_Family_Perdita_Ortega_La_Diabla_front.png",
+      "back_image": "Guild/Family/M4E_Crew_Family_Perdita_Ortega_La_Diabla_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Family_Perdita_Ortega_Neverborn_Hunter",
+      "name": "Perdita Ortega Neverborn Hunter",
+      "card_type": "Crew",
+      "faction": "Guild",
+      "subfaction": "Family",
+      "primary_keyword": "Family",
+      "keywords": [
+        "Family"
+      ],
+      "characteristics": [],
+      "front_image": "Guild/Family/M4E_Crew_Family_Perdita_Ortega_Neverborn_Hunter_front.png",
+      "back_image": "Guild/Family/M4E_Crew_Family_Perdita_Ortega_Neverborn_Hunter_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Guard_Dashel_Barker_Butcher",
+      "name": "Dashel Barker Butcher",
+      "card_type": "Crew",
+      "faction": "Guild",
+      "subfaction": "Guard",
+      "primary_keyword": "Guard",
+      "keywords": [
+        "Guard"
+      ],
+      "characteristics": [],
+      "front_image": "Guild/Guard/M4E_Crew_Guard_Dashel_Barker_Butcher_front.png",
+      "back_image": "Guild/Guard/M4E_Crew_Guard_Dashel_Barker_Butcher_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Guard_Dashel_Barker_The_Old_Guard",
+      "name": "Dashel Barker The Old Guard",
+      "card_type": "Crew",
+      "faction": "Guild",
+      "subfaction": "Guard",
+      "primary_keyword": "Guard",
+      "keywords": [
+        "Guard"
+      ],
+      "characteristics": [],
+      "front_image": "Guild/Guard/M4E_Crew_Guard_Dashel_Barker_The_Old_Guard_front.png",
+      "back_image": "Guild/Guard/M4E_Crew_Guard_Dashel_Barker_The_Old_Guard_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Journalist_Nellie_Cochrane_The_Tattler",
+      "name": "Nellie Cochrane The Tattler",
+      "card_type": "Crew",
+      "faction": "Guild",
+      "subfaction": "Journalist",
+      "primary_keyword": "Journalist",
+      "keywords": [
+        "Journalist"
+      ],
+      "characteristics": [],
+      "front_image": "Guild/Journalist/M4E_Crew_Journalist_Nellie_Cochrane_The_Tattler_front.png",
+      "back_image": "Guild/Journalist/M4E_Crew_Journalist_Nellie_Cochrane_The_Tattler_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Journalist_Nellie_Cochrane_Voice_of_Disorder",
+      "name": "Nellie Cochrane Voice of Disorder",
+      "card_type": "Crew",
+      "faction": "Guild",
+      "subfaction": "Journalist",
+      "primary_keyword": "Journalist",
+      "keywords": [
+        "Journalist"
+      ],
+      "characteristics": [],
+      "front_image": "Guild/Journalist/M4E_Crew_Journalist_Nellie_Cochrane_Voice_of_Disorder_front.png",
+      "back_image": "Guild/Journalist/M4E_Crew_Journalist_Nellie_Cochrane_Voice_of_Disorder_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Marshal_Lady_Justice_Arbiter_of_the_Undead",
+      "name": "Lady Justice Arbiter of the Undead",
+      "card_type": "Crew",
+      "faction": "Guild",
+      "subfaction": "Marshal",
+      "primary_keyword": "Marshal",
+      "keywords": [
+        "Marshal"
+      ],
+      "characteristics": [],
+      "front_image": "Guild/Marshal/M4E_Crew_Marshal_Lady_Justice_Arbiter_of_the_Undead_front.png",
+      "back_image": "Guild/Marshal/M4E_Crew_Marshal_Lady_Justice_Arbiter_of_the_Undead_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Marshal_Lady_Justice_Death_Touched",
+      "name": "Lady Justice Death Touched",
+      "card_type": "Crew",
+      "faction": "Guild",
+      "subfaction": "Marshal",
+      "primary_keyword": "Marshal",
+      "keywords": [
+        "Marshal"
+      ],
+      "characteristics": [],
+      "front_image": "Guild/Marshal/M4E_Crew_Marshal_Lady_Justice_Death_Touched_front.png",
+      "back_image": "Guild/Marshal/M4E_Crew_Marshal_Lady_Justice_Death_Touched_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Witch-Hunter_Sonnia_Criid_Unmasked",
+      "name": "Sonnia Criid Unmasked",
+      "card_type": "Crew",
+      "faction": "Guild",
+      "subfaction": "Witch-Hunter",
+      "primary_keyword": "Witch-Hunter",
+      "keywords": [
+        "Witch-Hunter"
+      ],
+      "characteristics": [],
+      "front_image": "Guild/Witch Hunter/M4E_Crew_Witch-Hunter_Sonnia_Criid_Unmasked_front.png",
+      "back_image": "Guild/Witch Hunter/M4E_Crew_Witch-Hunter_Sonnia_Criid_Unmasked_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Witch-Hunter_Sonnia_Criid_Unrelenting",
+      "name": "Sonnia Criid Unrelenting",
+      "card_type": "Crew",
+      "faction": "Guild",
+      "subfaction": "Witch-Hunter",
+      "primary_keyword": "Witch-Hunter",
+      "keywords": [
+        "Witch-Hunter"
+      ],
+      "characteristics": [],
+      "front_image": "Guild/Witch Hunter/M4E_Crew_Witch-Hunter_Sonnia_Criid_Unrelenting_front.png",
+      "back_image": "Guild/Witch Hunter/M4E_Crew_Witch-Hunter_Sonnia_Criid_Unrelenting_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Banished_Silken_King_Colossus",
+      "name": "Silken King Colossus",
+      "card_type": "Crew",
+      "faction": "Neverborn",
+      "subfaction": "Banished",
+      "primary_keyword": "Banished",
+      "keywords": [
+        "Banished"
+      ],
+      "characteristics": [],
+      "front_image": "Neverborn/Banished/M4E_Crew_Banished_Silken_King_Colossus_front.png",
+      "back_image": "Neverborn/Banished/M4E_Crew_Banished_Silken_King_Colossus_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Banished_Silken_King_Long_Live",
+      "name": "Silken King Long Live",
+      "card_type": "Crew",
+      "faction": "Neverborn",
+      "subfaction": "Banished",
+      "primary_keyword": "Banished",
+      "keywords": [
+        "Banished"
+      ],
+      "characteristics": [],
+      "front_image": "Neverborn/Banished/M4E_Crew_Banished_Silken_King_Long_Live_front.png",
+      "back_image": "Neverborn/Banished/M4E_Crew_Banished_Silken_King_Long_Live_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Brood_Nekima_Broodmother",
+      "name": "Nekima Broodmother",
+      "card_type": "Crew",
+      "faction": "Neverborn",
+      "subfaction": "Brood",
+      "primary_keyword": "Brood",
+      "keywords": [
+        "Brood"
+      ],
+      "characteristics": [],
+      "front_image": "Neverborn/Brood/M4E_Crew_Brood_Nekima_Broodmother_front.png",
+      "back_image": "Neverborn/Brood/M4E_Crew_Brood_Nekima_Broodmother_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Brood_Nekima_Nephilim_Queen",
+      "name": "Nekima Nephilim Queen",
+      "card_type": "Crew",
+      "faction": "Neverborn",
+      "subfaction": "Brood",
+      "primary_keyword": "Brood",
+      "keywords": [
+        "Brood"
+      ],
+      "characteristics": [],
+      "front_image": "Neverborn/Brood/M4E_Crew_Brood_Nekima_Nephilim_Queen_front.png",
+      "back_image": "Neverborn/Brood/M4E_Crew_Brood_Nekima_Nephilim_Queen_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Chimera_Marcus_Alpha",
+      "name": "Marcus Alpha",
+      "card_type": "Crew",
+      "faction": "Neverborn",
+      "subfaction": "Chimera",
+      "primary_keyword": "Chimera",
+      "keywords": [
+        "Chimera"
+      ],
+      "characteristics": [],
+      "front_image": "Neverborn/Chimera/M4E_Crew_Chimera_Marcus_Alpha_front.png",
+      "back_image": "Neverborn/Chimera/M4E_Crew_Chimera_Marcus_Alpha_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Chimera_Marcus_Monstermaker",
+      "name": "Marcus Monstermaker",
+      "card_type": "Crew",
+      "faction": "Neverborn",
+      "subfaction": "Chimera",
+      "primary_keyword": "Chimera",
+      "keywords": [
+        "Chimera"
+      ],
+      "characteristics": [],
+      "front_image": "Neverborn/Chimera/M4E_Crew_Chimera_Marcus_Monstermaker_front.png",
+      "back_image": "Neverborn/Chimera/M4E_Crew_Chimera_Marcus_Monstermaker_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Crossroads_Wrath",
+      "name": "Wrath",
+      "card_type": "Crew",
+      "faction": "Neverborn",
+      "subfaction": "Crossroads",
+      "primary_keyword": "Crossroads",
+      "keywords": [
+        "Crossroads"
+      ],
+      "characteristics": [],
+      "front_image": "Neverborn/Versatile - Neverborn/M4E_Crew_Crossroads_Wrath_front.png",
+      "back_image": "Neverborn/Versatile - Neverborn/M4E_Crew_Crossroads_Wrath_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Fae_Titania_Autumn_Queen",
+      "name": "Titania Autumn Queen",
+      "card_type": "Crew",
+      "faction": "Neverborn",
+      "subfaction": "Fae",
+      "primary_keyword": "Fae",
+      "keywords": [
+        "Fae"
+      ],
+      "characteristics": [],
+      "front_image": "Neverborn/Fae/M4E_Crew_Fae_Titania_Autumn_Queen_front.png",
+      "back_image": "Neverborn/Fae/M4E_Crew_Fae_Titania_Autumn_Queen_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Fae_Titania_Withered_Rose",
+      "name": "Titania Withered Rose",
+      "card_type": "Crew",
+      "faction": "Neverborn",
+      "subfaction": "Fae",
+      "primary_keyword": "Fae",
+      "keywords": [
+        "Fae"
+      ],
+      "characteristics": [],
+      "front_image": "Neverborn/Fae/M4E_Crew_Fae_Titania_Withered_Rose_front.png",
+      "back_image": "Neverborn/Fae/M4E_Crew_Fae_Titania_Withered_Rose_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Nightmare_Dreamer_Fast_Asleep",
+      "name": "Dreamer Fast Asleep",
+      "card_type": "Crew",
+      "faction": "Neverborn",
+      "subfaction": "Nightmare",
+      "primary_keyword": "Nightmare",
+      "keywords": [
+        "Nightmare"
+      ],
+      "characteristics": [],
+      "front_image": "Neverborn/Nightmare/M4E_Crew_Nightmare_Dreamer_Fast_Asleep_front.png",
+      "back_image": "Neverborn/Nightmare/M4E_Crew_Nightmare_Dreamer_Fast_Asleep_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Nightmare_Dreamer_Insomniac",
+      "name": "Dreamer Insomniac",
+      "card_type": "Crew",
+      "faction": "Neverborn",
+      "subfaction": "Nightmare",
+      "primary_keyword": "Nightmare",
+      "keywords": [
+        "Nightmare"
+      ],
+      "characteristics": [],
+      "front_image": "Neverborn/Nightmare/M4E_Crew_Nightmare_Dreamer_Insomniac_front.png",
+      "back_image": "Neverborn/Nightmare/M4E_Crew_Nightmare_Dreamer_Insomniac_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Returned_Kastore_Awakened_1",
+      "name": "Kastore Awakened 1",
+      "card_type": "Crew",
+      "faction": "Neverborn",
+      "subfaction": "Returned",
+      "primary_keyword": "Returned",
+      "keywords": [
+        "Returned"
+      ],
+      "characteristics": [],
+      "front_image": "Neverborn/Returned/M4E_Crew_Returned_Kastore_Awakened_1_front.png",
+      "back_image": "Neverborn/Returned/M4E_Crew_Returned_Kastore_Awakened_1_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Returned_Kastore_Awakened_2",
+      "name": "Kastore Awakened 2",
+      "card_type": "Crew",
+      "faction": "Neverborn",
+      "subfaction": "Returned",
+      "primary_keyword": "Returned",
+      "keywords": [
+        "Returned"
+      ],
+      "characteristics": [],
+      "front_image": "Neverborn/Returned/M4E_Crew_Returned_Kastore_Awakened_2_front.png",
+      "back_image": "Neverborn/Returned/M4E_Crew_Returned_Kastore_Awakened_2_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Returned_Kastore_Fervent_1",
+      "name": "Kastore Fervent 1",
+      "card_type": "Crew",
+      "faction": "Neverborn",
+      "subfaction": "Returned",
+      "primary_keyword": "Returned",
+      "keywords": [
+        "Returned"
+      ],
+      "characteristics": [],
+      "front_image": "Neverborn/Returned/M4E_Crew_Returned_Kastore_Fervent_1_front.png",
+      "back_image": "Neverborn/Returned/M4E_Crew_Returned_Kastore_Fervent_1_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Returned_Kastore_Fevrent_2",
+      "name": "Kastore Fevrent 2",
+      "card_type": "Crew",
+      "faction": "Neverborn",
+      "subfaction": "Returned",
+      "primary_keyword": "Returned",
+      "keywords": [
+        "Returned"
+      ],
+      "characteristics": [],
+      "front_image": "Neverborn/Returned/M4E_Crew_Returned_Kastore_Fevrent_2_front.png",
+      "back_image": "Neverborn/Returned/M4E_Crew_Returned_Kastore_Fevrent_2_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Savage_Euripides_Hierophant",
+      "name": "Euripides Hierophant",
+      "card_type": "Crew",
+      "faction": "Neverborn",
+      "subfaction": "Savage",
+      "primary_keyword": "Savage",
+      "keywords": [
+        "Savage"
+      ],
+      "characteristics": [],
+      "front_image": "Neverborn/Savage/M4E_Crew_Savage_Euripides_Hierophant_front.png",
+      "back_image": "Neverborn/Savage/M4E_Crew_Savage_Euripides_Hierophant_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Savage_Euripides_Old_One_Eye",
+      "name": "Euripides Old One Eye",
+      "card_type": "Crew",
+      "faction": "Neverborn",
+      "subfaction": "Savage",
+      "primary_keyword": "Savage",
+      "keywords": [
+        "Savage"
+      ],
+      "characteristics": [],
+      "front_image": "Neverborn/Savage/M4E_Crew_Savage_Euripides_Old_One_Eye_front.png",
+      "back_image": "Neverborn/Savage/M4E_Crew_Savage_Euripides_Old_One_Eye_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Woe_Pandora_Despair's_Desire",
+      "name": "Pandora Despair's Desire",
+      "card_type": "Crew",
+      "faction": "Neverborn",
+      "subfaction": "Woe",
+      "primary_keyword": "Woe",
+      "keywords": [
+        "Woe"
+      ],
+      "characteristics": [],
+      "front_image": "Neverborn/Woe/M4E_Crew_Woe_Pandora_Despair's_Desire_front.png",
+      "back_image": "Neverborn/Woe/M4E_Crew_Woe_Pandora_Despair's_Desire_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Woe_Pandora_Tyrant_Torn",
+      "name": "Pandora Tyrant Torn",
+      "card_type": "Crew",
+      "faction": "Neverborn",
+      "subfaction": "Woe",
+      "primary_keyword": "Woe",
+      "keywords": [
+        "Woe"
+      ],
+      "characteristics": [],
+      "front_image": "Neverborn/Woe/M4E_Crew_Woe_Pandora_Tyrant_Torn_front.png",
+      "back_image": "Neverborn/Woe/M4E_Crew_Woe_Pandora_Tyrant_Torn_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Amalgam_Rusty_Alyce_Rider_Remade_1",
+      "name": "Rusty Alyce Rider Remade 1",
+      "card_type": "Crew",
+      "faction": "Outcasts",
+      "subfaction": "Amalgam",
+      "primary_keyword": "Amalgam",
+      "keywords": [
+        "Amalgam"
+      ],
+      "characteristics": [],
+      "front_image": "Outcasts/Amalgam/M4E_Crew_Amalgam_Rusty_Alyce_Rider_Remade_1_front.png",
+      "back_image": "Outcasts/Amalgam/M4E_Crew_Amalgam_Rusty_Alyce_Rider_Remade_1_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Amalgam_Rusty_Alyce_Rider_Remade_2",
+      "name": "Rusty Alyce Rider Remade 2",
+      "card_type": "Crew",
+      "faction": "Outcasts",
+      "subfaction": "Amalgam",
+      "primary_keyword": "Amalgam",
+      "keywords": [
+        "Amalgam"
+      ],
+      "characteristics": [],
+      "front_image": "Outcasts/Amalgam/M4E_Crew_Amalgam_Rusty_Alyce_Rider_Remade_2_front.png",
+      "back_image": "Outcasts/Amalgam/M4E_Crew_Amalgam_Rusty_Alyce_Rider_Remade_2_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Amalgam_Rusty_Alyce_Trigger_Happy",
+      "name": "Rusty Alyce Trigger Happy",
+      "card_type": "Crew",
+      "faction": "Outcasts",
+      "subfaction": "Amalgam",
+      "primary_keyword": "Amalgam",
+      "keywords": [
+        "Amalgam"
+      ],
+      "characteristics": [],
+      "front_image": "Outcasts/Amalgam/M4E_Crew_Amalgam_Rusty_Alyce_Trigger_Happy_front.png",
+      "back_image": "Outcasts/Amalgam/M4E_Crew_Amalgam_Rusty_Alyce_Trigger_Happy_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Ampersand_Clockwork_Queen_Matriarch_of_the_Machine",
+      "name": "Clockwork Queen Matriarch of the Machine",
+      "card_type": "Crew",
+      "faction": "Outcasts",
+      "subfaction": "Ampersand",
+      "primary_keyword": "Ampersand",
+      "keywords": [
+        "Ampersand"
+      ],
+      "characteristics": [],
+      "front_image": "Outcasts/Ampersand/M4E_Crew_Ampersand_Clockwork_Queen_Matriarch_of_the_Machine_front.png",
+      "back_image": "Outcasts/Ampersand/M4E_Crew_Ampersand_Clockwork_Queen_Matriarch_of_the_Machine_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Ampersand_Clockwork_Queen_The_Paradox",
+      "name": "Clockwork Queen The Paradox",
+      "card_type": "Crew",
+      "faction": "Outcasts",
+      "subfaction": "Ampersand",
+      "primary_keyword": "Ampersand",
+      "keywords": [
+        "Ampersand"
+      ],
+      "characteristics": [],
+      "front_image": "Outcasts/Ampersand/M4E_Crew_Ampersand_Clockwork_Queen_The_Paradox_front.png",
+      "back_image": "Outcasts/Ampersand/M4E_Crew_Ampersand_Clockwork_Queen_The_Paradox_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Bandit_Parker_Barrows_Dead_Man_Walking",
+      "name": "Parker Barrows Dead Man Walking",
+      "card_type": "Crew",
+      "faction": "Outcasts",
+      "subfaction": "Bandit",
+      "primary_keyword": "Bandit",
+      "keywords": [
+        "Bandit"
+      ],
+      "characteristics": [],
+      "front_image": "Outcasts/Bandit/M4E_Crew_Bandit_Parker_Barrows_Dead_Man_Walking_front.png",
+      "back_image": "Outcasts/Bandit/M4E_Crew_Bandit_Parker_Barrows_Dead_Man_Walking_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Bandit_Parker_Barrows_Most_Wanted",
+      "name": "Parker Barrows Most Wanted",
+      "card_type": "Crew",
+      "faction": "Outcasts",
+      "subfaction": "Bandit",
+      "primary_keyword": "Bandit",
+      "keywords": [
+        "Bandit"
+      ],
+      "characteristics": [],
+      "front_image": "Outcasts/Bandit/M4E_Crew_Bandit_Parker_Barrows_Most_Wanted_front.png",
+      "back_image": "Outcasts/Bandit/M4E_Crew_Bandit_Parker_Barrows_Most_Wanted_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Freikorps_Von_Schill_Iron-Heart",
+      "name": "Von Schill Iron-Heart",
+      "card_type": "Crew",
+      "faction": "Outcasts",
+      "subfaction": "Freikorps",
+      "primary_keyword": "Freikorps",
+      "keywords": [
+        "Freikorps"
+      ],
+      "characteristics": [],
+      "front_image": "Outcasts/Freikorps/M4E_Crew_Freikorps_Von_Schill_Iron-Heart_front.png",
+      "back_image": "Outcasts/Freikorps/M4E_Crew_Freikorps_Von_Schill_Iron-Heart_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Freikorps_Von_Schill_The_Veteran",
+      "name": "Von Schill The Veteran",
+      "card_type": "Crew",
+      "faction": "Outcasts",
+      "subfaction": "Freikorps",
+      "primary_keyword": "Freikorps",
+      "keywords": [
+        "Freikorps"
+      ],
+      "characteristics": [],
+      "front_image": "Outcasts/Freikorps/M4E_Crew_Freikorps_Von_Schill_The_Veteran_front.png",
+      "back_image": "Outcasts/Freikorps/M4E_Crew_Freikorps_Von_Schill_The_Veteran_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Mercenary_Viktoria_Chambers_Ashes_and_Blood",
+      "name": "Viktoria Chambers Ashes and Blood",
+      "card_type": "Crew",
+      "faction": "Outcasts",
+      "subfaction": "Mercenary",
+      "primary_keyword": "Mercenary",
+      "keywords": [
+        "Mercenary"
+      ],
+      "characteristics": [],
+      "front_image": "Outcasts/Mercenary/M4E_Crew_Mercenary_Viktoria_Chambers_Ashes_and_Blood_front.png",
+      "back_image": "Outcasts/Mercenary/M4E_Crew_Mercenary_Viktoria_Chambers_Ashes_and_Blood_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Mercenary_Viktoria_Chambers_Twin_Blades",
+      "name": "Viktoria Chambers Twin Blades",
+      "card_type": "Crew",
+      "faction": "Outcasts",
+      "subfaction": "Mercenary",
+      "primary_keyword": "Mercenary",
+      "keywords": [
+        "Mercenary"
+      ],
+      "characteristics": [],
+      "front_image": "Outcasts/Mercenary/M4E_Crew_Mercenary_Viktoria_Chambers_Twin_Blades_front.png",
+      "back_image": "Outcasts/Mercenary/M4E_Crew_Mercenary_Viktoria_Chambers_Twin_Blades_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Obliteration_Tara_Timeless",
+      "name": "Tara Timeless",
+      "card_type": "Crew",
+      "faction": "Outcasts",
+      "subfaction": "Obliteration",
+      "primary_keyword": "Obliteration",
+      "keywords": [
+        "Obliteration"
+      ],
+      "characteristics": [],
+      "front_image": "Outcasts/Obliteration/M4E_Crew_Obliteration_Tara_Timeless_front.png",
+      "back_image": "Outcasts/Obliteration/M4E_Crew_Obliteration_Tara_Timeless_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Obliteration_Tara_Voidcaller",
+      "name": "Tara Voidcaller",
+      "card_type": "Crew",
+      "faction": "Outcasts",
+      "subfaction": "Obliteration",
+      "primary_keyword": "Obliteration",
+      "keywords": [
+        "Obliteration"
+      ],
+      "characteristics": [],
+      "front_image": "Outcasts/Obliteration/M4E_Crew_Obliteration_Tara_Voidcaller_front.png",
+      "back_image": "Outcasts/Obliteration/M4E_Crew_Obliteration_Tara_Voidcaller_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Plague_Hamelin_Plaguebringer",
+      "name": "Hamelin Plaguebringer",
+      "card_type": "Crew",
+      "faction": "Outcasts",
+      "subfaction": "Plague",
+      "primary_keyword": "Plague",
+      "keywords": [
+        "Plague"
+      ],
+      "characteristics": [],
+      "front_image": "Outcasts/Plague/M4E_Crew_Plague_Hamelin_Plaguebringer_front.png",
+      "back_image": "Outcasts/Plague/M4E_Crew_Plague_Hamelin_Plaguebringer_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Plague_Hamelin_The_Piper",
+      "name": "Hamelin The Piper",
+      "card_type": "Crew",
+      "faction": "Outcasts",
+      "subfaction": "Plague",
+      "primary_keyword": "Plague",
+      "keywords": [
+        "Plague"
+      ],
+      "characteristics": [],
+      "front_image": "Outcasts/Plague/M4E_Crew_Plague_Hamelin_The_Piper_front.png",
+      "back_image": "Outcasts/Plague/M4E_Crew_Plague_Hamelin_The_Piper_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Tormented_Jack_Daw_Ensouled",
+      "name": "Jack Daw Ensouled",
+      "card_type": "Crew",
+      "faction": "Outcasts",
+      "subfaction": "Tormented",
+      "primary_keyword": "Tormented",
+      "keywords": [
+        "Tormented"
+      ],
+      "characteristics": [],
+      "front_image": "Resurrectionists/Tormented/M4E_Crew_Tormented_Jack_Daw_Ensouled_front.png",
+      "back_image": "Resurrectionists/Tormented/M4E_Crew_Tormented_Jack_Daw_Ensouled_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Tormented_Jack_Daw_Spirit_of_Betrayal",
+      "name": "Jack Daw Spirit of Betrayal",
+      "card_type": "Crew",
+      "faction": "Outcasts",
+      "subfaction": "Tormented",
+      "primary_keyword": "Tormented",
+      "keywords": [
+        "Tormented"
+      ],
+      "characteristics": [],
+      "front_image": "Resurrectionists/Tormented/M4E_Crew_Tormented_Jack_Daw_Spirit_of_Betrayal_front.png",
+      "back_image": "Resurrectionists/Tormented/M4E_Crew_Tormented_Jack_Daw_Spirit_of_Betrayal_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Ancestor_Yan_Lo_Pathseeker",
+      "name": "Yan Lo Pathseeker",
+      "card_type": "Crew",
+      "faction": "Resurrectionists",
+      "subfaction": "Ancestor",
+      "primary_keyword": "Ancestor",
+      "keywords": [
+        "Ancestor"
+      ],
+      "characteristics": [],
+      "front_image": "Resurrectionists/Ancestor/M4E_Crew_Ancestor_Yan_Lo_Pathseeker_front.png",
+      "back_image": "Resurrectionists/Ancestor/M4E_Crew_Ancestor_Yan_Lo_Pathseeker_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Ancestor_Yan_Lo_The_Spirit_Walker",
+      "name": "Yan Lo The Spirit Walker",
+      "card_type": "Crew",
+      "faction": "Resurrectionists",
+      "subfaction": "Ancestor",
+      "primary_keyword": "Ancestor",
+      "keywords": [
+        "Ancestor"
+      ],
+      "characteristics": [],
+      "front_image": "Resurrectionists/Ancestor/M4E_Crew_Ancestor_Yan_Lo_The_Spirit_Walker_front.png",
+      "back_image": "Resurrectionists/Ancestor/M4E_Crew_Ancestor_Yan_Lo_The_Spirit_Walker_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Experimental_Dr_McMourning_Insanitary",
+      "name": "Dr McMourning Insanitary",
+      "card_type": "Crew",
+      "faction": "Resurrectionists",
+      "subfaction": "Experimental",
+      "primary_keyword": "Experimental",
+      "keywords": [
+        "Experimental"
+      ],
+      "characteristics": [],
+      "front_image": "Resurrectionists/Experimental/M4E_Crew_Experimental_Dr_McMourning_Insanitary_front.png",
+      "back_image": "Resurrectionists/Experimental/M4E_Crew_Experimental_Dr_McMourning_Insanitary_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Experimental_Dr_McMourning_Malpractitioner",
+      "name": "Dr McMourning Malpractitioner",
+      "card_type": "Crew",
+      "faction": "Resurrectionists",
+      "subfaction": "Experimental",
+      "primary_keyword": "Experimental",
+      "keywords": [
+        "Experimental"
+      ],
+      "characteristics": [],
+      "front_image": "Resurrectionists/Experimental/M4E_Crew_Experimental_Dr_McMourning_Malpractitioner_front.png",
+      "back_image": "Resurrectionists/Experimental/M4E_Crew_Experimental_Dr_McMourning_Malpractitioner_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Redchapel_Seamus_The_Last_Breath",
+      "name": "Seamus The Last Breath",
+      "card_type": "Crew",
+      "faction": "Resurrectionists",
+      "subfaction": "Redchapel",
+      "primary_keyword": "Redchapel",
+      "keywords": [
+        "Redchapel"
+      ],
+      "characteristics": [],
+      "front_image": "Resurrectionists/Redchapel/M4E_Crew_Redchapel_Seamus_The_Last_Breath_front.png",
+      "back_image": "Resurrectionists/Redchapel/M4E_Crew_Redchapel_Seamus_The_Last_Breath_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Redchapel_Seamus_aka_Sebastian_Baker",
+      "name": "Seamus aka Sebastian Baker",
+      "card_type": "Crew",
+      "faction": "Resurrectionists",
+      "subfaction": "Redchapel",
+      "primary_keyword": "Redchapel",
+      "keywords": [
+        "Redchapel"
+      ],
+      "characteristics": [],
+      "front_image": "Resurrectionists/Redchapel/M4E_Crew_Redchapel_Seamus_aka_Sebastian_Baker_front.png",
+      "back_image": "Resurrectionists/Redchapel/M4E_Crew_Redchapel_Seamus_aka_Sebastian_Baker_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Revenant_Reva_Cortinas_Death_Shepherd",
+      "name": "Reva Cortinas Death Shepherd",
+      "card_type": "Crew",
+      "faction": "Resurrectionists",
+      "subfaction": "Revenant",
+      "primary_keyword": "Revenant",
+      "keywords": [
+        "Revenant"
+      ],
+      "characteristics": [],
+      "front_image": "Resurrectionists/Revenant/M4E_Crew_Revenant_Reva_Cortinas_Death_Shepherd_front.png",
+      "back_image": "Resurrectionists/Revenant/M4E_Crew_Revenant_Reva_Cortinas_Death_Shepherd_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Revenant_Reva_Cortinas_Luminary",
+      "name": "Reva Cortinas Luminary",
+      "card_type": "Crew",
+      "faction": "Resurrectionists",
+      "subfaction": "Revenant",
+      "primary_keyword": "Revenant",
+      "keywords": [
+        "Revenant"
+      ],
+      "characteristics": [],
+      "front_image": "Resurrectionists/Revenant/M4E_Crew_Revenant_Reva_Cortinas_Luminary_front.png",
+      "back_image": "Resurrectionists/Revenant/M4E_Crew_Revenant_Reva_Cortinas_Luminary_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Transmortis_Prof_Von_Schtook_Admissions_Executive",
+      "name": "Prof Von Schtook Admissions Executive",
+      "card_type": "Crew",
+      "faction": "Resurrectionists",
+      "subfaction": "Transmortis",
+      "primary_keyword": "Transmortis",
+      "keywords": [
+        "Transmortis"
+      ],
+      "characteristics": [],
+      "front_image": "Resurrectionists/Transmortis/M4E_Crew_Transmortis_Prof_Von_Schtook_Admissions_Executive_front.png",
+      "back_image": "Resurrectionists/Transmortis/M4E_Crew_Transmortis_Prof_Von_Schtook_Admissions_Executive_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Transmortis_Prof_Von_Schtook_Stargazer",
+      "name": "Prof Von Schtook Stargazer",
+      "card_type": "Crew",
+      "faction": "Resurrectionists",
+      "subfaction": "Transmortis",
+      "primary_keyword": "Transmortis",
+      "keywords": [
+        "Transmortis"
+      ],
+      "characteristics": [],
+      "front_image": "Resurrectionists/Transmortis/M4E_Crew_Transmortis_Prof_Von_Schtook_Stargazer_front.png",
+      "back_image": "Resurrectionists/Transmortis/M4E_Crew_Transmortis_Prof_Von_Schtook_Stargazer_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Urami_Kirai_Ankoku_Envoy_of_the_Court",
+      "name": "Kirai Ankoku Envoy of the Court",
+      "card_type": "Crew",
+      "faction": "Resurrectionists",
+      "subfaction": "Urami",
+      "primary_keyword": "Urami",
+      "keywords": [
+        "Urami"
+      ],
+      "characteristics": [],
+      "front_image": "Resurrectionists/Urami/M4E_Crew_Urami_Kirai_Ankoku_Envoy_of_the_Court_front.png",
+      "back_image": "Resurrectionists/Urami/M4E_Crew_Urami_Kirai_Ankoku_Envoy_of_the_Court_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Urami_Kirai_Ankoku_Lady_of_Vengeance",
+      "name": "Kirai Ankoku Lady of Vengeance",
+      "card_type": "Crew",
+      "faction": "Resurrectionists",
+      "subfaction": "Urami",
+      "primary_keyword": "Urami",
+      "keywords": [
+        "Urami"
+      ],
+      "characteristics": [],
+      "front_image": "Resurrectionists/Urami/M4E_Crew_Urami_Kirai_Ankoku_Lady_of_Vengeance_front.png",
+      "back_image": "Resurrectionists/Urami/M4E_Crew_Urami_Kirai_Ankoku_Lady_of_Vengeance_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Honeypot_Jakob_Lynch_Dark_Bet",
+      "name": "Jakob Lynch Dark Bet",
+      "card_type": "Crew",
+      "faction": "Ten Thunders",
+      "subfaction": "Honeypot",
+      "primary_keyword": "Honeypot",
+      "keywords": [
+        "Honeypot"
+      ],
+      "characteristics": [],
+      "front_image": "Ten Thunders/Honeypot/M4E_Crew_Honeypot_Jakob_Lynch_Dark_Bet_front.png",
+      "back_image": "Ten Thunders/Honeypot/M4E_Crew_Honeypot_Jakob_Lynch_Dark_Bet_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Honeypot_Jakob_Lynch_Wildcard",
+      "name": "Jakob Lynch Wildcard",
+      "card_type": "Crew",
+      "faction": "Ten Thunders",
+      "subfaction": "Honeypot",
+      "primary_keyword": "Honeypot",
+      "keywords": [
+        "Honeypot"
+      ],
+      "characteristics": [],
+      "front_image": "Ten Thunders/Honeypot/M4E_Crew_Honeypot_Jakob_Lynch_Wildcard_front.png",
+      "back_image": "Ten Thunders/Honeypot/M4E_Crew_Honeypot_Jakob_Lynch_Wildcard_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Last-Blossom_Misaki_Katanaka_Fractured",
+      "name": "Misaki Katanaka Fractured",
+      "card_type": "Crew",
+      "faction": "Ten Thunders",
+      "subfaction": "Last-Blossom",
+      "primary_keyword": "Last-Blossom",
+      "keywords": [
+        "Last-Blossom"
+      ],
+      "characteristics": [],
+      "front_image": "Ten Thunders/Last Blossom/M4E_Crew_Last-Blossom_Misaki_Katanaka_Fractured_front.png",
+      "back_image": "Ten Thunders/Last Blossom/M4E_Crew_Last-Blossom_Misaki_Katanaka_Fractured_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Last-Blossom_Misaki_Katanaka_Oyabun",
+      "name": "Misaki Katanaka Oyabun",
+      "card_type": "Crew",
+      "faction": "Ten Thunders",
+      "subfaction": "Last-Blossom",
+      "primary_keyword": "Last-Blossom",
+      "keywords": [
+        "Last-Blossom"
+      ],
+      "characteristics": [],
+      "front_image": "Ten Thunders/Last Blossom/M4E_Crew_Last-Blossom_Misaki_Katanaka_Oyabun_front.png",
+      "back_image": "Ten Thunders/Last Blossom/M4E_Crew_Last-Blossom_Misaki_Katanaka_Oyabun_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Monk_Shenlong_Dragon's_Breath",
+      "name": "Shenlong Dragon's Breath",
+      "card_type": "Crew",
+      "faction": "Ten Thunders",
+      "subfaction": "Monk",
+      "primary_keyword": "Monk",
+      "keywords": [
+        "Monk"
+      ],
+      "characteristics": [],
+      "front_image": "Ten Thunders/Monk/M4E_Crew_Monk_Shenlong_Dragon's_Breath_front.png",
+      "back_image": "Ten Thunders/Monk/M4E_Crew_Monk_Shenlong_Dragon's_Breath_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Monk_Shenlong_The_Teacher",
+      "name": "Shenlong The Teacher",
+      "card_type": "Crew",
+      "faction": "Ten Thunders",
+      "subfaction": "Monk",
+      "primary_keyword": "Monk",
+      "keywords": [
+        "Monk"
+      ],
+      "characteristics": [],
+      "front_image": "Ten Thunders/Monk/M4E_Crew_Monk_Shenlong_The_Teacher_front.png",
+      "back_image": "Ten Thunders/Monk/M4E_Crew_Monk_Shenlong_The_Teacher_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Oni_Asami_Tanaka_Oni_Mother",
+      "name": "Asami Tanaka Oni Mother",
+      "card_type": "Crew",
+      "faction": "Ten Thunders",
+      "subfaction": "Oni",
+      "primary_keyword": "Oni",
+      "keywords": [
+        "Oni"
+      ],
+      "characteristics": [],
+      "front_image": "Ten Thunders/Oni/M4E_Crew_Oni_Asami_Tanaka_Oni_Mother_front.png",
+      "back_image": "Ten Thunders/Oni/M4E_Crew_Oni_Asami_Tanaka_Oni_Mother_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Oni_Asami_Tanaka_Shintaku",
+      "name": "Asami Tanaka Shintaku",
+      "card_type": "Crew",
+      "faction": "Ten Thunders",
+      "subfaction": "Oni",
+      "primary_keyword": "Oni",
+      "keywords": [
+        "Oni"
+      ],
+      "characteristics": [],
+      "front_image": "Ten Thunders/Oni/M4E_Crew_Oni_Asami_Tanaka_Shintaku_front.png",
+      "back_image": "Ten Thunders/Oni/M4E_Crew_Oni_Asami_Tanaka_Shintaku_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Qi-and-Gong_Youko_Hamasaki_Silk_of_the_Lotus",
+      "name": "Youko Hamasaki Silk of the Lotus",
+      "card_type": "Crew",
+      "faction": "Ten Thunders",
+      "subfaction": "Qi-and-Gong",
+      "primary_keyword": "Qi-and-Gong",
+      "keywords": [
+        "Qi-and-Gong"
+      ],
+      "characteristics": [],
+      "front_image": "Ten Thunders/Qi and Gong/M4E_Crew_Qi-and-Gong_Youko_Hamasaki_Silk_of_the_Lotus_front.png",
+      "back_image": "Ten Thunders/Qi and Gong/M4E_Crew_Qi-and-Gong_Youko_Hamasaki_Silk_of_the_Lotus_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Qi-and-Gong_Youko_Hamasaki_Unseen",
+      "name": "Youko Hamasaki Unseen",
+      "card_type": "Crew",
+      "faction": "Ten Thunders",
+      "subfaction": "Qi-and-Gong",
+      "primary_keyword": "Qi-and-Gong",
+      "keywords": [
+        "Qi-and-Gong"
+      ],
+      "characteristics": [],
+      "front_image": "Ten Thunders/Qi and Gong/M4E_Crew_Qi-and-Gong_Youko_Hamasaki_Unseen_front.png",
+      "back_image": "Ten Thunders/Qi and Gong/M4E_Crew_Qi-and-Gong_Youko_Hamasaki_Unseen_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Red-Library_Lin_Ly_Storyteller",
+      "name": "Lin Ly Storyteller",
+      "card_type": "Crew",
+      "faction": "Ten Thunders",
+      "subfaction": "Red-Library",
+      "primary_keyword": "Red-Library",
+      "keywords": [
+        "Red-Library"
+      ],
+      "characteristics": [],
+      "front_image": "Ten Thunders/Red Library/M4E_Crew_Red-Library_Lin_Ly_Storyteller_front.png",
+      "back_image": "Ten Thunders/Red Library/M4E_Crew_Red-Library_Lin_Ly_Storyteller_back.png",
+      "raw_text": null,
+      "rules_text": null
+    },
+    {
+      "id": "M4E_Crew_Red-Library_Linh_Ly_Bibliothecary",
+      "name": "Linh Ly Bibliothecary",
+      "card_type": "Crew",
+      "faction": "Ten Thunders",
+      "subfaction": "Red-Library",
+      "primary_keyword": "Red-Library",
+      "keywords": [
+        "Red-Library"
+      ],
+      "characteristics": [],
+      "front_image": "Ten Thunders/Red Library/M4E_Crew_Red-Library_Linh_Ly_Bibliothecary_front.png",
+      "back_image": "Ten Thunders/Red Library/M4E_Crew_Red-Library_Linh_Ly_Bibliothecary_back.png",
+      "raw_text": null,
+      "rules_text": null
+    }
+  ]
+}
