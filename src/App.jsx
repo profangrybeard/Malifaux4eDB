@@ -220,104 +220,227 @@ const FACTION_META = {
 // POOL ANALYSIS - Scheme/Strategy capability requirements and crew analysis
 // ===========================================================================
 
+// ===========================================================================
+// STRATEGY REQUIREMENTS - Validated against official M4E GG0 cards 2025-12-17
+// ===========================================================================
 const STRATEGY_REQUIREMENTS = {
   plant_explosives: {
     name: 'Plant Explosives',
-    needs: { scheme_markers: 3, mobility: 3, survivability: 2 },
-    tips: 'Spread out fast models with Interact abilities',
+    needs: { interact: 3, mobility: 3, spread: 2 },
+    tips: 'All non-peon models get Explosive tokens. Interact to place marker within 1", not within 4" of friendly marker. Most markers completely on enemy half wins.',
+    setup: 'After deployment, each non-peon model gains an Explosive token.',
+    scoring: 'End of turn: Most friendly Strategy Markers completely on enemy table half = 1 VP. Ties: both score.',
+    bonus: 'Once per game: 2+ friendly markers IN enemy deployment zone = +1 VP.',
+    key_rules: [
+      'Explosive tokens can only be removed by placing a marker',
+      'Interact to pick up marker and gain Explosive token (if you don\'t have one)',
+      'When model with Explosive token is killed, the KILLER places neutral marker within 1"',
+      'Models may move on top of Strategy markers',
+      'Max 5 friendly markers on field'
+    ]
   },
   boundary_dispute: {
     name: 'Boundary Dispute',
-    needs: { melee: 3, survivability: 3, mobility: 1 },
-    tips: 'Durable beaters that can hold a quarter',
+    needs: { melee: 3, survivability: 3, push_pull: 2 },
+    tips: 'Brawl-focused. Kick markers forward with Interact. Markers in enemy deployment count DOUBLE. Turn 4 scoring is doubled.',
+    setup: 'Each player alternates placing 3 Strategy Markers completely in deployment zone, not within 6" of another Strategy marker.',
+    scoring: 'End of turn: Most friendly markers completely on enemy half = 1 VP. Markers completely in enemy deployment count as 2. Ties: both score.',
+    bonus: 'Turn 4: Double all VP gained from this strategy.',
+    key_rules: [
+      'Interact with marker to place it within 6" of current location, not in base contact with models',
+      'Catchup: Player with fewer cumulative VP may place one marker within 4" after scoring',
+      'Markers are friendly to the crew that made them'
+    ]
   },
   recover_evidence: {
     name: 'Recover Evidence',
-    needs: { damage: 2, mobility: 2, interact: 2 },
-    tips: 'Kill models, grab the evidence they drop',
+    needs: { mobility: 3, scheme_markers: 2, survivability: 2 },
+    tips: 'CRITICAL: When YOU kill enemies, the ENEMY gets the marker! Encourages avoidant play - kidnap and scheme rather than kill.',
+    setup: 'Each player makes 1 Strategy Marker completely on enemy table half.',
+    scoring: 'End of turn: Most Strategy Markers on crew card = 1 VP. Ties: both score. ALL markers removed from ALL crew cards after scoring.',
+    bonus: 'Once per game, end of friendly activation: Remove Scheme Markers equal to turn number from within 1" of terrain within 6" of enemy deployment zone = +1 VP.',
+    key_rules: [
+      'When YOUR crew kills an enemy model, the ENEMY places a marker within 3" of the killed model',
+      'Interact with friendly marker to remove it and place on your crew card',
+      'Models may move on top of Strategy markers',
+      'Killing helps your OPPONENT score - focus on schemes and kidnapping instead'
+    ]
   },
   informants: {
     name: 'Informants',
-    needs: { survivability: 3, spread: 2, cheap_activations: 2 },
-    tips: 'Protect your informant, spread across quarters',
-  },
-  clashing_forces: {
-    name: 'Clashing Forces',
-    needs: { melee: 3, damage: 2, survivability: 2 },
-    tips: 'Get stuck in and fight for the center',
+    needs: { survivability: 3, cheap_activations: 3, spread: 2 },
+    tips: 'Models with Summon TOKENS cannot control markers (but tokens can be removed!). Turn 4 scoring is doubled. Control = most models without Summon tokens within 2".',
+    setup: '5 markers: centerpoint, 10" left/right on centerline, each player places 1 in center of table quarter on their side.',
+    scoring: 'End of turn: Control most Strategy Markers = 1 VP. Ties: both score.',
+    bonus: 'Turn 4: Double all VP gained from this strategy.',
+    key_rules: [
+      'Control = most models WITHOUT Summon tokens within 2" of marker',
+      'Summon tokens can be removed by some abilities - then those models CAN contribute',
+      'Catchup: Player with fewer cumulative VP may move up to 2 markers within 3", not in base contact with models, not within 8" of other Strategy markers',
+      'Summoning is heavily penalized but not completely useless'
+    ]
   },
 }
 
+// ===========================================================================
+// SCHEME REQUIREMENTS - Validated against official M4E GG0 cards 2025-12-17
+// All schemes score max 2 VP (1 base + 1 bonus)
+// ===========================================================================
 const SCHEME_REQUIREMENTS = {
   breakthrough: {
     name: 'Breakthrough',
-    needs: { scheme_markers: 2, mobility: 3, survivability: 1 },
-    tips: 'Fast schemer that survives in enemy deployment',
+    needs: { scheme_markers: 3, mobility: 3, survivability: 1 },
+    tips: 'Scores at end of ENEMY activation (not end of turn). Need marker in enemy deployment with no enemies within 2".',
+    reveal: 'When an enemy model ends its activation',
+    scoring: 'Remove 1 friendly Scheme Marker in enemy deployment zone with no enemy within 2" = 1 VP',
+    bonus: 'Also remove 1 from centerline AND 1 from your deployment zone = +1 VP',
+    next_schemes: ['Assassinate', 'Public Demonstration', 'Frame Job'],
+    difficulty: 'easy'
   },
   assassinate: {
     name: 'Assassinate',
     needs: { damage: 3, alpha_strike: 2, mobility: 2 },
-    tips: 'High damage, ability to reach enemy master',
+    tips: 'Choose unique enemy with 50%+ health. Score when you reduce them below half. Ask about multiple models to bluff!',
+    secret: 'Choose a unique enemy model with half or more of its maximum health remaining',
+    reveal: 'After the chosen model is reduced to below half of its maximum health',
+    scoring: 'When this scheme is revealed = 1 VP',
+    bonus: 'At end of turn, if chosen model has been killed = +1 VP',
+    next_schemes: ['Scout the Rooftops', 'Detonate Charges', 'Runic Binding'],
+    difficulty: 'medium'
   },
   detonate_charges: {
     name: 'Detonate Charges',
-    needs: { scheme_markers: 3, interact: 2, mobility: 1 },
-    tips: 'Drop 2 markers within 3" then remove them',
+    needs: { scheme_markers: 3, mobility: 2, activation_control: 2 },
+    tips: 'Remove 2 markers within 2" of enemy model(s). Can be same enemy or different. Don\'t target models that haven\'t activated!',
+    reveal: 'At the end of any turn',
+    scoring: 'Remove 2 friendly Scheme Markers within 2" of enemy model(s) = 1 VP',
+    bonus: 'Remove 1 additional qualifying marker = +1 VP',
+    next_schemes: ['Grave Robbing', 'Runic Binding', 'Take the Highground'],
+    difficulty: 'medium'
   },
   harness_the_ley_line: {
-    name: 'Harness the Ley Line',
-    needs: { scheme_markers: 2, survivability: 2, spread: 2 },
-    tips: 'Markers on centerline, keep models nearby',
+    name: 'Harness the Leyline',
+    needs: { scheme_markers: 3, spread: 2, survivability: 1 },
+    tips: 'Markers on centerline, 6"+ apart, no enemies within 2". Centerline is huge - easy if opponent is swept away.',
+    reveal: 'At the end of any turn',
+    scoring: 'Remove 2 friendly Scheme Markers on centerline, not within 6" of another marker used for this scheme, no enemy within 2" = 1 VP',
+    bonus: 'Remove 1 additional qualifying marker = +1 VP',
+    next_schemes: ['Assassinate', 'Scout the Rooftops', 'Grave Robbing'],
+    difficulty: 'medium'
   },
   leave_your_mark: {
     name: 'Leave Your Mark',
-    needs: { scheme_markers: 2, mobility: 2, survivability: 2 },
-    tips: 'Drop markers in enemy half, stay alive',
+    needs: { scheme_markers: 2, mobility: 2, dont_mind_me: 2 },
+    tips: 'More friendly markers within 1" of centerpoint than enemy markers. Very telegraphed but easy if uncontested.',
+    reveal: 'At the end of any turn',
+    scoring: 'More friendly Scheme Markers within 1" of centerpoint than enemy Scheme Markers = 1 VP. Remove all friendly markers within 1" after scoring.',
+    bonus: 'At least 2 more friendly than enemy markers = +1 VP',
+    next_schemes: ['Take the Highground', 'Make it Look Like an Accident', 'Reshape the Land'],
+    difficulty: 'easy'
   },
   take_the_highground: {
     name: 'Take the Highground',
-    needs: { mobility: 2, survivability: 3, melee: 1 },
-    tips: 'Get on terrain, stay there',
+    needs: { mobility: 2, survivability: 3, spread: 2 },
+    tips: 'Control terrain (most friendly models on it). Models within 6" of YOUR deployment zone are ignored. Need Ht 2+ terrain.',
+    reveal: 'At the end of any turn',
+    scoring: 'Control at least 2 terrain pieces of Ht 2 or greater = 1 VP',
+    bonus: 'Control at least 3 qualifying terrain pieces = +1 VP',
+    next_schemes: ['Make it Look Like an Accident', 'Ensnare', 'Search the Area'],
+    difficulty: 'easy'
   },
   scout_the_rooftops: {
     name: 'Scout the Rooftops',
-    needs: { flight: 3, mobility: 2, scheme_markers: 1 },
-    tips: 'Models with Flight or Incorporeal on terrain',
+    needs: { flight: 3, mobility: 2, scheme_markers: 2 },
+    tips: 'Markers at elevation 2+, on 2 DIFFERENT terrain pieces, not within 6" of deployment, no enemies at same elevation within 2".',
+    reveal: 'At the end of any turn',
+    scoring: 'Remove 1 qualifying Scheme Marker from each of 2 different terrain pieces = 1 VP. Qualifying: elevation 2+, not within 6" of deployment, no enemy at same elevation within 2".',
+    bonus: 'Remove 1 additional qualifying marker completely on enemy table half = +1 VP (may be on same terrain as another)',
+    next_schemes: ['Detonate Charges', 'Grave Robbing', 'Leave Your Mark'],
+    difficulty: 'medium'
   },
   make_it_look_like_an_accident: {
     name: 'Make it Look Like an Accident',
-    needs: { push_pull: 3, damage: 1, melee: 1 },
-    tips: 'Kill enemies with hazardous terrain or falling',
+    needs: { push_pull: 3, mobility: 1, damage: 1 },
+    tips: 'Very binary - either you have push/pull effects or you don\'t. Requires elevation 2+ terrain on the board.',
+    reveal: 'When an enemy model suffers damage due to falling',
+    scoring: 'When this scheme is revealed = 1 VP',
+    bonus: 'At end of turn, if that enemy model has been killed or has less than half health = +1 VP',
+    next_schemes: ['Ensnare', 'Reshape the Land', 'Breakthrough'],
+    difficulty: 'medium'
   },
   runic_binding: {
     name: 'Runic Binding',
-    needs: { scheme_markers: 2, mobility: 2, engagement: 2 },
-    tips: 'Markers near enemies you are engaging',
+    needs: { scheme_markers: 3, spread: 3, mobility: 2 },
+    tips: 'Form triangle with 3 markers (each within 14" of at least one other). Very AP intensive and telegraphed.',
+    reveal: 'When an enemy model ends its activation',
+    scoring: 'Choose 3 friendly Scheme Markers in play (each within 14" of at least one other). If at least 1 enemy inside the triangle = 1 VP. Remove chosen markers.',
+    bonus: 'Combined cost of enemy models inside triangle is 15+ = +1 VP',
+    next_schemes: ['Leave Your Mark', 'Take the Highground', 'Ensnare'],
+    difficulty: 'hard'
   },
   ensnare: {
     name: 'Ensnare',
     needs: { scheme_markers: 2, engagement: 2, cheap_activations: 2 },
-    tips: '2 markers within 2" of unique enemies',
+    tips: 'Remove 2 markers within 2" of a SINGLE unique enemy when ANY enemy ends activation. Bonus if engaged by cheaper model.',
+    reveal: 'When an enemy model ends its activation',
+    scoring: 'Remove 2 friendly Scheme Markers from within 2" of a single unique enemy model = 1 VP',
+    bonus: 'If that unique enemy is engaged by a friendly model of lower cost = +1 VP',
+    next_schemes: ['Reshape the Land', 'Search the Area', 'Frame Job'],
+    difficulty: 'hard'
   },
   search_the_area: {
     name: 'Search the Area',
-    needs: { scheme_markers: 2, mobility: 2, spread: 1 },
-    tips: 'Markers in different table quarters',
+    needs: { scheme_markers: 3, mobility: 3, spread: 1 },
+    tips: 'Select terrain completely on enemy half. Remove 3 markers within 1" of it with no enemies within 2".',
+    reveal: 'At the end of any enemy activation',
+    scoring: 'Select terrain completely on enemy table half. Remove 3 friendly Scheme Markers from within 1" of it that do not have enemy models within 2" = 1 VP',
+    bonus: 'At end of turn, remove 1 more friendly Scheme Marker from within 1" of selected terrain = +1 VP',
+    next_schemes: ['Breakthrough', 'Frame Job', 'Harness the Leyline'],
+    difficulty: 'easy'
   },
   public_demonstration: {
     name: 'Public Demonstration',
     needs: { minion_count: 3, engagement: 2, survivability: 2 },
-    tips: '2+ friendly minions engaging same enemy',
+    tips: 'Need 2+ friendly MINIONS within 2" of chosen unique enemy. NO anti-summon clause - summoned minions work great!',
+    secret: 'Choose a unique enemy model',
+    reveal: 'At the end of any turn',
+    scoring: 'If there are 2 or more friendly Minions within 2" of the chosen model = 1 VP',
+    bonus: 'If there is a friendly Scheme Marker within 1" of the chosen model = +1 VP',
+    next_schemes: ['Harness the Leyline', 'Assassinate', 'Detonate Charges'],
+    difficulty: 'medium'
   },
   frame_job: {
     name: 'Frame Job',
-    needs: { survivability: 2, mobility: 2, scheme_markers: 1 },
-    tips: 'Friendly takes damage from enemy in their half',
+    needs: { survivability: 3, mobility: 2, scheme_markers: 1 },
+    tips: 'OPPONENT DEPENDENT - they must attack your chosen model on enemy table half. They can completely lock you out.',
+    secret: 'Choose a friendly model',
+    reveal: 'After the chosen model suffers damage from an enemy Attack Action targeting it while it is on the enemy table half',
+    scoring: 'When this scheme is revealed = 1 VP',
+    bonus: 'Remove a friendly Scheme Marker from within 2" of the chosen model = +1 VP',
+    next_schemes: ['Public Demonstration', 'Harness the Leyline', 'Scout the Rooftops'],
+    difficulty: 'hard'
   },
   reshape_the_land: {
     name: 'Reshape the Land',
-    needs: { marker_creation: 3, scheme_markers: 2 },
-    tips: 'Create non-scheme markers, drop schemes nearby',
+    needs: { marker_creation: 3, scheme_markers: 2, mobility: 2 },
+    tips: 'Choose marker type secretly. Need 4 of that type completely on enemy half. If Scheme markers, they\'re removed after scoring.',
+    secret: 'Choose a marker type',
+    reveal: 'At the end of any turn',
+    scoring: 'If there are 4 friendly markers of the chosen type completely on enemy table half = 1 VP. If Scheme markers, remove all used to score.',
+    bonus: 'If there are 5 or more qualifying markers = +1 VP',
+    next_schemes: ['Search the Area', 'Breakthrough', 'Public Demonstration'],
+    difficulty: 'medium'
+  },
+  grave_robbing: {
+    name: 'Grave Robbing',
+    needs: { damage: 2, scheme_markers: 2, marker_creation: 2 },
+    tips: 'Kill enemy within 2" of both Scheme marker(s) AND your chosen non-Scheme marker type. Then collect Remains markers.',
+    secret: 'Choose a type of non-Scheme marker',
+    reveal: 'After killing an enemy model within 2" of both one or more friendly Scheme markers AND one or more of the chosen marker type',
+    scoring: 'Remove 1 friendly Scheme Marker within 2" of killed model = 1 VP',
+    bonus: 'Until end of turn, may Interact with enemy Remains markers to place on crew card. If 2+ removed at end of turn = +1 VP',
+    next_schemes: ['Runic Binding', 'Leave Your Mark', 'Make it Look Like an Accident'],
+    difficulty: 'hard'
   },
 }
 
@@ -336,6 +459,8 @@ const CAPABILITY_LABELS = {
   cheap_activations: { label: 'Cheap Activations', icon: '💰' },
   minion_count: { label: 'Minion Count', icon: '👥' },
   spread: { label: 'Board Coverage', icon: '📡' },
+  activation_control: { label: 'Activation Control', icon: '⏱️' },
+  dont_mind_me: { label: "Don't Mind Me", icon: '🥷' },
 }
 
 // Analyze a model's capabilities for pool matching

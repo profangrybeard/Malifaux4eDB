@@ -3,631 +3,690 @@
   "source": "gaining_grounds_0_2025",
   "edition": "m4e",
   "last_updated": "2025-12-17",
-  "notes": "Complete GG0/GG2025 data validated against official Wyrd card images",
   "validation": {
     "schemes_validated": 15,
     "strategies_validated": 4,
     "validation_date": "2025-12-17",
     "source": "Official Wyrd M4E card images"
   },
-  
-  "strategy_count": 4,
-  "scheme_count": 15,
-  
   "strategies": {
     "plant_explosives": {
       "id": "plant_explosives",
       "name": "Plant Explosives",
+      "card_type": "strategy",
       "max_vp": 5,
-      "vp_per_turn": 1,
-      "turns_scored": [1, 2, 3, 4],
-      "setup": {
-        "description": "After deployment, each non-peon model in play gains an Explosive token",
-        "markers_placed": 0,
-        "special": "Explosive tokens may not be removed in any other way than placing a marker"
-      },
-      "scoring": {
-        "timing": "end_of_turn",
-        "condition": "Player with more friendly Strategy Markers completely on enemy table half scores 1 VP",
-        "tie_breaker": "Both players score on tie"
-      },
-      "bonus_vp": {
-        "condition": "Have 2 friendly Strategy Markers in (not completely within) opponent's deployment zone",
-        "timing": "once_per_game",
-        "points": 1
-      },
-      "marker_rules": {
-        "type": "strategy_marker",
-        "max_on_field": 5,
-        "placement": "Interact to remove Explosive token, place marker within 1\" of self",
-        "placement_restriction": "Cannot place within 4\" of another friendly Strategy Marker",
-        "pickup": "Interact to remove marker; gain Explosive token if you don't have one",
-        "on_death": "After a model with Explosive token is killed, the model that killed it makes a neutral Strategy marker within 1\" of killed model, if able",
-        "movement": "Models may move on top of Strategy markers"
-      },
-      "strategic_notes": [
-        "Neutral markers from deaths aren't worth points until picked up and re-placed",
-        "Markers must be COMPLETELY on enemy half to score",
-        "Place markers >50mm from centerline to prevent easy opponent pickup",
-        "Build for 7+ bomb interactions on turn 1",
-        "Guard placed bombs by standing on them (blocks Interact but not Don't Mind Me)"
+      "setup_text": "After deployment, each non-peon model in play gains an Explosive token",
+      "rules_text": "Interact to remove Explosive token, place marker within 1\" of self Interact to remove marker; gain Explosive token if you don't have one After a model with Explosive token is killed, the model that killed it makes a neutral Strategy marker within 1\" of killed model, if able     Models may move on top of Strategy markers",
+      "scoring_text": "Player with more friendly Strategy Markers completely on enemy table half scores 1 VP",
+      "additional_vp_text": "Have 2 friendly Strategy Markers in (not completely within) opponent's deployment zone",
+      "requires_killing": false,
+      "requires_scheme_markers": false,
+      "requires_strategy_markers": true,
+      "requires_positioning": true,
+      "requires_terrain": false,
+      "requires_interact": true,
+      "favors_roles": [
+        "walk_walk_interact",
+        "dont_mind_me",
+        "out_of_activation_movement",
+        "significant_models"
       ],
-      "tags": ["marker_heavy", "mobility", "interact_focused", "positioning"],
-      "crew_preferences": {
-        "wants": ["walk_walk_interact", "dont_mind_me", "out_of_activation_movement", "significant_models"],
-        "avoids": ["slow_crews", "elite_low_model_count"]
-      }
+      "favors_abilities": []
     },
-    
     "boundary_dispute": {
       "id": "boundary_dispute",
       "name": "Boundary Dispute",
+      "card_type": "strategy",
       "max_vp": 5,
-      "vp_per_turn": 1,
-      "turns_scored": [1, 2, 3, 4],
-      "setup": {
-        "description": "Each player places 3 friendly Strategy Markers in their deployment zone, at least 6\" apart",
-        "markers_placed": 3,
-        "special": "Markers are friendly to the crew that made them"
-      },
-      "scoring": {
-        "timing": "end_of_turn",
-        "condition": "Player with more friendly Strategy Markers completely on enemy table half scores 1 VP",
-        "tie_breaker": "Both players score on tie",
-        "multiplier": "Turn 4 scoring is doubled"
-      },
-      "bonus_vp": {
-        "condition": "Markers completely in enemy deployment zone count as 2 markers",
-        "timing": "each_turn",
-        "points": "Integrated into scoring calculation"
-      },
-      "marker_rules": {
-        "type": "strategy_marker",
-        "kick_action": "Interact with Strategy marker to place it within 6\" of its current location, not in base contact with any model(s)",
-        "catchup_mechanic": "After scoring, player with fewer cumulative Strategy VP may select one friendly Strategy marker and place it within 4\" of current location, not in base contact with any model(s)"
-      },
-      "strategic_notes": [
-        "Most brawl-focused strategy - push up middle and fight",
-        "Double scoring on Turn 4 enables massive comebacks",
-        "Deployment zone markers count double - high risk/reward",
-        "Control the center to enable safe kicks forward"
+      "setup_text": "Each player places 3 friendly Strategy Markers in their deployment zone, at least 6\" apart",
+      "rules_text": "Interact with Strategy marker to place it within 6\" of its current location, not in base contact with any model(s) After scoring, player with fewer cumulative Strategy VP may select one friendly Strategy marker and place it within 4\" of current location, not in base contact with any model(s)",
+      "scoring_text": "Player with more friendly Strategy Markers completely on enemy table half scores 1 VP",
+      "additional_vp_text": "Markers completely in enemy deployment zone count as 2 markers",
+      "requires_killing": false,
+      "requires_scheme_markers": false,
+      "requires_strategy_markers": false,
+      "requires_positioning": true,
+      "requires_terrain": false,
+      "requires_interact": false,
+      "favors_roles": [
+        "durability",
+        "melee_focused",
+        "push_effects",
+        "board_control"
       ],
-      "tags": ["brawl", "positioning", "comeback_mechanic", "turn4_critical"],
-      "crew_preferences": {
-        "wants": ["durability", "melee_focused", "push_effects", "board_control"],
-        "avoids": ["fragile_crews", "ranged_only"]
-      }
+      "favors_abilities": []
     },
-    
     "recover_evidence": {
       "id": "recover_evidence",
       "name": "Recover Evidence",
+      "card_type": "strategy",
       "max_vp": 5,
-      "vp_per_turn": 1,
-      "turns_scored": [1, 2, 3, 4],
-      "setup": {
-        "description": "Each player makes 1 friendly Strategy Marker completely on enemy table half",
-        "markers_placed": 1,
-        "special": "Additional markers created when your crew kills enemy models"
-      },
-      "scoring": {
-        "timing": "end_of_turn",
-        "condition": "Player with more Strategy Markers on their crew card scores 1 VP",
-        "tie_breaker": "Both players score on tie",
-        "reset": "After scoring, BOTH players remove ALL Strategy Markers from crew cards"
-      },
-      "bonus_vp": {
-        "condition": "Remove friendly Scheme Markers equal to turn number from within 1\" of terrain within 6\" of enemy deployment zone",
-        "timing": "end_of_friendly_activation_once_per_game",
-        "points": 1,
-        "special": "Uses SCHEME markers, not Strategy markers"
-      },
-      "marker_rules": {
-        "type": "strategy_marker",
-        "creation": "After a model is killed by the enemy crew, the enemy makes a Strategy marker within 3\" of the killed model",
-        "pickup": "Interact with friendly Strategy marker to remove it and put it onto that crew's crew card",
-        "movement": "Models may move on top of Strategy markers",
-        "note": "You create markers for your OPPONENT when you kill their models - not for yourself"
-      },
-      "strategic_notes": [
-        "Encourages AVOIDANT gameplay despite seeming kill-focused",
-        "Killing creates resources but exposes you to counter-attacks",
-        "Kidnap/forced movement crews are strong here",
-        "High scheme scoring expected - plan to scheme heavily",
-        "Bonus VP requires deep positioning with scheme markers"
+      "setup_text": "Each player makes 1 friendly Strategy Marker completely on enemy table half",
+      "rules_text": "Interact with friendly Strategy marker to remove it and put it onto that crew's crew card     After a model is killed by the enemy crew, the enemy makes a Strategy marker within 3\" of the killed model Models may move on top of Strategy markers",
+      "scoring_text": "Player with more Strategy Markers on their crew card scores 1 VP",
+      "additional_vp_text": "Remove friendly Scheme Markers equal to turn number from within 1\" of terrain within 6\" of enemy deployment zone",
+      "requires_killing": true,
+      "requires_scheme_markers": true,
+      "requires_strategy_markers": false,
+      "requires_positioning": false,
+      "requires_terrain": false,
+      "requires_interact": false,
+      "favors_roles": [
+        "kidnap_abilities",
+        "out_of_activation_movement",
+        "ranged_killing",
+        "scheme_runners"
       ],
-      "tags": ["killing", "avoidant", "scheme_heavy", "forced_movement"],
-      "crew_preferences": {
-        "wants": ["kidnap_abilities", "out_of_activation_movement", "ranged_killing", "scheme_runners"],
-        "avoids": ["melee_brawlers", "slow_crews"]
-      }
+      "favors_abilities": []
     },
-    
     "informants": {
       "id": "informants",
       "name": "Informants",
+      "card_type": "strategy",
       "max_vp": 5,
-      "vp_per_turn": 1,
-      "turns_scored": [1, 2, 3, 4],
-      "setup": {
-        "description": "Place markers at centerpoint, 10\" east and west of center on centerline, then each player places 1 marker in center of one table quarter on their side",
-        "markers_placed": 5,
-        "special": "Diagonal deployment has only 1 legal position for player-placed marker"
-      },
-      "scoring": {
-        "timing": "end_of_turn",
-        "condition": "Player controlling most Strategy Markers scores 1 VP",
-        "tie_breaker": "Both players score on tie",
-        "multiplier": "Turn 4 scoring is doubled",
-        "control_definition": "Most models without Summon tokens within 2\" of marker"
-      },
-      "bonus_vp": {
-        "condition": "Integrated into turn 4 doubling",
-        "timing": "turn_4",
-        "points": "Up to 2 from doubling"
-      },
-      "marker_rules": {
-        "type": "strategy_marker",
-        "control": "Count models without Summon tokens within 2\" of marker",
-        "catchup_mechanic": "Player with fewer cumulative VP may move up to 2 Strategy markers, placing each within 3\" of its current location, not in base contact with any model(s), not within 8\" of any other Strategy marker(s)",
-        "summon_restriction": "Models with Summon tokens cannot contribute to control"
-      },
-      "strategic_notes": [
-        "Models with Summon tokens cannot contribute to control - BUT tokens can be removed!",
-        "Some abilities remove Summon tokens, making those summons suddenly useful",
-        "Can score by controlling your own back marker",
-        "Turn 4 doubling enables massive comebacks",
-        "Give up early points to position for Turn 4 dominance",
-        "Staying power (healing, HP) matters more than killing"
+      "setup_text": "Place markers at centerpoint, 10\" east and west of center on centerline, then each player places 1 marker in center of one table quarter on their side",
+      "rules_text": "Count models without Summon tokens within 2\" of marker  Player with fewer cumulative VP may move up to 2 Strategy markers, placing each within 3\" of its current location, not in base contact with any model(s), not within 8\" of any other Strategy marker(s)",
+      "scoring_text": "Player controlling most Strategy Markers scores 1 VP",
+      "additional_vp_text": "Integrated into turn 4 doubling",
+      "requires_killing": false,
+      "requires_scheme_markers": false,
+      "requires_strategy_markers": true,
+      "requires_positioning": false,
+      "requires_terrain": false,
+      "requires_interact": false,
+      "favors_roles": [
+        "high_model_count",
+        "durability",
+        "healing",
+        "non_summoners"
       ],
-      "tags": ["control_points", "summon_unfriendly", "turn4_critical", "staying_power"],
-      "crew_preferences": {
-        "wants": ["high_model_count", "durability", "healing", "non_summoners"],
-        "avoids": ["summon_heavy", "elite_crews", "fragile_models"]
-      }
+      "favors_abilities": []
     }
   },
-  
   "schemes": {
     "breakthrough": {
       "id": "breakthrough",
       "name": "Breakthrough",
-      "pool_number": 1,
-      "reveal_condition": {
-        "timing": "end_of_enemy_activation",
-        "requirement": "Remove 1 friendly Scheme Marker from within opponent's Deployment Zone with no enemy within 2\"",
-        "points": 1
-      },
-      "bonus_condition": {
-        "requirement": "Also remove 1 marker from Centerline AND 1 from your Deployment Zone",
-        "points": 1,
-        "denial": "None - no enemy proximity requirement for additional markers"
-      },
-      "scoring_notes": [
-        "Scores at END OF ENEMY ACTIVATION - cannot use last activation of turn",
-        "Easier to score but may have it Turn 1 requiring sprint",
-        "Second point telegraphs your intent heavily"
+      "card_type": "scheme",
+      "max_vp": 2,
+      "setup_text": "",
+      "reveal_condition": "Remove 1 friendly Scheme Marker from within opponent's Deployment Zone with no enemy within 2\"",
+      "scoring_text": "Reveal: end of enemy activation. Remove 1 friendly Scheme Marker from within opponent's Deployment Zone with no enemy within 2\"",
+      "additional_vp_text": "Also remove 1 marker from Centerline AND 1 from your Deployment Zone",
+      "next_available_schemes": [
+        "Assassinate",
+        "Public Demonstration",
+        "Frame Job"
       ],
-      "next_schemes": ["assassinate", "public_demonstration", "frame_job"],
-      "tags": ["scheme_markers", "deployment_zone", "speed", "positioning"],
-      "crew_wants": ["fast_models", "scheme_runners", "dont_mind_me"],
-      "difficulty": "easy"
+      "requires_killing": false,
+      "requires_scheme_markers": true,
+      "requires_strategy_markers": false,
+      "requires_positioning": true,
+      "requires_terrain": false,
+      "requires_interact": true,
+      "favors_roles": [
+        "fast_models",
+        "scheme_runners",
+        "dont_mind_me"
+      ],
+      "favors_abilities": []
     },
-    
     "frame_job": {
       "id": "frame_job",
       "name": "Frame Job",
-      "pool_number": 2,
-      "secret_selection": "Choose a friendly model",
-      "reveal_condition": {
-        "timing": "when_triggered",
-        "requirement": "Chosen model takes damage from an enemy attack action that targeted it while on enemy table half",
-        "points": 1
-      },
-      "bonus_condition": {
-        "requirement": "Remove a friendly Scheme Marker from within 2\" of chosen model at same time",
-        "points": 1
-      },
-      "scoring_notes": [
-        "Four conditions: (1) takes damage, (2) from enemy attack, (3) that targeted it, (4) on enemy half",
-        "Scoring is entirely up to opponent - they can lock you out",
-        "Don't telegraph too hard - opponent can simply not attack"
+      "card_type": "scheme",
+      "max_vp": 2,
+      "setup_text": "Choose a friendly model",
+      "reveal_condition": "Chosen model takes damage from an enemy attack action that targeted it while on enemy table half",
+      "scoring_text": "Reveal: when triggered. Chosen model takes damage from an enemy attack action that targeted it while on enemy table half",
+      "additional_vp_text": "Remove a friendly Scheme Marker from within 2\" of chosen model at same time",
+      "next_available_schemes": [
+        "Public Demonstration",
+        "Harness The Leyline",
+        "Scout The Rooftops"
       ],
-      "next_schemes": ["public_demonstration", "harness_the_leyline", "scout_the_rooftops"],
-      "tags": ["enemy_dependent", "positioning", "scheme_markers", "tanky_model"],
-      "crew_wants": ["durable_models", "threat_models", "scheme_marker_placement"],
-      "difficulty": "hard"
+      "requires_killing": false,
+      "requires_scheme_markers": true,
+      "requires_strategy_markers": false,
+      "requires_positioning": true,
+      "requires_terrain": false,
+      "requires_interact": true,
+      "favors_roles": [
+        "durable_models",
+        "threat_models",
+        "scheme_marker_placement"
+      ],
+      "favors_abilities": []
     },
-    
     "assassinate": {
       "id": "assassinate",
       "name": "Assassinate",
-      "pool_number": 3,
-      "secret_selection": "Choose a unique enemy model with half or more of its max health",
-      "reveal_condition": {
-        "timing": "when_triggered",
-        "requirement": "Reduce chosen model to below half health",
-        "points": 1
-      },
-      "bonus_condition": {
-        "timing": "end_of_turn",
-        "requirement": "Chosen model is killed this turn",
-        "points": 1
-      },
-      "scoring_notes": [
-        "Ask about health of MULTIPLE models to bluff",
-        "Model must be UNIQUE (not a Minion)",
-        "Beware picking this into Frame Job",
-        "Very straightforward - rewards doing what you want anyway"
+      "card_type": "scheme",
+      "max_vp": 2,
+      "setup_text": "Choose a unique enemy model with half or more of its max health",
+      "reveal_condition": "Reduce chosen model to below half health",
+      "scoring_text": "Reveal: when triggered. Reduce chosen model to below half health",
+      "additional_vp_text": "Chosen model is killed this turn",
+      "next_available_schemes": [
+        "Scout The Rooftops",
+        "Detonate Charges",
+        "Runic Binding"
       ],
-      "next_schemes": ["scout_the_rooftops", "detonate_charges", "runic_binding"],
-      "tags": ["killing", "unique_target", "damage_focused"],
-      "crew_wants": ["killing_power", "focus_fire", "alpha_strike"],
-      "difficulty": "medium"
+      "requires_killing": true,
+      "requires_scheme_markers": false,
+      "requires_strategy_markers": false,
+      "requires_positioning": false,
+      "requires_terrain": false,
+      "requires_interact": true,
+      "favors_roles": [
+        "killing_power",
+        "focus_fire",
+        "alpha_strike"
+      ],
+      "favors_abilities": []
     },
-    
     "scout_the_rooftops": {
       "id": "scout_the_rooftops",
       "name": "Scout the Rooftops",
-      "pool_number": 4,
-      "reveal_condition": {
-        "timing": "end_of_turn",
-        "requirement": "Remove 2 friendly Scheme Markers at elevation 2+, on different terrain pieces, not within 6\" of your deployment zone, no enemies at same elevation within 2\"",
-        "points": 1
-      },
-      "bonus_condition": {
-        "requirement": "Remove a 3rd marker meeting same criteria AND completely on enemy table half (can be same terrain piece as one other)",
-        "points": 1
-      },
-      "scoring_notes": [
-        "Consider deployment zone choice based on available terrain",
-        "Flying/Expert Climbing/Leap makes this much easier",
-        "Two DIFFERENT terrain pieces required for base score",
-        "Third marker CAN share terrain with one of the first two"
+      "card_type": "scheme",
+      "max_vp": 2,
+      "setup_text": "",
+      "reveal_condition": "Remove 2 friendly Scheme Markers at elevation 2+, on different terrain pieces, not within 6\" of your deployment zone, no enemies at same elevation within 2\"",
+      "scoring_text": "Reveal: end of turn. Remove 2 friendly Scheme Markers at elevation 2+, on different terrain pieces, not within 6\" of your deployment zone, no enemies at same elevation within 2\"",
+      "additional_vp_text": "Remove a 3rd marker meeting same criteria AND completely on enemy table half (can be same terrain piece as one other)",
+      "next_available_schemes": [
+        "Detonate Charges",
+        "Grave Robbing",
+        "Leave Your Mark"
       ],
-      "next_schemes": ["detonate_charges", "grave_robbing", "leave_your_mark"],
-      "tags": ["terrain_dependent", "elevation", "scheme_markers", "mobility"],
-      "crew_wants": ["flying", "leap", "expert_climbing", "mobility"],
-      "difficulty": "medium"
+      "requires_killing": false,
+      "requires_scheme_markers": true,
+      "requires_strategy_markers": false,
+      "requires_positioning": false,
+      "requires_terrain": true,
+      "requires_interact": true,
+      "favors_roles": [
+        "flying",
+        "leap",
+        "expert_climbing",
+        "mobility"
+      ],
+      "favors_abilities": []
     },
-    
     "detonate_charges": {
       "id": "detonate_charges",
       "name": "Detonate Charges",
-      "pool_number": 5,
-      "reveal_condition": {
-        "timing": "end_of_turn",
-        "requirement": "Remove 2 friendly Scheme Markers from within 2\" of enemy models",
-        "points": 1
-      },
-      "bonus_condition": {
-        "requirement": "Remove 3 markers instead of 2",
-        "points": 1
-      },
-      "scoring_notes": [
-        "Can be near same enemy or different enemies",
-        "Requires getting close then spending AP NOT killing",
-        "Don't try to score off models that haven't activated (they walk away)",
-        "Don't try to score off models you plan to kill",
-        "Use low-value activations to force opponent to move expensive models"
+      "card_type": "scheme",
+      "max_vp": 2,
+      "setup_text": "",
+      "reveal_condition": "Remove 2 friendly Scheme Markers from within 2\" of enemy models",
+      "scoring_text": "Reveal: end of turn. Remove 2 friendly Scheme Markers from within 2\" of enemy models",
+      "additional_vp_text": "Remove 3 markers instead of 2",
+      "next_available_schemes": [
+        "Grave Robbing",
+        "Runic Binding",
+        "Take The Highground"
       ],
-      "next_schemes": ["grave_robbing", "runic_binding", "take_the_highground"],
-      "tags": ["scheme_markers", "enemy_proximity", "activation_timing"],
-      "crew_wants": ["scheme_runners", "activation_control", "mobility"],
-      "difficulty": "medium"
+      "requires_killing": false,
+      "requires_scheme_markers": true,
+      "requires_strategy_markers": false,
+      "requires_positioning": false,
+      "requires_terrain": false,
+      "requires_interact": true,
+      "favors_roles": [
+        "scheme_runners",
+        "activation_control",
+        "mobility"
+      ],
+      "favors_abilities": []
     },
-    
     "ensnare": {
       "id": "ensnare",
       "name": "Ensnare",
-      "pool_number": 6,
-      "reveal_condition": {
-        "timing": "when_enemy_model_ends_activation",
-        "requirement": "Remove 2 friendly Scheme Markers from within 2\" of a unique enemy model",
-        "points": 1
-      },
-      "bonus_condition": {
-        "requirement": "Unique enemy is engaged by a friendly model of lower cost",
-        "points": 1
-      },
-      "scoring_notes": [
-        "Target doesn't need to be the model that just activated",
-        "Opponent always gets activation between marker drop and scoring",
-        "Don't target models that haven't activated - they'll walk away",
-        "Watch for out-of-activation movement that could rescue targets",
-        "Model setting up Ensnare can often walk/charge into engagement for bonus"
+      "card_type": "scheme",
+      "max_vp": 2,
+      "setup_text": "",
+      "reveal_condition": "Remove 2 friendly Scheme Markers from within 2\" of a unique enemy model",
+      "scoring_text": "Reveal: when enemy model ends activation. Remove 2 friendly Scheme Markers from within 2\" of a unique enemy model",
+      "additional_vp_text": "Unique enemy is engaged by a friendly model of lower cost",
+      "next_available_schemes": [
+        "Reshape The Land",
+        "Search The Area",
+        "Frame Job"
       ],
-      "next_schemes": ["reshape_the_land", "search_the_area", "frame_job"],
-      "tags": ["scheme_markers", "unique_target", "engagement", "activation_timing"],
-      "crew_wants": ["cheap_models", "scheme_runners", "engagement_tricks"],
-      "difficulty": "hard"
+      "requires_killing": false,
+      "requires_scheme_markers": true,
+      "requires_strategy_markers": false,
+      "requires_positioning": false,
+      "requires_terrain": false,
+      "requires_interact": true,
+      "favors_roles": [
+        "cheap_models",
+        "scheme_runners",
+        "engagement_tricks"
+      ],
+      "favors_abilities": []
     },
-    
     "make_it_look_like_an_accident": {
       "id": "make_it_look_like_an_accident",
       "name": "Make It Look Like an Accident",
-      "pool_number": 7,
-      "reveal_condition": {
-        "timing": "when_triggered",
-        "requirement": "Enemy model takes falling damage",
-        "points": 1
-      },
-      "bonus_condition": {
-        "timing": "end_of_turn",
-        "requirement": "Kill that model OR reduce it to below half health",
-        "points": 1
-      },
-      "scoring_notes": [
-        "Very binary - either you have push/pull or you don't",
-        "Requires elevation 2+ terrain on battlefield",
-        "Some crews are largely immune (Brood, etc.)",
-        "If you can't push/pull, don't bother picking this"
+      "card_type": "scheme",
+      "max_vp": 2,
+      "setup_text": "",
+      "reveal_condition": "Enemy model takes falling damage",
+      "scoring_text": "Reveal: when triggered. Enemy model takes falling damage",
+      "additional_vp_text": "Kill that model OR reduce it to below half health",
+      "next_available_schemes": [
+        "Ensnare",
+        "Reshape The Land",
+        "Breakthrough"
       ],
-      "next_schemes": ["ensnare", "reshape_the_land", "breakthrough"],
-      "tags": ["push_pull", "terrain_dependent", "elevation", "falling_damage"],
-      "crew_wants": ["push_effects", "pull_effects", "placement_effects"],
-      "difficulty": "medium"
+      "requires_killing": true,
+      "requires_scheme_markers": false,
+      "requires_strategy_markers": false,
+      "requires_positioning": false,
+      "requires_terrain": true,
+      "requires_interact": true,
+      "favors_roles": [
+        "push_effects",
+        "pull_effects",
+        "placement_effects"
+      ],
+      "favors_abilities": []
     },
-    
-    "harness_the_leyline": {
-      "id": "harness_the_leyline",
+    "harness_the_ley_line": {
+      "id": "harness_the_ley_line",
       "name": "Harness the Leyline",
-      "pool_number": 8,
-      "reveal_condition": {
-        "timing": "end_of_turn",
-        "requirement": "Have 2 friendly Scheme Markers on centerline, not within 6\" of each other, no enemies within 2\"",
-        "points": 1
-      },
-      "bonus_condition": {
-        "requirement": "Have 3 markers meeting the criteria instead of 2",
-        "points": 1
-      },
-      "scoring_notes": [
-        "Centerline is HUGE - denial requires spread out enemy presence",
-        "Easy to deny with even one model in right position",
-        "Free points if you've swept enemy off the board",
-        "Often 2 points available late game"
+      "card_type": "scheme",
+      "max_vp": 2,
+      "setup_text": "",
+      "reveal_condition": "Have 2 friendly Scheme Markers on centerline, not within 6\" of each other, no enemies within 2\"",
+      "scoring_text": "Reveal: end of turn. Have 2 friendly Scheme Markers on centerline, not within 6\" of each other, no enemies within 2\"",
+      "additional_vp_text": "Have 3 markers meeting the criteria instead of 2",
+      "next_available_schemes": [
+        "Assassinate",
+        "Scout The Rooftops",
+        "Grave Robbing"
       ],
-      "next_schemes": ["assassinate", "scout_the_rooftops", "grave_robbing"],
-      "tags": ["scheme_markers", "centerline", "board_control", "late_game"],
-      "crew_wants": ["board_control", "killing_power", "scheme_runners"],
-      "difficulty": "medium"
+      "requires_killing": false,
+      "requires_scheme_markers": true,
+      "requires_strategy_markers": false,
+      "requires_positioning": false,
+      "requires_terrain": false,
+      "requires_interact": true,
+      "favors_roles": [
+        "board_control",
+        "killing_power",
+        "scheme_runners"
+      ],
+      "favors_abilities": []
     },
-    
     "search_the_area": {
       "id": "search_the_area",
       "name": "Search the Area",
-      "pool_number": 9,
-      "reveal_condition": {
-        "timing": "end_of_activation",
-        "requirement": "Remove 3 friendly Scheme Markers within 1\" of same terrain piece completely on enemy half, no enemies within 2\"",
-        "points": 1,
-        "note": "Markers don't need to be completely on enemy half, just the terrain"
-      },
-      "bonus_condition": {
-        "timing": "end_of_turn",
-        "requirement": "Have 1 friendly Scheme Marker next to that terrain",
-        "points": 1,
-        "denial": "None - no enemy proximity requirement"
-      },
-      "scoring_notes": [
-        "Three markers is a lot - usually multiple activations needed",
-        "Go deep to find terrain opponent isn't near",
-        "Harder to deny due to end-of-activation timing",
-        "Second point is one of the easiest bonus conditions"
+      "card_type": "scheme",
+      "max_vp": 2,
+      "setup_text": "",
+      "reveal_condition": "Remove 3 friendly Scheme Markers within 1\" of same terrain piece completely on enemy half, no enemies within 2\"",
+      "scoring_text": "Reveal: end of activation. Remove 3 friendly Scheme Markers within 1\" of same terrain piece completely on enemy half, no enemies within 2\"",
+      "additional_vp_text": "Have 1 friendly Scheme Marker next to that terrain",
+      "next_available_schemes": [
+        "Breakthrough",
+        "Frame Job",
+        "Harness The Leyline"
       ],
-      "next_schemes": ["breakthrough", "frame_job", "harness_the_leyline"],
-      "tags": ["scheme_markers", "terrain_dependent", "enemy_half", "ap_intensive"],
-      "crew_wants": ["multiple_interact", "scheme_runners", "speed"],
-      "difficulty": "easy"
+      "requires_killing": false,
+      "requires_scheme_markers": true,
+      "requires_strategy_markers": false,
+      "requires_positioning": true,
+      "requires_terrain": true,
+      "requires_interact": true,
+      "favors_roles": [
+        "multiple_interact",
+        "scheme_runners",
+        "speed"
+      ],
+      "favors_abilities": []
     },
-    
     "take_the_highground": {
       "id": "take_the_highground",
       "name": "Take the Highground",
-      "pool_number": 10,
-      "reveal_condition": {
-        "timing": "end_of_turn",
-        "requirement": "Control 2+ terrain pieces of Ht 2+, not within 6\" of your deployment zone",
-        "points": 1,
-        "control_definition": "Most friendly models standing on terrain piece"
-      },
-      "bonus_condition": {
-        "requirement": "Control 3 terrain pieces",
-        "points": 1
-      },
-      "scoring_notes": [
-        "Enemy CAN stand on roof but you can outnumber them",
-        "No Interact required - just presence",
-        "Must STAY on buildings (can't drop marker and leave)",
-        "Harder second point than Scout (need 3 different buildings)",
-        "Probably easier overall than Scout due to fewer conditions"
+      "card_type": "scheme",
+      "max_vp": 2,
+      "setup_text": "",
+      "reveal_condition": "Control 2+ terrain pieces of Ht 2+, not within 6\" of your deployment zone",
+      "scoring_text": "Reveal: end of turn. Control 2+ terrain pieces of Ht 2+, not within 6\" of your deployment zone",
+      "additional_vp_text": "Control 3 terrain pieces",
+      "next_available_schemes": [
+        "Make It Look Like An Accident",
+        "Ensnare",
+        "Search The Area"
       ],
-      "next_schemes": ["make_it_look_like_an_accident", "ensnare", "search_the_area"],
-      "tags": ["terrain_dependent", "elevation", "board_control", "model_count"],
-      "crew_wants": ["mobility", "model_count", "staying_power"],
-      "difficulty": "easy"
+      "requires_killing": false,
+      "requires_scheme_markers": false,
+      "requires_strategy_markers": false,
+      "requires_positioning": false,
+      "requires_terrain": true,
+      "requires_interact": true,
+      "favors_roles": [
+        "mobility",
+        "model_count",
+        "staying_power"
+      ],
+      "favors_abilities": []
     },
-    
     "grave_robbing": {
       "id": "grave_robbing",
       "name": "Grave Robbing",
-      "pool_number": 11,
-      "secret_selection": "Choose a non-Scheme marker type",
-      "reveal_condition": {
-        "timing": "when_triggered",
-        "requirement": "Kill an enemy model within 2\" of chosen marker type AND a friendly Scheme Marker",
-        "points": 1
-      },
-      "bonus_condition": {
-        "requirement": "After revealing, Interact twice to pick up Remains Markers onto crew card",
-        "points": 1,
-        "unlock": "Models gain ability to Interact to pick up Remains Markers after reveal"
-      },
-      "scoring_notes": [
-        "Some crews make lots of markers - easy score",
-        "Other crews don't - impossible score",
-        "Remains Marker pickup gives value to Slam action",
-        "Consider what markers your crew naturally creates"
+      "card_type": "scheme",
+      "max_vp": 2,
+      "setup_text": "Choose a non-Scheme marker type",
+      "reveal_condition": "Kill an enemy model within 2\" of chosen marker type AND a friendly Scheme Marker",
+      "scoring_text": "Reveal: when triggered. Kill an enemy model within 2\" of chosen marker type AND a friendly Scheme Marker",
+      "additional_vp_text": "After revealing, Interact twice to pick up Remains Markers onto crew card",
+      "next_available_schemes": [
+        "Runic Binding",
+        "Leave Your Mark",
+        "Make It Look Like An Accident"
       ],
-      "next_schemes": ["runic_binding", "leave_your_mark", "make_it_look_like_an_accident"],
-      "tags": ["marker_dependent", "killing", "remains_markers", "crew_specific"],
-      "crew_wants": ["marker_creation", "killing_power", "scheme_markers"],
-      "difficulty": "hard"
+      "requires_killing": true,
+      "requires_scheme_markers": false,
+      "requires_strategy_markers": false,
+      "requires_positioning": false,
+      "requires_terrain": false,
+      "requires_interact": true,
+      "favors_roles": [
+        "marker_creation",
+        "killing_power",
+        "scheme_markers"
+      ],
+      "favors_abilities": []
     },
-    
     "runic_binding": {
       "id": "runic_binding",
       "name": "Runic Binding",
-      "pool_number": 12,
-      "reveal_condition": {
-        "timing": "end_of_enemy_activation",
-        "requirement": "Have 3 Scheme Markers forming triangle (each within 14\" of at least one other), at least 1 enemy inside triangle",
-        "points": 1
-      },
-      "bonus_condition": {
-        "requirement": "15+ Soulstones worth of enemy models inside triangle",
-        "points": 1
-      },
-      "scoring_notes": [
-        "Very AP intensive - dropping markers AND positioning",
-        "Impossible to do without telegraphing",
-        "Opponent gets chance to deny",
-        "Second point often requires 3+ enemy models - very hard late game",
-        "Best when models are naturally scattered anyway"
+      "card_type": "scheme",
+      "max_vp": 2,
+      "setup_text": "",
+      "reveal_condition": "Have 3 Scheme Markers forming triangle (each within 14\" of at least one other), at least 1 enemy inside triangle",
+      "scoring_text": "Reveal: end of enemy activation. Have 3 Scheme Markers forming triangle (each within 14\" of at least one other), at least 1 enemy inside triangle",
+      "additional_vp_text": "15+ Soulstones worth of enemy models inside triangle",
+      "next_available_schemes": [
+        "Leave Your Mark",
+        "Take The Highground",
+        "Ensnare"
       ],
-      "next_schemes": ["leave_your_mark", "take_the_highground", "ensnare"],
-      "tags": ["scheme_markers", "geometric", "ap_intensive", "telegraphed"],
-      "crew_wants": ["spread_out_crew", "scheme_runners", "board_control"],
-      "difficulty": "hard"
+      "requires_killing": false,
+      "requires_scheme_markers": true,
+      "requires_strategy_markers": false,
+      "requires_positioning": false,
+      "requires_terrain": false,
+      "requires_interact": true,
+      "favors_roles": [
+        "spread_out_crew",
+        "scheme_runners",
+        "board_control"
+      ],
+      "favors_abilities": []
     },
-    
     "reshape_the_land": {
       "id": "reshape_the_land",
       "name": "Reshape the Land",
-      "pool_number": 13,
-      "secret_selection": "Choose a marker type",
-      "reveal_condition": {
-        "timing": "end_of_turn",
-        "requirement": "Have 4 friendly markers of chosen type on enemy table half",
-        "points": 1,
-        "note": "If Scheme Markers chosen, they are removed after scoring"
-      },
-      "bonus_condition": {
-        "requirement": "Have 5 markers instead of 4",
-        "points": 1
-      },
-      "scoring_notes": [
-        "Many crews make markers as part of gameplay loop",
-        "5 is the marker cap - opponent can Slam to remove",
-        "Scheme Markers: can stand on to protect, but lost when scored",
-        "Other markers: may be harder to place but kept after scoring"
+      "card_type": "scheme",
+      "max_vp": 2,
+      "setup_text": "Choose a marker type",
+      "reveal_condition": "Have 4 friendly markers of chosen type on enemy table half",
+      "scoring_text": "Reveal: end of turn. Have 4 friendly markers of chosen type on enemy table half",
+      "additional_vp_text": "Have 5 markers instead of 4",
+      "next_available_schemes": [
+        "Search The Area",
+        "Breakthrough",
+        "Public Demonstration"
       ],
-      "next_schemes": ["search_the_area", "breakthrough", "public_demonstration"],
-      "tags": ["marker_dependent", "enemy_half", "crew_specific"],
-      "crew_wants": ["marker_creation", "scheme_runners", "mobility"],
-      "difficulty": "medium"
+      "requires_killing": false,
+      "requires_scheme_markers": false,
+      "requires_strategy_markers": false,
+      "requires_positioning": true,
+      "requires_terrain": false,
+      "requires_interact": true,
+      "favors_roles": [
+        "marker_creation",
+        "scheme_runners",
+        "mobility"
+      ],
+      "favors_abilities": []
     },
-    
     "public_demonstration": {
       "id": "public_demonstration",
       "name": "Public Demonstration",
-      "pool_number": 14,
-      "secret_selection": "Choose a unique enemy model",
-      "reveal_condition": {
-        "timing": "end_of_turn",
-        "requirement": "Engage chosen unique enemy with 2+ friendly Minions",
-        "points": 1
-      },
-      "bonus_condition": {
-        "requirement": "Have a Scheme Marker within 1\" of chosen enemy",
-        "points": 1
-      },
-      "scoring_notes": [
-        "Heavily dependent on crew build",
-        "Need enough durable, mobile Minions",
-        "Some uniques are scary beatsticks - dangerous to park next to",
-        "NO anti-summon clause - summons work great here",
-        "Don't build specifically for this, but know when you can't do it"
+      "card_type": "scheme",
+      "max_vp": 2,
+      "setup_text": "Choose a unique enemy model",
+      "reveal_condition": "Engage chosen unique enemy with 2+ friendly Minions",
+      "scoring_text": "Reveal: end of turn. Engage chosen unique enemy with 2+ friendly Minions",
+      "additional_vp_text": "Have a Scheme Marker within 1\" of chosen enemy",
+      "next_available_schemes": [
+        "Harness The Leyline",
+        "Assassinate",
+        "Detonate Charges"
       ],
-      "next_schemes": ["harness_the_leyline", "assassinate", "detonate_charges"],
-      "tags": ["minions", "engagement", "unique_target", "summon_friendly"],
-      "crew_wants": ["minion_heavy", "summoning", "durable_minions"],
-      "difficulty": "medium"
+      "requires_killing": false,
+      "requires_scheme_markers": false,
+      "requires_strategy_markers": false,
+      "requires_positioning": false,
+      "requires_terrain": false,
+      "requires_interact": true,
+      "favors_roles": [
+        "minion_heavy",
+        "summoning",
+        "durable_minions"
+      ],
+      "favors_abilities": []
     },
-    
     "leave_your_mark": {
       "id": "leave_your_mark",
       "name": "Leave Your Mark",
-      "pool_number": 15,
-      "reveal_condition": {
-        "timing": "end_of_turn",
-        "requirement": "Have more friendly Scheme Markers within 1\" of centerpoint than enemy markers",
-        "points": 1
-      },
-      "bonus_condition": {
-        "requirement": "Exceed enemy marker count by 2 or more",
-        "points": 1
-      },
-      "scoring_notes": [
-        "Very telegraphed but easy if opponent out of position",
-        "Two points not much harder than one if uncontested",
-        "Don't Mind Me models shine here",
-        "Look at board state - obvious if available or not"
+      "card_type": "scheme",
+      "max_vp": 2,
+      "setup_text": "",
+      "reveal_condition": "Have more friendly Scheme Markers within 1\" of centerpoint than enemy markers",
+      "scoring_text": "Reveal: end of turn. Have more friendly Scheme Markers within 1\" of centerpoint than enemy markers",
+      "additional_vp_text": "Exceed enemy marker count by 2 or more",
+      "next_available_schemes": [
+        "Take The Highground",
+        "Reshape The Land",
+        "Make It Look Like An Accident"
       ],
-      "next_schemes": ["take_the_highground", "reshape_the_land", "make_it_look_like_an_accident"],
-      "tags": ["scheme_markers", "centerpoint", "board_control", "contested"],
-      "crew_wants": ["dont_mind_me", "scheme_runners", "board_control"],
-      "difficulty": "easy"
+      "requires_killing": false,
+      "requires_scheme_markers": true,
+      "requires_strategy_markers": false,
+      "requires_positioning": true,
+      "requires_terrain": false,
+      "requires_interact": true,
+      "favors_roles": [
+        "dont_mind_me",
+        "scheme_runners",
+        "board_control"
+      ],
+      "favors_abilities": []
     }
   },
-  
   "scheme_flow_graph": {
-    "starting_pool": ["breakthrough", "frame_job", "assassinate", "scout_the_rooftops", "detonate_charges", "ensnare", "make_it_look_like_an_accident", "harness_the_leyline", "search_the_area", "take_the_highground", "grave_robbing", "runic_binding", "reshape_the_land", "public_demonstration", "leave_your_mark"],
+    "starting_pool": [
+      "breakthrough",
+      "frame_job",
+      "assassinate",
+      "scout_the_rooftops",
+      "detonate_charges",
+      "ensnare",
+      "make_it_look_like_an_accident",
+      "harness_the_ley_line",
+      "search_the_area",
+      "take_the_highground",
+      "grave_robbing",
+      "runic_binding",
+      "reshape_the_land",
+      "public_demonstration",
+      "leave_your_mark"
+    ],
     "transitions": {
-      "breakthrough": ["assassinate", "public_demonstration", "frame_job"],
-      "frame_job": ["public_demonstration", "harness_the_leyline", "scout_the_rooftops"],
-      "assassinate": ["scout_the_rooftops", "detonate_charges", "runic_binding"],
-      "scout_the_rooftops": ["detonate_charges", "grave_robbing", "leave_your_mark"],
-      "detonate_charges": ["grave_robbing", "runic_binding", "take_the_highground"],
-      "ensnare": ["reshape_the_land", "search_the_area", "frame_job"],
-      "make_it_look_like_an_accident": ["ensnare", "reshape_the_land", "breakthrough"],
-      "harness_the_leyline": ["assassinate", "scout_the_rooftops", "grave_robbing"],
-      "search_the_area": ["breakthrough", "frame_job", "harness_the_leyline"],
-      "take_the_highground": ["make_it_look_like_an_accident", "ensnare", "search_the_area"],
-      "grave_robbing": ["runic_binding", "leave_your_mark", "make_it_look_like_an_accident"],
-      "runic_binding": ["leave_your_mark", "take_the_highground", "ensnare"],
-      "reshape_the_land": ["search_the_area", "breakthrough", "public_demonstration"],
-      "public_demonstration": ["harness_the_leyline", "assassinate", "detonate_charges"],
-      "leave_your_mark": ["take_the_highground", "reshape_the_land", "make_it_look_like_an_accident"]
+      "breakthrough": [
+        "assassinate",
+        "public_demonstration",
+        "frame_job"
+      ],
+      "frame_job": [
+        "public_demonstration",
+        "harness_the_ley_line",
+        "scout_the_rooftops"
+      ],
+      "assassinate": [
+        "scout_the_rooftops",
+        "detonate_charges",
+        "runic_binding"
+      ],
+      "scout_the_rooftops": [
+        "detonate_charges",
+        "grave_robbing",
+        "leave_your_mark"
+      ],
+      "detonate_charges": [
+        "grave_robbing",
+        "runic_binding",
+        "take_the_highground"
+      ],
+      "ensnare": [
+        "reshape_the_land",
+        "search_the_area",
+        "frame_job"
+      ],
+      "make_it_look_like_an_accident": [
+        "ensnare",
+        "reshape_the_land",
+        "breakthrough"
+      ],
+      "harness_the_ley_line": [
+        "assassinate",
+        "scout_the_rooftops",
+        "grave_robbing"
+      ],
+      "search_the_area": [
+        "breakthrough",
+        "frame_job",
+        "harness_the_ley_line"
+      ],
+      "take_the_highground": [
+        "make_it_look_like_an_accident",
+        "ensnare",
+        "search_the_area"
+      ],
+      "grave_robbing": [
+        "runic_binding",
+        "leave_your_mark",
+        "make_it_look_like_an_accident"
+      ],
+      "runic_binding": [
+        "leave_your_mark",
+        "take_the_highground",
+        "ensnare"
+      ],
+      "reshape_the_land": [
+        "search_the_area",
+        "breakthrough",
+        "public_demonstration"
+      ],
+      "public_demonstration": [
+        "harness_the_ley_line",
+        "assassinate",
+        "detonate_charges"
+      ],
+      "leave_your_mark": [
+        "take_the_highground",
+        "reshape_the_land",
+        "make_it_look_like_an_accident"
+      ]
     }
   },
-  
   "scheme_categories": {
-    "scheme_marker_heavy": ["breakthrough", "frame_job", "scout_the_rooftops", "detonate_charges", "ensnare", "harness_the_leyline", "search_the_area", "runic_binding", "reshape_the_land", "public_demonstration", "leave_your_mark"],
-    "killing_focused": ["assassinate", "grave_robbing", "make_it_look_like_an_accident"],
-    "terrain_dependent": ["scout_the_rooftops", "take_the_highground", "make_it_look_like_an_accident", "search_the_area"],
-    "enemy_dependent": ["frame_job", "ensnare", "detonate_charges"],
-    "positioning_focused": ["breakthrough", "harness_the_leyline", "leave_your_mark", "reshape_the_land"],
-    "easy_to_score": ["breakthrough", "search_the_area", "take_the_highground", "leave_your_mark"],
-    "hard_to_score": ["frame_job", "ensnare", "grave_robbing", "runic_binding"]
+    "scheme_marker_heavy": [
+      "breakthrough",
+      "frame_job",
+      "scout_the_rooftops",
+      "detonate_charges",
+      "ensnare",
+      "harness_the_ley_line",
+      "search_the_area",
+      "runic_binding",
+      "reshape_the_land",
+      "public_demonstration",
+      "leave_your_mark"
+    ],
+    "killing_focused": [
+      "assassinate",
+      "grave_robbing",
+      "make_it_look_like_an_accident"
+    ],
+    "terrain_dependent": [
+      "scout_the_rooftops",
+      "take_the_highground",
+      "make_it_look_like_an_accident",
+      "search_the_area"
+    ],
+    "enemy_dependent": [
+      "frame_job",
+      "ensnare",
+      "detonate_charges"
+    ],
+    "positioning_focused": [
+      "breakthrough",
+      "harness_the_ley_line",
+      "leave_your_mark",
+      "reshape_the_land"
+    ],
+    "easy_to_score": [
+      "breakthrough",
+      "search_the_area",
+      "take_the_highground",
+      "leave_your_mark"
+    ],
+    "hard_to_score": [
+      "frame_job",
+      "ensnare",
+      "grave_robbing",
+      "runic_binding"
+    ]
   },
-  
   "strategy_scheme_synergies": {
     "plant_explosives": {
-      "good_schemes": ["breakthrough", "detonate_charges", "reshape_the_land"],
+      "good_schemes": [
+        "breakthrough",
+        "detonate_charges",
+        "reshape_the_land"
+      ],
       "reasoning": "Already moving markers around, scheme runners are core"
     },
     "boundary_dispute": {
-      "good_schemes": ["assassinate", "public_demonstration", "frame_job"],
+      "good_schemes": [
+        "assassinate",
+        "public_demonstration",
+        "frame_job"
+      ],
       "reasoning": "Brawl-focused, models will be engaged anyway"
     },
     "recover_evidence": {
-      "good_schemes": ["assassinate", "grave_robbing", "search_the_area"],
+      "good_schemes": [
+        "assassinate",
+        "grave_robbing",
+        "search_the_area"
+      ],
       "reasoning": "Already killing, spread out for schemes"
     },
     "informants": {
-      "good_schemes": ["take_the_highground", "harness_the_leyline", "leave_your_mark"],
+      "good_schemes": [
+        "take_the_highground",
+        "harness_the_ley_line",
+        "leave_your_mark"
+      ],
       "reasoning": "Control-focused, centerline presence"
     }
   }
