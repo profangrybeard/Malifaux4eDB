@@ -217,6 +217,292 @@ const FACTION_META = {
 }
 
 // ===========================================================================
+// POOL ANALYSIS - Scheme/Strategy capability requirements and crew analysis
+// ===========================================================================
+
+const STRATEGY_REQUIREMENTS = {
+  plant_explosives: {
+    name: 'Plant Explosives',
+    needs: { scheme_markers: 3, mobility: 3, survivability: 2 },
+    tips: 'Spread out fast models with Interact abilities',
+  },
+  boundary_dispute: {
+    name: 'Boundary Dispute',
+    needs: { melee: 3, survivability: 3, mobility: 1 },
+    tips: 'Durable beaters that can hold a quarter',
+  },
+  recover_evidence: {
+    name: 'Recover Evidence',
+    needs: { damage: 2, mobility: 2, interact: 2 },
+    tips: 'Kill models, grab the evidence they drop',
+  },
+  informants: {
+    name: 'Informants',
+    needs: { survivability: 3, spread: 2, cheap_activations: 2 },
+    tips: 'Protect your informant, spread across quarters',
+  },
+  clashing_forces: {
+    name: 'Clashing Forces',
+    needs: { melee: 3, damage: 2, survivability: 2 },
+    tips: 'Get stuck in and fight for the center',
+  },
+}
+
+const SCHEME_REQUIREMENTS = {
+  breakthrough: {
+    name: 'Breakthrough',
+    needs: { scheme_markers: 2, mobility: 3, survivability: 1 },
+    tips: 'Fast schemer that survives in enemy deployment',
+  },
+  assassinate: {
+    name: 'Assassinate',
+    needs: { damage: 3, alpha_strike: 2, mobility: 2 },
+    tips: 'High damage, ability to reach enemy master',
+  },
+  detonate_charges: {
+    name: 'Detonate Charges',
+    needs: { scheme_markers: 3, interact: 2, mobility: 1 },
+    tips: 'Drop 2 markers within 3" then remove them',
+  },
+  harness_the_ley_line: {
+    name: 'Harness the Ley Line',
+    needs: { scheme_markers: 2, survivability: 2, spread: 2 },
+    tips: 'Markers on centerline, keep models nearby',
+  },
+  leave_your_mark: {
+    name: 'Leave Your Mark',
+    needs: { scheme_markers: 2, mobility: 2, survivability: 2 },
+    tips: 'Drop markers in enemy half, stay alive',
+  },
+  take_the_highground: {
+    name: 'Take the Highground',
+    needs: { mobility: 2, survivability: 3, melee: 1 },
+    tips: 'Get on terrain, stay there',
+  },
+  scout_the_rooftops: {
+    name: 'Scout the Rooftops',
+    needs: { flight: 3, mobility: 2, scheme_markers: 1 },
+    tips: 'Models with Flight or Incorporeal on terrain',
+  },
+  make_it_look_like_an_accident: {
+    name: 'Make it Look Like an Accident',
+    needs: { push_pull: 3, damage: 1, melee: 1 },
+    tips: 'Kill enemies with hazardous terrain or falling',
+  },
+  runic_binding: {
+    name: 'Runic Binding',
+    needs: { scheme_markers: 2, mobility: 2, engagement: 2 },
+    tips: 'Markers near enemies you are engaging',
+  },
+  ensnare: {
+    name: 'Ensnare',
+    needs: { scheme_markers: 2, engagement: 2, cheap_activations: 2 },
+    tips: '2 markers within 2" of unique enemies',
+  },
+  search_the_area: {
+    name: 'Search the Area',
+    needs: { scheme_markers: 2, mobility: 2, spread: 1 },
+    tips: 'Markers in different table quarters',
+  },
+  public_demonstration: {
+    name: 'Public Demonstration',
+    needs: { minion_count: 3, engagement: 2, survivability: 2 },
+    tips: '2+ friendly minions engaging same enemy',
+  },
+  frame_job: {
+    name: 'Frame Job',
+    needs: { survivability: 2, mobility: 2, scheme_markers: 1 },
+    tips: 'Friendly takes damage from enemy in their half',
+  },
+  reshape_the_land: {
+    name: 'Reshape the Land',
+    needs: { marker_creation: 3, scheme_markers: 2 },
+    tips: 'Create non-scheme markers, drop schemes nearby',
+  },
+}
+
+const CAPABILITY_LABELS = {
+  scheme_markers: { label: 'Scheme Running', icon: '📍' },
+  mobility: { label: 'Mobility', icon: '💨' },
+  flight: { label: 'Flight/Incorporeal', icon: '🦅' },
+  survivability: { label: 'Survivability', icon: '🛡️' },
+  damage: { label: 'Damage Output', icon: '⚔️' },
+  alpha_strike: { label: 'Alpha Strike', icon: '🎯' },
+  melee: { label: 'Melee Presence', icon: '🗡️' },
+  engagement: { label: 'Engagement Control', icon: '⛓️' },
+  push_pull: { label: 'Push/Pull/Lure', icon: '🧲' },
+  marker_creation: { label: 'Marker Creation', icon: '🔷' },
+  interact: { label: 'Interact Actions', icon: '👆' },
+  cheap_activations: { label: 'Cheap Activations', icon: '💰' },
+  minion_count: { label: 'Minion Count', icon: '👥' },
+  spread: { label: 'Board Coverage', icon: '📡' },
+}
+
+// Analyze a model's capabilities for pool matching
+const getModelCapabilities = (card) => {
+  const caps = {}
+  const roles = card.roles || []
+  const chars = (card.characteristics || []).join(' ').toLowerCase()
+  
+  let allText = ''
+  ;(card.abilities || []).forEach(ab => {
+    allText += ' ' + ((ab.name || '') + ' ' + (ab.description || '')).toLowerCase()
+  })
+  ;(card.attack_actions || []).forEach(atk => {
+    allText += ' ' + (atk.description || '').toLowerCase()
+  })
+  ;(card.tactical_actions || []).forEach(tac => {
+    allText += ' ' + (tac.description || '').toLowerCase()
+  })
+  
+  // SCHEME MARKERS
+  if (roles.includes('schemer') || roles.includes('scheme_runner')) caps.scheme_markers = (caps.scheme_markers || 0) + 2
+  if (allText.includes("don't mind me") || allText.includes('dont mind me')) {
+    caps.scheme_markers = (caps.scheme_markers || 0) + 2
+    caps.interact = (caps.interact || 0) + 2
+  }
+  if (allText.includes('interact') && (allText.includes('bonus') || allText.includes('free'))) {
+    caps.interact = (caps.interact || 0) + 2
+  }
+  if (allText.includes('scheme marker')) caps.scheme_markers = (caps.scheme_markers || 0) + 1
+  
+  // MOBILITY
+  if (chars.includes('incorporeal')) {
+    caps.mobility = (caps.mobility || 0) + 3
+    caps.flight = (caps.flight || 0) + 3
+  }
+  if (chars.includes('flight')) {
+    caps.mobility = (caps.mobility || 0) + 2
+    caps.flight = (caps.flight || 0) + 3
+  }
+  if (allText.includes('leap') || allText.includes('unimpeded')) caps.mobility = (caps.mobility || 0) + 1
+  if (allText.includes('place') && !allText.includes('marker')) caps.mobility = (caps.mobility || 0) + 2
+  const mv = card.mv || card.speed || 0
+  if (mv >= 6) caps.mobility = (caps.mobility || 0) + 1
+  if (mv >= 7) caps.mobility = (caps.mobility || 0) + 1
+  
+  // SURVIVABILITY
+  if (allText.includes('hard to kill')) caps.survivability = (caps.survivability || 0) + 2
+  if (allText.includes('hard to wound')) caps.survivability = (caps.survivability || 0) + 2
+  if (allText.includes('armor')) caps.survivability = (caps.survivability || 0) + 1
+  if (allText.includes('regeneration')) caps.survivability = (caps.survivability || 0) + 1
+  if (allText.includes('demise')) caps.survivability = (caps.survivability || 0) + 1
+  const df = card.df || card.defense || 0
+  if (df >= 6) caps.survivability = (caps.survivability || 0) + 1
+  const wounds = card.health || card.wounds || 0
+  if (wounds >= 8) caps.survivability = (caps.survivability || 0) + 1
+  if (wounds >= 10) caps.survivability = (caps.survivability || 0) + 1
+  
+  // DAMAGE
+  if (roles.includes('aggro') || roles.includes('beater')) caps.damage = (caps.damage || 0) + 2
+  ;(card.attack_actions || []).forEach(atk => {
+    const dmg = atk.damage
+    if (dmg && typeof dmg === 'object' && dmg.severe >= 5) {
+      caps.damage = (caps.damage || 0) + 1
+      caps.alpha_strike = (caps.alpha_strike || 0) + 1
+    }
+  })
+  if (allText.includes('execute')) caps.alpha_strike = (caps.alpha_strike || 0) + 2
+  
+  // MELEE / ENGAGEMENT
+  const meleeAttacks = (card.attack_actions || []).filter(atk => {
+    const range = atk.range
+    return range && (range <= 2 || range === '1' || range === '2')
+  }).length
+  if (meleeAttacks > 0) {
+    caps.melee = (caps.melee || 0) + 1
+    caps.engagement = (caps.engagement || 0) + 1
+  }
+  if (meleeAttacks >= 2) {
+    caps.melee = (caps.melee || 0) + 1
+    caps.engagement = (caps.engagement || 0) + 1
+  }
+  if (allText.includes('cannot disengage') || allText.includes('engagement range')) {
+    caps.engagement = (caps.engagement || 0) + 2
+  }
+  
+  // PUSH/PULL/CONTROL
+  if (roles.includes('control')) caps.push_pull = (caps.push_pull || 0) + 1
+  if (allText.includes('lure') || allText.includes('obey')) caps.push_pull = (caps.push_pull || 0) + 3
+  if (allText.includes('push') || allText.includes('place target')) caps.push_pull = (caps.push_pull || 0) + 1
+  
+  // MARKER CREATION (non-scheme)
+  if (allText.includes('corpse marker') || allText.includes('scrap marker') || allText.includes('pyre marker')) {
+    caps.marker_creation = (caps.marker_creation || 0) + 2
+  }
+  
+  // ACTIVATION EFFICIENCY
+  const station = (card.station || '').toLowerCase()
+  const cost = card.cost || 0
+  if (station === 'minion' && cost <= 5) caps.cheap_activations = (caps.cheap_activations || 0) + 2
+  if (station === 'minion') caps.minion_count = (caps.minion_count || 0) + 1
+  
+  // SPREAD
+  if (allText.includes('unbury') || allText.includes('from buried')) caps.spread = (caps.spread || 0) + 2
+  if ((caps.mobility || 0) >= 3) caps.spread = (caps.spread || 0) + 1
+  
+  return caps
+}
+
+// Aggregate crew capabilities
+const aggregateCrewCapabilities = (crew) => {
+  const totals = {}
+  crew.forEach(model => {
+    const caps = getModelCapabilities(model)
+    Object.entries(caps).forEach(([cap, val]) => {
+      totals[cap] = (totals[cap] || 0) + val
+    })
+  })
+  return totals
+}
+
+// Get pool requirements from selected objectives
+const getPoolRequirements = (strategyName, schemeNames) => {
+  const requirements = {}
+  const normalize = (key) => key?.toLowerCase().replace(/['']/g, '').replace(/\s+/g, '_')
+  
+  const stratKey = normalize(strategyName)
+  if (STRATEGY_REQUIREMENTS[stratKey]) {
+    Object.entries(STRATEGY_REQUIREMENTS[stratKey].needs).forEach(([cap, val]) => {
+      requirements[cap] = (requirements[cap] || 0) + val
+    })
+  }
+  
+  schemeNames.forEach(scheme => {
+    const schemeKey = normalize(scheme)
+    if (SCHEME_REQUIREMENTS[schemeKey]) {
+      Object.entries(SCHEME_REQUIREMENTS[schemeKey].needs).forEach(([cap, val]) => {
+        requirements[cap] = (requirements[cap] || 0) + val
+      })
+    }
+  })
+  
+  return requirements
+}
+
+// Analyze gaps between crew and requirements
+const analyzePoolGaps = (crewCaps, requirements) => {
+  const gaps = []
+  const strengths = []
+  
+  Object.entries(requirements).forEach(([cap, needed]) => {
+    const have = crewCaps[cap] || 0
+    const ratio = needed > 0 ? have / needed : 1
+    
+    if (ratio < 0.5) {
+      gaps.push({ capability: cap, needed, have, severity: 'critical', shortfall: needed - have })
+    } else if (ratio < 1) {
+      gaps.push({ capability: cap, needed, have, severity: 'warning', shortfall: needed - have })
+    } else if (ratio >= 1.5) {
+      strengths.push({ capability: cap, have, needed })
+    }
+  })
+  
+  gaps.sort((a, b) => b.shortfall - a.shortfall)
+  return { gaps, strengths }
+}
+
+// ===========================================================================
 // ROLE DESCRIPTIONS - for display in crew builder
 // ===========================================================================
 const ROLE_DESCRIPTIONS = {
@@ -499,6 +785,7 @@ function App() {
   const [crewStrategy, setCrewStrategy] = useState('')
   const [crewSchemes, setCrewSchemes] = useState([])
   const [synergyPanelOpen, setSynergyPanelOpen] = useState(true)
+  const [poolAnalysisOpen, setPoolAnalysisOpen] = useState(true)
 
   // Parse card data - handle both array and {cards: [...]} formats
   const allCards = useMemo(() => {
@@ -3673,6 +3960,180 @@ function App() {
                       )}
                     </div>
                   )}
+                </div>
+              )}
+              
+              {/*  POOL ANALYSIS PANEL  */}
+              {selectedMaster && (selectedStrategy || selectedSchemes.length > 0) && (
+                <div className={`pool-analysis-panel ${poolAnalysisOpen ? 'open' : 'collapsed'}`}>
+                  <div 
+                    className="pool-analysis-header"
+                    onClick={() => setPoolAnalysisOpen(!poolAnalysisOpen)}
+                  >
+                    <span className="pool-analysis-title">
+                      📊 Pool Analysis
+                    </span>
+                    <span className="pool-analysis-toggle">
+                      {poolAnalysisOpen ? '▼' : '▶'}
+                    </span>
+                  </div>
+                  
+                  {poolAnalysisOpen && (() => {
+                    const crew = [selectedMaster, ...crewRoster]
+                    const stratName = strategies[selectedStrategy]?.name || ''
+                    const schemeNames = selectedSchemes.map(id => schemes[id]?.name || '').filter(Boolean)
+                    const requirements = getPoolRequirements(stratName, schemeNames)
+                    const crewCaps = aggregateCrewCapabilities(crew)
+                    const { gaps, strengths } = analyzePoolGaps(crewCaps, requirements)
+                    const factionData = FACTION_META[selectedMaster.faction]
+                    
+                    // Get meta ratings for selected objectives
+                    const normalize = (key) => key?.toLowerCase().replace(/['']/g, '').replace(/\s+/g, '_')
+                    const stratMeta = factionData?.strategies_m4e?.[normalize(stratName)]
+                    const schemeMetas = schemeNames.map(name => {
+                      const key = normalize(name)
+                      const data = factionData?.schemes_chosen?.[key]
+                      if (!data) return null
+                      const delta = data.win_rate - (factionData.overall?.win_rate || 0.5)
+                      return { name, key, ...data, delta, rating: delta > 0.03 ? 'strong' : delta < -0.03 ? 'weak' : 'neutral' }
+                    }).filter(Boolean)
+                    
+                    // Find models that fill gaps
+                    const crewIds = new Set(crew.map(c => c.id))
+                    const recommendations = gaps.length > 0 ? filteredCards
+                      .filter(m => !crewIds.has(m.id) && m.cost > 0 && m.station !== 'Master')
+                      .map(model => {
+                        const caps = getModelCapabilities(model)
+                        let score = 0
+                        const helps = []
+                        gaps.forEach(({ capability, shortfall }) => {
+                          const has = caps[capability] || 0
+                          if (has > 0) {
+                            score += Math.min(has, shortfall) * 2
+                            helps.push(capability)
+                          }
+                        })
+                        return { model, score, helps }
+                      })
+                      .filter(x => x.score > 0)
+                      .sort((a, b) => b.score - a.score)
+                      .slice(0, 5) : []
+                    
+                    return (
+                      <div className="pool-analysis-content">
+                        {/* Faction Meta Summary */}
+                        {factionData && (
+                          <div className="pool-faction-summary">
+                            <div className="faction-header">
+                              <span className="faction-name">{selectedMaster.faction}</span>
+                              <span className="faction-overall">
+                                {Math.round(factionData.overall?.win_rate * 100)}% overall
+                              </span>
+                            </div>
+                            
+                            {/* Strategy Rating */}
+                            {stratMeta && (
+                              <div className={`pool-objective-rating ${stratMeta.win_rate >= factionData.overall?.win_rate ? 'positive' : 'negative'}`}>
+                                <span className="objective-name">{stratName}</span>
+                                <span className="objective-winrate">{Math.round(stratMeta.win_rate * 100)}%</span>
+                                <span className="objective-delta">
+                                  {stratMeta.win_rate >= factionData.overall?.win_rate ? '+' : ''}
+                                  {Math.round((stratMeta.win_rate - factionData.overall?.win_rate) * 100)}%
+                                </span>
+                              </div>
+                            )}
+                            
+                            {/* Scheme Ratings */}
+                            {schemeMetas.map(meta => (
+                              <div key={meta.key} className={`pool-objective-rating ${meta.rating}`}>
+                                <span className="objective-name">{meta.name}</span>
+                                <span className="objective-winrate">{Math.round(meta.win_rate * 100)}%</span>
+                                <span className="objective-delta">
+                                  {meta.delta >= 0 ? '+' : ''}{Math.round(meta.delta * 100)}%
+                                </span>
+                                {meta.rating === 'weak' && <span className="objective-warning">⚠️</span>}
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                        
+                        {/* Capability Gap Analysis */}
+                        {Object.keys(requirements).length > 0 && (
+                          <div className="pool-capability-analysis">
+                            <h4>Crew vs Pool Requirements</h4>
+                            
+                            {gaps.length > 0 ? (
+                              <div className="pool-gaps">
+                                {gaps.map(({ capability, needed, have, severity }) => (
+                                  <div key={capability} className={`pool-gap ${severity}`}>
+                                    <span className="gap-icon">{CAPABILITY_LABELS[capability]?.icon || '❓'}</span>
+                                    <span className="gap-label">{CAPABILITY_LABELS[capability]?.label || capability}</span>
+                                    <span className="gap-values">{have}/{needed}</span>
+                                    <div className="gap-bar">
+                                      <div className="gap-bar-fill" style={{ width: `${Math.min(100, (have / needed) * 100)}%` }} />
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            ) : (
+                              <div className="pool-status-good">✓ Crew covers pool requirements</div>
+                            )}
+                            
+                            {strengths.length > 0 && (
+                              <div className="pool-strengths">
+                                <span className="strengths-label">Strong in:</span>
+                                {strengths.slice(0, 3).map(({ capability }) => (
+                                  <span key={capability} className="strength-badge">
+                                    {CAPABILITY_LABELS[capability]?.icon} {CAPABILITY_LABELS[capability]?.label}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        )}
+                        
+                        {/* Recommendations */}
+                        {recommendations.length > 0 && (
+                          <div className="pool-recommendations">
+                            <h4>Consider Adding</h4>
+                            <div className="recommendation-list">
+                              {recommendations.map(({ model, helps }) => (
+                                <div 
+                                  key={model.id} 
+                                  className="recommendation-item"
+                                  onClick={() => addToCrew(model)}
+                                >
+                                  <span className="rec-name">{model.name}</span>
+                                  <span className="rec-cost">{model.cost}ss</span>
+                                  <span className="rec-helps">
+                                    {helps.slice(0, 2).map(cap => CAPABILITY_LABELS[cap]?.icon || '').join(' ')}
+                                  </span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        
+                        {/* Tips */}
+                        <div className="pool-tips">
+                          {stratName && STRATEGY_REQUIREMENTS[normalize(stratName)]?.tips && (
+                            <div className="tip-item">
+                              <strong>Strategy:</strong> {STRATEGY_REQUIREMENTS[normalize(stratName)].tips}
+                            </div>
+                          )}
+                          {schemeNames.slice(0, 2).map(name => {
+                            const key = normalize(name)
+                            const req = SCHEME_REQUIREMENTS[key]
+                            return req?.tips ? (
+                              <div key={key} className="tip-item">
+                                <strong>{req.name}:</strong> {req.tips}
+                              </div>
+                            ) : null
+                          })}
+                        </div>
+                      </div>
+                    )
+                  })()}
                 </div>
               )}
               
