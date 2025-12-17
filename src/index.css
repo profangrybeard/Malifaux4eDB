@@ -7321,3 +7321,55 @@ select option {
   text-align: center;
   padding: 0.5rem;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ORANGE ACCENT - Strategy Select & Random Encounter
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.encounter-strategy select.encounter-select {
+  border: 2px solid #f97316;
+  background: linear-gradient(180deg, rgba(249, 115, 22, 0.15) 0%, rgba(249, 115, 22, 0.05) 100%);
+}
+
+.encounter-strategy select.encounter-select:focus {
+  border-color: #fb923c;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.3);
+}
+
+.randomize-encounter-btn {
+  background: linear-gradient(180deg, #f97316 0%, #ea580c 100%) !important;
+  border: none !important;
+  color: white !important;
+  font-weight: 600 !important;
+  padding: 0.75rem 1.5rem !important;
+  border-radius: 8px !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.4);
+}
+
+.randomize-encounter-btn:hover {
+  background: linear-gradient(180deg, #fb923c 0%, #f97316 100%) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.5);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MASTER PICKER - Faction Headers
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.master-faction-header {
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.3) 0%, transparent 100%);
+  color: #a78bfa;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.5rem;
+  border-left: 3px solid #8b5cf6;
+}
+
+.master-faction-header:first-child {
+  margin-top: 0;
+}

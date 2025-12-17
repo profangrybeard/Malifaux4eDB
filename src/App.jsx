@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useCallback } from 'react'
+import React, { useState, useMemo, useEffect, useCallback } from 'react'
 import cardData from './data/cards.json'
 import objectivesData from './data/objectives.json'
 
@@ -784,7 +784,7 @@ function App() {
   const [crewBudget, setCrewBudget] = useState(50)
   const [crewStrategy, setCrewStrategy] = useState('')
   const [crewSchemes, setCrewSchemes] = useState([])
-  const [synergyPanelOpen, setSynergyPanelOpen] = useState(true)
+  const [synergyPanelOpen, setSynergyPanelOpen] = useState(false)
   const [poolAnalysisOpen, setPoolAnalysisOpen] = useState(true)
 
   // Parse card data - handle both array and {cards: [...]} formats
@@ -3687,36 +3687,34 @@ function App() {
                           m.primary_keyword?.toLowerCase().includes(filterLower)
                         )
                       })
-                      .map(m => {
-                      const metaData = FACTION_META[m.faction]
-                      const masterCode = m.name.toLowerCase().replace(/[^a-z]/g, '_').replace(/_+/g, '_')
-                      const masterMeta = metaData?.masters?.[masterCode]
-                      const strategyWinRate = crewStrategy && metaData?.strategies_m4e?.[crewStrategy]?.win_rate
+                      .sort((a, b) => {
+                        // Sort by faction first, then alphabetically by name
+                        if (a.faction !== b.faction) return a.faction.localeCompare(b.faction)
+                        return a.name.localeCompare(b.name)
+                      })
+                      .map((m, idx, arr) => {
+                      // Check if this is first master of a new faction
+                      const isNewFaction = idx === 0 || arr[idx - 1].faction !== m.faction
                       
                       return (
-                        <div 
-                          key={m.id}
-                          className="master-stat-row"
-                          onClick={() => {
-                            setSelectedMaster(m)
-                            setCrewRoster([])
-                            setMasterFilter('')
-                          }}
-                          onMouseEnter={() => setHoveredMaster(m)}
-                          onMouseLeave={() => setHoveredMaster(null)}
-                        >
-                          <span className="master-stat-name">{m.name}</span>
-                          <span className="master-stat-faction">{m.faction}</span>
-                          <span className="master-stat-keyword">{m.primary_keyword}</span>
-                          {strategyWinRate !== undefined && (
-                            <span className={`master-stat-winrate ${strategyWinRate >= 0.5 ? 'good' : 'bad'}`}>
-                              {Math.round(strategyWinRate * 100)}%
-                            </span>
+                        <React.Fragment key={m.id}>
+                          {isNewFaction && (
+                            <div className="master-faction-header">{m.faction}</div>
                           )}
-                          {masterMeta?.games && (
-                            <span className="master-stat-games">{masterMeta.games}g</span>
-                          )}
-                        </div>
+                          <div 
+                            className="master-stat-row"
+                            onClick={() => {
+                              setSelectedMaster(m)
+                              setCrewRoster([])
+                              setMasterFilter('')
+                            }}
+                            onMouseEnter={() => setHoveredMaster(m)}
+                            onMouseLeave={() => setHoveredMaster(null)}
+                          >
+                            <span className="master-stat-name">{m.name}</span>
+                            <span className="master-stat-keyword">{m.primary_keyword}</span>
+                          </div>
+                        </React.Fragment>
                       )
                     })}
                   </div>
@@ -4264,51 +4262,14 @@ function App() {
                   }
                 })
                 
-                // Calculate crew capabilities
+                // Calculate crew capabilities using the comprehensive getModelCapabilities function
                 const crewCaps = {}
                 const allModels = selectedMaster ? [selectedMaster, ...crewRoster] : []
                 allModels.forEach(model => {
-                  const roles = model.roles || []
-                  const chars = (model.characteristics || []).join(' ').toLowerCase()
-                  const cost = model.cost || 0
-                  
-                  // Scheme running
-                  if (roles.includes('scheme_runner')) crewCaps.scheme_markers = (crewCaps.scheme_markers || 0) + 3
-                  if (roles.includes('marker_manipulation')) crewCaps.scheme_markers = (crewCaps.scheme_markers || 0) + 2
-                  
-                  // Mobility
-                  const spd = model.speed || 0
-                  if (spd >= 6) crewCaps.mobility = (crewCaps.mobility || 0) + 2
-                  if (spd >= 7) crewCaps.mobility = (crewCaps.mobility || 0) + 1
-                  if (roles.includes('scheme_runner')) crewCaps.mobility = (crewCaps.mobility || 0) + 2
-                  
-                  // Survivability
-                  const hp = model.health || 0
-                  const df = model.defense || 0
-                  if (hp >= 8) crewCaps.survivability = (crewCaps.survivability || 0) + 2
-                  if (hp >= 10) crewCaps.survivability = (crewCaps.survivability || 0) + 1
-                  if (df >= 6) crewCaps.survivability = (crewCaps.survivability || 0) + 1
-                  if (roles.includes('tank')) crewCaps.survivability = (crewCaps.survivability || 0) + 2
-                  
-                  // Damage
-                  if (roles.includes('beater')) crewCaps.damage = (crewCaps.damage || 0) + 3
-                  
-                  // Melee
-                  if (roles.includes('beater')) crewCaps.melee = (crewCaps.melee || 0) + 2
-                  
-                  // Interact
-                  if (roles.includes('scheme_runner')) crewCaps.interact = (crewCaps.interact || 0) + 2
-                  
-                  // Cheap activations
-                  if (chars.includes('minion') && cost <= 5) crewCaps.cheap_activations = (crewCaps.cheap_activations || 0) + 1
-                  
-                  // Spread
-                  if (roles.includes('scheme_runner')) crewCaps.spread = (crewCaps.spread || 0) + 2
-                  crewCaps.spread = (crewCaps.spread || 0) + 1 // Each model helps
-                  
-                  // Engagement
-                  if (roles.includes('control')) crewCaps.engagement = (crewCaps.engagement || 0) + 2
-                  if (roles.includes('tank')) crewCaps.engagement = (crewCaps.engagement || 0) + 1
+                  const modelCaps = getModelCapabilities(model)
+                  Object.entries(modelCaps).forEach(([cap, value]) => {
+                    crewCaps[cap] = (crewCaps[cap] || 0) + value
+                  })
                 })
                 
                 // Find gaps and strengths
