@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect, useCallback } from 'react'
 import cardData from './data/cards.json'
+import crewData from './data/crew.json'
 import objectivesData from './data/objectives.json'
 
 const IMAGE_BASE = 'https://raw.githubusercontent.com/profangrybeard/Malifaux4eDB-images/main'
@@ -284,6 +285,37 @@ const STRATEGY_REQUIREMENTS = {
 
 // ===========================================================================
 // SCHEME REQUIREMENTS - Validated against official M4E GG0 cards 2025-12-17
+// ===========================================================================
+// SCHEME CARD IMAGES - Maps scheme IDs to image filenames in the repo
+// ===========================================================================
+const SCHEME_CARD_IMAGES = {
+  breakthrough: 'Rules%20and%20Objectives/Scheme%20Cards/M4E_Scheme_Breakthrough_front.png',
+  assassinate: 'Rules%20and%20Objectives/Scheme%20Cards/M4E_Scheme_Assassinate_front.png',
+  detonate_charges: 'Rules%20and%20Objectives/Scheme%20Cards/M4E_Scheme_Detonate_Charges_front.png',
+  harness_the_ley_line: 'Rules%20and%20Objectives/Scheme%20Cards/M4E_Scheme_Harness_the_Leyline_front.png',
+  leave_your_mark: 'Rules%20and%20Objectives/Scheme%20Cards/M4E_Scheme_Leave_Your_Mark_front.png',
+  take_the_highground: 'Rules%20and%20Objectives/Scheme%20Cards/M4E_Scheme_Take_the_Highground_front.png',
+  make_it_look_like_an_accident: 'Rules%20and%20Objectives/Scheme%20Cards/M4E_Scheme_Make_It_Look_Like_an_Accident_front.png',
+  ensnare: 'Rules%20and%20Objectives/Scheme%20Cards/M4E_Scheme_Ensnare_front.png',
+  search_the_area: 'Rules%20and%20Objectives/Scheme%20Cards/M4E_Scheme_Search_the_Area_front.png',
+  scout_the_rooftops: 'Rules%20and%20Objectives/Scheme%20Cards/M4E_Scheme_Scout_the_Rooftops_front.png',
+  grave_robbing: 'Rules%20and%20Objectives/Scheme%20Cards/M4E_Scheme_Grave_Robbing_front.png',
+  runic_binding: 'Rules%20and%20Objectives/Scheme%20Cards/M4E_Scheme_Runic_Binding_front.png',
+  frame_job: 'Rules%20and%20Objectives/Scheme%20Cards/M4E_Scheme_Frame_Job_front.png',
+  public_demonstration: 'Rules%20and%20Objectives/Scheme%20Cards/M4E_Scheme_Public_Demonstration_front.png',
+  reshape_the_land: 'Rules%20and%20Objectives/Scheme%20Cards/M4E_Scheme_Reshape_the_Land_front.png',
+}
+
+// ===========================================================================
+// STRATEGY CARD IMAGES - Maps strategy IDs to image filenames
+// ===========================================================================
+const STRATEGY_CARD_IMAGES = {
+  plant_explosives: 'Rules%20and%20Objectives/Strategy%20Cards/M4E_Strategy_Plant_Explosives_front.png',
+  boundary_dispute: 'Rules%20and%20Objectives/Strategy%20Cards/M4E_Strategy_Boundary_Dispute_front.png', 
+  recover_evidence: 'Rules%20and%20Objectives/Strategy%20Cards/M4E_Strategy_Recover%20Evidence_front.png',
+  informants: 'Rules%20and%20Objectives/Strategy%20Cards/M4E_Strategy_Informants_front.png',
+}
+
 // All schemes score max 2 VP (1 base + 1 bonus)
 // ===========================================================================
 const SCHEME_REQUIREMENTS = {
@@ -908,14 +940,20 @@ function App() {
   const [crewRoster, setCrewRoster] = useState([])
   const [crewBudget, setCrewBudget] = useState(50)
   const [crewStrategy, setCrewStrategy] = useState('')
-  const [crewSchemes, setCrewSchemes] = useState([])
+  const [schemePool, setSchemePool] = useState([]) // 5 schemes flipped face-up (available)
+  const [chosenSchemes, setChosenSchemes] = useState([]) // 2 schemes player chooses to score
   const [synergyPanelOpen, setSynergyPanelOpen] = useState(false)
-  const [objectiveFitOpen, setObjectiveFitOpen] = useState(false)
+  const [opponentSynergyPanelOpen, setOpponentSynergyPanelOpen] = useState(false)
   const [poolAnalysisOpen, setPoolAnalysisOpen] = useState(true)
+  const [objectivesCardsOpen, setObjectivesCardsOpen] = useState(true) // Show objective cards when selected
+  const [masterCrewCardFlipped, setMasterCrewCardFlipped] = useState(false) // false = Master front, true = Crew front
+  const [opponentCrewCardFlipped, setOpponentCrewCardFlipped] = useState(false) // false = Master front, true = Crew front
 
-  // Parse card data - handle both array and {cards: [...]} formats
+  // Parse card data - handle both array and {cards: [...]} formats, merge with crew data
   const allCards = useMemo(() => {
-    return Array.isArray(cardData) ? cardData : (cardData.cards || [])
+    const cards = Array.isArray(cardData) ? cardData : (cardData.cards || [])
+    const crews = Array.isArray(crewData) ? crewData : []
+    return [...cards, ...crews]
   }, [])
   
   // Create a stats fingerprint for a card (used to detect gameplay vs cosmetic variants)
@@ -1270,7 +1308,7 @@ function App() {
     
     // Get scheme-favored roles
     const schemeRoles = new Set()
-    crewSchemes.forEach(schemeId => {
+    chosenSchemes.forEach(schemeId => {
       if (schemes[schemeId]?.favors_roles) {
         schemes[schemeId].favors_roles.forEach(r => schemeRoles.add(r))
       }
@@ -1449,12 +1487,12 @@ function App() {
     }
     
     setOpponentCrew(crew)
-  }, [opponentMaster, cards, crewStrategy, crewSchemes, strategies, schemes])
+  }, [opponentMaster, cards, crewStrategy, chosenSchemes, strategies, schemes])
 
   // Regenerate opponent crew when master or objectives change
   useEffect(() => {
     generateOpponentCrew()
-  }, [opponentMaster, crewStrategy, crewSchemes])
+  }, [opponentMaster, crewStrategy, chosenSchemes])
 
   // Get opponent crew cost (including OOK tax)
   const opponentCrewCost = useMemo(() => {
@@ -1683,6 +1721,7 @@ function App() {
       const randomMaster = uniqueMasters[Math.floor(Math.random() * uniqueMasters.length)]
       setOpponentFaction(randomMaster.faction)
       setOpponentMaster(randomMaster)
+      setOpponentCrewCardFlipped(false) // Reset to Master in front
       setCounterCrewReasoning({
         masterReason: 'Random selection (no specific counters found)',
         difficulty: counterDifficulty,
@@ -1718,6 +1757,7 @@ function App() {
     // Set opponent faction and master (this triggers generateOpponentCrew via useEffect)
     setOpponentFaction(selected.master.faction)
     setOpponentMaster(selected.master)
+    setOpponentCrewCardFlipped(false) // Reset to Master in front
     
     // Store reasoning
     setCounterCrewReasoning({
@@ -1903,7 +1943,7 @@ function App() {
     if (crewStrategy && strategies[crewStrategy]?.favors_roles) {
       strategies[crewStrategy].favors_roles.forEach(r => requiredRoles.add(r))
     }
-    crewSchemes.forEach(schemeId => {
+    chosenSchemes.forEach(schemeId => {
       if (schemes[schemeId]?.favors_roles) {
         schemes[schemeId].favors_roles.forEach(r => requiredRoles.add(r))
       }
@@ -1965,7 +2005,7 @@ function App() {
       missingRoles: missingRolesDisplay,
       suggestions: versatileSuggestions.slice(0, 3) // Top 3 suggestions
     }
-  }, [selectedMaster, crewStrategy, crewSchemes, keywordModels, versatileModels, strategies, schemes])
+  }, [selectedMaster, crewStrategy, chosenSchemes, keywordModels, versatileModels, strategies, schemes])
   
   // ===========================================================================
   // SYNERGY CALCULATOR - Reusable function for both player and opponent crews
@@ -2249,7 +2289,7 @@ function App() {
     
     // Get scheme-favored roles (lower priority - worth 2VP each)
     const schemeRoles = new Set()
-    crewSchemes.forEach(schemeId => {
+    chosenSchemes.forEach(schemeId => {
       if (schemes[schemeId]?.favors_roles) {
         schemes[schemeId].favors_roles.forEach(r => schemeRoles.add(r))
       }
@@ -2395,17 +2435,28 @@ function App() {
     setCrewRoster(suggestedCrew)
   }
 
-  // Toggle crew scheme selection
-  // Toggle scheme in the available pool (3 schemes available per encounter)
-  const toggleCrewScheme = (schemeId) => {
-    if (crewSchemes.includes(schemeId)) {
-      setCrewSchemes(crewSchemes.filter(s => s !== schemeId))
-    } else if (crewSchemes.length < 3) {
-      setCrewSchemes([...crewSchemes, schemeId])
+  // Toggle scheme in the available pool (5 schemes flipped face-up per encounter)
+  const togglePoolScheme = (schemeId) => {
+    if (schemePool.includes(schemeId)) {
+      setSchemePool(schemePool.filter(s => s !== schemeId))
+      // Also remove from chosen if it was chosen
+      setChosenSchemes(chosenSchemes.filter(s => s !== schemeId))
+    } else if (schemePool.length < 5) {
+      setSchemePool([...schemePool, schemeId])
+    }
+  }
+  
+  // Toggle scheme selection for scoring (pick 2 from the pool)
+  const toggleChosenScheme = (schemeId) => {
+    if (!schemePool.includes(schemeId)) return // Can only choose from pool
+    if (chosenSchemes.includes(schemeId)) {
+      setChosenSchemes(chosenSchemes.filter(s => s !== schemeId))
+    } else if (chosenSchemes.length < 2) {
+      setChosenSchemes([...chosenSchemes, schemeId])
     }
   }
 
-  // Get favored roles for current crew objectives
+  // Get favored roles for current crew objectives (based on chosen schemes, not full pool)
   const crewFavoredRoles = useMemo(() => {
     const roles = new Set()
     
@@ -2413,14 +2464,15 @@ function App() {
       strategies[crewStrategy].favors_roles.forEach(r => roles.add(r))
     }
     
-    crewSchemes.forEach(schemeId => {
+    // Use chosenSchemes (the 2 player picked) not the full pool
+    chosenSchemes.forEach(schemeId => {
       if (schemes[schemeId]?.favors_roles) {
         schemes[schemeId].favors_roles.forEach(r => roles.add(r))
       }
     })
     
     return roles
-  }, [crewStrategy, crewSchemes, strategies, schemes])
+  }, [crewStrategy, chosenSchemes, strategies, schemes])
 
   // Calculate objective score for a card
   const getObjectiveScore = (card) => {
@@ -2446,7 +2498,7 @@ function App() {
         className={`star-rating star-level-${levelClass}`}
         title={`Matches ${score} role(s) needed for your objectives`}
       >
-        {'*'.repeat(displayScore)}
+        {'★'.repeat(displayScore)}
       </span>
     )
   }
@@ -2456,31 +2508,59 @@ function App() {
     if (!selectedMaster) return null
     
     const keyword = selectedMaster.primary_keyword
-    if (!keyword) return null
+    if (!keyword) {
+      console.log('[CrewCard Debug] Master has no primary_keyword:', selectedMaster.name)
+      return null
+    }
     
     // Normalize for comparison (remove hyphens, lowercase)
     const normalizeKeyword = (k) => k?.toLowerCase().replace(/-/g, ' ').trim()
     const normalizedKeyword = normalizeKeyword(keyword)
+    
+    // Debug: Log what we're looking for and what's available
+    const crewCards = allCards.filter(c => c.card_type === 'Crew')
+    console.log(`[CrewCard Debug] Looking for keyword: "${keyword}" (normalized: "${normalizedKeyword}")`)
+    console.log(`[CrewCard Debug] Total Crew cards in allCards: ${crewCards.length}`)
+    if (crewCards.length > 0) {
+      console.log('[CrewCard Debug] Sample crew cards:', crewCards.slice(0, 3).map(c => ({
+        name: c.name,
+        subfaction: c.subfaction,
+        keywords: c.keywords
+      })))
+    }
     
     // Find crew card by subfaction (primary match method)
     const bySubfaction = allCards.find(card => 
       card.card_type === 'Crew' &&
       normalizeKeyword(card.subfaction) === normalizedKeyword
     )
-    if (bySubfaction) return bySubfaction
+    if (bySubfaction) {
+      console.log('[CrewCard Debug] Found by subfaction:', bySubfaction.name)
+      return bySubfaction
+    }
     
     // Fallback: check if keyword appears in crew card's keywords array
     const byKeywordArray = allCards.find(card =>
       card.card_type === 'Crew' &&
       (card.keywords || []).some(k => normalizeKeyword(k) === normalizedKeyword)
     )
-    if (byKeywordArray) return byKeywordArray
+    if (byKeywordArray) {
+      console.log('[CrewCard Debug] Found by keywords array:', byKeywordArray.name)
+      return byKeywordArray
+    }
     
     // Last resort: name matching
-    return allCards.find(card => 
+    const byName = allCards.find(card => 
       card.card_type === 'Crew' &&
       card.name.toLowerCase().includes(selectedMaster.name.split(',')[0].toLowerCase())
     )
+    if (byName) {
+      console.log('[CrewCard Debug] Found by name match:', byName.name)
+      return byName
+    }
+    
+    console.log('[CrewCard Debug] NO CREW CARD FOUND for', selectedMaster.name)
+    return null
   }, [selectedMaster, allCards])
   
   // Also create a lookup function for opponent crew card
@@ -2766,7 +2846,7 @@ function App() {
     if (crewStrategy && strategies[crewStrategy]) {
       selectedObjectives.push(strategies[crewStrategy])
     }
-    crewSchemes.forEach(schemeId => {
+    chosenSchemes.forEach(schemeId => {
       if (schemes[schemeId]) {
         selectedObjectives.push(schemes[schemeId])
       }
@@ -2910,18 +2990,18 @@ function App() {
     }
     
     return analysis
-  }, [selectedMaster, crewRoster, crewStrategy, crewSchemes, strategies, schemes, 
+  }, [selectedMaster, crewRoster, crewStrategy, schemePool, strategies, schemes, 
       keywordModels, versatileModels, remainingBudget])
 
   // ===========================================================================
   // SCHEME COVERAGE ANALYSIS - Can your crew score EACH scheme in the pool?
   // ===========================================================================
   const schemeCoverage = useMemo(() => {
-    if (!selectedMaster || crewSchemes.length === 0) return []
+    if (!selectedMaster || schemePool.length === 0) return []
     
     const allCrewModels = [selectedMaster, ...crewRoster]
     
-    return crewSchemes.map(schemeId => {
+    return schemePool.map(schemeId => {
       const scheme = schemes[schemeId]
       if (!scheme) return null
       
@@ -3020,7 +3100,7 @@ function App() {
         favoredAbilities: scheme.favors_abilities || []
       }
     }).filter(Boolean)
-  }, [selectedMaster, crewRoster, crewSchemes, schemes])
+  }, [selectedMaster, crewRoster, schemePool, schemes])
 
   // FILTER CARDS - now also considers selected schemes/strategy
   const filteredCards = useMemo(() => {
@@ -3777,32 +3857,33 @@ function App() {
               
               <div className="encounter-schemes">
                 <div className="encounter-schemes-header">
-                  <label>Scheme Pool ({crewSchemes.length}/3 available):</label>
+                  <label>Scheme Pool ({schemePool.length}/5 flipped):</label>
                   <button 
                     className="randomize-btn"
                     onClick={() => {
-                      // Randomly select 3 schemes from the pool
+                      // Randomly select 5 schemes for the pool
                       const availableSchemes = [...schemeList]
                       const randomSchemes = []
-                      for (let i = 0; i < 3 && availableSchemes.length > 0; i++) {
+                      for (let i = 0; i < 5 && availableSchemes.length > 0; i++) {
                         const idx = Math.floor(Math.random() * availableSchemes.length)
                         randomSchemes.push(availableSchemes[idx].id)
                         availableSchemes.splice(idx, 1)
                       }
-                      setCrewSchemes(randomSchemes)
+                      setSchemePool(randomSchemes)
+                      setChosenSchemes([]) // Clear chosen when pool changes
                     }}
-                    title="Randomly generate scheme pool (simulates flipping 3 scheme cards)"
-                  >Random
+                    title="Randomly flip 5 scheme cards face-up"
+                  >Random Pool
                   </button>
                 </div>
                 <div className="scheme-chips">
                   {schemeList.map(s => {
-                    const isSelected = crewSchemes.includes(s.id)
+                    const isInPool = schemePool.includes(s.id)
                     return (
                       <button
                         key={s.id}
-                        className={`scheme-chip-btn ${isSelected ? 'selected' : ''}`}
-                        onClick={() => toggleCrewScheme(s.id)}
+                        className={`scheme-chip-btn ${isInPool ? 'selected' : ''}`}
+                        onClick={() => togglePoolScheme(s.id)}
                         title={s.name}
                       >
                         {s.name}
@@ -3811,6 +3892,31 @@ function App() {
                   })}
                 </div>
               </div>
+              
+              {/* Choose 2 Schemes from Pool */}
+              {schemePool.length > 0 && (
+                <div className="encounter-chosen-schemes">
+                  <div className="encounter-schemes-header">
+                    <label>Your Schemes ({chosenSchemes.length}/2 chosen to score):</label>
+                  </div>
+                  <div className="scheme-chips chosen">
+                    {schemePool.map(schemeId => {
+                      const scheme = schemes[schemeId]
+                      const isChosen = chosenSchemes.includes(schemeId)
+                      return (
+                        <button
+                          key={schemeId}
+                          className={`scheme-chip-btn ${isChosen ? 'chosen' : 'available'}`}
+                          onClick={() => toggleChosenScheme(schemeId)}
+                          title={isChosen ? 'Click to deselect' : chosenSchemes.length >= 2 ? 'Already chose 2 schemes' : 'Click to choose this scheme'}
+                        >
+                          {isChosen && '✓ '}{scheme?.name || schemeId}
+                        </button>
+                      )
+                    })}
+                  </div>
+                </div>
+              )}
               
               {/* Full Random Encounter Button */}
               <button 
@@ -3821,19 +3927,332 @@ function App() {
                     const randomStrategy = strategyList[Math.floor(Math.random() * strategyList.length)]
                     setCrewStrategy(randomStrategy.id)
                   }
-                  // Random 3 schemes
+                  // Random 5 schemes for pool
                   const availableSchemes = [...schemeList]
-                  const randomSchemes = []
-                  for (let i = 0; i < 3 && availableSchemes.length > 0; i++) {
+                  const randomPool = []
+                  for (let i = 0; i < 5 && availableSchemes.length > 0; i++) {
                     const idx = Math.floor(Math.random() * availableSchemes.length)
-                    randomSchemes.push(availableSchemes[idx].id)
+                    randomPool.push(availableSchemes[idx].id)
                     availableSchemes.splice(idx, 1)
                   }
-                  setCrewSchemes(randomSchemes)
+                  setSchemePool(randomPool)
+                  // Auto-select first 2 as chosen
+                  setChosenSchemes(randomPool.slice(0, 2))
                 }}
-                title="Generate a complete random encounter (Strategy + 3 Schemes)"
+                title="Generate a complete random encounter (Strategy + 5 Scheme pool + 2 chosen)"
               >Generate Random Encounter
               </button>
+              
+              {/* Collapsible Objective Cards Display */}
+              {(crewStrategy || schemePool.length > 0) && (
+                <div className={`objectives-cards-section ${objectivesCardsOpen ? 'open' : 'collapsed'}`}>
+                  <div 
+                    className="objectives-cards-header"
+                    onClick={() => setObjectivesCardsOpen(!objectivesCardsOpen)}
+                  >
+                    <span className="objectives-cards-title">
+                      🎴 Selected Objectives
+                      {crewStrategy && <span className="objective-count-badge">1 Strategy</span>}
+                      {schemePool.length > 0 && <span className="objective-count-badge">{schemePool.length} Pool</span>}
+                      {chosenSchemes.length > 0 && <span className="objective-count-badge chosen">{chosenSchemes.length} Chosen</span>}
+                    </span>
+                    <span className="objectives-cards-toggle">{objectivesCardsOpen ? '▼' : '▶'}</span>
+                  </div>
+                  
+                  {objectivesCardsOpen && (
+                    <div className="objectives-cards-display">
+                      {/* Strategy Card */}
+                      {crewStrategy && STRATEGY_CARD_IMAGES[crewStrategy] && (
+                        <div 
+                          className="objective-card strategy-card"
+                          onClick={() => setSelectedObjective(strategies[crewStrategy])}
+                        >
+                          <img 
+                            src={`${IMAGE_BASE}/${STRATEGY_CARD_IMAGES[crewStrategy]}`}
+                            alt={strategies[crewStrategy]?.name || crewStrategy}
+                            onError={(e) => { e.target.style.display = 'none' }}
+                          />
+                          <div className="objective-card-label strategy">Strategy</div>
+                        </div>
+                      )}
+                      {/* Fallback if no strategy image */}
+                      {crewStrategy && !STRATEGY_CARD_IMAGES[crewStrategy] && (
+                        <div 
+                          className="objective-card strategy-card no-image"
+                          onClick={() => setSelectedObjective(strategies[crewStrategy])}
+                        >
+                          <div className="objective-card-placeholder">
+                            <span className="placeholder-icon">🎯</span>
+                            <span className="placeholder-name">{strategies[crewStrategy]?.name || crewStrategy}</span>
+                          </div>
+                          <div className="objective-card-label strategy">Strategy</div>
+                        </div>
+                      )}
+                      
+                      {/* Scheme Cards - Show all pool, highlight chosen */}
+                      {schemePool.map(schemeId => {
+                        const isChosen = chosenSchemes.includes(schemeId)
+                        return (
+                          <div 
+                            key={schemeId} 
+                            className={`objective-card scheme-card ${isChosen ? 'chosen' : 'in-pool'}`}
+                            onClick={() => setSelectedObjective(schemes[schemeId])}
+                          >
+                            {SCHEME_CARD_IMAGES[schemeId] ? (
+                              <img 
+                                src={`${IMAGE_BASE}/${SCHEME_CARD_IMAGES[schemeId]}`}
+                                alt={schemes[schemeId]?.name || schemeId}
+                                onError={(e) => { 
+                                  e.target.style.display = 'none'
+                                  e.target.nextSibling && (e.target.nextSibling.style.display = 'flex')
+                                }}
+                              />
+                            ) : null}
+                            {/* Fallback placeholder */}
+                            <div className="objective-card-placeholder" style={{ display: SCHEME_CARD_IMAGES[schemeId] ? 'none' : 'flex' }}>
+                              <span className="placeholder-icon">📋</span>
+                              <span className="placeholder-name">{schemes[schemeId]?.name || schemeId}</span>
+                            </div>
+                            {/* Choose/Unchose button - top right corner */}
+                            <button
+                              className={`scheme-choose-btn ${isChosen ? 'chosen' : ''}`}
+                              onClick={(e) => {
+                                e.stopPropagation() // Don't trigger card click
+                                toggleChosenScheme(schemeId)
+                              }}
+                              title={isChosen ? 'Remove from chosen' : chosenSchemes.length >= 2 ? 'Already chose 2 schemes' : 'Choose this scheme'}
+                              disabled={!isChosen && chosenSchemes.length >= 2}
+                            >
+                              {isChosen ? '✓' : '+'}
+                            </button>
+                            <div className="objective-card-label scheme">
+                              {isChosen ? 'Chosen' : 'Pool'}
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  )}
+                  
+                  {/* Objective Cards Styles */}
+                  <style>{`
+                    .objectives-cards-section {
+                      margin-top: 16px;
+                      background: rgba(0,0,0,0.2);
+                      border-radius: 8px;
+                      overflow: hidden;
+                    }
+                    
+                    .objectives-cards-header {
+                      display: flex;
+                      justify-content: space-between;
+                      align-items: center;
+                      padding: 12px 16px;
+                      cursor: pointer;
+                      background: rgba(255,255,255,0.05);
+                      transition: background 0.2s ease;
+                    }
+                    
+                    .objectives-cards-header:hover {
+                      background: rgba(255,255,255,0.1);
+                    }
+                    
+                    .objectives-cards-title {
+                      display: flex;
+                      align-items: center;
+                      gap: 8px;
+                      font-weight: 600;
+                      color: #fff;
+                    }
+                    
+                    .objective-count-badge {
+                      background: rgba(59, 130, 246, 0.3);
+                      color: #93c5fd;
+                      padding: 2px 8px;
+                      border-radius: 12px;
+                      font-size: 0.75rem;
+                      font-weight: 500;
+                    }
+                    
+                    .objectives-cards-toggle {
+                      color: #9ca3af;
+                      font-size: 0.875rem;
+                    }
+                    
+                    .objectives-cards-display {
+                      display: flex;
+                      flex-wrap: wrap;
+                      gap: 12px;
+                      padding: 16px;
+                      justify-content: center;
+                    }
+                    
+                    .objective-card {
+                      position: relative;
+                      width: 140px;
+                      border-radius: 8px;
+                      overflow: hidden;
+                      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+                      transition: transform 0.2s ease, box-shadow 0.2s ease;
+                      cursor: pointer;
+                    }
+                    
+                    .objective-card:hover {
+                      transform: translateY(-4px) scale(1.02);
+                      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+                    }
+                    
+                    .objective-card img {
+                      width: 100%;
+                      height: auto;
+                      display: block;
+                    }
+                    
+                    .objective-card-placeholder {
+                      display: flex;
+                      flex-direction: column;
+                      align-items: center;
+                      justify-content: center;
+                      height: 200px;
+                      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+                      padding: 16px;
+                      text-align: center;
+                    }
+                    
+                    .placeholder-icon {
+                      font-size: 2.5rem;
+                      margin-bottom: 8px;
+                    }
+                    
+                    .placeholder-name {
+                      color: #e2e8f0;
+                      font-weight: 600;
+                      font-size: 0.875rem;
+                      line-height: 1.3;
+                    }
+                    
+                    .objective-card-label {
+                      position: absolute;
+                      bottom: 0;
+                      left: 0;
+                      right: 0;
+                      padding: 8px 4px 4px;
+                      font-size: 0.7rem;
+                      font-weight: 600;
+                      text-align: center;
+                      text-transform: uppercase;
+                      letter-spacing: 0.5px;
+                      color: #fff;
+                    }
+                    
+                    .objective-card-label.strategy {
+                      background: linear-gradient(transparent, rgba(220, 38, 38, 0.9));
+                    }
+                    
+                    .objective-card-label.scheme {
+                      background: linear-gradient(transparent, rgba(37, 99, 235, 0.9));
+                    }
+                    
+                    .strategy-card {
+                      border: 2px solid rgba(220, 38, 38, 0.5);
+                    }
+                    
+                    .scheme-card {
+                      border: 2px solid rgba(37, 99, 235, 0.5);
+                    }
+                    
+                    .scheme-card.chosen {
+                      border: 3px solid rgba(34, 197, 94, 0.8);
+                      box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+                    }
+                    
+                    .scheme-card.in-pool {
+                      opacity: 0.7;
+                    }
+                    
+                    .scheme-card.in-pool:hover {
+                      opacity: 1;
+                    }
+                    
+                    .scheme-choose-btn {
+                      position: absolute;
+                      top: 6px;
+                      right: 6px;
+                      width: 28px;
+                      height: 28px;
+                      border-radius: 50%;
+                      border: 2px solid rgba(255,255,255,0.6);
+                      background: rgba(0,0,0,0.5);
+                      color: #fff;
+                      font-size: 1rem;
+                      font-weight: bold;
+                      cursor: pointer;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      transition: all 0.2s ease;
+                      z-index: 5;
+                    }
+                    
+                    .scheme-choose-btn:hover:not(:disabled) {
+                      background: rgba(34, 197, 94, 0.6);
+                      border-color: rgba(34, 197, 94, 0.9);
+                      transform: scale(1.1);
+                    }
+                    
+                    .scheme-choose-btn.chosen {
+                      background: rgba(34, 197, 94, 0.8);
+                      border-color: rgba(34, 197, 94, 1);
+                    }
+                    
+                    .scheme-choose-btn.chosen:hover {
+                      background: rgba(239, 68, 68, 0.7);
+                      border-color: rgba(239, 68, 68, 0.9);
+                    }
+                    
+                    .scheme-choose-btn:disabled {
+                      opacity: 0.4;
+                      cursor: not-allowed;
+                    }
+                    
+                    .objective-count-badge.chosen {
+                      background: rgba(34, 197, 94, 0.3);
+                      color: #86efac;
+                    }
+                    
+                    .encounter-chosen-schemes {
+                      margin-top: 12px;
+                      padding-top: 12px;
+                      border-top: 1px solid rgba(255,255,255,0.1);
+                    }
+                    
+                    .scheme-chips.chosen .scheme-chip-btn {
+                      background: rgba(37, 99, 235, 0.2);
+                      border-color: rgba(37, 99, 235, 0.4);
+                    }
+                    
+                    .scheme-chips.chosen .scheme-chip-btn.chosen {
+                      background: rgba(34, 197, 94, 0.3);
+                      border-color: rgba(34, 197, 94, 0.6);
+                      color: #86efac;
+                    }
+                    
+                    .scheme-chips.chosen .scheme-chip-btn.available:hover {
+                      background: rgba(34, 197, 94, 0.2);
+                      border-color: rgba(34, 197, 94, 0.4);
+                    }
+                    
+                    @media (max-width: 600px) {
+                      .objective-card {
+                        width: 110px;
+                      }
+                      .objective-card-placeholder {
+                        height: 160px;
+                      }
+                    }
+                  `}</style>
+                </div>
+              )}
             </div>
           </div>
 
@@ -3914,6 +4333,7 @@ function App() {
                               setSelectedMaster(m)
                               setCrewRoster([])
                               setMasterFilter('')
+                              setMasterCrewCardFlipped(false) // Reset to Master in front
                             }}
                             onMouseEnter={() => setHoveredMaster(m)}
                             onMouseLeave={() => setHoveredMaster(null)}
@@ -3943,25 +4363,172 @@ function App() {
               )}
               
               
-              {/*  LEADER DISPLAY - Master + Crew Card Large  */}
+              {/*  LEADER DISPLAY - Master + Crew Card Stacked  */}
               {selectedMaster && (
                 <div className="crew-leaders-display">
-                  <div className="leader-card-large" onClick={() => openModal(selectedMaster, [selectedMaster, selectedCrewCard, ...crewRoster].filter(Boolean))}>
-                    <img 
-                      src={`${IMAGE_BASE}/${selectedMaster.front_image}`}
-                      alt={selectedMaster.name}
-                    />
-                    <div className="leader-card-label">Master</div>
-                  </div>
-                  {selectedCrewCard && (
-                    <div className="leader-card-large crew-card" onClick={() => openModal(selectedCrewCard, [selectedMaster, selectedCrewCard, ...crewRoster].filter(Boolean))}>
+                  {selectedCrewCard ? (
+                    /* Stacked cards when both Master and Crew card exist */
+                    <div className="leader-card-stack">
+                      {/* Back card (angled) - clicking swaps positions */}
+                      <div 
+                        className={`leader-card-stacked back-card ${masterCrewCardFlipped ? 'is-master' : 'is-crew'}`}
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setMasterCrewCardFlipped(!masterCrewCardFlipped)
+                        }}
+                        style={{
+                          transform: 'rotate(12deg)',
+                          transformOrigin: 'bottom center'
+                        }}
+                      >
+                        <img 
+                          src={`${IMAGE_BASE}/${masterCrewCardFlipped ? selectedMaster.front_image : selectedCrewCard.front_image}`}
+                          alt={masterCrewCardFlipped ? selectedMaster.name : selectedCrewCard.name}
+                        />
+                        <div className="leader-card-label">
+                          {masterCrewCardFlipped ? 'Master' : 'Crew Rules'}
+                        </div>
+                      </div>
+                      
+                      {/* Front card - clicking opens modal */}
+                      <div 
+                        className={`leader-card-stacked front-card ${masterCrewCardFlipped ? 'is-crew' : 'is-master'}`}
+                        onClick={() => openModal(
+                          masterCrewCardFlipped ? selectedCrewCard : selectedMaster, 
+                          [selectedMaster, selectedCrewCard, ...crewRoster].filter(Boolean)
+                        )}
+                      >
+                        <img 
+                          src={`${IMAGE_BASE}/${masterCrewCardFlipped ? selectedCrewCard.front_image : selectedMaster.front_image}`}
+                          alt={masterCrewCardFlipped ? selectedCrewCard.name : selectedMaster.name}
+                        />
+                        <div className="leader-card-label">
+                          {masterCrewCardFlipped ? 'Crew Rules' : 'Master'}
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    /* Single Master card when no Crew card available */
+                    <div 
+                      className="leader-card-single"
+                      onClick={() => openModal(selectedMaster, [selectedMaster, ...crewRoster].filter(Boolean))}
+                    >
                       <img 
-                        src={`${IMAGE_BASE}/${selectedCrewCard.front_image}`}
-                        alt={selectedCrewCard.name}
+                        src={`${IMAGE_BASE}/${selectedMaster.front_image}`}
+                        alt={selectedMaster.name}
                       />
-                      <div className="leader-card-label">Crew Rules</div>
+                      <div className="leader-card-label">Master</div>
                     </div>
                   )}
+                  
+                  {/* Stacked card styles */}
+                  <style>{`
+                    .leader-card-stack {
+                      position: relative;
+                      width: 160px;
+                      height: 240px;
+                      margin: 0 auto 20px;
+                    }
+                    
+                    .leader-card-stacked {
+                      position: absolute;
+                      width: 150px;
+                      cursor: pointer;
+                      border-radius: 8px;
+                      overflow: hidden;
+                      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+                      transition: transform 0.3s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+                    }
+                    
+                    .leader-card-stacked img {
+                      width: 100%;
+                      height: auto;
+                      display: block;
+                    }
+                    
+                    .leader-card-stacked .leader-card-label {
+                      position: absolute;
+                      bottom: 0;
+                      left: 0;
+                      right: 0;
+                      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+                      color: #fff;
+                      font-size: 0.7rem;
+                      font-weight: 600;
+                      text-align: center;
+                      padding: 12px 4px 4px;
+                      text-transform: uppercase;
+                      letter-spacing: 0.5px;
+                    }
+                    
+                    .leader-card-stacked.back-card {
+                      z-index: 1;
+                      top: 0;
+                      left: 0;
+                      opacity: 0.85;
+                    }
+                    
+                    .leader-card-stacked.back-card:hover {
+                      opacity: 1;
+                      box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+                    }
+                    
+                    .leader-card-stacked.front-card {
+                      z-index: 2;
+                      top: 15px;
+                      left: 10px;
+                    }
+                    
+                    .leader-card-stacked.front-card:hover {
+                      transform: scale(1.03);
+                      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+                    }
+                    
+                    .leader-card-stacked.is-master .leader-card-label {
+                      background: linear-gradient(transparent, rgba(139, 69, 19, 0.9));
+                    }
+                    
+                    .leader-card-stacked.is-crew .leader-card-label {
+                      background: linear-gradient(transparent, rgba(75, 0, 130, 0.9));
+                    }
+                    
+                    .leader-card-single {
+                      width: 140px;
+                      margin: 0 auto;
+                      cursor: pointer;
+                      border-radius: 8px;
+                      overflow: hidden;
+                      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+                      transition: transform 0.2s ease, box-shadow 0.2s ease;
+                      position: relative;
+                    }
+                    
+                    .leader-card-single:hover {
+                      transform: scale(1.03);
+                      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+                    }
+                    
+                    .leader-card-single img {
+                      width: 100%;
+                      height: auto;
+                      display: block;
+                    }
+                    
+                    .leader-card-single .leader-card-label {
+                      position: absolute;
+                      bottom: 0;
+                      left: 0;
+                      right: 0;
+                      background: linear-gradient(transparent, rgba(139, 69, 19, 0.9));
+                      color: #fff;
+                      font-size: 0.7rem;
+                      font-weight: 600;
+                      text-align: center;
+                      padding: 12px 4px 4px;
+                      text-transform: uppercase;
+                      letter-spacing: 0.5px;
+                    }
+                  `}</style>
                 </div>
               )}
               
@@ -4369,17 +4936,17 @@ function App() {
               <h3>🏛️ POOL ANALYSIS</h3>
               
               {/* No objectives yet */}
-              {!crewStrategy && crewSchemes.length === 0 && (
+              {!crewStrategy && schemePool.length === 0 && (
                 <div className="ab-intel-empty">
                   <p>Select Strategy & Schemes above to see pool analysis</p>
                 </div>
               )}
               
               {/* Pool Analysis Content */}
-              {(crewStrategy || crewSchemes.length > 0) && (() => {
+              {(crewStrategy || schemePool.length > 0) && (() => {
                 const previewMaster = selectedMaster || hoveredMaster
                 const stratName = strategies[crewStrategy]?.name || ''
-                const schemeNames = crewSchemes.map(id => schemes[id]?.name).filter(Boolean)
+                const schemeNames = chosenSchemes.map(id => schemes[id]?.name).filter(Boolean)
                 
                 // Build pool requirements
                 const POOL_STRATEGY_NEEDS = {
@@ -4566,7 +5133,7 @@ function App() {
                     )}
                     
                     {/* Scheme Scoring Buttons */}
-                    {crewSchemes.length > 0 && (
+                    {chosenSchemes.length > 0 && (
                       <div className="scheme-scoring-section">
                         <h4>SCHEME SCORING</h4>
                         <div className="scheme-buttons">
@@ -4714,6 +5281,7 @@ function App() {
                       const master = opponentMasters.find(m => m.id === e.target.value)
                       setOpponentMaster(master || null)
                       setCounterCrewReasoning(null) // Clear counter-crew reasoning on manual selection
+                      setOpponentCrewCardFlipped(false) // Reset to Master in front
                     }}
                     className="ab-master-dropdown opponent"
                   >
@@ -4725,31 +5293,68 @@ function App() {
                 </div>
               )}
               
-              {/*  OPPONENT LEADER DISPLAY - Master + Crew Card Large  */}
-              {opponentMaster && (
-                <div className="crew-leaders-display opponent">
-                  <div className="leader-card-large" onClick={() => openModal(opponentMaster, [opponentMaster, ...opponentCrew])}>
-                    <img 
-                      src={`${IMAGE_BASE}/${opponentMaster.front_image}`}
-                      alt={opponentMaster.name}
-                    />
-                    <div className="leader-card-label">Master</div>
-                  </div>
-                  {/* Find opponent's crew card */}
-                  {(() => {
-                    const oppCrewCard = getCrewCardForMaster(opponentMaster)
-                    return oppCrewCard && (
-                      <div className="leader-card-large crew-card" onClick={() => openModal(oppCrewCard, [opponentMaster, oppCrewCard, ...opponentCrew])}>
-                        <img 
-                          src={`${IMAGE_BASE}/${oppCrewCard.front_image}`}
-                          alt={oppCrewCard.name}
-                        />
-                        <div className="leader-card-label">Crew Rules</div>
+              {/*  OPPONENT LEADER DISPLAY - Master + Crew Card Stacked  */}
+              {opponentMaster && (() => {
+                const oppCrewCard = getCrewCardForMaster(opponentMaster)
+                return (
+                  <div className="crew-leaders-display opponent">
+                    {oppCrewCard ? (
+                      /* Stacked cards when both Master and Crew card exist */
+                      <div className="leader-card-stack">
+                        {/* Back card (angled) - clicking swaps positions */}
+                        <div 
+                          className={`leader-card-stacked back-card ${opponentCrewCardFlipped ? 'is-master' : 'is-crew'}`}
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            setOpponentCrewCardFlipped(!opponentCrewCardFlipped)
+                          }}
+                          style={{
+                            transform: 'rotate(12deg)',
+                            transformOrigin: 'bottom center'
+                          }}
+                        >
+                          <img 
+                            src={`${IMAGE_BASE}/${opponentCrewCardFlipped ? opponentMaster.front_image : oppCrewCard.front_image}`}
+                            alt={opponentCrewCardFlipped ? opponentMaster.name : oppCrewCard.name}
+                          />
+                          <div className="leader-card-label">
+                            {opponentCrewCardFlipped ? 'Master' : 'Crew Rules'}
+                          </div>
+                        </div>
+                        
+                        {/* Front card - clicking opens modal */}
+                        <div 
+                          className={`leader-card-stacked front-card ${opponentCrewCardFlipped ? 'is-crew' : 'is-master'}`}
+                          onClick={() => openModal(
+                            opponentCrewCardFlipped ? oppCrewCard : opponentMaster, 
+                            [opponentMaster, oppCrewCard, ...opponentCrew].filter(Boolean)
+                          )}
+                        >
+                          <img 
+                            src={`${IMAGE_BASE}/${opponentCrewCardFlipped ? oppCrewCard.front_image : opponentMaster.front_image}`}
+                            alt={opponentCrewCardFlipped ? oppCrewCard.name : opponentMaster.name}
+                          />
+                          <div className="leader-card-label">
+                            {opponentCrewCardFlipped ? 'Crew Rules' : 'Master'}
+                          </div>
+                        </div>
                       </div>
-                    )
-                  })()}
-                </div>
-              )}
+                    ) : (
+                      /* Single Master card when no Crew card available */
+                      <div 
+                        className="leader-card-single"
+                        onClick={() => openModal(opponentMaster, [opponentMaster, ...opponentCrew].filter(Boolean))}
+                      >
+                        <img 
+                          src={`${IMAGE_BASE}/${opponentMaster.front_image}`}
+                          alt={opponentMaster.name}
+                        />
+                        <div className="leader-card-label">Master</div>
+                      </div>
+                    )}
+                  </div>
+                )
+              })()}
               
               {/* Opponent Crew Section - Horizontal layout with stats sidebar */}
               <div className="crew-roster-section opponent">
@@ -4860,10 +5465,13 @@ function App() {
                 </div>
               )}
               
-              {/*  OPPONENT SYNERGY PANEL  */}
+              {/*  OPPONENT SYNERGY PANEL - Collapsible  */}
               {opponentMaster && opponentCrew.length > 0 && (
-                <div className="synergy-panel opponent">
-                  <div className="synergy-panel-header">
+                <div className={`synergy-panel opponent ${opponentSynergyPanelOpen ? 'open' : 'collapsed'}`}>
+                  <div 
+                    className="synergy-panel-header"
+                    onClick={() => setOpponentSynergyPanelOpen(!opponentSynergyPanelOpen)}
+                  >
                     <span className="synergy-panel-title">Opponent Synergies
                       {opponentCrewSynergies.synergies.length > 0 && (
                         <span className="synergy-count-badge">
@@ -4871,39 +5479,51 @@ function App() {
                         </span>
                       )}
                     </span>
-                    <span className="synergy-score-compact">
-                      {opponentCrewSynergies.totalScore > 0 ? '+' : ''}{opponentCrewSynergies.totalScore}
+                    <span className="synergy-panel-toggle">
+                      {opponentSynergyPanelOpen ? '▼' : '▶'}
                     </span>
                   </div>
                   
-                  {/* Compact Synergy List */}
-                  {opponentCrewSynergies.synergies.length > 0 && (
-                    <div className="synergy-panel-content compact">
-                      {opponentCrewSynergies.synergies.slice(0, 4).map((syn, idx) => (
-                        <div key={idx} className="synergy-item compact">
-                          <span className="synergy-icon">{syn.icon}</span>
-                          <span className="synergy-model-name">{syn.modelA.name}</span>
-                          <span className="synergy-arrow">
-                            {syn.direction === 'bidirectional' ? '' : ''}
-                          </span>
-                          <span className="synergy-model-name">{syn.modelB.name}</span>
-                        </div>
-                      ))}
-                      {opponentCrewSynergies.synergies.length > 4 && (
-                        <div className="synergy-more">
-                          +{opponentCrewSynergies.synergies.length - 4} more
+                  {opponentSynergyPanelOpen && (
+                    <>
+                      {/* Synergy Score */}
+                      <div className="synergy-score-summary">
+                        <span className="synergy-score-label">Synergy Score:</span>
+                        <span className={`synergy-score-value ${opponentCrewSynergies.totalScore >= 3 ? 'good' : opponentCrewSynergies.totalScore >= 1 ? 'ok' : 'low'}`}>
+                          {opponentCrewSynergies.totalScore > 0 ? '+' : ''}{opponentCrewSynergies.totalScore}
+                        </span>
+                      </div>
+                      
+                      {/* Compact Synergy List */}
+                      {opponentCrewSynergies.synergies.length > 0 && (
+                        <div className="synergy-panel-content compact">
+                          {opponentCrewSynergies.synergies.slice(0, 4).map((syn, idx) => (
+                            <div key={idx} className="synergy-item compact">
+                              <span className="synergy-icon">{syn.icon}</span>
+                              <span className="synergy-model-name">{syn.modelA.name}</span>
+                              <span className="synergy-arrow">
+                                {syn.direction === 'bidirectional' ? '↔' : '→'}
+                              </span>
+                              <span className="synergy-model-name">{syn.modelB.name}</span>
+                            </div>
+                          ))}
+                          {opponentCrewSynergies.synergies.length > 4 && (
+                            <div className="synergy-more">
+                              +{opponentCrewSynergies.synergies.length - 4} more
+                            </div>
+                          )}
                         </div>
                       )}
-                    </div>
-                  )}
-                  
-                  {/* Anti-synergies */}
-                  {opponentCrewSynergies.antiSynergies.length > 0 && (
-                    <div className="synergy-panel-content compact anti">
-                      <span className="anti-synergy-note">
-                         {opponentCrewSynergies.antiSynergies.length} potential conflict(s)
-                      </span>
-                    </div>
+                      
+                      {/* Anti-synergies */}
+                      {opponentCrewSynergies.antiSynergies.length > 0 && (
+                        <div className="synergy-panel-content compact anti">
+                          <span className="anti-synergy-note">
+                            ⚠ {opponentCrewSynergies.antiSynergies.length} potential conflict(s)
+                          </span>
+                        </div>
+                      )}
+                    </>
                   )}
                 </div>
               )}
@@ -5129,48 +5749,6 @@ function App() {
                     </div>
                   )}
                 </section>
-              )}
-              
-              {/* Collapsible Objective Fit Score - Below crew pools */}
-              {(crewStrategy || crewSchemes.length > 0) && (
-                <div className={`objective-fit-collapsible ${objectiveFitOpen ? 'open' : 'collapsed'}`}>
-                  <div 
-                    className="objective-fit-header"
-                    onClick={() => setObjectiveFitOpen(!objectiveFitOpen)}
-                  >
-                    <span className="objective-fit-toggle">{objectiveFitOpen ? '▼' : '▶'}</span>
-                    <span className="objective-fit-title">⭐ Objective Fit Score</span>
-                  </div>
-                  {objectiveFitOpen && (
-                    <div className="objective-fit-content">
-                      <p className="scoring-legend-explanation">
-                        Stars indicate how well a model fits your selected objectives. 
-                        Each ⭐ means the model has a role that helps score your Strategy or Schemes.
-                      </p>
-                      {crewFavoredRoles.size > 0 && (
-                        <div className="scoring-legend-roles">
-                          <span className="scoring-legend-label">Looking for:</span>
-                          <div className="scoring-legend-role-list">
-                            {Array.from(crewFavoredRoles).slice(0, 6).map(role => (
-                              <span key={role} className="scoring-legend-role">
-                                {ROLE_DESCRIPTIONS[role]?.label || role}
-                              </span>
-                            ))}
-                            {crewFavoredRoles.size > 6 && (
-                              <span className="scoring-legend-more">+{crewFavoredRoles.size - 6} more</span>
-                            )}
-                          </div>
-                        </div>
-                      )}
-                      <div className="scoring-legend-scale">
-                        <span className="score-example"><span className="stars star-level-excellent">★★★</span>Excellent fit</span>
-                        <span className="score-example"><span className="stars star-level-good">★★</span>Good fit</span>
-                        <span className="score-example"><span className="stars star-level-some">★</span>Some fit</span>
-                        <span className="score-example"><span className="stars dim">☆</span>No match</span>
-                      </div>
-                    </div>
-                  )}
-                </div>
               )}
             </div>
           )}
@@ -5567,6 +6145,33 @@ function App() {
               <button className="close-btn" onClick={closeObjectiveModal}></button>
             </div>
             <div className="objective-modal-body">
+              {/* Card Image */}
+              {(() => {
+                const imageMap = selectedObjective.card_type === 'strategy' 
+                  ? STRATEGY_CARD_IMAGES 
+                  : SCHEME_CARD_IMAGES
+                const imagePath = imageMap[selectedObjective.id]
+                return imagePath && (
+                  <div className="objective-modal-image" style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    marginBottom: '16px'
+                  }}>
+                    <img 
+                      src={`${IMAGE_BASE}/${imagePath}`}
+                      alt={selectedObjective.name}
+                      style={{
+                        maxWidth: '280px',
+                        width: '100%',
+                        height: 'auto',
+                        borderRadius: '8px',
+                        boxShadow: '0 4px 20px rgba(0,0,0,0.4)'
+                      }}
+                    />
+                  </div>
+                )
+              })()}
+              
               <div className="objective-vp-display">
                 <span className="vp-number">{selectedObjective.max_vp}</span>
                 <span className="vp-text">Victory Points</span>
