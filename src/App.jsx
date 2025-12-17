@@ -1080,6 +1080,33 @@ function App() {
     })
   }, [selectedMaster, cards])
 
+  // Get Out-of-Keyword (OOK) models - same faction, not keyword, not versatile
+  // These cost +1ss to hire and count toward the 2 OOK limit
+  const ookModels = useMemo(() => {
+    if (!selectedMaster) return []
+    const masterFaction = selectedMaster.faction
+    const primaryKeyword = selectedMaster.primary_keyword
+    
+    const filtered = cards.filter(card => 
+      card.faction === masterFaction &&
+      !(card.keywords || []).includes(primaryKeyword) &&     // Not in-keyword
+      !(card.characteristics || []).includes('Versatile') && // Not versatile
+      card.station !== 'Master' &&                           // No masters
+      card.station !== 'Totem'                               // No totems
+    ).sort((a, b) => (b.cost || 0) - (a.cost || 0))
+    
+    // Deduplicate by name
+    const seen = new Set()
+    return filtered.filter(card => {
+      if (seen.has(card.name)) return false
+      seen.add(card.name)
+      return true
+    })
+  }, [selectedMaster, cards])
+
+  // State for OOK section collapse
+  const [ookSectionOpen, setOokSectionOpen] = useState(false)
+
   // Get opponent faction's masters (deduplicated by name)
   const opponentMasters = useMemo(() => {
     if (!opponentFaction) return []
@@ -4911,6 +4938,71 @@ function App() {
                       )
                     })}
                   </div>
+                </section>
+              )}
+
+              {/* Out-of-Keyword (OOK) Models - Collapsible */}
+              {ookModels.length > 0 && (
+                <section className="hiring-section ook-section">
+                  <h3 
+                    className="hiring-section-title collapsible"
+                    onClick={() => setOokSectionOpen(!ookSectionOpen)}
+                  >
+                    <span className="collapse-toggle">{ookSectionOpen ? '▼' : '▶'}</span>
+                    <span className="ook-badge">OOK</span>
+                    Out-of-Keyword (+1ss tax)
+                    <span className="ook-model-count">{ookModels.length} models</span>
+                    <span className={`ook-counter ${crewMath.ookCount >= crewMath.ookLimit ? 'at-limit' : ''}`}>
+                      OOK: {crewMath.ookCount}/{crewMath.ookLimit}
+                    </span>
+                  </h3>
+                  {ookSectionOpen && (
+                    <div className="hiring-grid">
+                      {ookModels.map((card, index) => {
+                        const isMinion = (card.characteristics || []).includes('Minion')
+                        const minionCount = isMinion ? (crewMath.minionCounts[card.name] || 0) : 0
+                        const minionLimit = card.minion_limit || 3
+                        const inRoster = isMinion ? minionCount > 0 : crewRoster.some(c => c.id === card.id)
+                        const atLimit = isMinion && minionCount >= minionLimit
+                        const canAdd = canAddToCrew(card)
+                        const blockReason = getHiringBlockReason(card)
+                        const score = getObjectiveScore(card)
+                        const baseCost = card.cost || 0
+                        return (
+                          <div 
+                            key={`ook-${card.id}-${index}`}
+                            className={`hiring-card ook ${inRoster ? 'in-roster' : ''} ${blockReason === 'budget' ? 'unaffordable' : ''} ${blockReason === 'ook-limit' ? 'ook-blocked' : ''} ${atLimit ? 'at-limit' : ''}`}
+                            onClick={() => canAdd && addToCrew(card)}
+                            title={blockReason === 'ook-limit' ? 'Out-of-keyword limit reached (2 max)' : blockReason === 'budget' ? 'Not enough soulstones' : `${card.primary_keyword || 'Unknown'} keyword`}
+                          >
+                            <div className="hiring-card-header">
+                              <span className="hiring-card-name">{card.name}</span>
+                              <span className="hiring-card-cost">
+                                {baseCost}<span className="tax-indicator">+1</span>ss
+                              </span>
+                            </div>
+                            <div className="hiring-card-info">
+                              <span className="hiring-card-char">
+                                {(card.characteristics || []).filter(c => ['Henchman','Enforcer','Minion'].includes(c))[0] || 'Model'}
+                              </span>
+                              <span className="hiring-card-keyword" title="Original keyword">
+                                {card.primary_keyword || '?'}
+                              </span>
+                              {isMinion && (
+                                <span className={`minion-count ${minionCount >= minionLimit ? 'at-limit' : ''}`}>
+                                  {minionCount}/{minionLimit}
+                                </span>
+                              )}
+                              {score > 0 && renderStars(score)}
+                            </div>
+                            {inRoster && !isMinion && <div className="in-roster-badge"></div>}
+                            {atLimit && <div className="at-limit-badge">MAX</div>}
+                            {blockReason === 'ook-limit' && <div className="ook-limit-badge">OOK FULL</div>}
+                          </div>
+                        )
+                      })}
+                    </div>
+                  )}
                 </section>
               )}
               

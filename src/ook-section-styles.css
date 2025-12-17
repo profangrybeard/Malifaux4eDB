@@ -1,0 +1,126 @@
+/* =============================================
+   OUT-OF-KEYWORD (OOK) SECTION STYLES
+   Add these to your index.css
+   ============================================= */
+
+/* OOK Section - Collapsible */
+.ook-section {
+  border: 1px solid rgba(255, 165, 0, 0.3);
+  border-radius: 8px;
+  background: rgba(255, 165, 0, 0.05);
+}
+
+.hiring-section-title.collapsible {
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease;
+}
+
+.hiring-section-title.collapsible:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.collapse-toggle {
+  margin-right: 8px;
+  font-size: 0.8em;
+  color: #888;
+  transition: transform 0.2s ease;
+}
+
+/* OOK Badge */
+.ook-badge {
+  background: linear-gradient(135deg, #ff8c00, #ff6600);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75em;
+  font-weight: 600;
+  margin-right: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Model count in header */
+.ook-model-count {
+  margin-left: auto;
+  margin-right: 12px;
+  font-size: 0.85em;
+  color: #888;
+  font-weight: normal;
+}
+
+/* OOK Card styling */
+.hiring-card.ook {
+  border-color: rgba(255, 140, 0, 0.4);
+  background: rgba(255, 140, 0, 0.08);
+}
+
+.hiring-card.ook:hover {
+  border-color: rgba(255, 140, 0, 0.7);
+  background: rgba(255, 140, 0, 0.15);
+}
+
+.hiring-card.ook.in-roster {
+  border-color: rgba(255, 140, 0, 0.8);
+  background: rgba(255, 140, 0, 0.25);
+}
+
+/* Keyword indicator on OOK cards */
+.hiring-card-keyword {
+  font-size: 0.7em;
+  color: #999;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1px 6px;
+  border-radius: 3px;
+  max-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Tax indicator styling (shared with Versatile) */
+.tax-indicator {
+  color: #fbbf24;
+  font-size: 0.85em;
+  font-weight: 600;
+}
+
+/* OOK blocked state */
+.hiring-card.ook-blocked {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.hiring-card.ook-blocked:hover {
+  border-color: rgba(255, 140, 0, 0.4);
+  background: rgba(255, 140, 0, 0.08);
+}
+
+.ook-limit-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(239, 68, 68, 0.9);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.7em;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* OOK Counter in section headers */
+.ook-counter {
+  font-size: 0.8em;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(255, 140, 0, 0.2);
+  color: #ff8c00;
+  margin-left: 8px;
+}
+
+.ook-counter.at-limit {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+}
