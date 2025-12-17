@@ -1,0 +1,2039 @@
+{
+  "Arcanists_M4E_Stat_Wildfire_Academic_Fire_Golem_2": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Fire Golem",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Arcanists_M4E_Stat_Academic_Kandara_7": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Kandara",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Arcanists_M4E_Stat_Academic_Kudra_8": {
+    "roles": [
+      "aggro",
+      "support"
+    ],
+    "_name": "Kudra",
+    "_station": "Henchman"
+  },
+  "Arcanists_M4E_Stat_Academic_Sandeep_Desai_Font_of_Magic_15": {
+    "roles": [
+      "summoner",
+      "support"
+    ],
+    "_name": "Sandeep Desai Font of Magic",
+    "_station": "Master"
+  },
+  "Arcanists_M4E_Stat_Academic_Sandeep_Desai_The_Quiet_Flame_16": {
+    "roles": [
+      "summoner",
+      "support"
+    ],
+    "_name": "Sandeep Desai The Quiet Flame",
+    "_station": "Master"
+  },
+  "Arcanists_M4E_Stat_December_Rasputina_Abominable_38": {
+    "roles": [
+      "control",
+      "aggro"
+    ],
+    "_name": "Rasputina",
+    "_station": "Master"
+  },
+  "Arcanists_M4E_Stat_December_Rasputina_Winter's_Teeth_39": {
+    "roles": [
+      "control",
+      "aggro"
+    ],
+    "_name": "Rasputina Winter's Teeth",
+    "_station": "Master"
+  },
+  "Arcanists_M4E_Stat_December_Snow_Storm_42": {
+    "roles": [
+      "control",
+      "schemer"
+    ],
+    "_name": "Snow Storm",
+    "_station": "Henchman"
+  },
+  "Arcanists_M4E_Stat_Frontier_Cornelius_Basse_Badlands_Sheriff_53": {
+    "roles": [
+      "control",
+      "aggro"
+    ],
+    "_name": "Cornelius Basse",
+    "_station": "Master"
+  },
+  "Arcanists_M4E_Stat_Frontier_Cornelius_Basse_Lone_Verdict_54": {
+    "roles": [
+      "control",
+      "aggro"
+    ],
+    "_name": "Cornelius Basse Lone Verdict",
+    "_station": "Master"
+  },
+  "Arcanists_M4E_Stat_Frontier_Jonathan_Reichart_58": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Jonathan Reichart",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Arcanists_M4E_Stat_Frontier_Paul_Crockett_59": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Paul Crockett",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Arcanists_M4E_Stat_MSU_Joss_68": {
+    "roles": [
+      "aggro",
+      "support"
+    ],
+    "_name": "Joss",
+    "_station": "Henchman"
+  },
+  "Arcanists_M4E_Stat_MSU_The_Captain_75": {
+    "roles": [
+      "support",
+      "control"
+    ],
+    "_name": "The Captain",
+    "_station": "Henchman"
+  },
+  "Arcanists_M4E_Stat_MSU_Toni_Ironsides_Troubleshooter_76": {
+    "roles": [
+      "aggro",
+      "support"
+    ],
+    "_name": "Toni Ironsides Troubleshooter",
+    "_station": "Master"
+  },
+  "Arcanists_M4E_Stat_MSU_Toni_Ironsides_Union_President_77": {
+    "roles": [
+      "aggro",
+      "support"
+    ],
+    "_name": "Toni Ironsides Union President",
+    "_station": "Master"
+  },
+  "Arcanists_M4E_Stat_Performer_Cassandra_Felton_85": {
+    "roles": [
+      "schemer",
+      "control",
+      "aggro"
+    ],
+    "_name": "Cassandra Felton",
+    "_station": "Henchman"
+  },
+  "Arcanists_M4E_Stat_Performer_Colette_du_Bois_Star_of_the_Show_86": {
+    "roles": [
+      "support",
+      "schemer"
+    ],
+    "_name": "Colette du Bois Star of the Show",
+    "_station": "Master"
+  },
+  "Arcanists_M4E_Stat_Performer_Colette_du_Boise_Smuggler_87": {
+    "roles": [
+      "support",
+      "schemer"
+    ],
+    "_name": "Colette du Bois",
+    "_station": "Master"
+  },
+  "Arcanists_M4E_Stat_Performer_Shadowlark_95": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Shadowlark",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Arcanists_M4E_Stat_Arc-Versatile_Crossorads_Envy_101": {
+    "roles": [
+      "aggro",
+      "control"
+    ],
+    "_name": "Envy",
+    "_station": "Henchman"
+  },
+  "Arcanists_M4E_Stat_Arc-Versatile_Horseman_Mechanical_Rider_102": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Mechanical Rider",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Arcanists_M4E_Stat_Arc-Versatile_Watchmen_Harrison_Frodsham_108": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Harrison Frodsham",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Arcanists_M4E_Stat_Wildfire_Academic_Fire_Golem_111": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Fire Golem",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Arcanists_M4E_Stat_Wildfire_Deacon_Hillcrest_112": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Deacon Hillcrest",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Arcanists_M4E_Stat_Wildfire_Howard_Langston_123": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Howard Langston",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Arcanists_M4E_Stat_Wildfire_Kaeris_Iron-Threaded_124": {
+    "roles": [
+      "aggro",
+      "control"
+    ],
+    "_name": "Kaeris Iron-Threaded",
+    "_station": "Master"
+  },
+  "Arcanists_M4E_Stat_Wildfire_Kaeris_Reborn_125": {
+    "roles": [
+      "aggro",
+      "control"
+    ],
+    "_name": "Kaeris Reborn",
+    "_station": "Master"
+  },
+  "Arcanists_M4E_Stat_Witness_Bellaventine_Thorpe_133": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Bellaventine Thorpe",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Arcanists_M4E_Stat_Witness_Damian_Ravencroft_Aspirant_137": {
+    "roles": [
+      "aggro",
+      "support"
+    ],
+    "_name": "Damian Ravencroft",
+    "_station": "Master",
+    "_auto": true
+  },
+  "Arcanists_M4E_Stat_Witness_Damian_Ravencroft_Unbound_138": {
+    "roles": [
+      "aggro",
+      "support"
+    ],
+    "_name": "Damian Ravencroft Unbound",
+    "_station": "Master",
+    "_auto": true
+  },
+  "Arcanists_M4E_Stat_Witness_Lohith_140": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Lohith",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Bayou_M4E_Stat_Angler_Aunty_Mel_147": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Aunty Mel",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Bayou_M4E_Stat_Angler_The_Clampetts_Bally-Hoo_Bucket_162": {
+    "roles": [
+      "aggro",
+      "support"
+    ],
+    "_name": "The Clampetts Bally-Hoo Bucket",
+    "_station": "Master",
+    "_auto": true
+  },
+  "Bayou_M4E_Stat_Angler_The_Clampetts_Fisherfolk_163": {
+    "roles": [
+      "aggro",
+      "support"
+    ],
+    "_name": "The Clampetts",
+    "_station": "Master",
+    "_auto": true
+  },
+  "Bayou_M4E_Stat_Angler_Uncle_Bogg_164": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Uncle Bogg",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Bayou_M4E_Stat_Big-Hat_Lenny_Jones_179": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Lenny Jones",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Bayou_M4E_Stat_Big-Hat_Som'er_Teeth_Jones_Bayou_Boss_182": {
+    "roles": [
+      "aggro",
+      "support"
+    ],
+    "_name": "Som'er Teeth Jones",
+    "_station": "Master",
+    "_auto": true
+  },
+  "Bayou_M4E_Stat_Big-Hat_Som'er_Teeth_Jones_Loot_Monger_183": {
+    "roles": [
+      "aggro",
+      "support"
+    ],
+    "_name": "Som'er Teeth Jones",
+    "_station": "Master",
+    "_auto": true
+  },
+  "Bayou_M4E_Stat_Kin_Francois_LaCroix_191": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Francois LaCroix",
+    "_station": "Henchman"
+  },
+  "Bayou_M4E_Stat_Kin_Ophelia_LaCroix_Overloaded_198": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Ophelia LaCroix Overloaded",
+    "_station": "Master"
+  },
+  "Bayou_M4E_Stat_Kin_Ophelia_LaCroix_Red_Cage_Raider_199": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Ophelia LaCroix Red Cage Raider",
+    "_station": "Master"
+  },
+  "Bayou_M4E_Stat_Byu-Versatile_Sooey_Jockey_Bo_Peep_207": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Bo Peep",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Bayou_M4E_Stat_Sooey_Old_Major_213": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Old Major",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Bayou_M4E_Stat_Sooey_Ulix_Turner_Hogfather_226": {
+    "roles": [
+      "summoner"
+    ],
+    "_name": "Ulix Turner Hogfather",
+    "_station": "Master"
+  },
+  "Bayou_M4E_Stat_Sooey_Ulix_Turner_Porkbelly_Protector_227": {
+    "roles": [
+      "summoner"
+    ],
+    "_name": "Ulix Turner Porkbelly Protector",
+    "_station": "Master"
+  },
+  "Bayou_M4E_Stat_Swampfiend_Bad_Juju_234": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Bad Juju",
+    "_station": "Henchman"
+  },
+  "Bayou_M4E_Stat_Swampfiend_Zoraida_Bog_Witch_252": {
+    "roles": [
+      "control",
+      "summoner"
+    ],
+    "_name": "Zoraida",
+    "_station": "Master"
+  },
+  "Bayou_M4E_Stat_Swampfiend_Zoraida_Swamp_Hag_253": {
+    "roles": [
+      "control",
+      "summoner"
+    ],
+    "_name": "Zoraida",
+    "_station": "Master"
+  },
+  "Bayou_M4E_Stat_Tri-Chi_Fingers_Leong_257": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Fingers Leong",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Bayou_M4E_Stat_Tri-Chi_Popcorn_Turner_263": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Popcorn Turner",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Bayou_M4E_Stat_Tri-Chi_The_Brewmaster_Moonshiner_268": {
+    "roles": [
+      "control"
+    ],
+    "_name": "The Brewmaster",
+    "_station": "Master"
+  },
+  "Bayou_M4E_Stat_Tri-Chi_The_Brewmaster_Proof-Prophet_269": {
+    "roles": [
+      "control"
+    ],
+    "_name": "The Brewmaster",
+    "_station": "Master"
+  },
+  "Bayou_M4E_Stat_Tricksy_Mah_Tucket_Mecha-Meemaw_281": {
+    "roles": [
+      "schemer"
+    ],
+    "_name": "Mah Tucket",
+    "_station": "Master"
+  },
+  "Bayou_M4E_Stat_Tricksy_Mah_Tucket_Metal_Magpie_282": {
+    "roles": [
+      "schemer"
+    ],
+    "_name": "Mah Tucket",
+    "_station": "Master"
+  },
+  "Bayou_M4E_Stat_Tricksy_Sparks_LeBlanc_287": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Sparks LeBlanc",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Bayou_M4E_Stat_Tricksy_Trixiebelle_295": {
+    "roles": [
+      "schemer",
+      "control"
+    ],
+    "_name": "Trixiebelle",
+    "_station": "Henchman"
+  },
+  "Bayou_M4E_Stat_Byu-Versatile_Crossroads_Gluttony_297": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Gluttony",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Bayou_M4E_Stat_Byu-Versatile_Sooey_Jockey_Bo_Peep_311": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Bo Peep",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Bayou_M4E_Stat_Wizz-Bang_Alphonse_LeBlanc_330": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Alphonse LeBlanc",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Bayou_M4E_Stat_Wizz-Bang_Wong_The_Enchanter_346": {
+    "roles": [
+      "aggro",
+      "control"
+    ],
+    "_name": "Wong The Enchanter",
+    "_station": "Master"
+  },
+  "Bayou_M4E_Stat_Wizz-Bang_Wong_The_Wonderful_347": {
+    "roles": [
+      "aggro",
+      "control"
+    ],
+    "_name": "Wong The Wonderful",
+    "_station": "Master"
+  },
+  "Explorer's Society_M4E_Stat_Apex_Kird_Cooper_Manhunter_355": {
+    "roles": [
+      "aggro",
+      "control"
+    ],
+    "_name": "Lord Cooper",
+    "_station": "Master"
+  },
+  "Explorer's Society_M4E_Stat_Apex_Lord_Cooper_Huntmaster_356": {
+    "roles": [
+      "aggro",
+      "control"
+    ],
+    "_name": "Lord Cooper Huntmaster",
+    "_station": "Master"
+  },
+  "Explorer's Society_M4E_Stat_Apex_Model_9_357": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Model 9",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Explorer's Society_M4E_Stat_Bygone_Kett_373": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Kett",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Explorer's Society_M4E_Stat_Bygone_The_Iron_Matron_377": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "The Iron Matron",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Explorer's Society_M4E_Stat_Bygone_Tiri_The_Architect_378": {
+    "roles": [
+      "aggro",
+      "support"
+    ],
+    "_name": "Tiri The Architect",
+    "_station": "Master",
+    "_auto": true
+  },
+  "Explorer's Society_M4E_Stat_Bygone_Tiri_The_Nomad_379": {
+    "roles": [
+      "aggro",
+      "support"
+    ],
+    "_name": "Tiri The Nomad",
+    "_station": "Master",
+    "_auto": true
+  },
+  "Explorer's Society_M4E_Stat_Cadmus_Dr_Meredith_Stanley_388": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Dr. Meredith Stanley",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Explorer's Society_M4E_Stat_Cadmus_Nexus_Heart_of_the_Hive_394": {
+    "roles": [
+      "summoner",
+      "control"
+    ],
+    "_name": "Nexus Heart of the Hive",
+    "_station": "Master"
+  },
+  "Explorer's Society_M4E_Stat_Cadmus_Nexus_One_of_Many_A_395": {
+    "roles": [
+      "summoner",
+      "control"
+    ],
+    "_name": "Nexus, One of Many",
+    "_station": "Master"
+  },
+  "Explorer's Society_M4E_Stat_Cadmus_Nexus_One_of_Many_B_396": {
+    "roles": [
+      "summoner",
+      "control"
+    ],
+    "_name": "Nexus, One of Many",
+    "_station": "Master"
+  },
+  "Explorer's Society_M4E_Stat_Cadmus_Nexus_One_of_Many_C_397": {
+    "roles": [
+      "summoner",
+      "control"
+    ],
+    "_name": "Nexus One of Many",
+    "_station": "Master"
+  },
+  "Explorer's Society_M4E_Stat_DUA_English_Ivan_Double_Agent_411": {
+    "roles": [
+      "control",
+      "summoner"
+    ],
+    "_name": "English Ivan",
+    "_station": "Master"
+  },
+  "Explorer's Society_M4E_Stat_DUA_English_Ivan_Obscura_412": {
+    "roles": [
+      "control",
+      "summoner"
+    ],
+    "_name": "English Ivan Obscura",
+    "_station": "Master"
+  },
+  "Explorer's Society_M4E_Stat_DUA_Gibson_DeWalt_414": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Gibson DeWalt",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Explorer's Society_M4E_Stat_DUA_Jin_Baccara_415": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Jin Baccara",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Explorer's Society_M4E_Stat_EVS_Harata_Ngaatoro_426": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Harata Ngaatoro",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Explorer's Society_M4E_Stat_EVS_Kiya_Manimi_429": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Kiya Manimi",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Explorer's Society_M4E_Stat_EVS_Maxine_Agassiz_Monomaniacal_433": {
+    "roles": [
+      "summoner",
+      "support"
+    ],
+    "_name": "Maxine Agassiz Monomaniacal",
+    "_station": "Master"
+  },
+  "Explorer's Society_M4E_Stat_EVS_Maxine_Agassiz_The_Renowned_434": {
+    "roles": [
+      "summoner",
+      "support"
+    ],
+    "_name": "Maxine Agassiz The Renowned",
+    "_station": "Master"
+  },
+  "Explorer's Society_M4E_Stat_Syndicate_Seeker_Cayce_Jones_438": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Cayce Jones",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Explorer's Society_M4E_Stat_Seeker_Jedza_Everlasting_440": {
+    "roles": [
+      "support",
+      "summoner"
+    ],
+    "_name": "Jedza Everlasting",
+    "_station": "Master"
+  },
+  "Explorer's Society_M4E_Stat_Seeker_Jedza_The_Wanderer_441": {
+    "roles": [
+      "support",
+      "summoner"
+    ],
+    "_name": "Jedza The Wanderer",
+    "_station": "Master"
+  },
+  "Explorer's Society_M4E_Stat_Seeker_Mikhail_XVI_445": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Mikhail XVI",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Explorer's Society_M4E_Stat_Syndicate_Anya_Lycarayen_Rail_Magnate_455": {
+    "roles": [
+      "control",
+      "schemer"
+    ],
+    "_name": "Anya Lycarayen Rail Magnate",
+    "_station": "Master"
+  },
+  "Explorer's Society_M4E_Stat_Syndicate_Anya_Lycarayen_The_Resolute_456": {
+    "roles": [
+      "control",
+      "schemer"
+    ],
+    "_name": "Anya Lycarayen The Resolute",
+    "_station": "Master"
+  },
+  "Explorer's Society_M4E_Stat_Syndicate_Corvis_Rook_462": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Corvis Rook",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Explorer's Society_M4E_Stat_Syndicate_Winston_Finnigan_474": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Winston Finnigan",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Explorer's Society_M4E_Stat_Exs-Versatile_Society_Mr_Ngaatoro_487": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Mr. Ngaatoro",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Explorer's Society_M4E_Stat_Wastrel_Desper_LaRaux_494": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Desper LaRaux",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Explorer's Society_M4E_Stat_Wastrel_Lucas_McCabe_Dismounted_Hunter_498": {
+    "roles": [
+      "support"
+    ],
+    "_name": "Lucas McCabe",
+    "_station": "Master"
+  },
+  "Explorer's Society_M4E_Stat_Wastrel_Lucas_McCabe_Relic_Hunter_499": {
+    "roles": [
+      "support"
+    ],
+    "_name": "Lucas McCabe Relic Hunter",
+    "_station": "Master"
+  },
+  "Explorer's Society_M4E_Stat_Wastrel_Lucas_McCabe_Tomb_Delver_500": {
+    "roles": [
+      "support"
+    ],
+    "_name": "Lucas McCabe Tomb Delver",
+    "_station": "Master"
+  },
+  "Explorer's Society_M4E_Stat_Wastrel_Sidir_Alchibal_507": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Sidir Alchibal",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Guild_M4E_Stat_Augmented_Charles_Hoffman_Inventor_508": {
+    "roles": [
+      "support"
+    ],
+    "_name": "Charles Hoffman Inventor",
+    "_station": "Master"
+  },
+  "Guild_M4E_Stat_Augmented_Charles_Hoffman_Steel_Sculptor_509": {
+    "roles": [
+      "support"
+    ],
+    "_name": "Charles Hoffman Steel Sculptor",
+    "_station": "Master"
+  },
+  "Guild_M4E_Stat_Augmented_Melissa_KORE_518": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Melissa K.O.R.E.",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Guild_M4E_Stat_Cavalier_Harold_Tull_Artillerist_525": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Harold Tull Artillerist",
+    "_station": "Master"
+  },
+  "Guild_M4E_Stat_Cavalier_Harold_Tull_Dead_Silent_526": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Harold Tull Dead Silent",
+    "_station": "Master"
+  },
+  "Guild_M4E_Stat_Cavalier_King's_Wall_532": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "King's Wall",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Guild_M4E_Stat_Cavalier_Louisa_Fusi_533": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Louisa Fusi",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Guild_M4E_Stat_Elite_Agent_46_544": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Agent 46",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Guild_M4E_Stat_Elite_Alan_Reid_545": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Alan Reid",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Guild_M4E_Stat_Elite_Lucius_Mattheson_Dishonorable_561": {
+    "roles": [
+      "control",
+      "support"
+    ],
+    "_name": "Lucius Mattheson",
+    "_station": "Master"
+  },
+  "Guild_M4E_Stat_Elite_Lucius_Mattheson_In_Plain_Sight_562": {
+    "roles": [
+      "control",
+      "support"
+    ],
+    "_name": "Lucius Mattheson In Plain Sight",
+    "_station": "Master"
+  },
+  "Guild_M4E_Stat_Family_Abuela_Ortega_564": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Abuela Ortega",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Guild_M4E_Stat_Family_Francisco_Ortega_567": {
+    "roles": [
+      "aggro",
+      "support"
+    ],
+    "_name": "Francisco Ortega",
+    "_station": "Henchman"
+  },
+  "Guild_M4E_Stat_Family_Perdita_Ortega_La_Diabla_572": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Perdita Ortega La Diabla",
+    "_station": "Master"
+  },
+  "Guild_M4E_Stat_Family_Perdita_Ortega_Neverborn_Hunter_573": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Perdita Ortega Neverborn Hunter",
+    "_station": "Master"
+  },
+  "Guild_M4E_Stat_Guard_Dashel_Barker_Butcher_582": {
+    "roles": [
+      "summoner"
+    ],
+    "_name": "Dashel Barker Butcher",
+    "_station": "Master"
+  },
+  "Guild_M4E_Stat_Guard_Dashel_Barker_The_Old_Guard_583": {
+    "roles": [
+      "summoner"
+    ],
+    "_name": "Dashel Barker The Old Guard",
+    "_station": "Master"
+  },
+  "Guild_M4E_Stat_Guard_Taggart_Queeg_599": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Taggart Queeg",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Guild_M4E_Stat_Journalist_Allison_Dade_603": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Allison Dade",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Guild_M4E_Stat_Journalist_Nellie_Cochrane_The_Tattler_612": {
+    "roles": [
+      "schemer",
+      "control"
+    ],
+    "_name": "Nellie Cochrane The Tattler",
+    "_station": "Master"
+  },
+  "Guild_M4E_Stat_Journalist_Nellie_Cochrane_Voice_of_Disorder_613": {
+    "roles": [
+      "schemer",
+      "control"
+    ],
+    "_name": "Nellie Cochrane Voice of Disorder",
+    "_station": "Master"
+  },
+  "Guild_M4E_Stat_Journalist_Phiona_Gage_617": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Phiona Gage",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Guild_M4E_Stat_Marshal_Lady_Justice_Arbiter_of_the_Undead_628": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Lady Justice Arbiter of the Undead",
+    "_station": "Master"
+  },
+  "Guild_M4E_Stat_Marshal_Lady_Justice_Death-Touched_629": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Lady Justice",
+    "_station": "Master"
+  },
+  "Guild_M4E_Stat_Marshal_The_Judge_631": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "The Judge",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Guild_M4E_Stat_Gld-Versatile_Crossroads_Greed_639": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Greed",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Guild_M4E_Stat_Gld-Versatile_Horseman_Pale_Rider_646": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Pale Rider",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Guild_M4E_Stat_Gld-Versatile_Vanguard_Commander_Bura_651": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Commander Bura",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Guild_M4E_Stat_Witch-Hunter_Samael_Hopkins_657": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Samael Hopkins",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Guild_M4E_Stat_Witch-Hunter_Sonnia_Criid_Unmasked_658": {
+    "roles": [
+      "aggro",
+      "control"
+    ],
+    "_name": "Sonnia Criid Unmasked",
+    "_station": "Master"
+  },
+  "Guild_M4E_Stat_Witch-Hunter_Sonnia_Criid_Unrelenting_659": {
+    "roles": [
+      "aggro",
+      "control"
+    ],
+    "_name": "Sonnia Criid",
+    "_station": "Master"
+  },
+  "Neverborn_M4E_Stat_Banished_Dynast_Bram_671": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Dynast Bram",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Neverborn_M4E_Stat_Banished_Silken_King_Colossus_679": {
+    "roles": [
+      "aggro",
+      "support"
+    ],
+    "_name": "Silken King",
+    "_station": "Master",
+    "_auto": true
+  },
+  "Neverborn_M4E_Stat_Banished_Silken_King_Long_Live_680": {
+    "roles": [
+      "aggro",
+      "support"
+    ],
+    "_name": "Silken King",
+    "_station": "Master",
+    "_auto": true
+  },
+  "Neverborn_M4E_Stat_Brood_Hayreddin_695": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Hayreddin",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Neverborn_M4E_Stat_Fae_Brood_Ithanna_696": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Ithanna",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Neverborn_M4E_Stat_Brood_Nekima_Broodmother_701": {
+    "roles": [
+      "aggro",
+      "summoner"
+    ],
+    "_name": "Nekima",
+    "_station": "Master"
+  },
+  "Neverborn_M4E_Stat_Brood_Nekima_Nephilim_Queen_702": {
+    "roles": [
+      "aggro",
+      "summoner"
+    ],
+    "_name": "Nekima",
+    "_station": "Master"
+  },
+  "Neverborn_M4E_Stat_Chimera_Marcus_Alpha_714": {
+    "roles": [
+      "support",
+      "aggro"
+    ],
+    "_name": "Marcus Alpha",
+    "_station": "Master"
+  },
+  "Neverborn_M4E_Stat_Chimera_Marcus_Monstermaker_715": {
+    "roles": [
+      "support",
+      "aggro"
+    ],
+    "_name": "Marcus",
+    "_station": "Master"
+  },
+  "Neverborn_M4E_Stat_Chimera_Myranda_719": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Myranda",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Neverborn_M4E_Stat_Fae_Aeslin_728": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Aeslin",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Neverborn_M4E_Stat_Fae_Brood_Ithanna_733": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Ithanna",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Neverborn_M4E_Stat_Fae_Killjoy_739": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Killjoy",
+    "_station": "Henchman"
+  },
+  "Neverborn_M4E_Stat_Fae_Titania_Autumn_Queen_742": {
+    "roles": [
+      "control",
+      "support"
+    ],
+    "_name": "Titania",
+    "_station": "Master"
+  },
+  "Neverborn_M4E_Stat_Fae_Titania_Withered_Rose_743": {
+    "roles": [
+      "control",
+      "support"
+    ],
+    "_name": "Titania Withered Rose",
+    "_station": "Master"
+  },
+  "Neverborn_M4E_Stat_Nightmare_Coppelius_748": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Coppelius",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Neverborn_M4E_Stat_Nightmare_Dreamer_Fast_Asleep_756": {
+    "roles": [
+      "summoner",
+      "control"
+    ],
+    "_name": "The Dreamer",
+    "_station": "Master"
+  },
+  "Neverborn_M4E_Stat_Nightmare_Dreamer_Insomniac_757": {
+    "roles": [
+      "summoner",
+      "control"
+    ],
+    "_name": "The Dreamer",
+    "_station": "Master"
+  },
+  "Neverborn_M4E_Stat_Nightmare_Widow_Weaver_768": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Widow Weaver",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Neverborn_M4E_Stat_Returned_Barbaros_770": {
+    "roles": [
+      "aggro",
+      "control"
+    ],
+    "_name": "Barbaros",
+    "_station": "Henchman"
+  },
+  "Neverborn_M4E_Stat_Returned_Gwyll_776": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Gwyll",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Neverborn_M4E_Stat_Returned_Kastore_Awakened_777": {
+    "roles": [
+      "aggro",
+      "support"
+    ],
+    "_name": "Kastore Awakened",
+    "_station": "Master",
+    "_auto": true
+  },
+  "Neverborn_M4E_Stat_Returned_Kastore_Fervent_778": {
+    "roles": [
+      "aggro",
+      "support"
+    ],
+    "_name": "Kastore",
+    "_station": "Master",
+    "_auto": true
+  },
+  "Neverborn_M4E_Stat_Savage_Euripides_Hierophant_790": {
+    "roles": [
+      "control"
+    ],
+    "_name": "Euripides Hierophant",
+    "_station": "Master"
+  },
+  "Neverborn_M4E_Stat_Savage_Euripides_Old_One-Eye_791": {
+    "roles": [
+      "control"
+    ],
+    "_name": "Euripides Old One-Eye",
+    "_station": "Master"
+  },
+  "Neverborn_M4E_Stat_Savage_Thoon_799": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Thoon",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Neverborn_M4E_Stat_Nvb-Versatile_Crossroads_Wrath_801": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Wrath",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Neverborn_M4E_Stat_Nvb-Versatile_Grim_Klaus_Norwood_803": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Klaus Norwood",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Neverborn_M4E_Stat_Nvb-Versatile_The_Syzygy_Sisters_809": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Nvb-Versatile The Syzygy Sisters",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Neverborn_M4E_Stat_Woe_Candy_818": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Candy",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Neverborn_M4E_Stat_Woe_Pandora_Despair's_Desire_827": {
+    "roles": [
+      "control"
+    ],
+    "_name": "Pandora Despair's Desire",
+    "_station": "Master"
+  },
+  "Neverborn_M4E_Stat_Woe_Pandora_Tyrant-Torn_828": {
+    "roles": [
+      "control"
+    ],
+    "_name": "Pandora",
+    "_station": "Master"
+  },
+  "Outcasts_M4E_Stat_Arc-Versatile_Horseman_Mechanical_Rider_838": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Mechanical Rider",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Outcasts_M4E_Stat_Gld-Versatile_Horseman_Pale_Rider_843": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Pale Rider",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Outcasts_M4E_Stat_Amalgam_Marlena_Webster_847": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Marlena Webster",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Outcasts_M4E_Stat_Amalgam_Rusty_Alyce_Rider_Remade_850": {
+    "roles": [
+      "aggro",
+      "support"
+    ],
+    "_name": "Rusty Alyce",
+    "_station": "Master",
+    "_auto": true
+  },
+  "Outcasts_M4E_Stat_Amalgam_Rusty_Alyce_Trigger_Happy_851": {
+    "roles": [
+      "aggro",
+      "support"
+    ],
+    "_name": "Rusty Alyce Trigger Happy",
+    "_station": "Master",
+    "_auto": true
+  },
+  "Outcasts_M4E_Stat_Ampersand_Clockwork_Queen_Matriarch_of_the_Machine_858": {
+    "roles": [
+      "aggro",
+      "support"
+    ],
+    "_name": "Clockwork Queen Matriarch of the Machine",
+    "_station": "Master",
+    "_auto": true
+  },
+  "Outcasts_M4E_Stat_Ampersand_Clockwork_Queen_The_Paradox_859": {
+    "roles": [
+      "aggro",
+      "support"
+    ],
+    "_name": "Clockwork Queen The Paradox",
+    "_station": "Master",
+    "_auto": true
+  },
+  "Outcasts_M4E_Stat_Ampersand_Mr_Ambrose_864": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Mr. Ambrose",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Outcasts_M4E_Stat_Ampersand_Steiner_868": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Steiner",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Outcasts_M4E_Stat_Bandit_Ella_Mae_Chesterfield_881": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Ella Mae Chesterfield",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Outcasts_M4E_Stat_Bandit_Mad_Dog_Brackett_882": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Mad Dog Brackett",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Outcasts_M4E_Stat_Bandit_Parker_Barrows_Dead_Man_Walking_883": {
+    "roles": [
+      "schemer",
+      "aggro"
+    ],
+    "_name": "Parker Barrows Dead Man Walking",
+    "_station": "Master"
+  },
+  "Outcasts_M4E_Stat_Bandit_Parker_Barrows_Most_Wanted_884": {
+    "roles": [
+      "schemer",
+      "aggro"
+    ],
+    "_name": "Parker Barrows Most Wanted",
+    "_station": "Master"
+  },
+  "Outcasts_M4E_Stat_Bandit_Pearl_Musgrove_885": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Pearl Musgrove",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Outcasts_M4E_Stat_Freikorps_Arik_Schottemer_888": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Arik Sch\u00f6ttemer",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Outcasts_M4E_Stat_Freikorps_Hannah_Lovelace_899": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Hannah Lovelace",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Outcasts_M4E_Stat_Freikorps_Von_Schill_Iron-Heart_905": {
+    "roles": [
+      "aggro",
+      "support"
+    ],
+    "_name": "Von Schill Iron-Heart",
+    "_station": "Master"
+  },
+  "Outcasts_M4E_Stat_Freikorps_Von_Schill_The_Veteran_906": {
+    "roles": [
+      "aggro",
+      "support"
+    ],
+    "_name": "Von Schill The Veteran",
+    "_station": "Master"
+  },
+  "Outcasts_M4E_Stat_Infamous_Burt_Jebsen_909": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Burt Jebsen",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Outcasts_M4E_Stat_Infamous_Captain_Zipp_Cloudchaser_913": {
+    "roles": [
+      "schemer",
+      "control"
+    ],
+    "_name": "Captain Zipp Cloudchaser",
+    "_station": "Master"
+  },
+  "Outcasts_M4E_Stat_Infamous_Captain_Zipp_Dread_Pirate_914": {
+    "roles": [
+      "schemer",
+      "control"
+    ],
+    "_name": "Captain Zipp",
+    "_station": "Master"
+  },
+  "Outcasts_M4E_Stat_Infamous_The_First_Mate_922": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "The First Mate",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Outcasts_M4E_Stat_Mercenary_Taelor_937": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Taelor",
+    "_station": "Henchman"
+  },
+  "Outcasts_M4E_Stat_Mercenary_Vanessa_Chambers_938": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Vanessa Chambers",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Outcasts_M4E_Stat_Mercenary_Viktoria_Chambers_Ashes_and_Blood_939": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Viktoria Chambers Ashes and Blood",
+    "_station": "Master"
+  },
+  "Outcasts_M4E_Stat_Mercenary_Viktoria_Chambers_Twin_Blades_940": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Viktoria Chambers Twin Blades",
+    "_station": "Master"
+  },
+  "Outcasts_M4E_Stat_Obliteration_Aionus_941": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Aionus",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Outcasts_M4E_Stat_Obliteration_Tara_Timeless_947": {
+    "roles": [
+      "control",
+      "schemer"
+    ],
+    "_name": "Tara",
+    "_station": "Master"
+  },
+  "Outcasts_M4E_Stat_Obliteration_Tara_Voidcaller_948": {
+    "roles": [
+      "control",
+      "schemer"
+    ],
+    "_name": "Tara",
+    "_station": "Master"
+  },
+  "Outcasts_M4E_Stat_Obliteration_The_Nothing_Beast_949": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "The Nothing Beast",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Outcasts_M4E_Stat_Plague_Hamelin_Plaguebringer_959": {
+    "roles": [
+      "summoner",
+      "control"
+    ],
+    "_name": "Hamelin",
+    "_station": "Master"
+  },
+  "Outcasts_M4E_Stat_Plague_Hamelin_The_Piper_960": {
+    "roles": [
+      "summoner",
+      "control"
+    ],
+    "_name": "Hamelin The Piper",
+    "_station": "Master"
+  },
+  "Outcasts_M4E_Stat_Plague_Nix_969": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Nix",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Outcasts_M4E_Stat_Out-Versatile_Crossroads_Pride_979": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Pride",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Outcasts_M4E_Stat_Out-Versatile_Half-Blood_Angel_Eyes_980": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Angel Eyes",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Resurrectionists_M4E_Stat_Ancestor_Chiaki_The_Beacon_997": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Chiaki The Beacon",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Resurrectionists_M4E_Stat_Ancestor_Izamu_The_Armor_1001": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Izamu The Armor",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Resurrectionists_M4E_Stat_Ancestor_Yan_Lo_1014": {
+    "roles": [
+      "support",
+      "summoner"
+    ],
+    "_name": "Yan Lo",
+    "_station": "Master"
+  },
+  "Resurrectionists_M4E_Stat_Ancestor_Yan_Lo_Pathseeker_1015": {
+    "roles": [
+      "support",
+      "summoner"
+    ],
+    "_name": "Yan Lo Pathseeker",
+    "_station": "Master"
+  },
+  "Resurrectionists_M4E_Stat_Experimental_Dr_McMorning_Insanitary_1018": {
+    "roles": [
+      "aggro",
+      "support"
+    ],
+    "_name": "Dr McMorning Insanitary",
+    "_station": "Master",
+    "_auto": true
+  },
+  "Resurrectionists_M4E_Stat_Experimental_Dr_McMourning_Malpractitioner_1019": {
+    "roles": [
+      "summoner",
+      "aggro"
+    ],
+    "_name": "Dr McMourning Malpractitioner",
+    "_station": "Master"
+  },
+  "Resurrectionists_M4E_Stat_Experimental_Rafkin_1028": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Rafkin",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Resurrectionists_M4E_Stat_Experimental_Sebastian_1030": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Sebastian",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Resurrectionists_M4E_Stat_Forgotten_Archie_1039": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Archie",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Resurrectionists_M4E_Stat_Forgotten_Molly_Squidpiddge_Chaotic_Conductor_1043": {
+    "roles": [
+      "summoner",
+      "control"
+    ],
+    "_name": "Molly Squidpiddge Chaotic Conductor",
+    "_station": "Master"
+  },
+  "Resurrectionists_M4E_Stat_Forgotten_Molly_Squidpiddge_Harbinger_of_Havoc_1044": {
+    "roles": [
+      "summoner",
+      "control"
+    ],
+    "_name": "Molly Squidpiddge Harbinger of Havoc",
+    "_station": "Master"
+  },
+  "Resurrectionists_M4E_Stat_Forgotten_Philiip_and_the_Nanny_1049": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Philip and the Nanny",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Resurrectionists_M4E_Stat_Redchapel_Madame_Sybelle_1065": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Madame Sybelle",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Resurrectionists_M4E_Stat_Redchapel_Seamus_The_Last_Breath_1068": {
+    "roles": [
+      "aggro",
+      "summoner"
+    ],
+    "_name": "Seamus The Last Breath",
+    "_station": "Master"
+  },
+  "Resurrectionists_M4E_Stat_Redchapel_Seamus_aka_Sebastian_Baker_1069": {
+    "roles": [
+      "aggro",
+      "summoner"
+    ],
+    "_name": "Seamus aka Sebastian Baker",
+    "_station": "Master"
+  },
+  "Resurrectionists_M4E_Stat_Revenant_Reva_Cortinas_Death_Shepherd_1084": {
+    "roles": [
+      "aggro",
+      "summoner"
+    ],
+    "_name": "Reva Cortinas Death Shepherd",
+    "_station": "Master"
+  },
+  "Resurrectionists_M4E_Stat_Revenant_Reva_Cortinas_Luminary_1085": {
+    "roles": [
+      "aggro",
+      "summoner"
+    ],
+    "_name": "Reva Cortinas",
+    "_station": "Master"
+  },
+  "Resurrectionists_M4E_Stat_Revenant_Vincent_St_Clair_1090": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Vincent St. Clair",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Resurrectionists_M4E_Stat_Tormented_Jack_Daw_Ensouled_1103": {
+    "roles": [
+      "control"
+    ],
+    "_name": "Jack Daw Ensouled",
+    "_station": "Master"
+  },
+  "Resurrectionists_M4E_Stat_Tormented_Jack_Daw_Spirit_of_Betrayal_1104": {
+    "roles": [
+      "control"
+    ],
+    "_name": "Jack Daw Spirit of Betrayal",
+    "_station": "Master"
+  },
+  "Resurrectionists_M4E_Stat_Tormented_Kari_Zotiko_1105": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Kari Zotiko",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Resurrectionists_M4E_Stat_Tormented_Montresor_1107": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Montresor",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Resurrectionists_M4E_Stat_Transmortis_Anna_Lovelace_1109": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Anna Lovelace",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Resurrectionists_M4E_Stat_Transmortis_Prof_Von_Schtook_Admissions_Executive_1121": {
+    "roles": [
+      "summoner",
+      "support"
+    ],
+    "_name": "Prof Von Schtook Admissions Executive",
+    "_station": "Master"
+  },
+  "Resurrectionists_M4E_Stat_Transmortis_Prof_Von_Schtook_Stargazer_1122": {
+    "roles": [
+      "summoner",
+      "support"
+    ],
+    "_name": "Prof. Von Schtook",
+    "_station": "Master"
+  },
+  "Resurrectionists_M4E_Stat_Transmortis_The_Valedictorian_1129": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "The Valedictorian",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Resurrectionists_M4E_Stat_Urami_Datsue_Ba_1133": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Datsue Ba",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Resurrectionists_M4E_Stat_Urami_Kirai_Ankoku_Envoy_of_the_Court_1147": {
+    "roles": [
+      "summoner"
+    ],
+    "_name": "Kirai Ankoku Envoy of the Court",
+    "_station": "Master"
+  },
+  "Resurrectionists_M4E_Stat_Urami_Kirai_Ankoku_Lady_of_Vengeance_1148": {
+    "roles": [
+      "summoner"
+    ],
+    "_name": "Kirai Ankoku Lady of Vengeance",
+    "_station": "Master"
+  },
+  "Resurrectionists_M4E_Stat_Urami_Kuchisake-Onna_1149": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Kuchisake-Onna",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Resurrectionists_M4E_Stat_Res-Versatile_Asura_Roten_1156": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Res-Versatile Asura Roten",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Resurrectionists_M4E_Stat_Res-Versatile_Crossroads_Sloth_1162": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Sloth",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Resurrectionists_M4E_Stat_Res-Versatile_Fungal_Batsch_and_Amalie_1164": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Batsch & Amalie",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Ten Thunders_M4E_Stat_Foundry_Kang_1186": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Kang",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Ten Thunders_M4E_Stat_Foundry_Mei_Feng_Foreman_1187": {
+    "roles": [
+      "aggro",
+      "schemer"
+    ],
+    "_name": "Mei Feng",
+    "_station": "Master"
+  },
+  "Ten Thunders_M4E_Stat_Foundry_Mei_Feng_Sentinel_of_Steel_1188": {
+    "roles": [
+      "aggro",
+      "schemer"
+    ],
+    "_name": "Mei Feng Sentinel of Steel",
+    "_station": "Master"
+  },
+  "Ten Thunders_M4E_Stat_Foundry_Neil_Henry_1193": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Neil Henry",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Ten Thunders_M4E_Stat_Honeypot_Gwyneth_Maddox_1203": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Gwyneth Maddox",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Ten Thunders_M4E_Stat_Honeypot_Jakob_Lynch_Dark_Bet_1209": {
+    "roles": [
+      "control",
+      "aggro"
+    ],
+    "_name": "Jakob Lynch Dark Bet",
+    "_station": "Master"
+  },
+  "Ten Thunders_M4E_Stat_Honeypot_Jakob_Lynch_Wildcard_1210": {
+    "roles": [
+      "control",
+      "aggro"
+    ],
+    "_name": "Jakob Lynch Wildcard",
+    "_station": "Master"
+  },
+  "Ten Thunders_M4E_Stat_Honeypot_Kitty_Dumont_1211": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Kitty Dumont",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Ten Thunders_M4E_Stat_Last-Blossom_Misaki_Katanaka_Fractured_1220": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Last-Blossom Misaki Katanaka Fractured",
+    "_station": "Master"
+  },
+  "Ten Thunders_M4E_Stat_Last-Blossom_Misaki_Katanaka_Oyabun_1221": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Misaki Katanaka",
+    "_station": "Master"
+  },
+  "Ten Thunders_M4E_Stat_Last-Blossom_Ototo_1226": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Ototo",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Ten Thunders_M4E_Stat_Last-Blossom_Yamaziko_1232": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Yamaziko",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Ten Thunders_M4E_Stat_Monk_Sensei_Yu_1245": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Sensei Yu",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Ten Thunders_M4E_Stat_Monk_Shenlong_Dragon's_Breath_1246": {
+    "roles": [
+      "support",
+      "aggro"
+    ],
+    "_name": "Shenlong Dragon's Breath",
+    "_station": "Master"
+  },
+  "Ten Thunders_M4E_Stat_Monk_Shenlong_The_Teacher_1247": {
+    "roles": [
+      "support",
+      "aggro"
+    ],
+    "_name": "Shenlong The Teacher",
+    "_station": "Master"
+  },
+  "Ten Thunders_M4E_Stat_Oni_Asami_Tanaka_Oni_Mother_1256": {
+    "roles": [
+      "summoner"
+    ],
+    "_name": "Asami Tanaka Oni Mother",
+    "_station": "Master"
+  },
+  "Ten Thunders_M4E_Stat_Oni_Asami_Tanaka_Shintaku_1257": {
+    "roles": [
+      "summoner"
+    ],
+    "_name": "Asami Tanaka Shintaku",
+    "_station": "Master"
+  },
+  "Ten Thunders_M4E_Stat_Oni_Lady_Yume_1262": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Lady Yume",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Ten Thunders_M4E_Stat_Oni_Ohaguro_Bettari_1266": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Ohaguro Bettari",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Ten Thunders_M4E_Stat_Qi-and-Gong_Bill_Algren_1274": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Bill Algren",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Ten Thunders_M4E_Stat_Qi-and-Gong_Hinamatsu_1284": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Hinamatsu",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Ten Thunders_M4E_Stat_Qi-and-Gong_Youko_Hamasaki_Silk_of_the_Lotus_1290": {
+    "roles": [
+      "control",
+      "schemer"
+    ],
+    "_name": "Youko Hamasaki",
+    "_station": "Master"
+  },
+  "Ten Thunders_M4E_Stat_Qi-and-Gong_Youko_Hamasaki_Unseen_1291": {
+    "roles": [
+      "control",
+      "schemer"
+    ],
+    "_name": "Youko Hamasaki",
+    "_station": "Master"
+  },
+  "Ten Thunders_M4E_Stat_Red-Library_Linh_Ly_Bibliothecary_1303": {
+    "roles": [
+      "aggro",
+      "support"
+    ],
+    "_name": "Linh Ly",
+    "_station": "Master",
+    "_auto": true
+  },
+  "Ten Thunders_M4E_Stat_Red-Library_Linh_Ly_Storyteller_1304": {
+    "roles": [
+      "aggro",
+      "support"
+    ],
+    "_name": "Linh Ly",
+    "_station": "Master",
+    "_auto": true
+  },
+  "Ten Thunders_M4E_Stat_Red-Library_Map_Map_1305": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Map Map",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Ten Thunders_M4E_Stat_Red-Library_Story_of_Thanh_Giong_1310": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Story of Thanh Giong",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Ten Thunders_M4E_Stat_TT-Versatile_Crossroads_Lust_1312": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "Lust",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Ten Thunders_M4E_Stat_TT-Versatile_Sayuri_Koji_1323": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "TT-Versatile Sayuri Koji",
+    "_station": "Henchman",
+    "_auto": true
+  },
+  "Ten Thunders_M4E_Stat_TT-Versatile_Zheng_1329": {
+    "roles": [
+      "aggro"
+    ],
+    "_name": "TT-Versatile Zheng",
+    "_station": "Henchman",
+    "_auto": true
+  }
+}
