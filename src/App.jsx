@@ -4034,6 +4034,38 @@ function App() {
                     </div>
                   )}
                   
+                  {/* Next Round's Scheme Pool - Based on chosen schemes */}
+                  {objectivesCardsOpen && chosenSchemes.length > 0 && (
+                    <div className="next-schemes-section">
+                      <div className="next-schemes-header">
+                        <span className="next-schemes-icon">🔄</span>
+                        <span className="next-schemes-title">Next Round's Pool</span>
+                        <span className="next-schemes-hint">(based on your chosen schemes)</span>
+                      </div>
+                      <div className="next-schemes-list">
+                        {(() => {
+                          // Collect all next schemes from chosen schemes, deduplicate
+                          const nextSchemesSet = new Set()
+                          chosenSchemes.forEach(schemeId => {
+                            const schemeData = SCHEME_REQUIREMENTS[schemeId]
+                            if (schemeData?.next_schemes) {
+                              schemeData.next_schemes.forEach(name => nextSchemesSet.add(name))
+                            }
+                          })
+                          const nextSchemes = Array.from(nextSchemesSet)
+                          
+                          if (nextSchemes.length === 0) {
+                            return <span className="next-schemes-empty">No chain data available</span>
+                          }
+                          
+                          return nextSchemes.map(name => (
+                            <span key={name} className="next-scheme-chip">{name}</span>
+                          ))
+                        })()}
+                      </div>
+                    </div>
+                  )}
+                  
                   {/* Objective Cards Styles */}
                   <style>{`
                     .objectives-cards-section {
@@ -4240,6 +4272,58 @@ function App() {
                     .scheme-chips.chosen .scheme-chip-btn.available:hover {
                       background: rgba(34, 197, 94, 0.2);
                       border-color: rgba(34, 197, 94, 0.4);
+                    }
+                    
+                    .next-schemes-section {
+                      margin-top: 16px;
+                      padding: 12px 16px;
+                      background: rgba(139, 92, 246, 0.1);
+                      border-top: 1px solid rgba(139, 92, 246, 0.3);
+                    }
+                    
+                    .next-schemes-header {
+                      display: flex;
+                      align-items: center;
+                      gap: 8px;
+                      margin-bottom: 10px;
+                    }
+                    
+                    .next-schemes-icon {
+                      font-size: 1rem;
+                    }
+                    
+                    .next-schemes-title {
+                      font-weight: 600;
+                      color: #c4b5fd;
+                      font-size: 0.9rem;
+                    }
+                    
+                    .next-schemes-hint {
+                      font-size: 0.75rem;
+                      color: #9ca3af;
+                      font-style: italic;
+                    }
+                    
+                    .next-schemes-list {
+                      display: flex;
+                      flex-wrap: wrap;
+                      gap: 8px;
+                    }
+                    
+                    .next-scheme-chip {
+                      background: rgba(139, 92, 246, 0.2);
+                      border: 1px solid rgba(139, 92, 246, 0.4);
+                      color: #e9d5ff;
+                      padding: 4px 10px;
+                      border-radius: 12px;
+                      font-size: 0.8rem;
+                      font-weight: 500;
+                    }
+                    
+                    .next-schemes-empty {
+                      color: #9ca3af;
+                      font-size: 0.8rem;
+                      font-style: italic;
                     }
                     
                     @media (max-width: 600px) {
