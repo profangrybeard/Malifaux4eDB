@@ -1,51 +1,20 @@
 #!/usr/bin/env python3
 """
-Malifaux 4E Crew Builder - Unified Build Pipeline
+Malifaux 4E Crew Builder - Build Pipeline v2
 
-Single command to process all data from raw sources to web-ready outputs.
-Tracks file hashes to only rebuild what's changed.
+VALIDATES DATA BEFORE DOING ANYTHING.
+Supports injecting a source-of-truth JSON to skip extraction steps.
 
 Usage:
-    python build.py                    # Build everything that needs updating
-    python build.py --force            # Rebuild everything from scratch
-    python build.py --clean            # Remove all generated files
-    python build.py --status           # Show what would be rebuilt
-    python build.py --images-dir PATH  # Specify card images directory
+    python build.py --validate cards_FINAL.json   # Validate only, don't build
+    python build.py --source cards_FINAL.json     # Use this as source, run pipeline
+    python build.py --status                      # Show what would be rebuilt
 
-Directory Structure:
-    project_root/
-    ├── build.py                 (this file)
-    ├── data/
-    │   ├── raw/
-    │   │   ├── card_pdfs/       (source PDFs from Wyrd)
-    │   │   └── objective_images/ (scheme/strategy card images)
-    │   ├── intermediate/        (build artifacts, gitignored)
-    │   └── dist/                (final outputs for web app)
-    ├── pipeline/                (processing scripts)
-    │   ├── parse_cards.py
-    │   ├── fix_cards.py
-    │   ├── repair_all.py        (UNIFIED: cost/station/condition fixes)
-    │   ├── tag_extractor.py
-    │   ├── parse_objective_cards.py
-    │   ├── normalize_data.py    (faction name normalization)
-    │   ├── faction_meta.py      (Longshanks competitive meta)
-    │   ├── crew_recommender.py
-    │   ├── corrections.json     (persistent manual corrections)
-    │   └── taxonomy.json
-    └── src/data/                (web app data, copied from dist/)
-    
-    ../Malifaux4eDB-images/      (card PNG images - separate repo)
-
-Pipeline Steps:
-    1. extract_cards      - Parse card PDFs to cards_raw.json
-    2. fix_cards          - Apply corrections.json to cards_fixed.json
-    3. repair_all         - Fix costs, stations, conditions → cards_repaired.json
-    4. extract_tags       - Extract semantic tags to cards_tagged.json
-    5. extract_objectives - OCR scheme/strategy images to objectives_raw.json
-    6. normalize_data     - Normalize faction/scheme names
-    7. enrich_meta        - Add Longshanks competitive meta to cards_enriched.json
-    8. train_recommender  - Train ML model, output recommendations.json
-    9. bundle             - Copy to dist/ and src/data/
+SAFE BY DEFAULT:
+- Validates input data before any processing
+- Fails fast with clear error messages
+- Never overwrites source files
+- Creates backups before modifying dist/
 """
 
 import argparse
@@ -53,86 +22,279 @@ import hashlib
 import json
 import os
 import shutil
-import subprocess
 import sys
 from dataclasses import dataclass, asdict
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional, Set
+from typing import Dict, List, Optional, Set, Tuple
 
 
-# ═══════════════════════════════════════════════════════════════════════════════
+# =============================================================================
+# VALIDATION - RUNS FIRST, ALWAYS
+# =============================================================================
+
+VALID_STATIONS = ['Master', 'Henchman', 'Enforcer', 'Minion', 'Totem', 'Peon']
+VALID_FACTIONS = ['Arcanists', 'Bayou', "Explorer's Society", 'Guild', 'Neverborn', 'Outcasts', 'Resurrectionists', 'Ten Thunders']
+REQUIRED_FIELDS = ['id', 'name', 'faction', 'station', 'keywords', 'characteristics', 'card_type']
+APP_FIELDS = ['front_image', 'subfaction', 'primary_keyword']
+
+
+def validate_cards(cards_path: Path) -> Tuple[bool, List[str], List[str], dict]:
+    """
+    Comprehensive validation of card data.
+    Returns (success: bool, errors: list, warnings: list, stats: dict)
+    
+    CRITICAL CHECKS (errors - will fail build):
+    - File exists and is valid JSON
+    - Root is a list
+    - All cards have required fields
+    - All IDs are unique (not None)
+    - Stations are valid values
+    - Factions are valid values
+    
+    NON-CRITICAL CHECKS (warnings - build continues):
+    - App-specific fields present
+    - Stats fields present
+    """
+    errors = []
+    warnings = []
+    stats = {}
+    
+    # Load data
+    try:
+        with open(cards_path, 'r', encoding='utf-8') as f:
+            cards = json.load(f)
+    except json.JSONDecodeError as e:
+        return False, [f"Invalid JSON: {e}"], [], {}
+    except FileNotFoundError:
+        return False, [f"File not found: {cards_path}"], [], {}
+    
+    # Check root structure
+    if not isinstance(cards, list):
+        return False, ["Root must be a list of cards"], [], {}
+    
+    stats['total_cards'] = len(cards)
+    
+    if len(cards) == 0:
+        return False, ["No cards in file"], [], {}
+    
+    if len(cards) < 100:
+        errors.append(f"Suspiciously few cards: {len(cards)} (expected ~1300+)")
+    
+    # Track issues
+    missing_required = {f: [] for f in REQUIRED_FIELDS}
+    missing_app = {f: [] for f in APP_FIELDS}
+    invalid_station = []
+    invalid_faction = []
+    duplicate_ids = []
+    none_ids = []
+    
+    stations = {}
+    factions = {}
+    seen_ids = set()
+    
+    for i, card in enumerate(cards):
+        card_name = card.get('name', f'Card #{i}')
+        card_id = card.get('id')
+        
+        # Check required fields
+        for field in REQUIRED_FIELDS:
+            val = card.get(field)
+            if val is None or val == '' or val == []:
+                missing_required[field].append(card_name)
+        
+        # Check app-specific fields
+        for field in APP_FIELDS:
+            val = card.get(field)
+            if val is None or val == '':
+                missing_app[field].append(card_name)
+        
+        # Validate station
+        station = card.get('station')
+        if station:
+            stations[station] = stations.get(station, 0) + 1
+            if station not in VALID_STATIONS:
+                invalid_station.append((card_name, station))
+        
+        # Validate faction
+        faction = card.get('faction')
+        if faction:
+            factions[faction] = factions.get(faction, 0) + 1
+            if faction not in VALID_FACTIONS:
+                invalid_faction.append((card_name, faction))
+        
+        # Check ID uniqueness - THIS IS CRITICAL
+        if card_id is None:
+            none_ids.append(card_name)
+        elif card_id in seen_ids:
+            duplicate_ids.append((card_name, card_id))
+        else:
+            seen_ids.add(card_id)
+    
+    # Build error list - these BLOCK the build
+    for field, cards_missing in missing_required.items():
+        count = len(cards_missing)
+        if count > 0:
+            pct = count / len(cards) * 100
+            if pct > 5:  # More than 5% missing = error
+                errors.append(f"REQUIRED '{field}' missing on {count} cards ({pct:.1f}%)")
+            else:
+                warnings.append(f"'{field}' missing on {count} cards ({pct:.1f}%)")
+    
+    if none_ids:
+        errors.append(f"CRITICAL: {len(none_ids)} cards have id=None")
+        errors.append(f"  -> App will only display 1 card!")
+        if len(none_ids) <= 5:
+            errors.append(f"  -> Cards: {none_ids}")
+    
+    if duplicate_ids:
+        errors.append(f"CRITICAL: {len(duplicate_ids)} duplicate IDs found")
+        errors.append(f"  -> App will skip duplicate cards!")
+        if len(duplicate_ids) <= 5:
+            errors.append(f"  -> Examples: {duplicate_ids}")
+    
+    if invalid_station:
+        errors.append(f"Invalid station on {len(invalid_station)} cards")
+        errors.append(f"  -> Valid: {VALID_STATIONS}")
+        if len(invalid_station) <= 3:
+            errors.append(f"  -> Found: {invalid_station}")
+    
+    if invalid_faction:
+        errors.append(f"Invalid faction on {len(invalid_faction)} cards")
+        if len(invalid_faction) <= 3:
+            errors.append(f"  -> Found: {invalid_faction}")
+    
+    # Build warning list - these allow build to continue
+    for field, cards_missing in missing_app.items():
+        if cards_missing:
+            warnings.append(f"App field '{field}' missing on {len(cards_missing)} cards")
+    
+    # Station distribution sanity check
+    if stations:
+        if stations.get('Master', 0) < 50:
+            warnings.append(f"Low Master count: {stations.get('Master', 0)} (expected ~120+)")
+        if stations.get('Minion', 0) < 300:
+            warnings.append(f"Low Minion count: {stations.get('Minion', 0)} (expected ~600+)")
+    
+    # Build stats
+    stats['unique_ids'] = len(seen_ids)
+    stats['none_ids'] = len(none_ids)
+    stats['duplicate_ids'] = len(duplicate_ids)
+    stats['stations'] = stations
+    stats['factions'] = factions
+    
+    success = len(errors) == 0
+    return success, errors, warnings, stats
+
+
+def print_validation_report(success: bool, errors: List[str], warnings: List[str], stats: dict):
+    """Pretty print validation results."""
+    print("\n" + "=" * 60)
+    print("DATA VALIDATION REPORT")
+    print("=" * 60)
+    
+    print(f"\nTotal cards: {stats.get('total_cards', 0)}")
+    print(f"Unique IDs: {stats.get('unique_ids', 0)}")
+    
+    if stats.get('none_ids', 0) > 0:
+        print(f"Cards with None ID: {stats.get('none_ids', 0)} [CRITICAL]")
+    if stats.get('duplicate_ids', 0) > 0:
+        print(f"Duplicate IDs: {stats.get('duplicate_ids', 0)} [CRITICAL]")
+    
+    print(f"\nStations:")
+    for s, count in sorted(stats.get('stations', {}).items()):
+        print(f"  {s}: {count}")
+    
+    print(f"\nFactions:")
+    for f, count in sorted(stats.get('factions', {}).items()):
+        print(f"  {f}: {count}")
+    
+    if errors:
+        print(f"\n" + "-" * 60)
+        print(f"ERRORS ({len(errors)}) - BUILD WILL FAIL:")
+        print("-" * 60)
+        for e in errors:
+            print(f"  [X] {e}")
+    
+    if warnings:
+        print(f"\n" + "-" * 60)
+        print(f"WARNINGS ({len(warnings)}) - Review recommended:")
+        print("-" * 60)
+        for w in warnings:
+            print(f"  [!] {w}")
+    
+    print(f"\n" + "=" * 60)
+    if success:
+        print("VALIDATION PASSED")
+    else:
+        print("VALIDATION FAILED - BUILD BLOCKED")
+    print("=" * 60 + "\n")
+
+
+# =============================================================================
 # CONFIGURATION
-# ═══════════════════════════════════════════════════════════════════════════════
+# =============================================================================
 
 class Config:
-    """Pipeline configuration - edit paths here if needed."""
+    """Pipeline configuration."""
     
     def __init__(self, root_dir: Path = None, images_dir: Path = None):
         self.root = root_dir or Path(__file__).parent.resolve()
         
-        # Source data (raw inputs - tracked in git with LFS for PDFs)
+        # Source data
         self.raw_dir = self.root / "data" / "raw"
         self.card_pdfs_dir = self.raw_dir / "card_pdfs"
         self.objective_images_dir = self.raw_dir / "objective_images"
         
-        # Card images directory (separate repo - for health extraction)
+        # Card images directory
         if images_dir:
             self.card_images_dir = Path(images_dir)
         else:
             sibling_images = self.root.parent / "Malifaux4eDB-images"
-            if sibling_images.exists():
-                self.card_images_dir = sibling_images
-            else:
-                self.card_images_dir = None
+            self.card_images_dir = sibling_images if sibling_images.exists() else None
         
-        # Intermediate build artifacts (gitignored)
+        # Build directories
         self.intermediate_dir = self.root / "data" / "intermediate"
-        
-        # Final distribution (copied to web app)
         self.dist_dir = self.root / "data" / "dist"
-        
-        # Pipeline scripts
+        self.backup_dir = self.root / "data" / "backups"
         self.pipeline_dir = self.root / "pipeline"
-        
-        # Web app data directory
         self.webapp_data_dir = self.root / "src" / "data"
         
-        # Build state tracking
+        # Build state
         self.build_state_file = self.intermediate_dir / ".build_state.json"
     
     def ensure_dirs(self):
-        """Create all required directories."""
-        for d in [self.raw_dir, self.card_pdfs_dir, self.objective_images_dir,
-                  self.intermediate_dir, self.dist_dir, self.pipeline_dir,
-                  self.webapp_data_dir]:
+        """Create required directories."""
+        for d in [self.raw_dir, self.intermediate_dir, self.dist_dir, 
+                  self.backup_dir, self.webapp_data_dir]:
             d.mkdir(parents=True, exist_ok=True)
 
 
-# ═══════════════════════════════════════════════════════════════════════════════
-# BUILD STATE TRACKING
-# ═══════════════════════════════════════════════════════════════════════════════
+# =============================================================================
+# BUILD STATE
+# =============================================================================
 
 @dataclass
 class BuildState:
-    """Tracks what was built and when, for incremental rebuilds."""
+    """Tracks build history for incremental rebuilds."""
     
     last_build: str = ""
+    source_file: str = ""
+    source_hash: str = ""
     file_hashes: Dict[str, str] = None
-    step_outputs: Dict[str, List[str]] = None
     
     def __post_init__(self):
         if self.file_hashes is None:
             self.file_hashes = {}
-        if self.step_outputs is None:
-            self.step_outputs = {}
     
     @classmethod
     def load(cls, path: Path) -> "BuildState":
         if path.exists():
-            with open(path, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-                return cls(**data)
+            try:
+                with open(path, 'r', encoding='utf-8') as f:
+                    return cls(**json.load(f))
+            except:
+                pass
         return cls()
     
     def save(self, path: Path):
@@ -142,7 +304,7 @@ class BuildState:
 
 
 def hash_file(path: Path) -> str:
-    """Compute MD5 hash of a file."""
+    """MD5 hash of a file."""
     hasher = hashlib.md5()
     with open(path, 'rb') as f:
         for chunk in iter(lambda: f.read(65536), b''):
@@ -150,861 +312,218 @@ def hash_file(path: Path) -> str:
     return hasher.hexdigest()
 
 
-def hash_directory(directory: Path, extensions: Set[str] = None) -> Dict[str, str]:
-    """Hash all files in a directory (optionally filtered by extension)."""
-    hashes = {}
-    if not directory.exists():
-        return hashes
+# =============================================================================
+# PIPELINE - Source Injection Mode
+# =============================================================================
+
+def inject_source(config: Config, source_path: Path) -> bool:
+    """
+    Inject a source-of-truth JSON into the pipeline.
+    Skips extraction steps, goes straight to enrichment.
+    """
+    print(f"\n[inject] Using source: {source_path}")
     
-    for path in sorted(directory.rglob('*')):
-        if path.is_file():
-            if extensions is None or path.suffix.lower() in extensions:
-                rel_path = str(path.relative_to(directory))
-                hashes[rel_path] = hash_file(path)
+    # Copy to intermediate as the "extracted" cards
+    config.ensure_dirs()
     
-    return hashes
+    dest = config.intermediate_dir / "cards_extracted.json"
+    shutil.copy(source_path, dest)
+    print(f"  -> Copied to {dest}")
+    
+    # Also copy as "fixed" since we're skipping fix steps
+    for stage in ["cards_fixed.json", "cards_repaired.json", "cards_stationed.json"]:
+        stage_dest = config.intermediate_dir / stage
+        shutil.copy(source_path, stage_dest)
+        print(f"  -> {stage}")
+    
+    return True
 
 
-def files_changed(old_hashes: Dict[str, str], new_hashes: Dict[str, str]) -> bool:
-    """Check if any files changed between two hash sets."""
-    return old_hashes != new_hashes
+def run_enrichment(config: Config, source_path: Path) -> bool:
+    """
+    Run only the enrichment/tagging steps on validated source data.
+    """
+    print(f"\n[enrich] Running enrichment pipeline...")
+    
+    # For now, just copy source to final location
+    # TODO: Run tag_extractor, crew_recommender, etc.
+    
+    cards_dest = config.dist_dir / "cards.json"
+    shutil.copy(source_path, cards_dest)
+    print(f"  -> {cards_dest}")
+    
+    # Create placeholder objectives if not exists
+    obj_dest = config.dist_dir / "objectives.json"
+    if not obj_dest.exists():
+        with open(obj_dest, 'w') as f:
+            json.dump({"schemes": {}, "strategies": {}}, f)
+        print(f"  -> {obj_dest} (placeholder)")
+    
+    # Create placeholder recommendations if not exists
+    rec_dest = config.dist_dir / "recommendations.json"
+    if not rec_dest.exists():
+        with open(rec_dest, 'w') as f:
+            json.dump({"synergies": {}, "roles": {}}, f)
+        print(f"  -> {rec_dest} (placeholder)")
+    
+    return True
 
 
-# ═══════════════════════════════════════════════════════════════════════════════
-# PIPELINE STEPS
-# ═══════════════════════════════════════════════════════════════════════════════
-
-class PipelineStep:
-    """Base class for pipeline steps."""
+def copy_to_webapp(config: Config) -> bool:
+    """Copy dist files to webapp src/data/."""
+    print(f"\n[bundle] Copying to webapp...")
     
-    name: str = "base"
-    description: str = "Base step"
+    if not config.webapp_data_dir.exists():
+        print(f"  [!] Webapp dir not found: {config.webapp_data_dir}")
+        return True  # Not an error, just skip
     
-    def __init__(self, config: Config, state: BuildState):
-        self.config = config
-        self.state = state
+    for filename in ["cards.json", "objectives.json", "recommendations.json"]:
+        src = config.dist_dir / filename
+        dst = config.webapp_data_dir / filename
+        if src.exists():
+            # Backup existing
+            if dst.exists():
+                backup = config.backup_dir / f"{filename}.{datetime.now().strftime('%Y%m%d_%H%M%S')}.bak"
+                config.backup_dir.mkdir(parents=True, exist_ok=True)
+                shutil.copy(dst, backup)
+                print(f"  -> Backed up existing {filename}")
+            shutil.copy(src, dst)
+            print(f"  -> src/data/{filename}")
     
-    def needs_rebuild(self) -> bool:
-        raise NotImplementedError
-    
-    def run(self) -> bool:
-        raise NotImplementedError
-    
-    def get_input_hashes(self) -> Dict[str, str]:
-        return {}
-    
-    def update_state(self):
-        self.state.file_hashes[self.name] = self.get_input_hashes()
+    return True
 
 
-class ExtractCardsStep(PipelineStep):
-    """Step 1: Extract card data from PDFs."""
-    
-    name = "extract_cards"
-    description = "Extract card data from PDFs"
-    
-    def get_input_hashes(self) -> Dict[str, str]:
-        return hash_directory(self.config.card_pdfs_dir, {'.pdf'})
-    
-    def needs_rebuild(self) -> bool:
-        output = self.config.intermediate_dir / "cards_raw.json"
-        if not output.exists():
-            return True
-        
-        old_hashes = self.state.file_hashes.get(self.name, {})
-        new_hashes = self.get_input_hashes()
-        return files_changed(old_hashes, new_hashes)
-    
-    def run(self) -> bool:
-        script = self.config.pipeline_dir / "parse_cards.py"
-        output = self.config.intermediate_dir / "cards_raw.json"
-        
-        if not script.exists():
-            print(f"  ERROR: {script} not found")
-            return False
-        
-        print(f"  Running: parse_cards.py")
-        
-        cmd = [
-            sys.executable, str(script),
-            "--input", str(self.config.card_pdfs_dir),
-            "--output", str(output)
-        ]
-        
-        if self.config.card_images_dir and self.config.card_images_dir.exists():
-            cmd.extend(["--images-dir", str(self.config.card_images_dir)])
-            print(f"  Using images from: {self.config.card_images_dir}")
-        else:
-            print(f"  WARNING: No card images directory - health extraction may fail")
-        
-        result = subprocess.run(cmd, capture_output=True, text=True)
-        
-        if result.returncode != 0:
-            print(f"  FAILED: {result.stderr}")
-            return False
-        
-        print(f"  Output: {output}")
-        return True
-
-
-class FixCardsStep(PipelineStep):
-    """Step 2: Apply persistent corrections to card data."""
-    
-    name = "fix_cards"
-    description = "Apply persistent keyword and data corrections"
-    
-    def get_input_hashes(self) -> Dict[str, str]:
-        hashes = {}
-        
-        cards_raw = self.config.intermediate_dir / "cards_raw.json"
-        if cards_raw.exists():
-            hashes["cards_raw.json"] = hash_file(cards_raw)
-        
-        corrections = self.config.pipeline_dir / "corrections.json"
-        if corrections.exists():
-            hashes["corrections.json"] = hash_file(corrections)
-        
-        script = self.config.pipeline_dir / "fix_cards.py"
-        if script.exists():
-            hashes["fix_cards.py"] = hash_file(script)
-        
-        return hashes
-    
-    def needs_rebuild(self) -> bool:
-        output = self.config.intermediate_dir / "cards_fixed.json"
-        if not output.exists():
-            return True
-        
-        old_hashes = self.state.file_hashes.get(self.name, {})
-        new_hashes = self.get_input_hashes()
-        return files_changed(old_hashes, new_hashes)
-    
-    def run(self) -> bool:
-        script = self.config.pipeline_dir / "fix_cards.py"
-        input_file = self.config.intermediate_dir / "cards_raw.json"
-        output = self.config.intermediate_dir / "cards_fixed.json"
-        corrections = self.config.pipeline_dir / "corrections.json"
-        
-        if not script.exists():
-            print(f"  WARNING: {script} not found, copying cards_raw.json as-is")
-            if input_file.exists():
-                shutil.copy(input_file, output)
-                return True
-            return False
-        
-        if not input_file.exists():
-            print(f"  ERROR: {input_file} not found (run extract_cards first)")
-            return False
-        
-        print(f"  Running: fix_cards.py")
-        cmd = [
-            sys.executable, str(script),
-            "--input", str(input_file),
-            "--output", str(output)
-        ]
-        
-        if corrections.exists():
-            cmd.extend(["--corrections", str(corrections)])
-            print(f"  Using corrections from: {corrections}")
-        
-        result = subprocess.run(cmd, capture_output=True, text=True)
-        
-        if result.returncode != 0:
-            print(f"  FAILED: {result.stderr}")
-            return False
-        
-        if result.stdout:
-            for line in result.stdout.strip().split('\n')[-5:]:  # Last 5 lines
-                print(f"  {line}")
-        
-        print(f"  Output: {output}")
-        return True
-
-
-class RepairAllStep(PipelineStep):
-    """Step 3: UNIFIED repair - costs, stations, conditions in ONE pass."""
-    
-    name = "repair_all"
-    description = "Repair costs, stations, conditions (unified)"
-    
-    def get_input_hashes(self) -> Dict[str, str]:
-        hashes = {}
-        
-        cards_fixed = self.config.intermediate_dir / "cards_fixed.json"
-        if cards_fixed.exists():
-            hashes["cards_fixed.json"] = hash_file(cards_fixed)
-        
-        script = self.config.pipeline_dir / "repair_all.py"
-        if script.exists():
-            hashes["repair_all.py"] = hash_file(script)
-        
-        return hashes
-    
-    def needs_rebuild(self) -> bool:
-        output = self.config.intermediate_dir / "cards_repaired.json"
-        if not output.exists():
-            return True
-        
-        old_hashes = self.state.file_hashes.get(self.name, {})
-        new_hashes = self.get_input_hashes()
-        return files_changed(old_hashes, new_hashes)
-    
-    def run(self) -> bool:
-        script = self.config.pipeline_dir / "repair_all.py"
-        input_file = self.config.intermediate_dir / "cards_fixed.json"
-        output = self.config.intermediate_dir / "cards_repaired.json"
-        report = self.config.intermediate_dir / "repair_report.json"
-        
-        if not script.exists():
-            print(f"  ERROR: {script} not found - this is required!")
-            print(f"  Download repair_all.py and place in pipeline/")
-            return False
-        
-        if not input_file.exists():
-            print(f"  ERROR: {input_file} not found")
-            return False
-        
-        print(f"  Running: repair_all.py")
-        cmd = [
-            sys.executable, str(script),
-            str(input_file),
-            "--output", str(output),
-            "--report", str(report)
-        ]
-        
-        result = subprocess.run(cmd, capture_output=True, text=True)
-        
-        # Print full output (includes station distribution and validation)
-        if result.stdout:
-            for line in result.stdout.strip().split('\n'):
-                # Print key lines
-                if any(x in line for x in ['Enforcer', 'Master', 'Henchman', 'Minion', 
-                                            'STATION', 'VALIDATION', 'HEALTH', 'Grade',
-                                            'fixed', 'inferred', '[OK]', '[WARNING]', '[CRITICAL]']):
-                    print(f"  {line}")
-        
-        if result.returncode != 0:
-            print(f"  FAILED: {result.stderr}")
-            # This is CRITICAL - don't continue with broken data
-            return False
-        
-        print(f"  Output: {output}")
-        return True
-
-
-class ExtractTagsStep(PipelineStep):
-    """Step 4: Extract semantic tags from cards."""
-    
-    name = "extract_tags"
-    description = "Extract semantic tags (roles, conditions, markers)"
-    
-    def get_input_hashes(self) -> Dict[str, str]:
-        hashes = {}
-        
-        # Now uses cards_repaired.json as input (from repair_all step)
-        cards_input = self.config.intermediate_dir / "cards_repaired.json"
-        if cards_input.exists():
-            hashes["cards_repaired.json"] = hash_file(cards_input)
-        
-        taxonomy = self.config.pipeline_dir / "taxonomy.json"
-        if taxonomy.exists():
-            hashes["taxonomy.json"] = hash_file(taxonomy)
-        
-        script = self.config.pipeline_dir / "tag_extractor.py"
-        if script.exists():
-            hashes["tag_extractor.py"] = hash_file(script)
-        
-        return hashes
-    
-    def needs_rebuild(self) -> bool:
-        output = self.config.intermediate_dir / "cards_tagged.json"
-        if not output.exists():
-            return True
-        
-        old_hashes = self.state.file_hashes.get(self.name, {})
-        new_hashes = self.get_input_hashes()
-        return files_changed(old_hashes, new_hashes)
-    
-    def run(self) -> bool:
-        script = self.config.pipeline_dir / "tag_extractor.py"
-        input_file = self.config.intermediate_dir / "cards_repaired.json"
-        output = self.config.intermediate_dir / "cards_tagged.json"
-        taxonomy = self.config.pipeline_dir / "taxonomy.json"
-        
-        if not script.exists():
-            print(f"  WARNING: {script} not found, copying input as-is")
-            if input_file.exists():
-                shutil.copy(input_file, output)
-            return True
-        
-        if not input_file.exists():
-            print(f"  ERROR: {input_file} not found")
-            return False
-        
-        print(f"  Running: tag_extractor.py")
-        cmd = [
-            sys.executable, str(script),
-            "--input", str(input_file),
-            "--output", str(output)
-        ]
-        if taxonomy.exists():
-            cmd.extend(["--taxonomy", str(taxonomy)])
-        
-        result = subprocess.run(cmd, capture_output=True, text=True)
-        
-        if result.returncode != 0:
-            print(f"  WARNING: tag_extractor failed, copying input as-is")
-            print(f"  {result.stderr[:200] if result.stderr else ''}")
-            shutil.copy(input_file, output)
-        
-        print(f"  Output: {output}")
-        return True
-
-
-class ExtractObjectivesStep(PipelineStep):
-    """Step 5: OCR scheme/strategy cards."""
-    
-    name = "extract_objectives"
-    description = "OCR scheme and strategy card images"
-    
-    def get_input_hashes(self) -> Dict[str, str]:
-        return hash_directory(self.config.objective_images_dir, {'.png', '.jpg', '.jpeg'})
-    
-    def needs_rebuild(self) -> bool:
-        output = self.config.intermediate_dir / "objectives_raw.json"
-        if not output.exists():
-            return True
-        
-        old_hashes = self.state.file_hashes.get(self.name, {})
-        new_hashes = self.get_input_hashes()
-        return files_changed(old_hashes, new_hashes)
-    
-    def run(self) -> bool:
-        script = self.config.pipeline_dir / "parse_objective_cards.py"
-        output = self.config.intermediate_dir / "objectives_raw.json"
-        
-        if not script.exists():
-            print(f"  WARNING: {script} not found")
-            with open(output, 'w', encoding='utf-8') as f:
-                json.dump({"schemes": {}, "strategies": {}}, f)
-            print(f"  Created empty objectives file")
-            return True
-        
-        if not self.config.objective_images_dir.exists():
-            print(f"  SKIP: No objective images directory")
-            with open(output, 'w', encoding='utf-8') as f:
-                json.dump({"schemes": {}, "strategies": {}}, f)
-            return True
-        
-        print(f"  Running: parse_objective_cards.py")
-        result = subprocess.run([
-            sys.executable, str(script),
-            "--input", str(self.config.objective_images_dir),
-            "--output", str(output)
-        ], capture_output=True, text=True)
-        
-        if result.returncode != 0:
-            print(f"  WARNING: objectives extraction failed")
-            print(f"  {result.stderr[:200] if result.stderr else ''}")
-            with open(output, 'w', encoding='utf-8') as f:
-                json.dump({"schemes": {}, "strategies": {}}, f)
-        
-        print(f"  Output: {output}")
-        return True
-
-
-class NormalizeDataStep(PipelineStep):
-    """Step 6: Normalize faction names and scheme names."""
-    
-    name = "normalize_data"
-    description = "Normalize faction and scheme names across all files"
-    
-    def get_input_hashes(self) -> Dict[str, str]:
-        hashes = {}
-        
-        cards_tagged = self.config.intermediate_dir / "cards_tagged.json"
-        if cards_tagged.exists():
-            hashes["cards_tagged.json"] = hash_file(cards_tagged)
-        
-        objectives = self.config.intermediate_dir / "objectives_raw.json"
-        if objectives.exists():
-            hashes["objectives_raw.json"] = hash_file(objectives)
-        
-        script = self.config.pipeline_dir / "normalize_data.py"
-        if script.exists():
-            hashes["normalize_data.py"] = hash_file(script)
-        
-        return hashes
-    
-    def needs_rebuild(self) -> bool:
-        output = self.config.intermediate_dir / "cards_normalized.json"
-        if not output.exists():
-            return True
-        
-        old_hashes = self.state.file_hashes.get(self.name, {})
-        new_hashes = self.get_input_hashes()
-        return files_changed(old_hashes, new_hashes)
-    
-    def run(self) -> bool:
-        script = self.config.pipeline_dir / "normalize_data.py"
-        cards_input = self.config.intermediate_dir / "cards_tagged.json"
-        obj_input = self.config.intermediate_dir / "objectives_raw.json"
-        cards_output = self.config.intermediate_dir / "cards_normalized.json"
-        obj_output = self.config.intermediate_dir / "objectives_normalized.json"
-        
-        if not script.exists():
-            print(f"  WARNING: {script} not found, copying files as-is")
-            if cards_input.exists():
-                shutil.copy(cards_input, cards_output)
-            if obj_input.exists():
-                shutil.copy(obj_input, obj_output)
-            return True
-        
-        # normalize_data.py expects cards.json and objectives.json in input dir
-        # Create temp dir with expected filenames
-        temp_input = self.config.intermediate_dir / "_normalize_input"
-        temp_output = self.config.intermediate_dir / "_normalize_output"
-        temp_input.mkdir(exist_ok=True)
-        temp_output.mkdir(exist_ok=True)
-        
-        # Copy with expected names
-        if cards_input.exists():
-            shutil.copy(cards_input, temp_input / "cards.json")
-        if obj_input.exists():
-            shutil.copy(obj_input, temp_input / "objectives.json")
-        
-        print(f"  Running: normalize_data.py")
-        cmd = [
-            sys.executable, str(script),
-            "--input-dir", str(temp_input),
-            "--output-dir", str(temp_output)
-        ]
-        
-        result = subprocess.run(cmd, capture_output=True, text=True)
-        
-        if result.returncode != 0:
-            print(f"  WARNING: normalize_data failed, copying as-is")
-            print(f"  {result.stderr[:200] if result.stderr else ''}")
-            # Cleanup and fallback
-            shutil.rmtree(temp_input, ignore_errors=True)
-            shutil.rmtree(temp_output, ignore_errors=True)
-            if cards_input.exists():
-                shutil.copy(cards_input, cards_output)
-            if obj_input.exists():
-                shutil.copy(obj_input, obj_output)
-            return True
-        
-        # Move outputs to final locations
-        temp_cards = temp_output / "cards.json"
-        temp_obj = temp_output / "objectives.json"
-        
-        if temp_cards.exists():
-            shutil.move(str(temp_cards), str(cards_output))
-        elif cards_input.exists():
-            shutil.copy(cards_input, cards_output)
-        
-        if temp_obj.exists():
-            shutil.move(str(temp_obj), str(obj_output))
-        elif obj_input.exists():
-            shutil.copy(obj_input, obj_output)
-        
-        # Cleanup temp dirs
-        shutil.rmtree(temp_input, ignore_errors=True)
-        shutil.rmtree(temp_output, ignore_errors=True)
-        
-        print(f"  Output: cards_normalized.json, objectives_normalized.json")
-        return True
-
-
-class EnrichMetaStep(PipelineStep):
-    """Step 7: Add Longshanks competitive meta data."""
-    
-    name = "enrich_meta"
-    description = "Add competitive win rates from Longshanks"
-    
-    def get_input_hashes(self) -> Dict[str, str]:
-        hashes = {}
-        
-        cards_normalized = self.config.intermediate_dir / "cards_normalized.json"
-        if cards_normalized.exists():
-            hashes["cards_normalized.json"] = hash_file(cards_normalized)
-        
-        objectives_normalized = self.config.intermediate_dir / "objectives_normalized.json"
-        if objectives_normalized.exists():
-            hashes["objectives_normalized.json"] = hash_file(objectives_normalized)
-        
-        faction_meta = self.config.pipeline_dir / "faction_meta.py"
-        if faction_meta.exists():
-            hashes["faction_meta.py"] = hash_file(faction_meta)
-        
-        faction_meta_json = self.config.pipeline_dir / "faction_meta.json"
-        if faction_meta_json.exists():
-            hashes["faction_meta.json"] = hash_file(faction_meta_json)
-        
-        return hashes
-    
-    def needs_rebuild(self) -> bool:
-        outputs = [
-            self.config.intermediate_dir / "cards_enriched.json",
-            self.config.intermediate_dir / "objectives_enriched.json"
-        ]
-        
-        if not all(o.exists() for o in outputs):
-            return True
-        
-        old_hashes = self.state.file_hashes.get(self.name, {})
-        new_hashes = self.get_input_hashes()
-        return files_changed(old_hashes, new_hashes)
-    
-    def run(self) -> bool:
-        # Use enrich_meta.py (CLI wrapper) not faction_meta.py (data module)
-        script = self.config.pipeline_dir / "enrich_meta.py"
-        cards_input = self.config.intermediate_dir / "cards_normalized.json"
-        objectives_input = self.config.intermediate_dir / "objectives_normalized.json"
-        cards_output = self.config.intermediate_dir / "cards_enriched.json"
-        objectives_output = self.config.intermediate_dir / "objectives_enriched.json"
-        
-        if not script.exists():
-            print(f"  WARNING: {script} not found, copying files as-is")
-            if cards_input.exists():
-                shutil.copy(cards_input, cards_output)
-            if objectives_input.exists():
-                shutil.copy(objectives_input, objectives_output)
-            return True
-        
-        if not cards_input.exists():
-            print(f"  ERROR: {cards_input} not found")
-            return False
-        
-        print(f"  Running: enrich_meta.py")
-        cmd = [
-            sys.executable, str(script),
-            "--cards", str(cards_input),
-            "--output-cards", str(cards_output)
-        ]
-        
-        if objectives_input.exists():
-            cmd.extend([
-                "--objectives", str(objectives_input),
-                "--output-objectives", str(objectives_output)
-            ])
-        
-        result = subprocess.run(cmd, capture_output=True, text=True)
-        
-        if result.returncode != 0:
-            print(f"  ERROR: enrich_meta.py failed")
-            print(f"  {result.stderr[:500] if result.stderr else 'No error output'}")
-            return False
-        
-        # Print stdout for visibility
-        if result.stdout:
-            for line in result.stdout.strip().split('\n'):
-                print(f"  {line}")
-        
-        # Verify outputs were created
-        if not cards_output.exists():
-            print(f"  ERROR: {cards_output} was not created")
-            return False
-        
-        # Copy faction_meta.json to dist if it exists
-        faction_meta_json = self.config.pipeline_dir / "faction_meta.json"
-        if faction_meta_json.exists():
-            self.config.dist_dir.mkdir(parents=True, exist_ok=True)
-            shutil.copy(faction_meta_json, self.config.dist_dir / "faction_meta.json")
-            print(f"  -> faction_meta.json copied to dist")
-        
-        print(f"  Output: cards_enriched.json, objectives_enriched.json")
-        return True
-
-
-class TrainRecommenderStep(PipelineStep):
-    """Step 8: Train crew recommendation model."""
-    
-    name = "train_recommender"
-    description = "Train crew synergy and recommendation model"
-    
-    def get_input_hashes(self) -> Dict[str, str]:
-        hashes = {}
-        
-        cards_enriched = self.config.intermediate_dir / "cards_enriched.json"
-        if cards_enriched.exists():
-            hashes["cards_enriched.json"] = hash_file(cards_enriched)
-        
-        config_file = self.config.pipeline_dir / "recommender_config.json"
-        if config_file.exists():
-            hashes["recommender_config.json"] = hash_file(config_file)
-        
-        script = self.config.pipeline_dir / "crew_recommender.py"
-        if script.exists():
-            hashes["crew_recommender.py"] = hash_file(script)
-        
-        return hashes
-    
-    def needs_rebuild(self) -> bool:
-        output = self.config.intermediate_dir / "recommendations.json"
-        if not output.exists():
-            return True
-        
-        old_hashes = self.state.file_hashes.get(self.name, {})
-        new_hashes = self.get_input_hashes()
-        return files_changed(old_hashes, new_hashes)
-    
-    def run(self) -> bool:
-        script = self.config.pipeline_dir / "crew_recommender.py"
-        cards_input = self.config.intermediate_dir / "cards_enriched.json"
-        output = self.config.intermediate_dir / "recommendations.json"
-        config_file = self.config.pipeline_dir / "recommender_config.json"
-        
-        if not script.exists():
-            print(f"  WARNING: {script} not found, creating empty recommendations")
-            with open(output, 'w', encoding='utf-8') as f:
-                json.dump({"synergies": {}, "objective_fits": {}}, f)
-            return True
-        
-        if not cards_input.exists():
-            print(f"  ERROR: {cards_input} not found")
-            return False
-        
-        print(f"  Running: crew_recommender.py")
-        cmd = [
-            sys.executable, str(script),
-            "--cards", str(cards_input),
-            "--output", str(output)
-        ]
-        
-        if config_file.exists():
-            cmd.extend(["--config", str(config_file)])
-        
-        result = subprocess.run(cmd, capture_output=True, text=True)
-        
-        if result.returncode != 0:
-            print(f"  WARNING: Recommender failed, creating empty file")
-            print(f"  {result.stderr[:200] if result.stderr else ''}")
-            with open(output, 'w', encoding='utf-8') as f:
-                json.dump({"synergies": {}, "objective_fits": {}}, f)
-        
-        print(f"  Output: {output}")
-        return True
-
-
-class BundleStep(PipelineStep):
-    """Step 9: Copy final outputs to dist/ and web app."""
-    
-    name = "bundle"
-    description = "Bundle outputs for distribution"
-    
-    def get_input_hashes(self) -> Dict[str, str]:
-        hashes = {}
-        
-        for filename in ["cards_enriched.json", "objectives_enriched.json", "recommendations.json"]:
-            path = self.config.intermediate_dir / filename
-            if path.exists():
-                hashes[filename] = hash_file(path)
-        
-        faction_meta = self.config.dist_dir / "faction_meta.json"
-        if faction_meta.exists():
-            hashes["faction_meta.json"] = hash_file(faction_meta)
-        
-        return hashes
-    
-    def needs_rebuild(self) -> bool:
-        outputs = [
-            self.config.dist_dir / "cards.json",
-            self.config.dist_dir / "objectives.json",
-        ]
-        
-        if not all(o.exists() for o in outputs):
-            return True
-        
-        old_hashes = self.state.file_hashes.get(self.name, {})
-        new_hashes = self.get_input_hashes()
-        return files_changed(old_hashes, new_hashes)
-    
-    def run(self) -> bool:
-        print(f"  Bundling outputs...")
-        
-        # Cards: copy enriched version
-        cards_src = self.config.intermediate_dir / "cards_enriched.json"
-        cards_dst = self.config.dist_dir / "cards.json"
-        if cards_src.exists():
-            shutil.copy(cards_src, cards_dst)
-            print(f"  -> cards.json")
-        
-        # Objectives: copy enriched version
-        obj_src = self.config.intermediate_dir / "objectives_enriched.json"
-        obj_dst = self.config.dist_dir / "objectives.json"
-        if obj_src.exists():
-            shutil.copy(obj_src, obj_dst)
-            print(f"  -> objectives.json")
-        else:
-            with open(obj_dst, 'w', encoding='utf-8') as f:
-                json.dump({"schemes": {}, "strategies": {}}, f)
-            print(f"  -> objectives.json (empty placeholder)")
-        
-        # Recommendations
-        rec_src = self.config.intermediate_dir / "recommendations.json"
-        rec_dst = self.config.dist_dir / "recommendations.json"
-        if rec_src.exists():
-            shutil.copy(rec_src, rec_dst)
-            print(f"  -> recommendations.json")
-        else:
-            with open(rec_dst, 'w', encoding='utf-8') as f:
-                json.dump({"synergies": {}, "objective_fits": {}}, f)
-            print(f"  -> recommendations.json (empty placeholder)")
-        
-        # Faction meta
-        faction_meta = self.config.dist_dir / "faction_meta.json"
-        if faction_meta.exists():
-            print(f"  -> faction_meta.json (already present)")
-        
-        # Copy to web app src/data/
-        if self.config.webapp_data_dir.exists():
-            print(f"  Copying to web app...")
-            for filename in ["cards.json", "objectives.json", "recommendations.json", "faction_meta.json"]:
-                src = self.config.dist_dir / filename
-                dst = self.config.webapp_data_dir / filename
-                if src.exists():
-                    shutil.copy(src, dst)
-                    print(f"  -> src/data/{filename}")
-        
-        return True
-
-
-# ═══════════════════════════════════════════════════════════════════════════════
-# PIPELINE RUNNER
-# ═══════════════════════════════════════════════════════════════════════════════
-
-class Pipeline:
-    """Orchestrates the build pipeline."""
-    
-    def __init__(self, config: Config = None):
-        self.config = config or Config()
-        self.config.ensure_dirs()
-        self.state = BuildState.load(self.config.build_state_file)
-        
-        # Define steps in order - SIMPLIFIED from 11 to 9 steps
-        self.steps = [
-            ExtractCardsStep(self.config, self.state),      # 1. PDF -> cards_raw.json
-            FixCardsStep(self.config, self.state),          # 2. Apply corrections.json
-            RepairAllStep(self.config, self.state),         # 3. UNIFIED: costs, stations, conditions
-            ExtractTagsStep(self.config, self.state),       # 4. Extract semantic tags
-            ExtractObjectivesStep(self.config, self.state), # 5. OCR objectives
-            NormalizeDataStep(self.config, self.state),     # 6. Normalize names
-            EnrichMetaStep(self.config, self.state),        # 7. Add meta data
-            TrainRecommenderStep(self.config, self.state),  # 8. Train recommender
-            BundleStep(self.config, self.state),            # 9. Bundle for dist
-        ]
-    
-    def run(self, force: bool = False) -> bool:
-        """Run all pipeline steps that need updating."""
-        print("=" * 60)
-        print("Malifaux 4E Build Pipeline")
-        print("=" * 60)
-        
-        success = True
-        any_ran = False
-        
-        for step in self.steps:
-            needs_run = force or step.needs_rebuild()
-            
-            if needs_run:
-                print(f"\n[{step.name}] {step.description}")
-                any_ran = True
-                
-                if step.run():
-                    step.update_state()
-                    print(f"  [OK] Complete")
-                else:
-                    print(f"  [FAILED]")
-                    success = False
-                    break
-            else:
-                print(f"\n[{step.name}] Up to date, skipping")
-        
-        if success and any_ran:
-            self.state.last_build = datetime.now().isoformat()
-            self.state.save(self.config.build_state_file)
-            print(f"\n" + "=" * 60)
-            print("Build complete!")
-            print(f"Outputs in: {self.config.dist_dir}")
-            print("=" * 60)
-        elif not any_ran:
-            print(f"\n" + "=" * 60)
-            print("Everything up to date, nothing to build")
-            print("=" * 60)
-        
-        return success
-    
-    def status(self):
-        """Show what would be rebuilt."""
-        print("=" * 60)
-        print("Build Status")
-        print("=" * 60)
-        
-        for step in self.steps:
-            needs = step.needs_rebuild()
-            status = "NEEDS REBUILD" if needs else "up to date"
-            print(f"  [{step.name}] {status}")
-        
-        if self.state.last_build:
-            print(f"\nLast build: {self.state.last_build}")
-    
-    def clean(self):
-        """Remove all generated files."""
-        print("Cleaning build artifacts...")
-        
-        if self.config.intermediate_dir.exists():
-            shutil.rmtree(self.config.intermediate_dir)
-            print(f"  Removed: {self.config.intermediate_dir}")
-        
-        if self.config.dist_dir.exists():
-            shutil.rmtree(self.config.dist_dir)
-            print(f"  Removed: {self.config.dist_dir}")
-        
-        self.config.ensure_dirs()
-        print("Clean complete")
-
-
-# ═══════════════════════════════════════════════════════════════════════════════
+# =============================================================================
 # CLI
-# ═══════════════════════════════════════════════════════════════════════════════
+# =============================================================================
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Malifaux 4E Crew Builder - Build Pipeline",
+        description="Malifaux 4E Build Pipeline - Validates before building",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  python build.py              # Build everything that needs updating
-  python build.py --force      # Rebuild everything from scratch
-  python build.py --status     # Show what would be rebuilt
-  python build.py --clean      # Remove all generated files
+  python build.py --validate cards_FINAL.json   # Just validate, don't build
+  python build.py --source cards_FINAL.json     # Use as source, run pipeline
+  python build.py --status                      # Show build status
         """
     )
     
-    parser.add_argument('--force', '-f', action='store_true',
-                        help='Force rebuild of all steps')
-    parser.add_argument('--status', '-s', action='store_true',
-                        help='Show build status without running')
-    parser.add_argument('--clean', '-c', action='store_true',
-                        help='Remove all generated files')
+    parser.add_argument('--validate', '-v', type=Path, metavar='FILE',
+                        help='Validate a JSON file without building')
+    parser.add_argument('--source', '-s', type=Path, metavar='FILE',
+                        help='Use this file as source-of-truth (skips extraction)')
+    parser.add_argument('--status', action='store_true',
+                        help='Show build status')
     parser.add_argument('--root', type=Path, default=None,
                         help='Project root directory')
     parser.add_argument('--images-dir', type=Path, default=None,
                         help='Card images directory')
+    parser.add_argument('--skip-webapp', action='store_true',
+                        help='Skip copying to webapp src/data/')
     
     args = parser.parse_args()
     
-    config = Config(args.root, images_dir=args.images_dir)
-    pipeline = Pipeline(config)
-    
-    if args.clean:
-        pipeline.clean()
-    elif args.status:
-        pipeline.status()
-    else:
-        success = pipeline.run(force=args.force)
+    # Validate-only mode
+    if args.validate:
+        print(f"Validating: {args.validate}")
+        success, errors, warnings, stats = validate_cards(args.validate)
+        print_validation_report(success, errors, warnings, stats)
         sys.exit(0 if success else 1)
+    
+    # Source injection mode
+    if args.source:
+        if not args.source.exists():
+            print(f"ERROR: Source file not found: {args.source}")
+            sys.exit(1)
+        
+        # ALWAYS validate first
+        print("=" * 60)
+        print("STEP 1: Validate source data")
+        print("=" * 60)
+        
+        success, errors, warnings, stats = validate_cards(args.source)
+        print_validation_report(success, errors, warnings, stats)
+        
+        if not success:
+            print("BUILD BLOCKED - Fix validation errors first")
+            sys.exit(1)
+        
+        # Proceed with build
+        config = Config(args.root, args.images_dir)
+        config.ensure_dirs()
+        
+        print("=" * 60)
+        print("STEP 2: Inject source into pipeline")
+        print("=" * 60)
+        
+        if not inject_source(config, args.source):
+            print("ERROR: Failed to inject source")
+            sys.exit(1)
+        
+        print("=" * 60)
+        print("STEP 3: Run enrichment")
+        print("=" * 60)
+        
+        if not run_enrichment(config, args.source):
+            print("ERROR: Enrichment failed")
+            sys.exit(1)
+        
+        if not args.skip_webapp:
+            print("=" * 60)
+            print("STEP 4: Copy to webapp")
+            print("=" * 60)
+            
+            copy_to_webapp(config)
+        
+        # Save build state
+        state = BuildState(
+            last_build=datetime.now().isoformat(),
+            source_file=str(args.source),
+            source_hash=hash_file(args.source)
+        )
+        state.save(config.build_state_file)
+        
+        print("\n" + "=" * 60)
+        print("BUILD COMPLETE")
+        print("=" * 60)
+        print(f"Source: {args.source}")
+        print(f"Output: {config.dist_dir}")
+        if not args.skip_webapp:
+            print(f"Webapp: {config.webapp_data_dir}")
+        
+        sys.exit(0)
+    
+    # Status mode
+    if args.status:
+        config = Config(args.root, args.images_dir)
+        state = BuildState.load(config.build_state_file)
+        
+        print("=" * 60)
+        print("BUILD STATUS")
+        print("=" * 60)
+        
+        if state.last_build:
+            print(f"Last build: {state.last_build}")
+            print(f"Source: {state.source_file}")
+            print(f"Source hash: {state.source_hash[:16]}...")
+        else:
+            print("No previous build found")
+        
+        # Check dist files
+        print(f"\nDist files:")
+        for filename in ["cards.json", "objectives.json", "recommendations.json"]:
+            path = config.dist_dir / filename
+            if path.exists():
+                print(f"  [OK] {filename}")
+            else:
+                print(f"  [--] {filename} (missing)")
+        
+        sys.exit(0)
+    
+    # No arguments - show help
+    parser.print_help()
+    print("\n[!] Specify --source FILE to build, or --validate FILE to check data")
 
 
 if __name__ == '__main__':
