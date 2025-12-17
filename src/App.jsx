@@ -1148,34 +1148,65 @@ function App() {
       return score
     }
     
-    // Get keyword pool
-    const rawPool = cards.filter(card => 
+    // Get keyword pool (models sharing master's keyword)
+    const rawKeywordPool = cards.filter(card => 
       card.id !== opponentMaster.id &&
       (card.keywords || []).includes(keyword) &&
       !(card.characteristics || []).includes('Master')
     )
     
     const seen = new Set()
-    const keywordPool = rawPool.filter(card => {
+    const keywordPool = rawKeywordPool.filter(card => {
       if (seen.has(card.name)) return false
       seen.add(card.name)
       return true
     }).map(card => ({
       ...card,
-      opponentScore: scoreCard(card)
+      opponentScore: scoreCard(card),
+      isOOK: false
     })).sort((a, b) => b.opponentScore - a.opponentScore)
+    
+    // Get versatile pool (faction models with Versatile keyword, not in keyword pool)
+    const masterFaction = opponentMaster.faction
+    const rawVersatilePool = cards.filter(card =>
+      card.faction === masterFaction &&
+      (card.keywords || []).includes('Versatile') &&
+      !(card.keywords || []).includes(keyword) &&
+      !(card.characteristics || []).includes('Master')
+    )
+    
+    const versatilePool = rawVersatilePool.filter(card => {
+      if (seen.has(card.name)) return false
+      seen.add(card.name)
+      return true
+    }).map(card => ({
+      ...card,
+      opponentScore: scoreCard(card) * 0.9, // Slight preference for keyword
+      isOOK: true
+    })).sort((a, b) => b.opponentScore - a.opponentScore)
+    
+    // Combined pool for filling
+    const allPool = [...keywordPool, ...versatilePool].sort((a, b) => b.opponentScore - a.opponentScore)
     
     // Build crew with budget
     const crew = []
     const targetBudget = 44 + Math.floor(Math.random() * 3) // 44-46ss target
+    const maxBudget = 50
     let currentBudget = 0
     const minionCounts = {}
     const usedNames = new Set()
+    let ookCount = 0
+    const ookLimit = 2
     
     // Helper to try adding
     const tryAdd = (card) => {
-      const cost = card.cost || 0
-      if (currentBudget + cost > targetBudget + 4) return false // Allow slight overflow
+      const isOOK = card.isOOK || false
+      const tax = isOOK ? 1 : 0
+      const cost = (card.cost || 0) + tax
+      
+      if (cost === 0) return false // Skip cards with no cost data
+      if (currentBudget + cost > maxBudget) return false
+      if (isOOK && ookCount >= ookLimit) return false
       
       const isMinion = (card.characteristics || []).includes('Minion')
       
@@ -1196,6 +1227,7 @@ function App() {
       crew.push({ ...card, opponentRosterId: Date.now() + crew.length + Math.random() })
       currentBudget += cost
       usedNames.add(card.name)
+      if (isOOK) ookCount++
       return true
     }
     
@@ -1205,43 +1237,59 @@ function App() {
       tryAdd(totem)
     }
     
-    // Phase 2: Henchmen (usually take 1, sometimes 2)
-    const henchmen = keywordPool.filter(c => (c.characteristics || []).includes('Henchman'))
-    const shuffledHench = [...henchmen].sort(() =>Math.random() - 0.5)
+    // Phase 2: Henchmen from keyword pool first, then versatile if needed
+    const keywordHench = keywordPool.filter(c => (c.characteristics || []).includes('Henchman'))
+    const versatileHench = versatilePool.filter(c => (c.characteristics || []).includes('Henchman'))
+    const allHench = [...keywordHench, ...versatileHench].sort(() => Math.random() - 0.5)
     const henchToTake = Math.random() > 0.6 ? 2 : 1
-    for (let i = 0; i < Math.min(henchToTake, shuffledHench.length); i++) {
+    for (let i = 0; i < Math.min(henchToTake, allHench.length); i++) {
       if (currentBudget < targetBudget - 5) {
-        tryAdd(shuffledHench[i])
+        tryAdd(allHench[i])
       }
     }
     
-    // Phase 3: Enforcers (take 1-2 based on score)
-    const enforcers = keywordPool
+    // Phase 3: Enforcers from combined pool
+    const allEnforcers = allPool
       .filter(c => (c.characteristics || []).includes('Enforcer'))
       .sort((a, b) => b.opponentScore - a.opponentScore)
     const enfToTake = Math.random() > 0.5 ? 2 : 1
-    for (let i = 0; i < Math.min(enfToTake, enforcers.length); i++) {
+    for (let i = 0; i < Math.min(enfToTake, allEnforcers.length); i++) {
       if (currentBudget < targetBudget - 4) {
-        tryAdd(enforcers[i])
+        tryAdd(allEnforcers[i])
       }
     }
     
-    // Phase 4: Fill with minions (use scoring but with variety)
-    const minions = keywordPool
+    // Phase 4: Fill with minions from combined pool
+    const allMinions = allPool
       .filter(c => (c.characteristics || []).includes('Minion'))
       .sort((a, b) => b.opponentScore - a.opponentScore)
     
     // First pass: one of each high-scoring minion
-    for (const minion of minions) {
+    for (const minion of allMinions) {
       if (currentBudget >= targetBudget) break
       tryAdd(minion)
     }
     
     // Second pass: fill with duplicates if needed
-    if (currentBudget < targetBudget - 4) {
-      for (const minion of minions) {
+    let fillAttempts = 0
+    while (currentBudget < targetBudget - 2 && fillAttempts < 20) {
+      fillAttempts++
+      let added = false
+      for (const minion of allMinions) {
         if (currentBudget >= targetBudget) break
-        tryAdd(minion) // Will check limits internally
+        if (tryAdd(minion)) {
+          added = true
+          break
+        }
+      }
+      if (!added) break
+    }
+    
+    // Phase 5: Final fill - try any remaining models
+    if (currentBudget < targetBudget - 4) {
+      for (const card of allPool) {
+        if (currentBudget >= targetBudget) break
+        tryAdd(card)
       }
     }
     
@@ -1253,9 +1301,12 @@ function App() {
     generateOpponentCrew()
   }, [opponentMaster, crewStrategy, crewSchemes])
 
-  // Get opponent crew cost
+  // Get opponent crew cost (including OOK tax)
   const opponentCrewCost = useMemo(() => {
-    return opponentCrew.reduce((sum, card) => sum + (card.cost || 0), 0)
+    return opponentCrew.reduce((sum, card) => {
+      const tax = card.isOOK ? 1 : 0
+      return sum + (card.cost || 0) + tax
+    }, 0)
   }, [opponentCrew])
   
   // Opponent crew math (similar to player's crewMath)
