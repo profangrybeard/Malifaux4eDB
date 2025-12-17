@@ -1,1320 +1,634 @@
 {
-  "version": "1.0.0",
-  "source": "ocr_extracted",
-  "scheme_count": 15,
-  "strategy_count": 4,
-  "schemes": {
-    "assassinate": {
-      "id": "assassinate",
-      "name": "Assassinate",
-      "card_type": "scheme",
-      "max_vp": 1,
-      "setup_text": "When this scheme is selected, secretly choose a unique\nenemy mode! that has half or more of its maximum health\nremaining. You may want to ask about the health of multiple\nmodels (even if you do not select this scheme) to fool\nyour opponent.",
-      "rules_text": "",
-      "scoring_text": "When this scheme is revealed, gain 1 VP.",
-      "additional_vp_text": "At the end of the turn on which this scheme was\nrevealed, if the chosen model has been killed, gain 1\nadditional VP.",
-      "reveal_condition": "You may reveal this scheme after the chosen modelis\nreduced to below half of its maximum health.",
-      "next_available_schemes": [
-        "Scout the Rooftops",
-        "Detonate Charges",
-        "Runic Binding"
-      ],
-      "uses_strategy_markers": false,
-      "marker_count": 0,
-      "requires_killing": true,
-      "requires_scheme_markers": false,
-      "requires_strategy_markers": false,
-      "requires_terrain": false,
-      "requires_positioning": false,
-      "requires_interact": false,
-      "target_type": "unique",
-      "favors_roles": [
-        "assassin",
-        "beater",
-        "melee_damage",
-        "ranged_damage"
-      ],
-      "favors_abilities": [
-        "armor_piercing",
-        "bonus_damage",
-        "irreducible"
-      ],
-      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Assassinate_front.png",
-      "raw_text": "ASSASSINATE\n\nSCORED vP: L) OL)\n\nWhen this scheme is selected, secretly choose a unique\nenemy mode! that has half or more of its maximum health\nremaining. You may want to ask about the health of multiple\nmodels (even if you do not select this scheme) to fool\nyour opponent.\n\nREVEAL\n\nYou may reveal this scheme after the chosen modelis\nreduced to below half of its maximum health.\n\nSCORING\n\nWhen this scheme is revealed, gain 1 VP.\n\nADDITIONAL VP\n\nAt the end of the turn on which this scheme was\nrevealed, if the chosen model has been killed, gain 1\nadditional VP.\n\nNEXT AVAILABLE SCHEMES\n\nScout the Rooftops\nDetonate Charges\nRunic Binding\n\n",
-      "meta": {
-        "by_faction": {
-          "Neverborn": {
-            "win_rate": 0.51,
-            "games": 271
-          },
-          "Explorers": {
-            "win_rate": 0.62,
-            "games": 196
-          },
-          "Ten Thunders": {
-            "win_rate": 0.47,
-            "games": 182
-          },
-          "Bayou": {
-            "win_rate": 0.54,
-            "games": 138
-          },
-          "Arcanists": {
-            "win_rate": 0.56,
-            "games": 156
-          },
-          "Guild": {
-            "win_rate": 0.5,
-            "games": 207
-          },
-          "Outcasts": {
-            "win_rate": 0.54,
-            "games": 240
-          },
-          "Resurrectionists": {
-            "win_rate": 0.51,
-            "games": 196
-          }
-        },
-        "total_games": 1586,
-        "average_win_rate": 0.529766708701135
-      }
-    },
-    "breakthrough": {
-      "id": "breakthrough",
-      "name": "Breakthrough",
-      "card_type": "scheme",
-      "max_vp": 1,
-      "setup_text": "",
-      "rules_text": "",
-      "scoring_text": "When this scheme is revealed, remove one friendly\nScheme marker in the enemy deployment zone that\ndoes not have an enemy model within 2\" of it to gain1\nVP.",
-      "additional_vp_text": "When this scheme is revealed you may also remove one\nfriendly Scheme marker from the centerline and one\nfriendly Scheme marker from your deployment zone to\ngain 1 additional VP.",
-      "reveal_condition": "You may reveal this scheme when an enemy model ends\nits activation.",
-      "next_available_schemes": [
-        "Assassinate",
-        "Public Demonstration",
-        "Frame Job"
-      ],
-      "uses_strategy_markers": false,
-      "marker_count": 0,
-      "requires_killing": false,
-      "requires_scheme_markers": true,
-      "requires_strategy_markers": false,
-      "requires_terrain": false,
-      "requires_positioning": true,
-      "requires_interact": false,
-      "target_type": null,
-      "favors_roles": [
-        "scheme_runner",
-        "tank"
-      ],
-      "favors_abilities": [
-        "dont_mind_me",
-        "incorporeal",
-        "leap",
-        "place",
-        "push"
-      ],
-      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Breakthrough_front.png",
-      "raw_text": "BREAKTHROUGH\n\nSCORED vP: L) OL)\n\nREVEAL\n\nYou may reveal this scheme when an enemy model ends\nits activation.\n\nSCORING\n\nWhen this scheme is revealed, remove one friendly\nScheme marker in the enemy deployment zone that\ndoes not have an enemy model within 2\" of it to gain1\nVP.\n\nADDITIONAL VP\n\nWhen this scheme is revealed you may also remove one\nfriendly Scheme marker from the centerline and one\nfriendly Scheme marker from your deployment zone to\ngain 1 additional VP.\n\nNEXT AVAILABLE SCHEMES\n\nAssassinate\nPublic Demonstration\nFrame Job\n\n",
-      "meta": {
-        "by_faction": {
-          "Neverborn": {
-            "win_rate": 0.55,
-            "games": 163
-          },
-          "Explorers": {
-            "win_rate": 0.59,
-            "games": 181
-          },
-          "Ten Thunders": {
-            "win_rate": 0.52,
-            "games": 164
-          },
-          "Bayou": {
-            "win_rate": 0.53,
-            "games": 106
-          },
-          "Arcanists": {
-            "win_rate": 0.63,
-            "games": 119
-          },
-          "Guild": {
-            "win_rate": 0.52,
-            "games": 143
-          },
-          "Outcasts": {
-            "win_rate": 0.57,
-            "games": 147
-          },
-          "Resurrectionists": {
-            "win_rate": 0.57,
-            "games": 128
-          }
-        },
-        "total_games": 1151,
-        "average_win_rate": 0.559496090356212
-      }
-    },
-    "detonate_charges": {
-      "id": "detonate_charges",
-      "name": "Detonate Charges",
-      "card_type": "scheme",
-      "max_vp": 1,
-      "setup_text": "",
-      "rules_text": "",
-      "scoring_text": "When this scheme is revealed, remove two friendly\nScheme markers that are within 2\" of enemy model(s)\nto gain 1 VP.",
-      "additional_vp_text": "When this scheme is revealed you may remove one\nadditional qualifying Scheme marker to gain 1 additional\nVP.",
-      "reveal_condition": "You may reveal this scheme at the end of any turn.",
-      "next_available_schemes": [
-        "Grave Robbing",
-        "Runic Binding",
-        "Take the Highground"
-      ],
-      "uses_strategy_markers": false,
-      "marker_count": 0,
-      "requires_killing": false,
-      "requires_scheme_markers": true,
-      "requires_strategy_markers": false,
-      "requires_terrain": false,
-      "requires_positioning": true,
-      "requires_interact": false,
-      "target_type": null,
-      "favors_roles": [
-        "scheme_runner",
-        "tank"
-      ],
-      "favors_abilities": [
-        "dont_mind_me",
-        "incorporeal",
-        "leap",
-        "place",
-        "push"
-      ],
-      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Detonate_Charges_front.png",
-      "raw_text": "DETONATE CHARGES\n\nSCORED vP: L) OL)\n\nREVEAL\n\nYou may reveal this scheme at the end of any turn.\n\nSCORING\n\nWhen this scheme is revealed, remove two friendly\nScheme markers that are within 2\" of enemy model(s)\nto gain 1 VP.\n\nADDITIONAL VP\n\nWhen this scheme is revealed you may remove one\nadditional qualifying Scheme marker to gain 1 additional\nVP.\n\nNEXT AVAILABLE SCHEMES\nGrave Robbing\nRunic Binding\nTake the Highground\n\n",
-      "meta": {
-        "by_faction": {
-          "Neverborn": {
-            "win_rate": 0.57,
-            "games": 231
-          },
-          "Explorers": {
-            "win_rate": 0.55,
-            "games": 174
-          },
-          "Ten Thunders": {
-            "win_rate": 0.51,
-            "games": 135
-          },
-          "Bayou": {
-            "win_rate": 0.62,
-            "games": 129
-          },
-          "Arcanists": {
-            "win_rate": 0.6,
-            "games": 154
-          },
-          "Guild": {
-            "win_rate": 0.5,
-            "games": 158
-          },
-          "Outcasts": {
-            "win_rate": 0.55,
-            "games": 170
-          },
-          "Resurrectionists": {
-            "win_rate": 0.45,
-            "games": 149
-          }
-        },
-        "total_games": 1300,
-        "average_win_rate": 0.5447307692307692
-      }
-    },
-    "ensnare": {
-      "id": "ensnare",
-      "name": "Ensnare",
-      "card_type": "scheme",
-      "max_vp": 1,
-      "setup_text": "",
-      "rules_text": "",
-      "scoring_text": "When this scheme is revealed, remove two friendly\nScheme markers from within 2\" a single unique enemy\nmodel to gain 1 VP.",
-      "additional_vp_text": "When this scheme is revealed, if the enemy unique\nmodel is engaged by a model of lower cost, gain 1\nadditional VP.",
-      "reveal_condition": "You may reveal this scheme when an enemy model ends\nits activation.",
-      "next_available_schemes": [
-        "Reshape the Land",
-        "Search the Area",
-        "Frame Job"
-      ],
-      "uses_strategy_markers": false,
-      "marker_count": 0,
-      "requires_killing": false,
-      "requires_scheme_markers": true,
-      "requires_strategy_markers": false,
-      "requires_terrain": false,
-      "requires_positioning": true,
-      "requires_interact": false,
-      "target_type": "unique",
-      "favors_roles": [
-        "scheme_runner",
-        "tank"
-      ],
-      "favors_abilities": [
-        "dont_mind_me",
-        "incorporeal",
-        "leap",
-        "place",
-        "push"
-      ],
-      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Ensnare_front.png",
-      "raw_text": "ENSNARE\n\nSCORED vP: L) OL)\n\nREVEAL\n\nYou may reveal this scheme when an enemy model ends\nits activation.\n\nSCORING\n\nWhen this scheme is revealed, remove two friendly\nScheme markers from within 2\" a single unique enemy\nmodel to gain 1 VP.\n\nADDITIONAL VP\n\nWhen this scheme is revealed, if the enemy unique\nmodel is engaged by a model of lower cost, gain 1\nadditional VP.\n\nNEXT AVAILABLE SCHEMES\n\nReshape the Land\nSearch the Area\nFrame Job\n\n",
-      "meta": {
-        "by_faction": {
-          "Neverborn": {
-            "win_rate": 0.46,
-            "games": 191
-          },
-          "Explorers": {
-            "win_rate": 0.53,
-            "games": 173
-          },
-          "Ten Thunders": {
-            "win_rate": 0.45,
-            "games": 90
-          },
-          "Bayou": {
-            "win_rate": 0.48,
-            "games": 107
-          },
-          "Arcanists": {
-            "win_rate": 0.55,
-            "games": 122
-          },
-          "Guild": {
-            "win_rate": 0.57,
-            "games": 161
-          },
-          "Outcasts": {
-            "win_rate": 0.47,
-            "games": 136
-          },
-          "Resurrectionists": {
-            "win_rate": 0.47,
-            "games": 157
-          }
-        },
-        "total_games": 1137,
-        "average_win_rate": 0.4995514511873351
-      }
-    },
-    "frame_job": {
-      "id": "frame_job",
-      "name": "Frame Job",
-      "card_type": "scheme",
-      "max_vp": 1,
-      "setup_text": "When this scheme is selected, secretly choose a\nfriendly model.",
-      "rules_text": "",
-      "scoring_text": "When this scheme is revealed, gain 1 VP.",
-      "additional_vp_text": "When this scheme is revealed, you may remove one\nfriendly Scheme marker from within 2\" of the chosen\nmodel to gain 1 additional VP.",
-      "reveal_condition": "You may reveal this scheme after the chosen model\nsuffers damage from an enemy attack action targeting it\nwhile it is on the enemy table half.",
-      "next_available_schemes": [
-        "Public Demonstration",
-        "Harness the Leyline",
-        "Scout the Rooftops"
-      ],
-      "uses_strategy_markers": false,
-      "marker_count": 0,
-      "requires_killing": false,
-      "requires_scheme_markers": true,
-      "requires_strategy_markers": false,
-      "requires_terrain": false,
-      "requires_positioning": true,
-      "requires_interact": false,
-      "target_type": null,
-      "favors_roles": [
-        "scheme_runner",
-        "tank"
-      ],
-      "favors_abilities": [
-        "dont_mind_me",
-        "incorporeal",
-        "leap",
-        "place",
-        "push"
-      ],
-      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Frame_Job_front.png",
-      "raw_text": "FRAME JOB\n\nSCORED vP: L) OL)\n\nWhen this scheme is selected, secretly choose a\nfriendly model.\nREVEAL\n\nYou may reveal this scheme after the chosen model\nsuffers damage from an enemy attack action targeting it\nwhile it is on the enemy table half.\n\nSCORING\n\nWhen this scheme is revealed, gain 1 VP.\n\nADDITIONAL VP\n\nWhen this scheme is revealed, you may remove one\nfriendly Scheme marker from within 2\" of the chosen\nmodel to gain 1 additional VP.\n\nNEXT AVAILABLE SCHEMES\n\nPublic Demonstration\nHarness the Leyline\nScout the Rooftops\n\n",
-      "meta": {
-        "by_faction": {
-          "Neverborn": {
-            "win_rate": 0.49,
-            "games": 173
-          },
-          "Explorers": {
-            "win_rate": 0.41,
-            "games": 151
-          },
-          "Ten Thunders": {
-            "win_rate": 0.41,
-            "games": 128
-          },
-          "Bayou": {
-            "win_rate": 0.52,
-            "games": 115
-          },
-          "Arcanists": {
-            "win_rate": 0.54,
-            "games": 100
-          },
-          "Guild": {
-            "win_rate": 0.44,
-            "games": 140
-          },
-          "Outcasts": {
-            "win_rate": 0.4,
-            "games": 159
-          },
-          "Resurrectionists": {
-            "win_rate": 0.44,
-            "games": 127
-          }
-        },
-        "total_games": 1093,
-        "average_win_rate": 0.452003659652333
-      }
-    },
-    "grave_robbing": {
-      "id": "grave_robbing",
-      "name": "Grave Robbing",
-      "card_type": "scheme",
-      "max_vp": 1,
-      "setup_text": "When this scheme is selected, secretly choose a type of\nnon-Scheme marker.",
-      "rules_text": "",
-      "scoring_text": "When this scheme is revealed, remove one friendly\nScheme marker within 2\" of the killed model to gain 1 VP.",
-      "additional_vp_text": "Until the end of the turn, friendly models may target\nenemy Remains markers with the Interact action to\nremove them and place them on your crew card. At the\nend of the turn remove all Remains markers from your\ncrew card that were placed this way. If two or more are\nremoved, gain 1 additional VP.",
-      "reveal_condition": "After killing an enemy model within 2\" of both one or\nmore friendly Scheme marker(s) and one or more of the\nchosen marker, reveal this scheme.",
-      "next_available_schemes": [
-        "Runic Binding",
-        "Leave Your Mark",
-        "Make it Look Like an Accident"
-      ],
-      "uses_strategy_markers": false,
-      "marker_count": 0,
-      "requires_killing": true,
-      "requires_scheme_markers": true,
-      "requires_strategy_markers": false,
-      "requires_terrain": false,
-      "requires_positioning": true,
-      "requires_interact": true,
-      "target_type": null,
-      "favors_roles": [
-        "assassin",
-        "beater",
-        "melee_damage",
-        "ranged_damage",
-        "scheme_runner",
-        "tank"
-      ],
-      "favors_abilities": [
-        "armor_piercing",
-        "bonus_damage",
-        "dont_mind_me",
-        "incorporeal",
-        "irreducible",
-        "leap",
-        "place",
-        "push"
-      ],
-      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Grave_Robbing_front.png",
-      "raw_text": "GRAVE ROBBING\n\nSCORED vP: L) OL)\n\nWhen this scheme is selected, secretly choose a type of\nnon-Scheme marker.\n\nREVEAL\n\nAfter killing an enemy model within 2\" of both one or\nmore friendly Scheme marker(s) and one or more of the\nchosen marker, reveal this scheme.\n\nSCORING\n\nWhen this scheme is revealed, remove one friendly\nScheme marker within 2\" of the killed model to gain 1 VP.\n\nADDITIONAL VP\n\nUntil the end of the turn, friendly models may target\nenemy Remains markers with the Interact action to\nremove them and place them on your crew card. At the\nend of the turn remove all Remains markers from your\ncrew card that were placed this way. If two or more are\nremoved, gain 1 additional VP.\n\nNEXT AVAILABLE SCHEMES\n\nRunic Binding\nLeave Your Mark\nMake it Look Like an Accident\n\n",
-      "meta": {
-        "by_faction": {
-          "Neverborn": {
-            "win_rate": 0.45,
-            "games": 38
-          },
-          "Explorers": {
-            "win_rate": 0.64,
-            "games": 39
-          },
-          "Ten Thunders": {
-            "win_rate": 0.42,
-            "games": 36
-          },
-          "Bayou": {
-            "win_rate": 0.45,
-            "games": 20
-          },
-          "Arcanists": {
-            "win_rate": 0.56,
-            "games": 43
-          },
-          "Guild": {
-            "win_rate": 0.41,
-            "games": 58
-          },
-          "Outcasts": {
-            "win_rate": 0.52,
-            "games": 50
-          },
-          "Resurrectionists": {
-            "win_rate": 0.43,
-            "games": 47
-          }
-        },
-        "total_games": 331,
-        "average_win_rate": 0.4841389728096678
-      }
-    },
-    "harness_the_ley_line": {
-      "id": "harness_the_ley_line",
-      "name": "Harness The Ley Line",
-      "card_type": "scheme",
-      "max_vp": 2,
-      "setup_text": "",
-      "rules_text": "",
-      "scoring_text": "When this scheme is revealed, remove two friendly\nScheme markers on the centerline not within 6\u201d of\nanother marker used to score this scheme and that do\nnot have any enemy models within 2\" to gain 1 VP.",
-      "additional_vp_text": "Remove one additional qualifying marker to gain 1\nadditional VP.",
-      "reveal_condition": "You may reveal this scheme at the end of any turn.",
-      "next_available_schemes": [
-        "Assassinate",
-        "Scout the Rooftops",
-        "Grave Robbing"
-      ],
-      "uses_strategy_markers": false,
-      "marker_count": 0,
-      "requires_killing": false,
-      "requires_scheme_markers": true,
-      "requires_strategy_markers": false,
-      "requires_terrain": false,
-      "requires_positioning": true,
-      "requires_interact": false,
-      "target_type": null,
-      "favors_roles": [
-        "scheme_runner",
-        "tank"
-      ],
-      "favors_abilities": [
-        "dont_mind_me",
-        "incorporeal",
-        "leap",
-        "place",
-        "push"
-      ],
-      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Harness_the_Leyline_front.png",
-      "raw_text": "HARNESS\nTHE LEYLINE\n\nSCORED vP: LJ)\n\nREVEAL\n\nYou may reveal this scheme at the end of any turn.\n\nSCORING\n\nWhen this scheme is revealed, remove two friendly\nScheme markers on the centerline not within 6\u201d of\nanother marker used to score this scheme and that do\nnot have any enemy models within 2\" to gain 1 VP.\n\nADDITIONAL VP\n\nRemove one additional qualifying marker to gain 1\nadditional VP.\n\nNEXT AVAILABLE SCHEMES\n\nAssassinate\nScout the Rooftops\nGrave Robbing\n\n"
-    },
-    "leave_your_mark": {
-      "id": "leave_your_mark",
-      "name": "Leave Your Mark",
-      "card_type": "scheme",
-      "max_vp": 1,
-      "setup_text": "",
-      "rules_text": "",
-      "scoring_text": "When this scheme is revealed, if there are more friendly\nScheme markers within 1\" of the centerpoint than\nenemy Scheme markers within 1\" of the centerpoint,\ngain1 VP. Then, remove all friendly Scheme markers\nwithin 1\" of the centerpoint.",
-      "additional_vp_text": "When this scheme is revealed, if there are at least\ntwo more friendly Scheme markers within 1\" of the\ncenterpoint than enemy Scheme markers within 1\" of\nthe centerpoint, gain 1 additional VP.",
-      "reveal_condition": "You may reveal this scheme at the end of any turn.",
-      "next_available_schemes": [
-        "Take the Highground",
-        "Make it Look Like an Accident",
-        "Reshape the Land"
-      ],
-      "uses_strategy_markers": false,
-      "marker_count": 0,
-      "requires_killing": false,
-      "requires_scheme_markers": true,
-      "requires_strategy_markers": false,
-      "requires_terrain": false,
-      "requires_positioning": true,
-      "requires_interact": false,
-      "target_type": null,
-      "favors_roles": [
-        "scheme_runner",
-        "tank"
-      ],
-      "favors_abilities": [
-        "dont_mind_me",
-        "incorporeal",
-        "leap",
-        "place",
-        "push"
-      ],
-      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Leave_Your_Mark_front.png",
-      "raw_text": "LEAVE YOUR MARK\n\nSCORED vP: L) OL)\n\nREVEAL\n\nYou may reveal this scheme at the end of any turn.\n\nSCORING\n\nWhen this scheme is revealed, if there are more friendly\nScheme markers within 1\" of the centerpoint than\nenemy Scheme markers within 1\" of the centerpoint,\ngain1 VP. Then, remove all friendly Scheme markers\nwithin 1\" of the centerpoint.\n\nADDITIONAL VP\n\nWhen this scheme is revealed, if there are at least\ntwo more friendly Scheme markers within 1\" of the\ncenterpoint than enemy Scheme markers within 1\" of\nthe centerpoint, gain 1 additional VP.\n\nNEXT AVAILABLE SCHEMES\n\nTake the Highground\nMake it Look Like an Accident\nReshape the Land\n\n",
-      "meta": {
-        "by_faction": {
-          "Neverborn": {
-            "win_rate": 0.47,
-            "games": 184
-          },
-          "Explorers": {
-            "win_rate": 0.58,
-            "games": 139
-          },
-          "Ten Thunders": {
-            "win_rate": 0.51,
-            "games": 153
-          },
-          "Bayou": {
-            "win_rate": 0.48,
-            "games": 126
-          },
-          "Arcanists": {
-            "win_rate": 0.64,
-            "games": 116
-          },
-          "Guild": {
-            "win_rate": 0.58,
-            "games": 163
-          },
-          "Outcasts": {
-            "win_rate": 0.56,
-            "games": 147
-          },
-          "Resurrectionists": {
-            "win_rate": 0.53,
-            "games": 148
-          }
-        },
-        "total_games": 1176,
-        "average_win_rate": 0.540093537414966
-      }
-    },
-    "make_it_look_like_an_accident": {
-      "id": "make_it_look_like_an_accident",
-      "name": "Make It Look Like An Accident",
-      "card_type": "scheme",
-      "max_vp": 2,
-      "setup_text": "",
-      "rules_text": "",
-      "scoring_text": "When this scheme is revealed, gain 1 VP.",
-      "additional_vp_text": "If at the end of the turn on which this scheme was\nrevealed the enemy model that fell has been killed\nor has less than half of its maximum health, gain 1\nadditional VP.",
-      "reveal_condition": "You may reveal this scheme when an enemy model\nsuffers damage due to falling.",
-      "next_available_schemes": [
-        "Ensnare",
-        "Reshape the Land",
-        "Breakthrough"
-      ],
-      "uses_strategy_markers": false,
-      "marker_count": 0,
-      "requires_killing": true,
-      "requires_scheme_markers": false,
-      "requires_strategy_markers": false,
-      "requires_terrain": false,
-      "requires_positioning": false,
-      "requires_interact": false,
-      "target_type": null,
-      "favors_roles": [
-        "assassin",
-        "beater",
-        "melee_damage",
-        "ranged_damage"
-      ],
-      "favors_abilities": [
-        "armor_piercing",
-        "bonus_damage",
-        "irreducible"
-      ],
-      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Make_It_Look_Like_an_Accident_front.png",
-      "raw_text": "MAKE IT LOOK LIKE\nAN ACCIDENT\n\nSCORED vP: LJ)\n\nREVEAL\n\nYou may reveal this scheme when an enemy model\nsuffers damage due to falling.\n\nSCORING\n\nWhen this scheme is revealed, gain 1 VP.\n\nADDITIONAL VP\n\nIf at the end of the turn on which this scheme was\nrevealed the enemy model that fell has been killed\nor has less than half of its maximum health, gain 1\nadditional VP.\n\nNEXT AVAILABLE SCHEMES\n\nEnsnare\nReshape the Land\nBreakthrough\n\n"
-    },
-    "public_demonstration": {
-      "id": "public_demonstration",
-      "name": "Public Demonstration",
-      "card_type": "scheme",
-      "max_vp": 2,
-      "setup_text": "When this scheme is selected, secretly choose a unique\nenemy model.",
-      "rules_text": "",
-      "scoring_text": "When this scheme is revealed, if there are two or more\nfriendly minions within 2\u201d of the chosen model, gain\n1VP.",
-      "additional_vp_text": "When this scheme is revealed, remove a friendly\nScheme marker from within 1\u201d of the chosen model to\ngain 1 additional VP.",
-      "reveal_condition": "You may reveal this scheme at the end of any turn.",
-      "next_available_schemes": [
-        "Harness the Leyline",
-        "Assassinate",
-        "Detonate Charges"
-      ],
-      "uses_strategy_markers": false,
-      "marker_count": 0,
-      "requires_killing": false,
-      "requires_scheme_markers": true,
-      "requires_strategy_markers": false,
-      "requires_terrain": false,
-      "requires_positioning": true,
-      "requires_interact": false,
-      "target_type": "unique",
-      "favors_roles": [
-        "scheme_runner",
-        "tank"
-      ],
-      "favors_abilities": [
-        "dont_mind_me",
-        "incorporeal",
-        "leap",
-        "place",
-        "push"
-      ],
-      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Public_Demonstration_front.png",
-      "raw_text": "PUBLIC\nDEMONSTRATION\n\nSCORED vP: LJ)\n\nWhen this scheme is selected, secretly choose a unique\nenemy model.\n\nREVEAL\n\nYou may reveal this scheme at the end of any turn.\n\nSCORING\n\nWhen this scheme is revealed, if there are two or more\nfriendly minions within 2\u201d of the chosen model, gain\n1VP.\n\nADDITIONAL VP\n\nWhen this scheme is revealed, remove a friendly\nScheme marker from within 1\u201d of the chosen model to\ngain 1 additional VP.\n\nNEXT AVAILABLE SCHEMES\n\nHarness the Leyline\nAssassinate\nDetonate Charges\n\n"
-    },
-    "reshape_the_land": {
-      "id": "reshape_the_land",
-      "name": "Reshape The Land",
-      "card_type": "scheme",
-      "max_vp": 1,
-      "setup_text": "When this scheme is selected, secretly choose a marker type.",
-      "rules_text": "",
-      "scoring_text": "If there are four friendly markers of the chosen type\ncompletely on the enemy table half, gain 1 VP. Then,\nif the chosen marker type was Scheme, remove all\nmarkers used to score this scheme.",
-      "additional_vp_text": "When this scheme is revealed, if there are five friendly\nmarkers of the chosen type completely on the enemy\ntable half, gain 1 additional VP.",
-      "reveal_condition": "You may reveal this scheme at the end of any turn.",
-      "next_available_schemes": [
-        "Search the Area",
-        "Breakthrough",
-        "Public Demonstration"
-      ],
-      "uses_strategy_markers": false,
-      "marker_count": 0,
-      "requires_killing": false,
-      "requires_scheme_markers": false,
-      "requires_strategy_markers": false,
-      "requires_terrain": false,
-      "requires_positioning": true,
-      "requires_interact": false,
-      "target_type": null,
-      "favors_roles": [
-        "scheme_runner",
-        "tank"
-      ],
-      "favors_abilities": [
-        "incorporeal",
-        "place",
-        "push"
-      ],
-      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Reshape_the_Land_front.png",
-      "raw_text": "RESHAPE THE LAND\n\nSCORED vP: L) OL)\n\nWhen this scheme is selected, secretly choose a marker type.\n\nREVEAL\n\nYou may reveal this scheme at the end of any turn.\n\nSCORING\n\nIf there are four friendly markers of the chosen type\ncompletely on the enemy table half, gain 1 VP. Then,\nif the chosen marker type was Scheme, remove all\nmarkers used to score this scheme.\n\nADDITIONAL VP\n\nWhen this scheme is revealed, if there are five friendly\nmarkers of the chosen type completely on the enemy\ntable half, gain 1 additional VP.\n\nNEXT AVAILABLE SCHEMES\n\nSearch the Area\nBreakthrough\nPublic Demonstration\n\n",
-      "meta": {
-        "by_faction": {
-          "Neverborn": {
-            "win_rate": 0.56,
-            "games": 137
-          },
-          "Explorers": {
-            "win_rate": 0.51,
-            "games": 136
-          },
-          "Ten Thunders": {
-            "win_rate": 0.55,
-            "games": 131
-          },
-          "Bayou": {
-            "win_rate": 0.52,
-            "games": 61
-          },
-          "Arcanists": {
-            "win_rate": 0.5,
-            "games": 92
-          },
-          "Guild": {
-            "win_rate": 0.51,
-            "games": 92
-          },
-          "Outcasts": {
-            "win_rate": 0.56,
-            "games": 89
-          },
-          "Resurrectionists": {
-            "win_rate": 0.46,
-            "games": 97
-          }
-        },
-        "total_games": 835,
-        "average_win_rate": 0.52362874251497
-      }
-    },
-    "runic_binding": {
-      "id": "runic_binding",
-      "name": "Runic Binding",
-      "card_type": "scheme",
-      "max_vp": 1,
-      "setup_text": "",
-      "rules_text": "",
-      "scoring_text": "When this scheme is revealed, choose three friendly\nScheme markers in play. Each chosen marker must be\nwithin 14\" of at least one of the other chosen markers.\nIf there is at least one enemy model within the area\nformed between the chosen markers, gain 1 VP. Remove\nthe chosen markers.",
-      "additional_vp_text": "When this scheme is revealed, if the combined cost of\nthe enemy models in that area is 15 or greater, gain 1\nadditional VP.",
-      "reveal_condition": "You may reveal this scheme when an enemy model ends\nits activation.",
-      "next_available_schemes": [
-        "Leave Your Mark",
-        "Take the Highground",
-        "Ensnare"
-      ],
-      "uses_strategy_markers": false,
-      "marker_count": 0,
-      "requires_killing": false,
-      "requires_scheme_markers": true,
-      "requires_strategy_markers": false,
-      "requires_terrain": false,
-      "requires_positioning": true,
-      "requires_interact": false,
-      "target_type": null,
-      "favors_roles": [
-        "scheme_runner",
-        "tank"
-      ],
-      "favors_abilities": [
-        "dont_mind_me",
-        "incorporeal",
-        "leap",
-        "place",
-        "push"
-      ],
-      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Runic_Binding_front.png",
-      "raw_text": "RUNIC BINDING\n\nSCORED vP: L) OL)\n\nREVEAL\n\nYou may reveal this scheme when an enemy model ends\nits activation.\n\nSCORING\n\nWhen this scheme is revealed, choose three friendly\nScheme markers in play. Each chosen marker must be\nwithin 14\" of at least one of the other chosen markers.\nIf there is at least one enemy model within the area\nformed between the chosen markers, gain 1 VP. Remove\nthe chosen markers.\n\nADDITIONAL VP\n\nWhen this scheme is revealed, if the combined cost of\nthe enemy models in that area is 15 or greater, gain 1\nadditional VP.\n\nNEXT AVAILABLE SCHEMES\n\nLeave Your Mark\nTake the Highground\nEnsnare\n\n",
-      "meta": {
-        "by_faction": {
-          "Neverborn": {
-            "win_rate": 0.55,
-            "games": 193
-          },
-          "Explorers": {
-            "win_rate": 0.5,
-            "games": 145
-          },
-          "Ten Thunders": {
-            "win_rate": 0.47,
-            "games": 110
-          },
-          "Bayou": {
-            "win_rate": 0.46,
-            "games": 116
-          },
-          "Arcanists": {
-            "win_rate": 0.48,
-            "games": 121
-          },
-          "Guild": {
-            "win_rate": 0.54,
-            "games": 134
-          },
-          "Outcasts": {
-            "win_rate": 0.51,
-            "games": 157
-          },
-          "Resurrectionists": {
-            "win_rate": 0.46,
-            "games": 77
-          }
-        },
-        "total_games": 1053,
-        "average_win_rate": 0.5029819563152896
-      }
-    },
-    "scout_the_rooftops": {
-      "id": "scout_the_rooftops",
-      "name": "Scout The Rooftops",
-      "card_type": "scheme",
-      "max_vp": 1,
-      "setup_text": "",
-      "rules_text": "",
-      "scoring_text": "Scheme markers are qualifying for this scheme if they:\n\n* Are not within 6\" of your deployment zone.\n\n* Do not have an enemy model at the same elevation\nwithin 2\".\n\n* Areat elevation 2 or higher.\n\nWhen this scheme is revealed, remove one qualifying\n\nScheme marker from two different terrain pieces to gain\n\n1VP (two Scheme markers total).",
-      "additional_vp_text": "When this scheme is revealed, select one additional\nqualifying Scheme marker that is completely on the\nenemy table half and remove it to gain 1 VP. Note that\nthis Scheme marker may be on the same terrain piece as\none of the other qualifying Scheme markers.",
-      "reveal_condition": "You may reveal this scheme at the end of any turn.",
-      "next_available_schemes": [
-        "Detonate Charges",
-        "Grave Robbing",
-        "Leave Your Mark"
-      ],
-      "uses_strategy_markers": false,
-      "marker_count": 0,
-      "requires_killing": false,
-      "requires_scheme_markers": true,
-      "requires_strategy_markers": false,
-      "requires_terrain": true,
-      "requires_positioning": true,
-      "requires_interact": false,
-      "target_type": null,
-      "favors_roles": [
-        "scheme_runner",
-        "tank"
-      ],
-      "favors_abilities": [
-        "dont_mind_me",
-        "flight",
-        "incorporeal",
-        "leap",
-        "place",
-        "push",
-        "unimpeded"
-      ],
-      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Scout_the_Rooftops_front.png",
-      "raw_text": "SCOUT THE ROOFTOPS\n\nSCORED vP: L))\n\nREVEAL\n\nYou may reveal this scheme at the end of any turn.\n\nSCORING\n\nScheme markers are qualifying for this scheme if they:\n\n* Are not within 6\" of your deployment zone.\n\n* Do not have an enemy model at the same elevation\nwithin 2\".\n\n* Areat elevation 2 or higher.\n\nWhen this scheme is revealed, remove one qualifying\n\nScheme marker from two different terrain pieces to gain\n\n1VP (two Scheme markers total).\n\nADDITIONAL VP\n\nWhen this scheme is revealed, select one additional\nqualifying Scheme marker that is completely on the\nenemy table half and remove it to gain 1 VP. Note that\nthis Scheme marker may be on the same terrain piece as\none of the other qualifying Scheme markers.\n\nNEXT AVAILABLE SCHEMES\n\nDetonate Charges\nGrave Robbing\nLeave Your Mark\n\n",
-      "meta": {
-        "by_faction": {
-          "Neverborn": {
-            "win_rate": 0.51,
-            "games": 217
-          },
-          "Explorers": {
-            "win_rate": 0.51,
-            "games": 179
-          },
-          "Ten Thunders": {
-            "win_rate": 0.48,
-            "games": 167
-          },
-          "Bayou": {
-            "win_rate": 0.52,
-            "games": 112
-          },
-          "Arcanists": {
-            "win_rate": 0.51,
-            "games": 120
-          },
-          "Guild": {
-            "win_rate": 0.52,
-            "games": 175
-          },
-          "Outcasts": {
-            "win_rate": 0.55,
-            "games": 172
-          },
-          "Resurrectionists": {
-            "win_rate": 0.46,
-            "games": 165
-          }
-        },
-        "total_games": 1307,
-        "average_win_rate": 0.5073144605967865
-      }
-    },
-    "search_the_area": {
-      "id": "search_the_area",
-      "name": "Search The Area",
-      "card_type": "scheme",
-      "max_vp": 1,
-      "setup_text": "",
-      "rules_text": "",
-      "scoring_text": "When this scheme is revealed, select a piece of terrain\ncompletely on the enemy table half. Remove three\nfriendly Scheme markers from within 1\" of the selected\nterrain that do not have enemy models within 2\" of\nthem to gain 1 VP.",
-      "additional_vp_text": "At the end of the turn on which this scheme was\nrevealed, you may remove one friendly Scheme marker\nfrom within 1\" of the selected terrain to gain 1 VP.",
-      "reveal_condition": "You may reveal this scheme at the end of any enemy\nactivation.",
-      "next_available_schemes": [
-        "Breakthrough",
-        "Frame Job",
-        "Harness the Leyline"
-      ],
-      "uses_strategy_markers": false,
-      "marker_count": 0,
-      "requires_killing": false,
-      "requires_scheme_markers": true,
-      "requires_strategy_markers": false,
-      "requires_terrain": true,
-      "requires_positioning": true,
-      "requires_interact": false,
-      "target_type": null,
-      "favors_roles": [
-        "scheme_runner",
-        "tank"
-      ],
-      "favors_abilities": [
-        "dont_mind_me",
-        "flight",
-        "incorporeal",
-        "leap",
-        "place",
-        "push",
-        "unimpeded"
-      ],
-      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Search_the_Area_front.png",
-      "raw_text": "SEARCH THE AREA\n\nSCORED vP: L) OL)\n\nREVEAL\n\nYou may reveal this scheme at the end of any enemy\nactivation.\n\nSCORING\n\nWhen this scheme is revealed, select a piece of terrain\ncompletely on the enemy table half. Remove three\nfriendly Scheme markers from within 1\" of the selected\nterrain that do not have enemy models within 2\" of\nthem to gain 1 VP.\n\nADDITIONAL VP\n\nAt the end of the turn on which this scheme was\nrevealed, you may remove one friendly Scheme marker\nfrom within 1\" of the selected terrain to gain 1 VP.\n\nNEXT AVAILABLE SCHEMES\n\nBreakthrough\nFrame Job\nHarness the Leyline\n\n",
-      "meta": {
-        "by_faction": {
-          "Neverborn": {
-            "win_rate": 0.58,
-            "games": 197
-          },
-          "Explorers": {
-            "win_rate": 0.56,
-            "games": 146
-          },
-          "Ten Thunders": {
-            "win_rate": 0.61,
-            "games": 90
-          },
-          "Bayou": {
-            "win_rate": 0.51,
-            "games": 72
-          },
-          "Arcanists": {
-            "win_rate": 0.58,
-            "games": 60
-          },
-          "Guild": {
-            "win_rate": 0.55,
-            "games": 111
-          },
-          "Outcasts": {
-            "win_rate": 0.64,
-            "games": 103
-          },
-          "Resurrectionists": {
-            "win_rate": 0.5,
-            "games": 105
-          }
-        },
-        "total_games": 884,
-        "average_win_rate": 0.5677714932126697
-      }
-    },
-    "take_the_highground": {
-      "id": "take_the_highground",
-      "name": "Take The Highground",
-      "card_type": "scheme",
-      "max_vp": 2,
-      "setup_text": "A crew is considered to control a terrain piece if it has the\nmost friendly models standing on it. This crew's models that\nare within 6\" of their deployment zone are ignored.",
-      "rules_text": "",
-      "scoring_text": "When you reveal this scheme, if you control at least two\nHt 2 or greater terrain pieces gain 1 VP.",
-      "additional_vp_text": "If you control at least three qualifying terrain pieces gain\n1 additional VP.",
-      "reveal_condition": "You may reveal this scheme at the end of any turn.",
-      "next_available_schemes": [
-        "Make it Look Like an Accident",
-        "Ensnare",
-        "Search the Area"
-      ],
-      "uses_strategy_markers": false,
-      "marker_count": 0,
-      "requires_killing": false,
-      "requires_scheme_markers": false,
-      "requires_strategy_markers": false,
-      "requires_terrain": true,
-      "requires_positioning": true,
-      "requires_interact": false,
-      "target_type": null,
-      "favors_roles": [
-        "scheme_runner",
-        "tank"
-      ],
-      "favors_abilities": [
-        "flight",
-        "incorporeal",
-        "leap",
-        "place",
-        "push",
-        "unimpeded"
-      ],
-      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Scheme Cards\\M4E_Scheme_Take_the_Highground_front.png",
-      "raw_text": "TAKE THE\nHIGHGROUND\n\nSCORED vP: LJ)\n\nA crew is considered to control a terrain piece if it has the\nmost friendly models standing on it. This crew's models that\nare within 6\" of their deployment zone are ignored.\n\nREVEAL\n\nYou may reveal this scheme at the end of any turn.\n\nSCORING\n\nWhen you reveal this scheme, if you control at least two\nHt 2 or greater terrain pieces gain 1 VP.\n\nADDITIONAL VP\n\nIf you control at least three qualifying terrain pieces gain\n1 additional VP.\n\nNEXT AVAILABLE SCHEMES\nMake it Look Like an Accident\n\nEnsnare\nSearch the Area\n\n"
-    }
+  "version": "2.1.0",
+  "source": "gaining_grounds_0_2025",
+  "edition": "m4e",
+  "last_updated": "2025-12-17",
+  "notes": "Complete GG0/GG2025 data validated against official Wyrd card images",
+  "validation": {
+    "schemes_validated": 15,
+    "strategies_validated": 4,
+    "validation_date": "2025-12-17",
+    "source": "Official Wyrd M4E card images"
   },
+  
+  "strategy_count": 4,
+  "scheme_count": 15,
+  
   "strategies": {
-    "boundary_dispute": {
-      "id": "boundary_dispute",
-      "name": "Boundary Dispute",
-      "card_type": "strategy",
-      "max_vp": 5,
-      "setup_text": "After deployment zones are chosen, starting with the\nattacker, each player alternates making three Strategy\nmarkers completely in their deployment zone, not\nwithin 6\" of another Strategy marker.",
-      "rules_text": "Strategy markers are friendly to the player that made\nthem. A model may target a Strategy marker with\nthe Interact action to place it within 6\" of its current\nlocation, not in base contact with any model(s).",
-      "scoring_text": "At the end of every turn, the crew with the most friendly\nStrategy markers completely on the enemy table half\ngains 1 VP. Strategy markers completely in the enemy\ndeployment zone are counted twice. In the case of a tie,\nboth crews gain 1 VP.\n\nThen the crew that has scored the least total VP from\nthis strategy this game may select any one friendly\nStrategy marker and place it within 4\" of its current\nlocation, not in base contact with any model(s).",
-      "additional_vp_text": "Double any victory points gained from this strategy on\nturn 4.",
-      "reveal_condition": "",
-      "next_available_schemes": [],
-      "uses_strategy_markers": true,
-      "marker_count": 3,
-      "requires_killing": false,
-      "requires_scheme_markers": false,
-      "requires_strategy_markers": true,
-      "requires_terrain": false,
-      "requires_positioning": true,
-      "requires_interact": true,
-      "target_type": null,
-      "favors_roles": [
-        "scheme_runner",
-        "tank",
-        "tarpit",
-        "utility"
-      ],
-      "favors_abilities": [
-        "dont_mind_me",
-        "incorporeal",
-        "interact",
-        "place",
-        "push"
-      ],
-      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Strategy Cards\\M4E_Strategy_Boundary_Dispute_front.png",
-      "raw_text": "BOUNDARY DISPUTE\n\nscorepD vP: QOOO0\n\nSETUP\n\nAfter deployment zones are chosen, starting with the\nattacker, each player alternates making three Strategy\nmarkers completely in their deployment zone, not\nwithin 6\" of another Strategy marker.\n\nRULES\n\nStrategy markers are friendly to the player that made\nthem. A model may target a Strategy marker with\nthe Interact action to place it within 6\" of its current\nlocation, not in base contact with any model(s).\n\nSCORING\n\nAt the end of every turn, the crew with the most friendly\nStrategy markers completely on the enemy table half\ngains 1 VP. Strategy markers completely in the enemy\ndeployment zone are counted twice. In the case of a tie,\nboth crews gain 1 VP.\n\nThen the crew that has scored the least total VP from\nthis strategy this game may select any one friendly\nStrategy marker and place it within 4\" of its current\nlocation, not in base contact with any model(s).\n\nADDITIONAL VP\n\nDouble any victory points gained from this strategy on\nturn 4.\n\n",
-      "meta": {
-        "by_faction": {
-          "Neverborn": {
-            "win_rate": 0.43,
-            "games": 260
-          },
-          "Explorers": {
-            "win_rate": 0.46,
-            "games": 204
-          },
-          "Ten Thunders": {
-            "win_rate": 0.48,
-            "games": 185
-          },
-          "Bayou": {
-            "win_rate": 0.47,
-            "games": 148
-          },
-          "Arcanists": {
-            "win_rate": 0.41,
-            "games": 177
-          },
-          "Guild": {
-            "win_rate": 0.45,
-            "games": 210
-          },
-          "Outcasts": {
-            "win_rate": 0.46,
-            "games": 229
-          },
-          "Resurrectionists": {
-            "win_rate": 0.31,
-            "games": 184
-          }
-        },
-        "total_games": 1597,
-        "average_win_rate": 0.43422041327489036
-      }
-    },
-    "informants": {
-      "id": "informants",
-      "name": "Informants",
-      "card_type": "strategy",
-      "max_vp": 5,
-      "setup_text": "After deployment zones are chosen, make five Strategy\n\nmarkers:\n\n\u00a2 One centered on the centerpoint.\n\n* Two centered on the centerline, each 10\" to the left\nand right of the centerpoint, respectively.\n\n\u00a2 Starting with the attacker, each player alternates\nmaking one Strategy marker in the center of one table\nquarter completely on their side of the board.",
-      "rules_text": "Acrew controls a Strategy marker if it has more models\nwithout Summon tokens within 2\" of the marker than\nany opponent does.",
-      "scoring_text": "At the end of every turn, the crew controlling the most\nStrategy markers gains 1 VP. In the case of atie, both\ncrews gain 1 VP.\n\nThen the crew that has scored the least total VP\nfrom this strategy this game selects up to two Strategy\nmarkers and places them within 3\" of their location, not\nin base contact with any model(s) or within 8\" of any\nother Strategy marker(s).",
-      "additional_vp_text": "Double any victory points gained from this strategy on\nturn 4.",
-      "reveal_condition": "",
-      "next_available_schemes": [],
-      "uses_strategy_markers": true,
-      "marker_count": 5,
-      "requires_killing": false,
-      "requires_scheme_markers": false,
-      "requires_strategy_markers": true,
-      "requires_terrain": false,
-      "requires_positioning": true,
-      "requires_interact": false,
-      "target_type": null,
-      "favors_roles": [
-        "scheme_runner",
-        "tank",
-        "tarpit",
-        "utility"
-      ],
-      "favors_abilities": [
-        "incorporeal",
-        "interact",
-        "place",
-        "push"
-      ],
-      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Strategy Cards\\M4E_Strategy_Informants_front.png",
-      "raw_text": "INFORMANTS\n\nscorepD vP: QOOO0\n\nSETUP\n\nAfter deployment zones are chosen, make five Strategy\n\nmarkers:\n\n\u00a2 One centered on the centerpoint.\n\n* Two centered on the centerline, each 10\" to the left\nand right of the centerpoint, respectively.\n\n\u00a2 Starting with the attacker, each player alternates\nmaking one Strategy marker in the center of one table\nquarter completely on their side of the board.\n\nRULES\n\nAcrew controls a Strategy marker if it has more models\nwithout Summon tokens within 2\" of the marker than\nany opponent does.\n\nSCORING\n\nAt the end of every turn, the crew controlling the most\nStrategy markers gains 1 VP. In the case of atie, both\ncrews gain 1 VP.\n\nThen the crew that has scored the least total VP\nfrom this strategy this game selects up to two Strategy\nmarkers and places them within 3\" of their location, not\nin base contact with any model(s) or within 8\" of any\nother Strategy marker(s).\n\nADDITIONAL VP\n\nDouble any victory points gained from this strategy on\nturn 4.\n\n",
-      "meta": {
-        "by_faction": {
-          "Neverborn": {
-            "win_rate": 0.53,
-            "games": 264
-          },
-          "Explorers": {
-            "win_rate": 0.43,
-            "games": 209
-          },
-          "Ten Thunders": {
-            "win_rate": 0.35,
-            "games": 163
-          },
-          "Bayou": {
-            "win_rate": 0.41,
-            "games": 145
-          },
-          "Arcanists": {
-            "win_rate": 0.44,
-            "games": 164
-          },
-          "Guild": {
-            "win_rate": 0.31,
-            "games": 200
-          },
-          "Outcasts": {
-            "win_rate": 0.4,
-            "games": 206
-          },
-          "Resurrectionists": {
-            "win_rate": 0.42,
-            "games": 178
-          }
-        },
-        "total_games": 1529,
-        "average_win_rate": 0.41701111837802485
-      }
-    },
     "plant_explosives": {
       "id": "plant_explosives",
       "name": "Plant Explosives",
-      "card_type": "strategy",
       "max_vp": 5,
-      "setup_text": "After deployment, each non-peon model in play gains\nan Explosive token.",
-      "rules_text": "A model with an Explosive token may take the Interact\naction to remove the token and make a friendly Strategy\nmarker within 1\", and not within 4\" of another friendly\nStrategy marker. Explosive tokens may not be removed\nin any other way.\n\nA model may target a Strategy marker with the\nInteract action to remove it; if the model does not have\nan Explosive token, it gains one.\n\nAfter a model with an Explosive token is killed, the\nmodel that killed it makes a neutral Strategy marker\nwithin 1\" of the killed model, if able. Models may move\non top of Strategy markers.",
-      "scoring_text": "At the end of every turn, each crew counts how many\nfriendly Strategy markers they have completely on the\nenemy table half. The crew with the highest total gains 1\nVP. In the case of a tie, both crews gain 1 VP.",
-      "additional_vp_text": "Once per crew per game, at the end of the turn this\ncrew gains 1 VP if there are two or more friendly Strategy\nmarkers in the enemy deployment zone.",
-      "reveal_condition": "",
-      "next_available_schemes": [],
-      "uses_strategy_markers": false,
-      "marker_count": 0,
-      "requires_killing": true,
-      "requires_scheme_markers": false,
-      "requires_strategy_markers": true,
-      "requires_terrain": false,
-      "requires_positioning": true,
-      "requires_interact": true,
-      "target_type": "peon",
-      "favors_roles": [
-        "assassin",
-        "beater",
-        "melee_damage",
-        "ranged_damage",
-        "scheme_runner",
-        "tank",
-        "utility"
+      "vp_per_turn": 1,
+      "turns_scored": [1, 2, 3, 4],
+      "setup": {
+        "description": "After deployment, each non-peon model in play gains an Explosive token",
+        "markers_placed": 0,
+        "special": "Explosive tokens may not be removed in any other way than placing a marker"
+      },
+      "scoring": {
+        "timing": "end_of_turn",
+        "condition": "Player with more friendly Strategy Markers completely on enemy table half scores 1 VP",
+        "tie_breaker": "Both players score on tie"
+      },
+      "bonus_vp": {
+        "condition": "Have 2 friendly Strategy Markers in (not completely within) opponent's deployment zone",
+        "timing": "once_per_game",
+        "points": 1
+      },
+      "marker_rules": {
+        "type": "strategy_marker",
+        "max_on_field": 5,
+        "placement": "Interact to remove Explosive token, place marker within 1\" of self",
+        "placement_restriction": "Cannot place within 4\" of another friendly Strategy Marker",
+        "pickup": "Interact to remove marker; gain Explosive token if you don't have one",
+        "on_death": "After a model with Explosive token is killed, the model that killed it makes a neutral Strategy marker within 1\" of killed model, if able",
+        "movement": "Models may move on top of Strategy markers"
+      },
+      "strategic_notes": [
+        "Neutral markers from deaths aren't worth points until picked up and re-placed",
+        "Markers must be COMPLETELY on enemy half to score",
+        "Place markers >50mm from centerline to prevent easy opponent pickup",
+        "Build for 7+ bomb interactions on turn 1",
+        "Guard placed bombs by standing on them (blocks Interact but not Don't Mind Me)"
       ],
-      "favors_abilities": [
-        "armor_piercing",
-        "bonus_damage",
-        "dont_mind_me",
-        "incorporeal",
-        "interact",
-        "irreducible",
-        "place",
-        "push"
-      ],
-      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Strategy Cards\\M4E_Strategy_Plant_Explosives_front.png",
-      "raw_text": "PLANT EXPLOSIVES\n\nscorepD vP: QOOO0\n\nSETUP\n\nAfter deployment, each non-peon model in play gains\nan Explosive token.\n\nRULES\n\nA model with an Explosive token may take the Interact\naction to remove the token and make a friendly Strategy\nmarker within 1\", and not within 4\" of another friendly\nStrategy marker. Explosive tokens may not be removed\nin any other way.\n\nA model may target a Strategy marker with the\nInteract action to remove it; if the model does not have\nan Explosive token, it gains one.\n\nAfter a model with an Explosive token is killed, the\nmodel that killed it makes a neutral Strategy marker\nwithin 1\" of the killed model, if able. Models may move\non top of Strategy markers.\n\nSCORING\n\nAt the end of every turn, each crew counts how many\nfriendly Strategy markers they have completely on the\nenemy table half. The crew with the highest total gains 1\nVP. In the case of a tie, both crews gain 1 VP.\n\nADDITIONAL VP\n\nOnce per crew per game, at the end of the turn this\ncrew gains 1 VP if there are two or more friendly Strategy\nmarkers in the enemy deployment zone.\n\n",
-      "meta": {
-        "by_faction": {
-          "Neverborn": {
-            "win_rate": 0.43,
-            "games": 223
-          },
-          "Explorers": {
-            "win_rate": 0.51,
-            "games": 172
-          },
-          "Ten Thunders": {
-            "win_rate": 0.43,
-            "games": 159
-          },
-          "Bayou": {
-            "win_rate": 0.46,
-            "games": 136
-          },
-          "Arcanists": {
-            "win_rate": 0.46,
-            "games": 158
-          },
-          "Guild": {
-            "win_rate": 0.51,
-            "games": 168
-          },
-          "Outcasts": {
-            "win_rate": 0.37,
-            "games": 201
-          },
-          "Resurrectionists": {
-            "win_rate": 0.42,
-            "games": 161
-          }
-        },
-        "total_games": 1378,
-        "average_win_rate": 0.4462191582002903
+      "tags": ["marker_heavy", "mobility", "interact_focused", "positioning"],
+      "crew_preferences": {
+        "wants": ["walk_walk_interact", "dont_mind_me", "out_of_activation_movement", "significant_models"],
+        "avoids": ["slow_crews", "elite_low_model_count"]
       }
     },
+    
+    "boundary_dispute": {
+      "id": "boundary_dispute",
+      "name": "Boundary Dispute",
+      "max_vp": 5,
+      "vp_per_turn": 1,
+      "turns_scored": [1, 2, 3, 4],
+      "setup": {
+        "description": "Each player places 3 friendly Strategy Markers in their deployment zone, at least 6\" apart",
+        "markers_placed": 3,
+        "special": "Markers are friendly to the crew that made them"
+      },
+      "scoring": {
+        "timing": "end_of_turn",
+        "condition": "Player with more friendly Strategy Markers completely on enemy table half scores 1 VP",
+        "tie_breaker": "Both players score on tie",
+        "multiplier": "Turn 4 scoring is doubled"
+      },
+      "bonus_vp": {
+        "condition": "Markers completely in enemy deployment zone count as 2 markers",
+        "timing": "each_turn",
+        "points": "Integrated into scoring calculation"
+      },
+      "marker_rules": {
+        "type": "strategy_marker",
+        "kick_action": "Interact with Strategy marker to place it within 6\" of its current location, not in base contact with any model(s)",
+        "catchup_mechanic": "After scoring, player with fewer cumulative Strategy VP may select one friendly Strategy marker and place it within 4\" of current location, not in base contact with any model(s)"
+      },
+      "strategic_notes": [
+        "Most brawl-focused strategy - push up middle and fight",
+        "Double scoring on Turn 4 enables massive comebacks",
+        "Deployment zone markers count double - high risk/reward",
+        "Control the center to enable safe kicks forward"
+      ],
+      "tags": ["brawl", "positioning", "comeback_mechanic", "turn4_critical"],
+      "crew_preferences": {
+        "wants": ["durability", "melee_focused", "push_effects", "board_control"],
+        "avoids": ["fragile_crews", "ranged_only"]
+      }
+    },
+    
     "recover_evidence": {
       "id": "recover_evidence",
       "name": "Recover Evidence",
-      "card_type": "strategy",
       "max_vp": 5,
-      "setup_text": "After deployment zones are chosen, starting with\nthe attacker, each player makes one Strategy marker\ncompletely on the enemy table half.",
-      "rules_text": "After a model is killed by the enemy crew, the enemy\nmakes a Strategy marker within 3\" of the killed model.\n\nA model may target a friendly Strategy marker with\nthe Interact action to remove the marker and put it\nonto that crew's crew card. Models may move on top of\nStrategy markers.",
-      "scoring_text": "At the end of every turn, the crew with the most\nStrategy markers on its crew card gains 1 VP. Inthe case\nof a tie, both crews gain 1 VP. All crews then remove all\nStrategy markers from their crew cards.",
-      "additional_vp_text": "Once per crew per game, at the end of any friendly\nactivation, this crew may select a piece of terrain\nwithin 6\" of the enemy deployment zone and remove\nanumber of friendly Scheme markers equal to the turn\nnumber from within 1\" of it to gain 1 VP.",
-      "reveal_condition": "",
-      "next_available_schemes": [],
-      "uses_strategy_markers": true,
-      "marker_count": 1,
-      "requires_killing": true,
-      "requires_scheme_markers": true,
-      "requires_strategy_markers": true,
-      "requires_terrain": true,
-      "requires_positioning": true,
-      "requires_interact": true,
-      "target_type": null,
-      "favors_roles": [
-        "assassin",
-        "beater",
-        "melee_damage",
-        "ranged_damage",
-        "scheme_runner",
-        "tank",
-        "tarpit",
-        "utility"
+      "vp_per_turn": 1,
+      "turns_scored": [1, 2, 3, 4],
+      "setup": {
+        "description": "Each player makes 1 friendly Strategy Marker completely on enemy table half",
+        "markers_placed": 1,
+        "special": "Additional markers created when your crew kills enemy models"
+      },
+      "scoring": {
+        "timing": "end_of_turn",
+        "condition": "Player with more Strategy Markers on their crew card scores 1 VP",
+        "tie_breaker": "Both players score on tie",
+        "reset": "After scoring, BOTH players remove ALL Strategy Markers from crew cards"
+      },
+      "bonus_vp": {
+        "condition": "Remove friendly Scheme Markers equal to turn number from within 1\" of terrain within 6\" of enemy deployment zone",
+        "timing": "end_of_friendly_activation_once_per_game",
+        "points": 1,
+        "special": "Uses SCHEME markers, not Strategy markers"
+      },
+      "marker_rules": {
+        "type": "strategy_marker",
+        "creation": "After a model is killed by the enemy crew, the enemy makes a Strategy marker within 3\" of the killed model",
+        "pickup": "Interact with friendly Strategy marker to remove it and put it onto that crew's crew card",
+        "movement": "Models may move on top of Strategy markers",
+        "note": "You create markers for your OPPONENT when you kill their models - not for yourself"
+      },
+      "strategic_notes": [
+        "Encourages AVOIDANT gameplay despite seeming kill-focused",
+        "Killing creates resources but exposes you to counter-attacks",
+        "Kidnap/forced movement crews are strong here",
+        "High scheme scoring expected - plan to scheme heavily",
+        "Bonus VP requires deep positioning with scheme markers"
       ],
-      "favors_abilities": [
-        "armor_piercing",
-        "bonus_damage",
-        "dont_mind_me",
-        "flight",
-        "incorporeal",
-        "interact",
-        "irreducible",
-        "leap",
-        "place",
-        "push",
-        "unimpeded"
+      "tags": ["killing", "avoidant", "scheme_heavy", "forced_movement"],
+      "crew_preferences": {
+        "wants": ["kidnap_abilities", "out_of_activation_movement", "ranged_killing", "scheme_runners"],
+        "avoids": ["melee_brawlers", "slow_crews"]
+      }
+    },
+    
+    "informants": {
+      "id": "informants",
+      "name": "Informants",
+      "max_vp": 5,
+      "vp_per_turn": 1,
+      "turns_scored": [1, 2, 3, 4],
+      "setup": {
+        "description": "Place markers at centerpoint, 10\" east and west of center on centerline, then each player places 1 marker in center of one table quarter on their side",
+        "markers_placed": 5,
+        "special": "Diagonal deployment has only 1 legal position for player-placed marker"
+      },
+      "scoring": {
+        "timing": "end_of_turn",
+        "condition": "Player controlling most Strategy Markers scores 1 VP",
+        "tie_breaker": "Both players score on tie",
+        "multiplier": "Turn 4 scoring is doubled",
+        "control_definition": "Most models without Summon tokens within 2\" of marker"
+      },
+      "bonus_vp": {
+        "condition": "Integrated into turn 4 doubling",
+        "timing": "turn_4",
+        "points": "Up to 2 from doubling"
+      },
+      "marker_rules": {
+        "type": "strategy_marker",
+        "control": "Count models without Summon tokens within 2\" of marker",
+        "catchup_mechanic": "Player with fewer cumulative VP may move up to 2 Strategy markers, placing each within 3\" of its current location, not in base contact with any model(s), not within 8\" of any other Strategy marker(s)",
+        "summon_restriction": "Models with Summon tokens cannot contribute to control"
+      },
+      "strategic_notes": [
+        "Models with Summon tokens cannot contribute to control - BUT tokens can be removed!",
+        "Some abilities remove Summon tokens, making those summons suddenly useful",
+        "Can score by controlling your own back marker",
+        "Turn 4 doubling enables massive comebacks",
+        "Give up early points to position for Turn 4 dominance",
+        "Staying power (healing, HP) matters more than killing"
       ],
-      "source_file": "C:\\Malifaux4E_DB_Repo\\Malifaux4e-DB\\data\\raw\\objective_images\\Strategy Cards\\M4E_Strategy_Recover Evidence_front.png",
-      "raw_text": "RECOVER EVIDENCE\n\nscorepD vP: QOOO0\n\nSETUP\n\nAfter deployment zones are chosen, starting with\nthe attacker, each player makes one Strategy marker\ncompletely on the enemy table half.\n\nRULES\n\nAfter a model is killed by the enemy crew, the enemy\nmakes a Strategy marker within 3\" of the killed model.\n\nA model may target a friendly Strategy marker with\nthe Interact action to remove the marker and put it\nonto that crew's crew card. Models may move on top of\nStrategy markers.\n\nSCORING\n\nAt the end of every turn, the crew with the most\nStrategy markers on its crew card gains 1 VP. Inthe case\nof a tie, both crews gain 1 VP. All crews then remove all\nStrategy markers from their crew cards.\n\nADDITIONAL VP\n\nOnce per crew per game, at the end of any friendly\nactivation, this crew may select a piece of terrain\nwithin 6\" of the enemy deployment zone and remove\nanumber of friendly Scheme markers equal to the turn\nnumber from within 1\" of it to gain 1 VP.\n\n",
-      "meta": {
-        "by_faction": {
-          "Neverborn": {
-            "win_rate": 0.45,
-            "games": 238
-          },
-          "Explorers": {
-            "win_rate": 0.47,
-            "games": 206
-          },
-          "Ten Thunders": {
-            "win_rate": 0.44,
-            "games": 170
-          },
-          "Bayou": {
-            "win_rate": 0.37,
-            "games": 141
-          },
-          "Arcanists": {
-            "win_rate": 0.42,
-            "games": 156
-          },
-          "Guild": {
-            "win_rate": 0.47,
-            "games": 205
-          },
-          "Outcasts": {
-            "win_rate": 0.43,
-            "games": 208
-          },
-          "Resurrectionists": {
-            "win_rate": 0.43,
-            "games": 190
-          }
-        },
-        "total_games": 1514,
-        "average_win_rate": 0.43850726552179664
+      "tags": ["control_points", "summon_unfriendly", "turn4_critical", "staying_power"],
+      "crew_preferences": {
+        "wants": ["high_model_count", "durability", "healing", "non_summoners"],
+        "avoids": ["summon_heavy", "elite_crews", "fragile_models"]
       }
     }
   },
-  "enriched_at": "2025-12-15T14:50:27.113401"
+  
+  "schemes": {
+    "breakthrough": {
+      "id": "breakthrough",
+      "name": "Breakthrough",
+      "pool_number": 1,
+      "reveal_condition": {
+        "timing": "end_of_enemy_activation",
+        "requirement": "Remove 1 friendly Scheme Marker from within opponent's Deployment Zone with no enemy within 2\"",
+        "points": 1
+      },
+      "bonus_condition": {
+        "requirement": "Also remove 1 marker from Centerline AND 1 from your Deployment Zone",
+        "points": 1,
+        "denial": "None - no enemy proximity requirement for additional markers"
+      },
+      "scoring_notes": [
+        "Scores at END OF ENEMY ACTIVATION - cannot use last activation of turn",
+        "Easier to score but may have it Turn 1 requiring sprint",
+        "Second point telegraphs your intent heavily"
+      ],
+      "next_schemes": ["assassinate", "public_demonstration", "frame_job"],
+      "tags": ["scheme_markers", "deployment_zone", "speed", "positioning"],
+      "crew_wants": ["fast_models", "scheme_runners", "dont_mind_me"],
+      "difficulty": "easy"
+    },
+    
+    "frame_job": {
+      "id": "frame_job",
+      "name": "Frame Job",
+      "pool_number": 2,
+      "secret_selection": "Choose a friendly model",
+      "reveal_condition": {
+        "timing": "when_triggered",
+        "requirement": "Chosen model takes damage from an enemy attack action that targeted it while on enemy table half",
+        "points": 1
+      },
+      "bonus_condition": {
+        "requirement": "Remove a friendly Scheme Marker from within 2\" of chosen model at same time",
+        "points": 1
+      },
+      "scoring_notes": [
+        "Four conditions: (1) takes damage, (2) from enemy attack, (3) that targeted it, (4) on enemy half",
+        "Scoring is entirely up to opponent - they can lock you out",
+        "Don't telegraph too hard - opponent can simply not attack"
+      ],
+      "next_schemes": ["public_demonstration", "harness_the_leyline", "scout_the_rooftops"],
+      "tags": ["enemy_dependent", "positioning", "scheme_markers", "tanky_model"],
+      "crew_wants": ["durable_models", "threat_models", "scheme_marker_placement"],
+      "difficulty": "hard"
+    },
+    
+    "assassinate": {
+      "id": "assassinate",
+      "name": "Assassinate",
+      "pool_number": 3,
+      "secret_selection": "Choose a unique enemy model with half or more of its max health",
+      "reveal_condition": {
+        "timing": "when_triggered",
+        "requirement": "Reduce chosen model to below half health",
+        "points": 1
+      },
+      "bonus_condition": {
+        "timing": "end_of_turn",
+        "requirement": "Chosen model is killed this turn",
+        "points": 1
+      },
+      "scoring_notes": [
+        "Ask about health of MULTIPLE models to bluff",
+        "Model must be UNIQUE (not a Minion)",
+        "Beware picking this into Frame Job",
+        "Very straightforward - rewards doing what you want anyway"
+      ],
+      "next_schemes": ["scout_the_rooftops", "detonate_charges", "runic_binding"],
+      "tags": ["killing", "unique_target", "damage_focused"],
+      "crew_wants": ["killing_power", "focus_fire", "alpha_strike"],
+      "difficulty": "medium"
+    },
+    
+    "scout_the_rooftops": {
+      "id": "scout_the_rooftops",
+      "name": "Scout the Rooftops",
+      "pool_number": 4,
+      "reveal_condition": {
+        "timing": "end_of_turn",
+        "requirement": "Remove 2 friendly Scheme Markers at elevation 2+, on different terrain pieces, not within 6\" of your deployment zone, no enemies at same elevation within 2\"",
+        "points": 1
+      },
+      "bonus_condition": {
+        "requirement": "Remove a 3rd marker meeting same criteria AND completely on enemy table half (can be same terrain piece as one other)",
+        "points": 1
+      },
+      "scoring_notes": [
+        "Consider deployment zone choice based on available terrain",
+        "Flying/Expert Climbing/Leap makes this much easier",
+        "Two DIFFERENT terrain pieces required for base score",
+        "Third marker CAN share terrain with one of the first two"
+      ],
+      "next_schemes": ["detonate_charges", "grave_robbing", "leave_your_mark"],
+      "tags": ["terrain_dependent", "elevation", "scheme_markers", "mobility"],
+      "crew_wants": ["flying", "leap", "expert_climbing", "mobility"],
+      "difficulty": "medium"
+    },
+    
+    "detonate_charges": {
+      "id": "detonate_charges",
+      "name": "Detonate Charges",
+      "pool_number": 5,
+      "reveal_condition": {
+        "timing": "end_of_turn",
+        "requirement": "Remove 2 friendly Scheme Markers from within 2\" of enemy models",
+        "points": 1
+      },
+      "bonus_condition": {
+        "requirement": "Remove 3 markers instead of 2",
+        "points": 1
+      },
+      "scoring_notes": [
+        "Can be near same enemy or different enemies",
+        "Requires getting close then spending AP NOT killing",
+        "Don't try to score off models that haven't activated (they walk away)",
+        "Don't try to score off models you plan to kill",
+        "Use low-value activations to force opponent to move expensive models"
+      ],
+      "next_schemes": ["grave_robbing", "runic_binding", "take_the_highground"],
+      "tags": ["scheme_markers", "enemy_proximity", "activation_timing"],
+      "crew_wants": ["scheme_runners", "activation_control", "mobility"],
+      "difficulty": "medium"
+    },
+    
+    "ensnare": {
+      "id": "ensnare",
+      "name": "Ensnare",
+      "pool_number": 6,
+      "reveal_condition": {
+        "timing": "when_enemy_model_ends_activation",
+        "requirement": "Remove 2 friendly Scheme Markers from within 2\" of a unique enemy model",
+        "points": 1
+      },
+      "bonus_condition": {
+        "requirement": "Unique enemy is engaged by a friendly model of lower cost",
+        "points": 1
+      },
+      "scoring_notes": [
+        "Target doesn't need to be the model that just activated",
+        "Opponent always gets activation between marker drop and scoring",
+        "Don't target models that haven't activated - they'll walk away",
+        "Watch for out-of-activation movement that could rescue targets",
+        "Model setting up Ensnare can often walk/charge into engagement for bonus"
+      ],
+      "next_schemes": ["reshape_the_land", "search_the_area", "frame_job"],
+      "tags": ["scheme_markers", "unique_target", "engagement", "activation_timing"],
+      "crew_wants": ["cheap_models", "scheme_runners", "engagement_tricks"],
+      "difficulty": "hard"
+    },
+    
+    "make_it_look_like_an_accident": {
+      "id": "make_it_look_like_an_accident",
+      "name": "Make It Look Like an Accident",
+      "pool_number": 7,
+      "reveal_condition": {
+        "timing": "when_triggered",
+        "requirement": "Enemy model takes falling damage",
+        "points": 1
+      },
+      "bonus_condition": {
+        "timing": "end_of_turn",
+        "requirement": "Kill that model OR reduce it to below half health",
+        "points": 1
+      },
+      "scoring_notes": [
+        "Very binary - either you have push/pull or you don't",
+        "Requires elevation 2+ terrain on battlefield",
+        "Some crews are largely immune (Brood, etc.)",
+        "If you can't push/pull, don't bother picking this"
+      ],
+      "next_schemes": ["ensnare", "reshape_the_land", "breakthrough"],
+      "tags": ["push_pull", "terrain_dependent", "elevation", "falling_damage"],
+      "crew_wants": ["push_effects", "pull_effects", "placement_effects"],
+      "difficulty": "medium"
+    },
+    
+    "harness_the_leyline": {
+      "id": "harness_the_leyline",
+      "name": "Harness the Leyline",
+      "pool_number": 8,
+      "reveal_condition": {
+        "timing": "end_of_turn",
+        "requirement": "Have 2 friendly Scheme Markers on centerline, not within 6\" of each other, no enemies within 2\"",
+        "points": 1
+      },
+      "bonus_condition": {
+        "requirement": "Have 3 markers meeting the criteria instead of 2",
+        "points": 1
+      },
+      "scoring_notes": [
+        "Centerline is HUGE - denial requires spread out enemy presence",
+        "Easy to deny with even one model in right position",
+        "Free points if you've swept enemy off the board",
+        "Often 2 points available late game"
+      ],
+      "next_schemes": ["assassinate", "scout_the_rooftops", "grave_robbing"],
+      "tags": ["scheme_markers", "centerline", "board_control", "late_game"],
+      "crew_wants": ["board_control", "killing_power", "scheme_runners"],
+      "difficulty": "medium"
+    },
+    
+    "search_the_area": {
+      "id": "search_the_area",
+      "name": "Search the Area",
+      "pool_number": 9,
+      "reveal_condition": {
+        "timing": "end_of_activation",
+        "requirement": "Remove 3 friendly Scheme Markers within 1\" of same terrain piece completely on enemy half, no enemies within 2\"",
+        "points": 1,
+        "note": "Markers don't need to be completely on enemy half, just the terrain"
+      },
+      "bonus_condition": {
+        "timing": "end_of_turn",
+        "requirement": "Have 1 friendly Scheme Marker next to that terrain",
+        "points": 1,
+        "denial": "None - no enemy proximity requirement"
+      },
+      "scoring_notes": [
+        "Three markers is a lot - usually multiple activations needed",
+        "Go deep to find terrain opponent isn't near",
+        "Harder to deny due to end-of-activation timing",
+        "Second point is one of the easiest bonus conditions"
+      ],
+      "next_schemes": ["breakthrough", "frame_job", "harness_the_leyline"],
+      "tags": ["scheme_markers", "terrain_dependent", "enemy_half", "ap_intensive"],
+      "crew_wants": ["multiple_interact", "scheme_runners", "speed"],
+      "difficulty": "easy"
+    },
+    
+    "take_the_highground": {
+      "id": "take_the_highground",
+      "name": "Take the Highground",
+      "pool_number": 10,
+      "reveal_condition": {
+        "timing": "end_of_turn",
+        "requirement": "Control 2+ terrain pieces of Ht 2+, not within 6\" of your deployment zone",
+        "points": 1,
+        "control_definition": "Most friendly models standing on terrain piece"
+      },
+      "bonus_condition": {
+        "requirement": "Control 3 terrain pieces",
+        "points": 1
+      },
+      "scoring_notes": [
+        "Enemy CAN stand on roof but you can outnumber them",
+        "No Interact required - just presence",
+        "Must STAY on buildings (can't drop marker and leave)",
+        "Harder second point than Scout (need 3 different buildings)",
+        "Probably easier overall than Scout due to fewer conditions"
+      ],
+      "next_schemes": ["make_it_look_like_an_accident", "ensnare", "search_the_area"],
+      "tags": ["terrain_dependent", "elevation", "board_control", "model_count"],
+      "crew_wants": ["mobility", "model_count", "staying_power"],
+      "difficulty": "easy"
+    },
+    
+    "grave_robbing": {
+      "id": "grave_robbing",
+      "name": "Grave Robbing",
+      "pool_number": 11,
+      "secret_selection": "Choose a non-Scheme marker type",
+      "reveal_condition": {
+        "timing": "when_triggered",
+        "requirement": "Kill an enemy model within 2\" of chosen marker type AND a friendly Scheme Marker",
+        "points": 1
+      },
+      "bonus_condition": {
+        "requirement": "After revealing, Interact twice to pick up Remains Markers onto crew card",
+        "points": 1,
+        "unlock": "Models gain ability to Interact to pick up Remains Markers after reveal"
+      },
+      "scoring_notes": [
+        "Some crews make lots of markers - easy score",
+        "Other crews don't - impossible score",
+        "Remains Marker pickup gives value to Slam action",
+        "Consider what markers your crew naturally creates"
+      ],
+      "next_schemes": ["runic_binding", "leave_your_mark", "make_it_look_like_an_accident"],
+      "tags": ["marker_dependent", "killing", "remains_markers", "crew_specific"],
+      "crew_wants": ["marker_creation", "killing_power", "scheme_markers"],
+      "difficulty": "hard"
+    },
+    
+    "runic_binding": {
+      "id": "runic_binding",
+      "name": "Runic Binding",
+      "pool_number": 12,
+      "reveal_condition": {
+        "timing": "end_of_enemy_activation",
+        "requirement": "Have 3 Scheme Markers forming triangle (each within 14\" of at least one other), at least 1 enemy inside triangle",
+        "points": 1
+      },
+      "bonus_condition": {
+        "requirement": "15+ Soulstones worth of enemy models inside triangle",
+        "points": 1
+      },
+      "scoring_notes": [
+        "Very AP intensive - dropping markers AND positioning",
+        "Impossible to do without telegraphing",
+        "Opponent gets chance to deny",
+        "Second point often requires 3+ enemy models - very hard late game",
+        "Best when models are naturally scattered anyway"
+      ],
+      "next_schemes": ["leave_your_mark", "take_the_highground", "ensnare"],
+      "tags": ["scheme_markers", "geometric", "ap_intensive", "telegraphed"],
+      "crew_wants": ["spread_out_crew", "scheme_runners", "board_control"],
+      "difficulty": "hard"
+    },
+    
+    "reshape_the_land": {
+      "id": "reshape_the_land",
+      "name": "Reshape the Land",
+      "pool_number": 13,
+      "secret_selection": "Choose a marker type",
+      "reveal_condition": {
+        "timing": "end_of_turn",
+        "requirement": "Have 4 friendly markers of chosen type on enemy table half",
+        "points": 1,
+        "note": "If Scheme Markers chosen, they are removed after scoring"
+      },
+      "bonus_condition": {
+        "requirement": "Have 5 markers instead of 4",
+        "points": 1
+      },
+      "scoring_notes": [
+        "Many crews make markers as part of gameplay loop",
+        "5 is the marker cap - opponent can Slam to remove",
+        "Scheme Markers: can stand on to protect, but lost when scored",
+        "Other markers: may be harder to place but kept after scoring"
+      ],
+      "next_schemes": ["search_the_area", "breakthrough", "public_demonstration"],
+      "tags": ["marker_dependent", "enemy_half", "crew_specific"],
+      "crew_wants": ["marker_creation", "scheme_runners", "mobility"],
+      "difficulty": "medium"
+    },
+    
+    "public_demonstration": {
+      "id": "public_demonstration",
+      "name": "Public Demonstration",
+      "pool_number": 14,
+      "secret_selection": "Choose a unique enemy model",
+      "reveal_condition": {
+        "timing": "end_of_turn",
+        "requirement": "Engage chosen unique enemy with 2+ friendly Minions",
+        "points": 1
+      },
+      "bonus_condition": {
+        "requirement": "Have a Scheme Marker within 1\" of chosen enemy",
+        "points": 1
+      },
+      "scoring_notes": [
+        "Heavily dependent on crew build",
+        "Need enough durable, mobile Minions",
+        "Some uniques are scary beatsticks - dangerous to park next to",
+        "NO anti-summon clause - summons work great here",
+        "Don't build specifically for this, but know when you can't do it"
+      ],
+      "next_schemes": ["harness_the_leyline", "assassinate", "detonate_charges"],
+      "tags": ["minions", "engagement", "unique_target", "summon_friendly"],
+      "crew_wants": ["minion_heavy", "summoning", "durable_minions"],
+      "difficulty": "medium"
+    },
+    
+    "leave_your_mark": {
+      "id": "leave_your_mark",
+      "name": "Leave Your Mark",
+      "pool_number": 15,
+      "reveal_condition": {
+        "timing": "end_of_turn",
+        "requirement": "Have more friendly Scheme Markers within 1\" of centerpoint than enemy markers",
+        "points": 1
+      },
+      "bonus_condition": {
+        "requirement": "Exceed enemy marker count by 2 or more",
+        "points": 1
+      },
+      "scoring_notes": [
+        "Very telegraphed but easy if opponent out of position",
+        "Two points not much harder than one if uncontested",
+        "Don't Mind Me models shine here",
+        "Look at board state - obvious if available or not"
+      ],
+      "next_schemes": ["take_the_highground", "reshape_the_land", "make_it_look_like_an_accident"],
+      "tags": ["scheme_markers", "centerpoint", "board_control", "contested"],
+      "crew_wants": ["dont_mind_me", "scheme_runners", "board_control"],
+      "difficulty": "easy"
+    }
+  },
+  
+  "scheme_flow_graph": {
+    "starting_pool": ["breakthrough", "frame_job", "assassinate", "scout_the_rooftops", "detonate_charges", "ensnare", "make_it_look_like_an_accident", "harness_the_leyline", "search_the_area", "take_the_highground", "grave_robbing", "runic_binding", "reshape_the_land", "public_demonstration", "leave_your_mark"],
+    "transitions": {
+      "breakthrough": ["assassinate", "public_demonstration", "frame_job"],
+      "frame_job": ["public_demonstration", "harness_the_leyline", "scout_the_rooftops"],
+      "assassinate": ["scout_the_rooftops", "detonate_charges", "runic_binding"],
+      "scout_the_rooftops": ["detonate_charges", "grave_robbing", "leave_your_mark"],
+      "detonate_charges": ["grave_robbing", "runic_binding", "take_the_highground"],
+      "ensnare": ["reshape_the_land", "search_the_area", "frame_job"],
+      "make_it_look_like_an_accident": ["ensnare", "reshape_the_land", "breakthrough"],
+      "harness_the_leyline": ["assassinate", "scout_the_rooftops", "grave_robbing"],
+      "search_the_area": ["breakthrough", "frame_job", "harness_the_leyline"],
+      "take_the_highground": ["make_it_look_like_an_accident", "ensnare", "search_the_area"],
+      "grave_robbing": ["runic_binding", "leave_your_mark", "make_it_look_like_an_accident"],
+      "runic_binding": ["leave_your_mark", "take_the_highground", "ensnare"],
+      "reshape_the_land": ["search_the_area", "breakthrough", "public_demonstration"],
+      "public_demonstration": ["harness_the_leyline", "assassinate", "detonate_charges"],
+      "leave_your_mark": ["take_the_highground", "reshape_the_land", "make_it_look_like_an_accident"]
+    }
+  },
+  
+  "scheme_categories": {
+    "scheme_marker_heavy": ["breakthrough", "frame_job", "scout_the_rooftops", "detonate_charges", "ensnare", "harness_the_leyline", "search_the_area", "runic_binding", "reshape_the_land", "public_demonstration", "leave_your_mark"],
+    "killing_focused": ["assassinate", "grave_robbing", "make_it_look_like_an_accident"],
+    "terrain_dependent": ["scout_the_rooftops", "take_the_highground", "make_it_look_like_an_accident", "search_the_area"],
+    "enemy_dependent": ["frame_job", "ensnare", "detonate_charges"],
+    "positioning_focused": ["breakthrough", "harness_the_leyline", "leave_your_mark", "reshape_the_land"],
+    "easy_to_score": ["breakthrough", "search_the_area", "take_the_highground", "leave_your_mark"],
+    "hard_to_score": ["frame_job", "ensnare", "grave_robbing", "runic_binding"]
+  },
+  
+  "strategy_scheme_synergies": {
+    "plant_explosives": {
+      "good_schemes": ["breakthrough", "detonate_charges", "reshape_the_land"],
+      "reasoning": "Already moving markers around, scheme runners are core"
+    },
+    "boundary_dispute": {
+      "good_schemes": ["assassinate", "public_demonstration", "frame_job"],
+      "reasoning": "Brawl-focused, models will be engaged anyway"
+    },
+    "recover_evidence": {
+      "good_schemes": ["assassinate", "grave_robbing", "search_the_area"],
+      "reasoning": "Already killing, spread out for schemes"
+    },
+    "informants": {
+      "good_schemes": ["take_the_highground", "harness_the_leyline", "leave_your_mark"],
+      "reasoning": "Control-focused, centerline presence"
+    }
+  }
 }
