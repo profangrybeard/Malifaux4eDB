@@ -1043,7 +1043,8 @@ function App() {
     const filtered = cards.filter(card => 
       card.id !== selectedMaster.id &&
       (card.keywords || []).includes(primaryKeyword) &&
-      !(card.characteristics || []).includes('Master')
+      card.station !== 'Master' &&   // No masters
+      card.station !== 'Totem'       // No totems (they're free with master)
     ).sort((a, b) => (b.cost || 0) - (a.cost || 0))
     
     // Deduplicate by name
@@ -1056,6 +1057,7 @@ function App() {
   }, [selectedMaster, cards])
 
   // Get versatile models for selected master's faction (deduplicated)
+  // IMPORTANT: Versatile is in characteristics, not keywords!
   const versatileModels = useMemo(() => {
     if (!selectedMaster) return []
     const masterFaction = selectedMaster.faction
@@ -1063,9 +1065,10 @@ function App() {
     
     const filtered = cards.filter(card => 
       card.faction === masterFaction &&
-      (card.keywords || []).includes('Versatile') &&
-      !(card.keywords || []).includes(primaryKeyword) &&
-      !(card.characteristics || []).includes('Master')
+      (card.characteristics || []).includes('Versatile') &&  // Check characteristics, not keywords!
+      !(card.keywords || []).includes(primaryKeyword) &&     // Not already in-keyword
+      card.station !== 'Master' &&                           // No masters
+      card.station !== 'Totem'                               // No totems (they're free with master)
     ).sort((a, b) => (b.cost || 0) - (a.cost || 0))
     
     // Deduplicate by name
