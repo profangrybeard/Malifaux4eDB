@@ -785,6 +785,7 @@ function App() {
   const [crewStrategy, setCrewStrategy] = useState('')
   const [crewSchemes, setCrewSchemes] = useState([])
   const [synergyPanelOpen, setSynergyPanelOpen] = useState(false)
+  const [objectiveFitOpen, setObjectiveFitOpen] = useState(false)
   const [poolAnalysisOpen, setPoolAnalysisOpen] = useState(true)
 
   // Parse card data - handle both array and {cards: [...]} formats
@@ -4741,40 +4742,6 @@ function App() {
                 <span className="hiring-pool-budget">({remainingBudget}ss remaining)</span>
               </h2>
               
-              {/* Objective Scoring Legend */}
-              {(crewStrategy || crewSchemes.length > 0) && (
-                <div className="scoring-legend">
-                  <div className="scoring-legend-header">
-                    <span className="scoring-legend-icon"></span>
-                    <span className="scoring-legend-title">Objective Fit Score</span>
-                  </div>
-                  <p className="scoring-legend-explanation">Stars indicate how well a model fits your selected objectives. 
-                    Each  means the model has a role that helps score your Strategy or Schemes.
-                  </p>
-                  {crewFavoredRoles.size > 0 && (
-                    <div className="scoring-legend-roles">
-                      <span className="scoring-legend-label">Looking for:</span>
-                      <div className="scoring-legend-role-list">
-                        {Array.from(crewFavoredRoles).slice(0, 6).map(role => (
-                          <span key={role} className="scoring-legend-role">
-                            {ROLE_DESCRIPTIONS[role]?.label || role}
-                          </span>
-                        ))}
-                        {crewFavoredRoles.size > 6 && (
-                          <span className="scoring-legend-more">+{crewFavoredRoles.size - 6} more</span>
-                        )}
-                      </div>
-                    </div>
-                  )}
-                  <div className="scoring-legend-scale">
-                    <span className="score-example"><span className="stars star-level-excellent"></span>Excellent fit</span>
-                    <span className="score-example"><span className="stars star-level-good"></span>Good fit</span>
-                    <span className="score-example"><span className="stars star-level-some"></span>Some fit</span>
-                    <span className="score-example"><span className="stars dim"></span>No match</span>
-                  </div>
-                </div>
-              )}
-              
               {/* Badge Key */}
               <div className="hiring-badge-key">
                 <span className="badge-key-item">
@@ -4891,6 +4858,48 @@ function App() {
                     })}
                   </div>
                 </section>
+              )}
+              
+              {/* Collapsible Objective Fit Score - Below crew pools */}
+              {(crewStrategy || crewSchemes.length > 0) && (
+                <div className={`objective-fit-collapsible ${objectiveFitOpen ? 'open' : 'collapsed'}`}>
+                  <div 
+                    className="objective-fit-header"
+                    onClick={() => setObjectiveFitOpen(!objectiveFitOpen)}
+                  >
+                    <span className="objective-fit-toggle">{objectiveFitOpen ? '▼' : '▶'}</span>
+                    <span className="objective-fit-title">⭐ Objective Fit Score</span>
+                  </div>
+                  {objectiveFitOpen && (
+                    <div className="objective-fit-content">
+                      <p className="scoring-legend-explanation">
+                        Stars indicate how well a model fits your selected objectives. 
+                        Each ⭐ means the model has a role that helps score your Strategy or Schemes.
+                      </p>
+                      {crewFavoredRoles.size > 0 && (
+                        <div className="scoring-legend-roles">
+                          <span className="scoring-legend-label">Looking for:</span>
+                          <div className="scoring-legend-role-list">
+                            {Array.from(crewFavoredRoles).slice(0, 6).map(role => (
+                              <span key={role} className="scoring-legend-role">
+                                {ROLE_DESCRIPTIONS[role]?.label || role}
+                              </span>
+                            ))}
+                            {crewFavoredRoles.size > 6 && (
+                              <span className="scoring-legend-more">+{crewFavoredRoles.size - 6} more</span>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                      <div className="scoring-legend-scale">
+                        <span className="score-example"><span className="stars star-level-excellent">★★★</span>Excellent fit</span>
+                        <span className="score-example"><span className="stars star-level-good">★★</span>Good fit</span>
+                        <span className="score-example"><span className="stars star-level-some">★</span>Some fit</span>
+                        <span className="score-example"><span className="stars dim">☆</span>No match</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
               )}
             </div>
           )}

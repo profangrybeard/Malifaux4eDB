@@ -5439,6 +5439,62 @@ select option {
 .scoring-legend-scale .star-level-good { color: #a78bfa; }
 .scoring-legend-scale .star-level-excellent { color: #fbbf24; }
 
+/* Collapsible Objective Fit Score */
+.objective-fit-collapsible {
+    background: rgba(251, 191, 36, 0.1);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    border-radius: 8px;
+    margin-top: 1rem;
+    overflow: hidden;
+}
+
+.objective-fit-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 0.75rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.objective-fit-header:hover {
+    background: rgba(251, 191, 36, 0.15);
+}
+
+.objective-fit-toggle {
+    color: #fbbf24;
+    font-size: 0.75rem;
+    width: 1rem;
+    text-align: center;
+}
+
+.objective-fit-title {
+    color: #fbbf24;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.objective-fit-content {
+    padding: 0.75rem;
+    border-top: 1px solid rgba(251, 191, 36, 0.2);
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.objective-fit-content .scoring-legend-explanation {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.8rem;
+    margin-bottom: 0.75rem;
+}
+
+.objective-fit-content .scoring-legend-roles {
+    margin-bottom: 0.75rem;
+}
+
+.objective-fit-content .scoring-legend-scale {
+    border-top: 1px solid rgba(251, 191, 36, 0.2);
+    padding-top: 0.5rem;
+}
+
 /* Hiring Pool Badge Key */
 .hiring-badge-key {
     display: flex;
