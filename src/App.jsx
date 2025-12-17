@@ -3735,36 +3735,6 @@ function App() {
                 </div>
               )}
               
-              {/* Keyword Fit Warning - Shows when keyword lacks tools for objectives */}
-              {selectedMaster && keywordFitAnalysis.warning && (crewStrategy || crewSchemes.length > 0) && (
-                <div className={`keyword-fit-warning ${keywordFitAnalysis.warning.level}`}>
-                  <div className="keyword-fit-header">
-                    <span className="keyword-fit-icon">
-                      {keywordFitAnalysis.warning.level === 'severe' ? '' : ''}
-                    </span>
-                    <span className="keyword-fit-title">Keyword Coverage: {keywordFitAnalysis.percentage}%
-                    </span>
-                  </div>
-                  <p className="keyword-fit-message">{keywordFitAnalysis.warning.message}</p>
-                  {keywordFitAnalysis.suggestions.length > 0 && (
-                    <div className="keyword-fit-suggestions">
-                      <span className="suggestions-label">Consider these Versatile models:</span>
-                      <div className="suggestions-list">
-                        {keywordFitAnalysis.suggestions.map((s, idx) => (
-                          <div 
-                            key={idx} 
-                            className="suggestion-item"
-                            onClick={() => openModal(s.card)}
-                          >
-                            <span className="suggestion-name">{s.card.name}</span>
-                            <span className="suggestion-roles">({s.rolesDisplay})</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
               
               {/*  LEADER DISPLAY - Master + Crew Card Large  */}
               {selectedMaster && (
