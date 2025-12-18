@@ -1,0 +1,82 @@
+/* ===========================================================================
+   SYNERGY TOOLTIP STYLES - Add to index.css
+   Overlays synergy reason on the card image on hover/tap
+   =========================================================================== */
+
+/* Synergy card item - no size changes on interaction */
+.synergy-card-item {
+    cursor: default;
+}
+
+.synergy-card-item:hover {
+    cursor: help;
+}
+
+/* Image wrapper needs position relative for overlay */
+.synergy-card-img-wrap {
+    position: relative;
+}
+
+/* Active state - subtle highlight only, no size change */
+.synergy-card-item.tooltip-active .synergy-card-img-wrap {
+    box-shadow: 0 0 0 2px rgba(168, 132, 98, 0.6);
+}
+
+/* Synergy card cost display */
+.synergy-card-cost {
+    font-size: 0.6rem;
+    color: #a88462;
+    font-weight: 600;
+}
+
+/* Tooltip overlay - sits ON TOP of the card image only */
+.synergy-tooltip-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.88);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4rem;
+    gap: 0.25rem;
+    border-radius: 6px;
+    z-index: 10;
+    pointer-events: none;
+    animation: overlayFadeIn 0.12s ease-out;
+}
+
+@keyframes overlayFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.synergy-tooltip-overlay .synergy-tooltip-icon {
+    font-size: 1rem;
+}
+
+.synergy-tooltip-overlay .synergy-tooltip-reason {
+    font-size: 0.5rem;
+    color: #a88462;
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.25;
+}
+
+/* Touch device hint - only on first card */
+@media (hover: none) {
+    .card-synergies-grid .synergy-card-item:first-child .synergy-card-img-wrap::after {
+        content: 'Tap';
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        font-size: 0.4rem;
+        color: rgba(255, 255, 255, 0.5);
+        background: rgba(0, 0, 0, 0.6);
+        padding: 1px 3px;
+        border-radius: 2px;
+    }
+}

@@ -1,9 +1,9 @@
 {
-  "version": "1.0.2",
+  "version": "1.0.3",
   "build": "dev",
   "branch": "local",
   "buildDate": "2:43 PM on Wednesday, December 17, 2025. ",
   "buildDateShort": "Dec 18, 2025",
-  "display": "v1.0.2",
-  "displayFull": "v1.0.2 (dev)"
+  "display": "v1.0.3",
+  "displayFull": "v1.0.3 (dev)"
 }

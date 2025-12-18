@@ -905,6 +905,7 @@ function App() {
   const [modalView, setModalView] = useState('dual') // 'dual', 'front', 'back'
   const [modalImagesLoaded, setModalImagesLoaded] = useState({ front: false, back: false })
   const [showAboutModal, setShowAboutModal] = useState(false);
+  const [activeSynergyTooltip, setActiveSynergyTooltip] = useState(null) // For synergy card hover/tap tooltips
   
   // State - Objectives selection (browse view)
   const [selectedStrategy, setSelectedStrategy] = useState('')
@@ -3490,6 +3491,11 @@ const suggestCrew = () => {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [selectedCard, modalNavigationList])
 
+  // Reset synergy tooltip when selected card changes
+  useEffect(() => {
+    setActiveSynergyTooltip(null)
+  }, [selectedCard])
+
   // ===========================================================================
   // CREW PERSISTENCE - Load from URL or localStorage, auto-save changes
   // ===========================================================================
@@ -5677,11 +5683,10 @@ const suggestCrew = () => {
                           {crewSynergies.synergies.slice(0, 6).map((syn, idx) => (
                             <div key={idx} className="synergy-item">
                               <div className="synergy-item-models">
-                                <span className="synergy-icon">{syn.icon}</span>
                                 <span className="synergy-model-name">{syn.modelA.name}</span>
                                 <span className="synergy-arrow">
-                                  {syn.direction === 'bidirectional' ? '' : 
-                                   syn.direction === 'A_buffs_B' || syn.direction === 'A_feeds_B' || syn.direction === 'A_supports_B' ? '' : ''}
+                                  {syn.direction === 'bidirectional' ? '↔' : 
+                                   syn.direction === 'A_buffs_B' || syn.direction === 'A_feeds_B' || syn.direction === 'A_supports_B' ? '→' : '←'}
                                 </span>
                                 <span className="synergy-model-name">{syn.modelB.name}</span>
                               </div>
@@ -6708,7 +6713,6 @@ const suggestCrew = () => {
                         <div className="synergy-panel-content compact">
                           {opponentCrewSynergies.synergies.slice(0, 4).map((syn, idx) => (
                             <div key={idx} className="synergy-item compact">
-                              <span className="synergy-icon">{syn.icon}</span>
                               <span className="synergy-model-name">{syn.modelA.name}</span>
                               <span className="synergy-arrow">
                                 {syn.direction === 'bidirectional' ? '↔' : '→'}
@@ -7091,23 +7095,51 @@ const suggestCrew = () => {
                               {cardSyns.synergies.map((syn, idx) => (
                                 <div 
                                   key={idx} 
-                                  className="synergy-card-item"
-                                  onClick={(e) => {
-                                    e.stopPropagation()
-                                    setSelectedCard(syn.card)
+                                  className={`synergy-card-item ${activeSynergyTooltip === idx ? 'tooltip-active' : ''}`}
+                                  onMouseEnter={() => setActiveSynergyTooltip(idx)}
+                                  onMouseLeave={() => setActiveSynergyTooltip(null)}
+                                  onTouchStart={(e) => {
+                                    e.preventDefault()
+                                    setActiveSynergyTooltip(activeSynergyTooltip === idx ? null : idx)
                                   }}
                                 >
-                                  <div className="synergy-card-img-wrap">
+                                  <div className="synergy-card-img-wrap" style={{ position: 'relative' }}>
                                     <img 
                                       src={`${IMAGE_BASE}/${syn.card.front_image}`}
                                       alt={syn.card.name}
                                       className="synergy-card-img"
                                     />
-                                    <span className="synergy-type-icon">{syn.icon}</span>
+                                    {/* Tooltip popup - small popup over card image */}
+                                    {activeSynergyTooltip === idx && (
+                                      <div 
+                                        className="synergy-tooltip-popup"
+                                        style={{
+                                          position: 'absolute',
+                                          bottom: '8px',
+                                          left: '50%',
+                                          transform: 'translateX(-50%)',
+                                          background: 'rgba(0, 0, 0, 0.85)',
+                                          padding: '0.4rem 0.6rem',
+                                          borderRadius: '4px',
+                                          zIndex: 10,
+                                          maxWidth: '90%',
+                                          boxShadow: '0 2px 8px rgba(0,0,0,0.5)'
+                                        }}
+                                      >
+                                        <span style={{ 
+                                          fontSize: '1rem', 
+                                          color: '#a88462', 
+                                          fontWeight: 500, 
+                                          textAlign: 'center',
+                                          lineHeight: 1.3,
+                                          display: 'block'
+                                        }}>{syn.reason}</span>
+                                      </div>
+                                    )}
                                   </div>
                                   <div className="synergy-card-info">
                                     <span className="synergy-card-name">{syn.card.name}</span>
-                                    <span className="synergy-card-reason">{syn.reason}</span>
+                                    <span className="synergy-card-cost">{syn.card.cost || 0}ss</span>
                                   </div>
                                 </div>
                               ))}
