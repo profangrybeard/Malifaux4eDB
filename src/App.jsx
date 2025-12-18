@@ -4090,7 +4090,7 @@ function App() {
                   <style>{`
                     .objectives-cards-section {
                       margin-top: 16px;
-                      background: #141416;
+                      background: #0F0A14;
                       border-radius: 8px;
                       overflow: hidden;
                     }
@@ -4101,12 +4101,12 @@ function App() {
                       align-items: center;
                       padding: 12px 16px;
                       cursor: pointer;
-                      background: #262311;
+                      background: #1C1425;
                       transition: background 0.2s ease;
                     }
                     
                     .objectives-cards-header:hover {
-                      background: #3F3D45;
+                      background: #64748B;
                     }
                     
                     .objectives-cards-title {
@@ -4114,12 +4114,12 @@ function App() {
                       align-items: center;
                       gap: 8px;
                       font-weight: 600;
-                      color: #D8CABC;
+                      color: #E2E8F0;
                     }
                     
                     .objective-count-badge {
-                      background: rgba(58, 20, 85, 0.4);
-                      color: #D8CABC;
+                      background: rgba(139, 92, 246, 0.4);
+                      color: #E2E8F0;
                       padding: 2px 8px;
                       border-radius: 12px;
                       font-size: 0.75rem;
@@ -4127,7 +4127,7 @@ function App() {
                     }
                     
                     .objectives-cards-toggle {
-                      color: #3F3D45;
+                      color: #64748B;
                       font-size: 0.875rem;
                     }
                     
@@ -4166,7 +4166,7 @@ function App() {
                       align-items: center;
                       justify-content: center;
                       height: 200px;
-                      background: linear-gradient(135deg, #262311 0%, #3F3D45 100%);
+                      background: linear-gradient(135deg, #1C1425 0%, #64748B 100%);
                       padding: 16px;
                       text-align: center;
                     }
@@ -4177,7 +4177,7 @@ function App() {
                     }
                     
                     .placeholder-name {
-                      color: #D8CABC;
+                      color: #E2E8F0;
                       font-weight: 600;
                       font-size: 0.875rem;
                       line-height: 1.3;
@@ -4194,28 +4194,28 @@ function App() {
                       text-align: center;
                       text-transform: uppercase;
                       letter-spacing: 0.5px;
-                      color: #D8CABC;
+                      color: #E2E8F0;
                     }
                     
                     .objective-card-label.strategy {
-                      background: linear-gradient(transparent, rgba(58, 20, 85, 0.9));
+                      background: linear-gradient(transparent, rgba(139, 92, 246, 0.9));
                     }
                     
                     .objective-card-label.scheme {
-                      background: linear-gradient(transparent, rgba(38, 35, 17, 0.9));
+                      background: linear-gradient(transparent, rgba(28, 20, 37, 0.9));
                     }
                     
                     .strategy-card {
-                      border: 2px solid rgba(58, 20, 85, 0.6);
+                      border: 2px solid rgba(139, 92, 246, 0.6);
                     }
                     
                     .scheme-card {
-                      border: 2px solid #3F3D45;
+                      border: 2px solid #64748B;
                     }
                     
                     .scheme-card.chosen {
-                      border: 3px solid #3A1455;
-                      box-shadow: 0 4px 12px rgba(58, 20, 85, 0.4);
+                      border: 3px solid #10B981;
+                      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
                     }
                     
                     .scheme-card.in-pool {
@@ -4235,7 +4235,7 @@ function App() {
                       border-radius: 50%;
                       border: 2px solid rgba(216, 202, 188, 0.6);
                       background: rgba(20, 20, 22, 0.7);
-                      color: #D8CABC;
+                      color: #E2E8F0;
                       font-size: 1rem;
                       font-weight: bold;
                       cursor: pointer;
@@ -4247,19 +4247,20 @@ function App() {
                     }
                     
                     .scheme-choose-btn:hover:not(:disabled) {
-                      background: rgba(58, 20, 85, 0.7);
-                      border-color: #3A1455;
+                      background: rgba(139, 92, 246, 0.7);
+                      border-color: #8B5CF6;
                       transform: scale(1.1);
                     }
                     
                     .scheme-choose-btn.chosen {
-                      background: #3A1455;
-                      border-color: #3A1455;
+                      background: #10B981;
+                      border-color: #10B981;
+                      color: white;
                     }
                     
                     .scheme-choose-btn.chosen:hover {
-                      background: #262311;
-                      border-color: #262311;
+                      background: #059669;
+                      border-color: #059669;
                     }
                     
                     .scheme-choose-btn:disabled {
@@ -4268,37 +4269,37 @@ function App() {
                     }
                     
                     .objective-count-badge.chosen {
-                      background: rgba(58, 20, 85, 0.5);
-                      color: #D8CABC;
+                      background: rgba(16, 185, 129, 0.3);
+                      color: #10B981;
                     }
                     
                     .encounter-chosen-schemes {
                       margin-top: 12px;
                       padding-top: 12px;
-                      border-top: 1px solid #3F3D45;
+                      border-top: 1px solid #64748B;
                     }
                     
                     .scheme-chips.chosen .scheme-chip-btn {
-                      background: rgba(58, 20, 85, 0.2);
-                      border-color: rgba(58, 20, 85, 0.4);
+                      background: rgba(139, 92, 246, 0.2);
+                      border-color: rgba(139, 92, 246, 0.4);
                     }
                     
                     .scheme-chips.chosen .scheme-chip-btn.chosen {
-                      background: rgba(58, 20, 85, 0.4);
-                      border-color: #3A1455;
-                      color: #D8CABC;
+                      background: rgba(139, 92, 246, 0.4);
+                      border-color: #8B5CF6;
+                      color: #E2E8F0;
                     }
                     
                     .scheme-chips.chosen .scheme-chip-btn.available:hover {
-                      background: rgba(58, 20, 85, 0.3);
-                      border-color: rgba(58, 20, 85, 0.5);
+                      background: rgba(139, 92, 246, 0.3);
+                      border-color: rgba(139, 92, 246, 0.5);
                     }
                     
                     .next-schemes-section {
                       margin-top: 16px;
                       padding: 12px 16px;
-                      background: rgba(58, 20, 85, 0.15);
-                      border-top: 1px solid rgba(58, 20, 85, 0.3);
+                      background: rgba(139, 92, 246, 0.15);
+                      border-top: 1px solid rgba(139, 92, 246, 0.3);
                     }
                     
                     .next-schemes-header {
@@ -4314,13 +4315,13 @@ function App() {
                     
                     .next-schemes-title {
                       font-weight: 600;
-                      color: #D8CABC;
+                      color: #E2E8F0;
                       font-size: 0.9rem;
                     }
                     
                     .next-schemes-hint {
                       font-size: 0.75rem;
-                      color: #3F3D45;
+                      color: #64748B;
                       font-style: italic;
                     }
                     
@@ -4331,9 +4332,9 @@ function App() {
                     }
                     
                     .next-scheme-chip {
-                      background: rgba(58, 20, 85, 0.3);
-                      border: 1px solid rgba(58, 20, 85, 0.5);
-                      color: #D8CABC;
+                      background: rgba(139, 92, 246, 0.3);
+                      border: 1px solid rgba(139, 92, 246, 0.5);
+                      color: #E2E8F0;
                       padding: 4px 10px;
                       border-radius: 12px;
                       font-size: 0.8rem;
@@ -4341,7 +4342,7 @@ function App() {
                     }
                     
                     .next-schemes-empty {
-                      color: #3F3D45;
+                      color: #64748B;
                       font-size: 0.8rem;
                       font-style: italic;
                     }
@@ -4395,8 +4396,8 @@ function App() {
               {/* Master Picker Styles - Malifaux Concept Art Palette */}
               <style>{`
                 .master-picker {
-                  background: #141416;
-                  border: 1px solid #3F3D45;
+                  background: #0F0A14;
+                  border: 1px solid #64748B;
                   border-radius: 8px;
                   padding: 16px;
                   margin-bottom: 16px;
@@ -4407,35 +4408,35 @@ function App() {
                   align-items: center;
                   margin-bottom: 12px;
                   padding-bottom: 10px;
-                  border-bottom: 1px solid #3A1455;
+                  border-bottom: 1px solid #8B5CF6;
                 }
                 .master-picker-header > span:first-child {
                   font-size: 1rem;
                   font-weight: 700;
-                  color: #D8CABC;
+                  color: #E2E8F0;
                   text-transform: uppercase;
                   letter-spacing: 1px;
                 }
                 .master-picker-hint {
                   font-size: 0.7rem;
-                  color: #3F3D45;
+                  color: #64748B;
                 }
                 .master-filter-input {
                   width: 100%;
                   padding: 8px 12px;
                   font-size: 0.85rem;
-                  background: #141416;
-                  border: 1px solid #3F3D45;
+                  background: #0F0A14;
+                  border: 1px solid #64748B;
                   border-radius: 4px;
-                  color: #D8CABC;
+                  color: #E2E8F0;
                   margin-bottom: 12px;
                 }
                 .master-filter-input:focus {
                   outline: none;
-                  border-color: #3A1455;
+                  border-color: #8B5CF6;
                 }
                 .master-filter-input::placeholder {
-                  color: #3F3D45;
+                  color: #64748B;
                 }
                 .master-stat-list {
                   display: flex;
@@ -4453,9 +4454,9 @@ function App() {
                   font-weight: 700;
                   text-transform: uppercase;
                   letter-spacing: 2px;
-                  color: #D8CABC;
-                  background: linear-gradient(90deg, rgba(58, 20, 85, 0.3) 0%, transparent 70%);
-                  border-left: 3px solid #3A1455;
+                  color: #E2E8F0;
+                  background: linear-gradient(90deg, rgba(139, 92, 246, 0.3) 0%, transparent 70%);
+                  border-left: 3px solid #8B5CF6;
                   pointer-events: none;
                   user-select: none;
                 }
@@ -4467,8 +4468,8 @@ function App() {
                   align-items: center;
                   justify-content: space-between;
                   padding: 10px 14px;
-                  background: #141416;
-                  border: 1px solid #262311;
+                  background: #0F0A14;
+                  border: 1px solid #1C1425;
                   border-left: 3px solid transparent;
                   border-radius: 4px;
                   cursor: pointer;
@@ -4476,30 +4477,30 @@ function App() {
                   min-height: 42px;
                 }
                 .master-stat-row:hover {
-                  background: #262311;
-                  border-color: #3F3D45;
-                  border-left-color: var(--faction-color, #3A1455);
+                  background: #1C1425;
+                  border-color: #64748B;
+                  border-left-color: var(--faction-color, #8B5CF6);
                   transform: translateX(2px);
                 }
                 .master-stat-name {
                   font-size: 0.9rem;
                   font-weight: 600;
-                  color: #D8CABC;
+                  color: #E2E8F0;
                 }
                 .master-stat-keyword {
                   font-size: 0.7rem;
-                  color: #D8CABC;
+                  color: #E2E8F0;
                   font-weight: 500;
                   text-transform: uppercase;
                   letter-spacing: 0.5px;
                   padding: 2px 8px;
-                  background: #262311;
+                  background: #1C1425;
                   border-radius: 3px;
                   opacity: 0.7;
                 }
                 .master-selected {
-                  background: #141416;
-                  border: 1px solid #3A1455;
+                  background: #0F0A14;
+                  border: 1px solid #8B5CF6;
                   border-radius: 8px;
                   padding: 12px 16px;
                   margin-bottom: 16px;
@@ -4512,35 +4513,35 @@ function App() {
                 .master-selected-name {
                   font-size: 1.1rem;
                   font-weight: 700;
-                  color: #D8CABC;
+                  color: #E2E8F0;
                 }
                 .master-change-btn {
                   padding: 5px 14px;
                   font-size: 0.75rem;
                   font-weight: 600;
                   background: transparent;
-                  border: 1px solid #3F3D45;
+                  border: 1px solid #64748B;
                   border-radius: 4px;
-                  color: #D8CABC;
+                  color: #E2E8F0;
                   cursor: pointer;
                   transition: all 0.15s ease;
                   text-transform: uppercase;
                   opacity: 0.7;
                 }
                 .master-change-btn:hover {
-                  border-color: #3A1455;
-                  color: #D8CABC;
-                  background: rgba(58, 20, 85, 0.2);
+                  border-color: #8B5CF6;
+                  color: #E2E8F0;
+                  background: rgba(139, 92, 246, 0.2);
                   opacity: 1;
                 }
                 .master-stat-list::-webkit-scrollbar {
                   width: 6px;
                 }
                 .master-stat-list::-webkit-scrollbar-track {
-                  background: #141416;
+                  background: #0F0A14;
                 }
                 .master-stat-list::-webkit-scrollbar-thumb {
-                  background: #3A1455;
+                  background: #8B5CF6;
                   border-radius: 3px;
                 }
               `}</style>
@@ -4726,7 +4727,7 @@ function App() {
                       left: 0;
                       right: 0;
                       background: linear-gradient(transparent, rgba(20, 20, 22, 0.9));
-                      color: #D8CABC;
+                      color: #E2E8F0;
                       font-size: 0.7rem;
                       font-weight: 600;
                       text-align: center;
@@ -4759,11 +4760,11 @@ function App() {
                     }
                     
                     .leader-card-stacked.is-master .leader-card-label {
-                      background: linear-gradient(transparent, rgba(38, 35, 17, 0.95));
+                      background: linear-gradient(transparent, rgba(28, 20, 37, 0.95));
                     }
                     
                     .leader-card-stacked.is-crew .leader-card-label {
-                      background: linear-gradient(transparent, rgba(58, 20, 85, 0.95));
+                      background: linear-gradient(transparent, rgba(139, 92, 246, 0.95));
                     }
                     
                     .leader-card-single {
@@ -4793,8 +4794,8 @@ function App() {
                       bottom: 0;
                       left: 0;
                       right: 0;
-                      background: linear-gradient(transparent, rgba(38, 35, 17, 0.95));
-                      color: #D8CABC;
+                      background: linear-gradient(transparent, rgba(28, 20, 37, 0.95));
+                      color: #E2E8F0;
                       font-size: 0.7rem;
                       font-weight: 600;
                       text-align: center;
@@ -6479,7 +6480,7 @@ function App() {
                               <span className="meta-stats">
                                 {Math.round(meta.winRate * 100)}% ({meta.games}g)
                               </span>
-                              <span className="meta-delta" style={{ color: meta.delta >= 0 ? '#D8CABC' : '#3A1455' }}>
+                              <span className="meta-delta" style={{ color: meta.delta >= 0 ? '#E2E8F0' : '#8B5CF6' }}>
                                 {meta.delta >= 0 ? '+' : ''}{Math.round(meta.delta * 100)}%
                               </span>
                             </div>
@@ -6506,7 +6507,7 @@ function App() {
                               <span className="meta-stats">
                                 {Math.round(meta.winRate * 100)}% ({meta.games}g)
                               </span>
-                              <span className="meta-delta" style={{ color: meta.delta >= 0 ? '#D8CABC' : '#3A1455' }}>
+                              <span className="meta-delta" style={{ color: meta.delta >= 0 ? '#E2E8F0' : '#8B5CF6' }}>
                                 {meta.delta >= 0 ? '+' : ''}{Math.round(meta.delta * 100)}%
                               </span>
                             </div>
@@ -6600,7 +6601,7 @@ function App() {
                   </div>
                   {selectedObjective.favors_abilities?.length > 0 && (
                     <>
-                      <h4 style={{marginTop: '0.5rem', color: '#D8CABC', fontSize: '0.85rem'}}>Useful Abilities</h4>
+                      <h4 style={{marginTop: '0.5rem', color: '#E2E8F0', fontSize: '0.85rem'}}>Useful Abilities</h4>
                       <div className="keywords-list">
                         {selectedObjective.favors_abilities?.map(ability => (
                           <span key={ability} className="keyword-tag ability-tag">{ability.replace(/_/g, ' ')}</span>
