@@ -2483,7 +2483,7 @@ function App() {
     return calculateCrewSynergies(opponentMaster, opponentCrew)
   }, [opponentMaster, opponentCrew, calculateCrewSynergies])
   
-  const suggestCrew = () => {
+const suggestCrew = () => {
     if (!selectedMaster) return
     
     const targetBudget = 44 // Aim for 44ss, accept 45-46
@@ -2536,6 +2536,9 @@ function App() {
       // Cost efficiency bonus
       score += (10 - (card.cost || 5)) * 0.05
       
+      // Add random variance for variety on rerolls (±0.5)
+      score += (Math.random() - 0.5) * 1.0
+      
       return score
     }
     
@@ -2563,7 +2566,10 @@ function App() {
     const minionCounts = {}
     const usedNames = new Set()
     let ookCount = 0
-    const ookLimit = 2
+    
+    // Relax OOK limit based on keyword pool size
+    // Small keyword pools need more versatile options
+    const ookLimit = keywordPool.length < 8 ? 5 : keywordPool.length < 12 ? 4 : keywordPool.length < 16 ? 3 : 2
     
     // Helper to try adding a card
     const tryAdd = (card) => {
@@ -2598,9 +2604,13 @@ function App() {
       return true
     }
     
-    // Phase 1: Totem (high value, usually want it)
-    const totem = keywordPool.find(c => (c.characteristics || []).includes('Totem'))
-    if (totem) tryAdd(totem)
+    // Phase 1: Totem (high value, but add some randomness - 80% chance)
+    const totems = keywordPool.filter(c => (c.characteristics || []).includes('Totem'))
+    if (totems.length > 0 && Math.random() < 0.8) {
+      // If multiple totems, pick randomly
+      const totem = totems[Math.floor(Math.random() * totems.length)]
+      tryAdd(totem)
+    }
     
     // Phase 2: High-scoring unique models (diversity first)
     for (const card of allCandidates) {
@@ -2616,7 +2626,7 @@ function App() {
       fillAttempts++
       let added = false
       
-      // Try minion duplicates sorted by score
+      // Try minion duplicates sorted by score (already has random component)
       const minions = allCandidates
         .filter(c => (c.characteristics || []).includes('Minion'))
         .sort((a, b) => b.suggestionScore - a.suggestionScore)
@@ -3712,14 +3722,14 @@ function App() {
       <div className="header-version" style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '0.75rem' }}>
         <span 
           className="version-badge" 
-          title="December 2024"
+          title={versionInfo.buildDate}
           style={{
             fontSize: '0.75rem',
             padding: '0.1rem 0.3rem',
             opacity: '0.5'
           }}
         >
-          v1.0.0
+          {versionInfo.display}
         </span>
         <button 
           className="about-trigger-header" 
