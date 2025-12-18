@@ -917,6 +917,167 @@ const referencesKeyword = (card, keyword) => {
   return patterns.some(p => text.includes(p))
 }
 
+// ===========================================================================
+// CREW SERIALIZATION - URL sharing and localStorage persistence
+// ===========================================================================
+const CREW_STORAGE_KEY = 'malifaux_crew_draft'
+
+// Serialize crew state to compact JSON
+const serializeCrew = (crewState) => {
+  const { selectedMaster, crewBudget, crewRoster, crewStrategy, schemePool, chosenSchemes } = crewState
+  if (!selectedMaster) return null
+  return {
+    m: selectedMaster.id,
+    b: crewBudget,
+    r: crewRoster.map(model => model.id),
+    s: crewStrategy || '',
+    sp: schemePool || [],       // 5 available schemes
+    sc: chosenSchemes || []     // 2 chosen schemes
+  }
+}
+
+// Deserialize compact JSON back to IDs
+const deserializeCrew = (data) => {
+  if (!data || !data.m) return null
+  return {
+    masterId: data.m,
+    budget: data.b || 50,
+    modelIds: data.r || [],
+    strategyId: data.s || '',
+    schemePoolIds: data.sp || [],
+    schemeIds: data.sc || []
+  }
+}
+
+// Encode crew to URL-safe base64 string
+const encodeCrewToURL = (crewState) => {
+  const serialized = serializeCrew(crewState)
+  if (!serialized) return null
+  const json = JSON.stringify(serialized)
+  return btoa(json).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
+}
+
+// Decode URL parameter back to crew data
+const decodeCrewFromURL = (encoded) => {
+  if (!encoded) return null
+  try {
+    let base64 = encoded.replace(/-/g, '+').replace(/_/g, '/')
+    while (base64.length % 4) base64 += '='
+    const json = atob(base64)
+    return deserializeCrew(JSON.parse(json))
+  } catch (e) {
+    console.error('Failed to decode crew URL:', e)
+    return null
+  }
+}
+
+// Generate full shareable URL
+const generateShareURL = (crewState) => {
+  const encoded = encodeCrewToURL(crewState)
+  if (!encoded) return null
+  const url = new URL(window.location.href)
+  url.searchParams.set('crew', encoded)
+  url.hash = ''
+  return url.toString()
+}
+
+// Check URL for crew parameter on page load
+const getCrewFromCurrentURL = () => {
+  const params = new URLSearchParams(window.location.search)
+  return decodeCrewFromURL(params.get('crew'))
+}
+
+// Clear crew parameter from URL (after loading)
+const clearCrewFromURL = () => {
+  const url = new URL(window.location.href)
+  url.searchParams.delete('crew')
+  window.history.replaceState({}, '', url.toString())
+}
+
+// Save crew to localStorage
+const saveCrewToStorage = (crewState) => {
+  const serialized = serializeCrew(crewState)
+  if (!serialized) {
+    localStorage.removeItem(CREW_STORAGE_KEY)
+    return
+  }
+  localStorage.setItem(CREW_STORAGE_KEY, JSON.stringify({ ...serialized, _saved: Date.now() }))
+}
+
+// Load crew from localStorage
+const loadCrewFromStorage = () => {
+  try {
+    const stored = localStorage.getItem(CREW_STORAGE_KEY)
+    if (!stored) return null
+    return deserializeCrew(JSON.parse(stored))
+  } catch (e) {
+    console.error('Failed to load crew from storage:', e)
+    return null
+  }
+}
+
+// Clear saved crew from localStorage
+const clearCrewStorage = () => {
+  localStorage.removeItem(CREW_STORAGE_KEY)
+}
+
+// Hydrate deserialized IDs back to full objects
+const hydrateCrew = (crewData, cards, strategies, schemes) => {
+  if (!crewData) return null
+  const { masterId, budget, modelIds, strategyId, schemePoolIds, schemeIds } = crewData
+  
+  // Find master
+  const master = cards.find(c => c.id === masterId)
+  if (!master) {
+    console.warn('Could not find master:', masterId)
+    return null
+  }
+  
+  // Find roster models (preserve duplicates, add rosterId)
+  const roster = []
+  modelIds.forEach((id, index) => {
+    const model = cards.find(c => c.id === id)
+    if (model) {
+      roster.push({ ...model, rosterId: Date.now() + index })
+    } else {
+      console.warn('Could not find model:', id)
+    }
+  })
+  
+  // Validate strategy and schemes
+  const validStrategy = strategies[strategyId] ? strategyId : ''
+  const validSchemePool = (schemePoolIds || []).filter(id => schemes[id])
+  const validSchemes = schemeIds.filter(id => schemes[id]).slice(0, 2)
+  
+  return {
+    selectedMaster: master,
+    crewBudget: budget,
+    crewRoster: roster,
+    crewStrategy: validStrategy,
+    schemePool: validSchemePool,
+    chosenSchemes: validSchemes
+  }
+}
+
+// Copy shareable URL to clipboard
+const copyCrewToClipboard = async (crewState) => {
+  const url = generateShareURL(crewState)
+  if (!url) return false
+  try {
+    await navigator.clipboard.writeText(url)
+    return true
+  } catch (e) {
+    // Fallback for older browsers
+    const textarea = document.createElement('textarea')
+    textarea.value = url
+    document.body.appendChild(textarea)
+    textarea.select()
+    document.execCommand('copy')
+    document.body.removeChild(textarea)
+    return true
+  }
+}
+
 function App() {
   // State - View Mode
   const [viewMode, setViewMode] = useState('crew')
@@ -969,6 +1130,7 @@ function App() {
   const [objectivesCardsOpen, setObjectivesCardsOpen] = useState(true) // Show objective cards when selected
   const [masterCrewCardFlipped, setMasterCrewCardFlipped] = useState(false) // false = Master front, true = Crew front
   const [opponentCrewCardFlipped, setOpponentCrewCardFlipped] = useState(false) // false = Master front, true = Crew front
+  const [shareStatus, setShareStatus] = useState('') // For share button feedback
 
   // Parse card data - handle both array and {cards: [...]} formats, merge with crew and upgrade data
   const allCards = useMemo(() => {
@@ -1957,6 +2119,11 @@ function App() {
   // Clear crew
   const clearCrew = () => {
     setCrewRoster([])
+    setSelectedMaster(null)
+    setCrewStrategy('')
+    setSchemePool([])
+    setChosenSchemes([])
+    clearCrewStorage()
   }
 
   // ===========================================================================
@@ -3316,6 +3483,101 @@ function App() {
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [selectedCard, modalNavigationList])
+
+  // ===========================================================================
+  // CREW PERSISTENCE - Load from URL or localStorage, auto-save changes
+  // ===========================================================================
+  
+  // Load crew from URL or localStorage on mount
+  useEffect(() => {
+    // Skip if data not ready
+    if (!cards.length || !Object.keys(strategies).length) return
+    
+    // Priority 1: URL parameter (shared link)
+    const urlCrew = getCrewFromCurrentURL()
+    if (urlCrew) {
+      const hydrated = hydrateCrew(urlCrew, cards, strategies, schemes)
+      if (hydrated) {
+        setSelectedMaster(hydrated.selectedMaster)
+        setCrewBudget(hydrated.crewBudget)
+        setCrewRoster(hydrated.crewRoster)
+        setCrewStrategy(hydrated.crewStrategy)
+        if (hydrated.schemePool?.length > 0) {
+          setSchemePool(hydrated.schemePool)
+        }
+        setChosenSchemes(hydrated.chosenSchemes)
+        
+        // Switch to crew builder tab
+        setViewMode('crew')
+        
+        // Clean URL so refreshing doesn't re-import
+        clearCrewFromURL()
+        
+        console.log('Loaded crew from shared URL:', hydrated.selectedMaster.name, 
+          '| Strategy:', hydrated.crewStrategy || 'none',
+          '| Schemes:', hydrated.chosenSchemes.length)
+        return
+      }
+    }
+    
+    // Priority 2: localStorage (resume draft)
+    const savedCrew = loadCrewFromStorage()
+    if (savedCrew) {
+      const hydrated = hydrateCrew(savedCrew, cards, strategies, schemes)
+      if (hydrated) {
+        setSelectedMaster(hydrated.selectedMaster)
+        setCrewBudget(hydrated.crewBudget)
+        setCrewRoster(hydrated.crewRoster)
+        setCrewStrategy(hydrated.crewStrategy)
+        if (hydrated.schemePool?.length > 0) {
+          setSchemePool(hydrated.schemePool)
+        }
+        setChosenSchemes(hydrated.chosenSchemes)
+        
+        console.log('Restored crew from localStorage:', hydrated.selectedMaster.name)
+      }
+    }
+  }, [cards, strategies, schemes])
+
+  // Auto-save crew to localStorage when it changes
+  useEffect(() => {
+    if (selectedMaster) {
+      saveCrewToStorage({
+        selectedMaster,
+        crewBudget,
+        crewRoster,
+        crewStrategy,
+        schemePool,
+        chosenSchemes
+      })
+    }
+  }, [selectedMaster, crewBudget, crewRoster, crewStrategy, schemePool, chosenSchemes])
+
+  // Handle share crew button
+  const handleShareCrew = async () => {
+    if (!selectedMaster) {
+      setShareStatus('Select a master first')
+      setTimeout(() => setShareStatus(''), 2000)
+      return
+    }
+    
+    const success = await copyCrewToClipboard({
+      selectedMaster,
+      crewBudget,
+      crewRoster,
+      crewStrategy,
+      schemePool,
+      chosenSchemes
+    })
+    
+    if (success) {
+      setShareStatus('✓ Link copied!')
+      setTimeout(() => setShareStatus(''), 2000)
+    } else {
+      setShareStatus('Failed to copy')
+      setTimeout(() => setShareStatus(''), 2000)
+    }
+  }
 
   // Objective modal functions
   const openObjectiveModal = (objective) => {
@@ -4955,6 +5217,13 @@ function App() {
               {/* Crew Action Buttons */}
               {selectedMaster && (
                 <div className="crew-action-buttons">
+                  <button 
+                    className="ab-share-btn" 
+                    onClick={handleShareCrew}
+                    disabled={crewRoster.length === 0}
+                    title={crewRoster.length === 0 ? "Add models to share crew" : "Copy shareable link to clipboard"}
+                  >{shareStatus || '🔗 Share'}
+                  </button>
                   <button 
                     className="ab-suggest-btn" 
                     onClick={suggestCrew}

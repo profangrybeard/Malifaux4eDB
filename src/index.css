@@ -7744,3 +7744,37 @@ select option {
 .master-faction-header:first-child {
   margin-top: 0;
 }
+
+/* ============================================
+   CREW SHARE BUTTON STYLES
+   Add this to your index.css
+   ============================================ */
+
+.ab-share-btn {
+    background: linear-gradient(135deg, #4a9eff 0%, #2d7dd2 100%);
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    min-width: 90px;
+    text-align: center;
+}
+
+.ab-share-btn:hover {
+    background: linear-gradient(135deg, #5aaefd 0%, #3d8de2 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(74, 158, 255, 0.3);
+}
+
+.ab-share-btn:active {
+    transform: translateY(0);
+}
+
+/* Success state when link is copied */
+.ab-share-btn:has-text("✓") {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+}
