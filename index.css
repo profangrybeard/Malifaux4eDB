@@ -5660,4 +5660,187 @@ select option {
     .hiring-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    /* ═══════════════════════════════════════════════════════════════════════════
+   APP FOOTER STYLES
+   Add this to the end of your index.css
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+    /* ─────────────────────────────────────────────────────────────────────────────
+   Footer Container
+   ───────────────────────────────────────────────────────────────────────────── */
+    .app-footer {
+        background: linear-gradient(180deg, rgba(15, 10, 20, 0.95) 0%, rgba(10, 8, 15, 0.98) 100% );
+        border-top: 1px solid rgba(180, 160, 120, 0.2);
+        margin-top: auto;
+        padding: 1.5rem 1rem;
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────────────
+   Disclaimer Section
+   ───────────────────────────────────────────────────────────────────────────── */
+    .footer-disclaimer {
+        text-align: center;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .disclaimer-text {
+        margin: 0;
+        line-height: 1.6;
+        max-width: 800px;
+        margin: 0 auto;
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+        .disclaimer-text strong {
+            color: rgba(180, 160, 120, 0.9); /* Champagne accent */
+            font-weight: 600;
+        }
+
+        .disclaimer-text a {
+            color: rgba(180, 160, 120, 0.8);
+            text-decoration: none;
+            border-bottom: 1px dotted rgba(180, 160, 120, 0.4);
+            transition: all 0.2s ease;
+        }
+
+            .disclaimer-text a:hover {
+                color: rgba(200, 180, 140, 1);
+                border-bottom-color: rgba(200, 180, 140, 0.8);
+            }
+
+    /* ─────────────────────────────────────────────────────────────────────────────
+   Links Section
+   ───────────────────────────────────────────────────────────────────────────── */
+    .footer-links {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 2rem;
+    }
+
+    .footer-link-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.35rem;
+    }
+
+    .footer-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: rgba(138, 100, 170, 0.8); /* Amethyst accent */
+        font-weight: 600;
+        margin-bottom: 0.15rem;
+    }
+
+    .footer-link-group a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+        .footer-link-group a:hover {
+            color: rgba(180, 160, 120, 1); /* Champagne on hover */
+        }
+
+    .footer-note {
+        font-size: 0.7rem;
+        color: rgba(255, 255, 255, 0.4);
+        font-style: italic;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────────────
+   Bottom Line
+   ───────────────────────────────────────────────────────────────────────────── */
+    .footer-bottom {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        font-size: 0.75rem;
+    }
+
+    .footer-credit {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .footer-separator {
+        color: rgba(255, 255, 255, 0.2);
+    }
+
+    .footer-tech {
+        color: rgba(255, 255, 255, 0.4);
+        font-style: italic;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────────────
+   Mobile Responsive
+   ───────────────────────────────────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+        .app-footer {
+            padding: 1.25rem 0.75rem;
+        }
+
+        .footer-links {
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .footer-link-group {
+            padding: 0.5rem 0;
+        }
+
+        .footer-bottom {
+            flex-direction: column;
+            text-align: center;
+            gap: 0.25rem;
+        }
+
+        .footer-separator {
+            display: none;
+        }
+
+        .disclaimer-text {
+            font-size: 0.75rem;
+            padding: 0 0.5rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .app-footer {
+            padding: 1rem 0.5rem;
+        }
+
+        .footer-content {
+            gap: 1rem;
+        }
+
+        .disclaimer-text {
+            font-size: 0.7rem;
+        }
+
+        .footer-label {
+            font-size: 0.65rem;
+        }
+
+        .footer-link-group a {
+            font-size: 0.8rem;
+        }
+    }
 }

@@ -3,6 +3,8 @@ import cardData from './data/cards.json'
 import crewData from './data/crew.json'
 import upgradeData from './data/upgrade_cards.json'
 import objectivesData from './data/objectives.json'
+import versionInfo from './version.json';
+
 
 const IMAGE_BASE = 'https://raw.githubusercontent.com/profangrybeard/Malifaux4eDB-images/main'
 
@@ -3674,24 +3676,50 @@ function App() {
 
   return (
     <div className="app">
-      <header className="header">
-        <div>
-          <h1>Malifaux 4E Crew Builder</h1>
-          <span className="header-sub">{cards.length} models loaded</span>
-        </div>
-        <nav className="header-nav">
-          <button 
-            className={`nav-tab ${viewMode === 'crew' ? 'active' : ''}`}
-            onClick={() => setViewMode('crew')}
-          >Build Crew
-          </button>
-          <button 
-            className={`nav-tab ${viewMode === 'cards' ? 'active' : ''}`}
-            onClick={() => setViewMode('cards')}
-          >Card Gallery
-          </button>
-        </nav>
-      </header>
+<header className="header">
+  <div>
+  <h1>
+  Malifaux 4E Crew Builder 
+  <span style={{
+    fontSize: '0.75rem',
+    textTransform: 'uppercase',
+    letterSpacing: '0.05em',
+    color: 'rgba(255,255,255,0.35)',
+    fontWeight: '400',
+    verticalAlign: 'middle',
+    marginLeft: '0.5rem'
+  }}>Unofficial</span>
+</h1>
+    <span className="header-sub">{cards.length} models loaded</span>
+  </div>
+  <div className="header-right">
+    <nav className="header-nav">
+      <button 
+        className={`nav-tab ${viewMode === 'crew' ? 'active' : ''}`}
+        onClick={() => setViewMode('crew')}
+      >Build Crew
+      </button>
+      <button 
+        className={`nav-tab ${viewMode === 'cards' ? 'active' : ''}`}
+        onClick={() => setViewMode('cards')}
+      >Card Gallery
+      </button>
+    </nav>
+<div className="header-version">
+  <span 
+    className="version-badge" 
+    title="December 2024"
+    style={{
+      fontSize: '0.75rem',
+      padding: '0.1rem 0.3rem',
+      opacity: '0.5'
+    }}
+  >
+    v1.0.0
+  </span>
+</div>
+  </div>
+</header>
 
       {/* Selected Objectives Bar - shows in cards view when objectives selected */}
       {viewMode === 'cards' && (selectedStrategy || selectedSchemes.length > 0) && (
@@ -6986,6 +7014,66 @@ function App() {
           </div>
         </div>
       )}
+
+      {/* ═══════════════════════════════════════════════════════════════════════════
+   APP FOOTER - Add this at the bottom of your App component, just before the
+   closing </div> of your main app container
+   ═══════════════════════════════════════════════════════════════════════════ */}
+
+<footer className="app-footer">
+  <div className="footer-content">
+    
+    {/* Primary Attribution */}
+    <div className="footer-section footer-disclaimer">
+      <p className="disclaimer-text">
+        <strong>Malifaux®</strong> and all associated images, names, and game content are trademarks 
+        and © <a href="https://www.wyrd-games.net" target="_blank" rel="noopener noreferrer">Wyrd Games, LLC</a>. 
+        This is an <strong>unofficial fan-made tool</strong>, not produced, endorsed, or affiliated with Wyrd Games.
+      </p>
+    </div>
+
+    {/* Links & Credits Row */}
+    <div className="footer-section footer-links">
+      <div className="footer-link-group">
+        <span className="footer-label">Official Resources</span>
+        <a href="https://www.wyrd-games.net" target="_blank" rel="noopener noreferrer">
+          Wyrd Games
+        </a>
+        <a href="https://www.wyrd-games.net/malifaux" target="_blank" rel="noopener noreferrer">
+          Malifaux
+        </a>
+      </div>
+      
+      <div className="footer-link-group">
+        <span className="footer-label">Data Sources</span>
+        <a href="https://www.longshanks.org" target="_blank" rel="noopener noreferrer">
+          Longshanks
+        </a>
+        <span className="footer-note">(Tournament Data)</span>
+      </div>
+      
+      <div className="footer-link-group">
+        <span className="footer-label">Feedback & Bug Reports</span>
+        <a href="mailto:prof.angrybeard@gmail.com">
+          prof.angrybeard@gmail.com
+        </a>
+      </div>
+    </div>
+
+    {/* Bottom Line */}
+    <div className="footer-section footer-bottom">
+      <span className="footer-credit">
+        Built with ☕ for the Malifaux community
+      </span>
+      <span className="footer-separator">•</span>
+      <span className="footer-tech">
+        Crew suggestions are experimental — use your own judgment!
+      </span>
+    </div>
+
+  </div>
+</footer>
+
     </div>
   )
 }
