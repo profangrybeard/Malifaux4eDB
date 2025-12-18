@@ -6,6 +6,26 @@ import objectivesData from './data/objectives.json'
 const IMAGE_BASE = 'https://raw.githubusercontent.com/profangrybeard/Malifaux4eDB-images/main'
 
 // ===========================================================================
+// FACTION COLORS - Official M4E palette
+// ===========================================================================
+const FACTION_COLORS = {
+  'Guild': { primary: '#8B1538', light: '#c42a52', bg: 'rgba(139, 21, 56, 0.25)' },
+  'Resurrectionists': { primary: '#2D5A4A', light: '#3d7a64', bg: 'rgba(45, 90, 74, 0.25)' },
+  'Arcanists': { primary: '#0077B6', light: '#0096e0', bg: 'rgba(0, 119, 182, 0.25)' },
+  'Neverborn': { primary: '#6B2D7B', light: '#8e3da3', bg: 'rgba(107, 45, 123, 0.25)' },
+  'Outcasts': { primary: '#8B6914', light: '#b8891a', bg: 'rgba(139, 105, 20, 0.25)' },
+  'Bayou': { primary: '#5C5410', light: '#7d7216', bg: 'rgba(92, 84, 16, 0.25)' },
+  'Ten Thunders': { primary: '#CC5500', light: '#ff6b00', bg: 'rgba(204, 85, 0, 0.25)' },
+  'Explorers Society': { primary: '#1A6B6B', light: '#238f8f', bg: 'rgba(26, 107, 107, 0.25)' }
+}
+
+const getFactionColor = (faction, type = 'primary') => {
+  const colors = FACTION_COLORS[faction]
+  if (!colors) return type === 'bg' ? 'rgba(128, 128, 128, 0.15)' : '#888888'
+  return colors[type] || colors.primary
+}
+
+// ===========================================================================
 // FACTION META DATA - Embedded from Longshanks tournament analysis (15,893 games)
 // ===========================================================================
 const FACTION_META = {
@@ -4070,7 +4090,7 @@ function App() {
                   <style>{`
                     .objectives-cards-section {
                       margin-top: 16px;
-                      background: rgba(0,0,0,0.2);
+                      background: #141416;
                       border-radius: 8px;
                       overflow: hidden;
                     }
@@ -4081,12 +4101,12 @@ function App() {
                       align-items: center;
                       padding: 12px 16px;
                       cursor: pointer;
-                      background: rgba(255,255,255,0.05);
+                      background: #262311;
                       transition: background 0.2s ease;
                     }
                     
                     .objectives-cards-header:hover {
-                      background: rgba(255,255,255,0.1);
+                      background: #3F3D45;
                     }
                     
                     .objectives-cards-title {
@@ -4094,12 +4114,12 @@ function App() {
                       align-items: center;
                       gap: 8px;
                       font-weight: 600;
-                      color: #fff;
+                      color: #D8CABC;
                     }
                     
                     .objective-count-badge {
-                      background: rgba(59, 130, 246, 0.3);
-                      color: #93c5fd;
+                      background: rgba(58, 20, 85, 0.4);
+                      color: #D8CABC;
                       padding: 2px 8px;
                       border-radius: 12px;
                       font-size: 0.75rem;
@@ -4107,7 +4127,7 @@ function App() {
                     }
                     
                     .objectives-cards-toggle {
-                      color: #9ca3af;
+                      color: #3F3D45;
                       font-size: 0.875rem;
                     }
                     
@@ -4146,7 +4166,7 @@ function App() {
                       align-items: center;
                       justify-content: center;
                       height: 200px;
-                      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+                      background: linear-gradient(135deg, #262311 0%, #3F3D45 100%);
                       padding: 16px;
                       text-align: center;
                     }
@@ -4157,7 +4177,7 @@ function App() {
                     }
                     
                     .placeholder-name {
-                      color: #e2e8f0;
+                      color: #D8CABC;
                       font-weight: 600;
                       font-size: 0.875rem;
                       line-height: 1.3;
@@ -4174,28 +4194,28 @@ function App() {
                       text-align: center;
                       text-transform: uppercase;
                       letter-spacing: 0.5px;
-                      color: #fff;
+                      color: #D8CABC;
                     }
                     
                     .objective-card-label.strategy {
-                      background: linear-gradient(transparent, rgba(220, 38, 38, 0.9));
+                      background: linear-gradient(transparent, rgba(58, 20, 85, 0.9));
                     }
                     
                     .objective-card-label.scheme {
-                      background: linear-gradient(transparent, rgba(37, 99, 235, 0.9));
+                      background: linear-gradient(transparent, rgba(38, 35, 17, 0.9));
                     }
                     
                     .strategy-card {
-                      border: 2px solid rgba(220, 38, 38, 0.5);
+                      border: 2px solid rgba(58, 20, 85, 0.6);
                     }
                     
                     .scheme-card {
-                      border: 2px solid rgba(37, 99, 235, 0.5);
+                      border: 2px solid #3F3D45;
                     }
                     
                     .scheme-card.chosen {
-                      border: 3px solid rgba(34, 197, 94, 0.8);
-                      box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+                      border: 3px solid #3A1455;
+                      box-shadow: 0 4px 12px rgba(58, 20, 85, 0.4);
                     }
                     
                     .scheme-card.in-pool {
@@ -4213,9 +4233,9 @@ function App() {
                       width: 28px;
                       height: 28px;
                       border-radius: 50%;
-                      border: 2px solid rgba(255,255,255,0.6);
-                      background: rgba(0,0,0,0.5);
-                      color: #fff;
+                      border: 2px solid rgba(216, 202, 188, 0.6);
+                      background: rgba(20, 20, 22, 0.7);
+                      color: #D8CABC;
                       font-size: 1rem;
                       font-weight: bold;
                       cursor: pointer;
@@ -4227,19 +4247,19 @@ function App() {
                     }
                     
                     .scheme-choose-btn:hover:not(:disabled) {
-                      background: rgba(34, 197, 94, 0.6);
-                      border-color: rgba(34, 197, 94, 0.9);
+                      background: rgba(58, 20, 85, 0.7);
+                      border-color: #3A1455;
                       transform: scale(1.1);
                     }
                     
                     .scheme-choose-btn.chosen {
-                      background: rgba(34, 197, 94, 0.8);
-                      border-color: rgba(34, 197, 94, 1);
+                      background: #3A1455;
+                      border-color: #3A1455;
                     }
                     
                     .scheme-choose-btn.chosen:hover {
-                      background: rgba(239, 68, 68, 0.7);
-                      border-color: rgba(239, 68, 68, 0.9);
+                      background: #262311;
+                      border-color: #262311;
                     }
                     
                     .scheme-choose-btn:disabled {
@@ -4248,37 +4268,37 @@ function App() {
                     }
                     
                     .objective-count-badge.chosen {
-                      background: rgba(34, 197, 94, 0.3);
-                      color: #86efac;
+                      background: rgba(58, 20, 85, 0.5);
+                      color: #D8CABC;
                     }
                     
                     .encounter-chosen-schemes {
                       margin-top: 12px;
                       padding-top: 12px;
-                      border-top: 1px solid rgba(255,255,255,0.1);
+                      border-top: 1px solid #3F3D45;
                     }
                     
                     .scheme-chips.chosen .scheme-chip-btn {
-                      background: rgba(37, 99, 235, 0.2);
-                      border-color: rgba(37, 99, 235, 0.4);
+                      background: rgba(58, 20, 85, 0.2);
+                      border-color: rgba(58, 20, 85, 0.4);
                     }
                     
                     .scheme-chips.chosen .scheme-chip-btn.chosen {
-                      background: rgba(34, 197, 94, 0.3);
-                      border-color: rgba(34, 197, 94, 0.6);
-                      color: #86efac;
+                      background: rgba(58, 20, 85, 0.4);
+                      border-color: #3A1455;
+                      color: #D8CABC;
                     }
                     
                     .scheme-chips.chosen .scheme-chip-btn.available:hover {
-                      background: rgba(34, 197, 94, 0.2);
-                      border-color: rgba(34, 197, 94, 0.4);
+                      background: rgba(58, 20, 85, 0.3);
+                      border-color: rgba(58, 20, 85, 0.5);
                     }
                     
                     .next-schemes-section {
                       margin-top: 16px;
                       padding: 12px 16px;
-                      background: rgba(139, 92, 246, 0.1);
-                      border-top: 1px solid rgba(139, 92, 246, 0.3);
+                      background: rgba(58, 20, 85, 0.15);
+                      border-top: 1px solid rgba(58, 20, 85, 0.3);
                     }
                     
                     .next-schemes-header {
@@ -4294,13 +4314,13 @@ function App() {
                     
                     .next-schemes-title {
                       font-weight: 600;
-                      color: #c4b5fd;
+                      color: #D8CABC;
                       font-size: 0.9rem;
                     }
                     
                     .next-schemes-hint {
                       font-size: 0.75rem;
-                      color: #9ca3af;
+                      color: #3F3D45;
                       font-style: italic;
                     }
                     
@@ -4311,9 +4331,9 @@ function App() {
                     }
                     
                     .next-scheme-chip {
-                      background: rgba(139, 92, 246, 0.2);
-                      border: 1px solid rgba(139, 92, 246, 0.4);
-                      color: #e9d5ff;
+                      background: rgba(58, 20, 85, 0.3);
+                      border: 1px solid rgba(58, 20, 85, 0.5);
+                      color: #D8CABC;
                       padding: 4px 10px;
                       border-radius: 12px;
                       font-size: 0.8rem;
@@ -4321,7 +4341,7 @@ function App() {
                     }
                     
                     .next-schemes-empty {
-                      color: #9ca3af;
+                      color: #3F3D45;
                       font-size: 0.8rem;
                       font-style: italic;
                     }
@@ -4372,6 +4392,159 @@ function App() {
                 </div>
               )}
               
+              {/* Master Picker Styles - Malifaux Concept Art Palette */}
+              <style>{`
+                .master-picker {
+                  background: #141416;
+                  border: 1px solid #3F3D45;
+                  border-radius: 8px;
+                  padding: 16px;
+                  margin-bottom: 16px;
+                }
+                .master-picker-header {
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  margin-bottom: 12px;
+                  padding-bottom: 10px;
+                  border-bottom: 1px solid #3A1455;
+                }
+                .master-picker-header > span:first-child {
+                  font-size: 1rem;
+                  font-weight: 700;
+                  color: #D8CABC;
+                  text-transform: uppercase;
+                  letter-spacing: 1px;
+                }
+                .master-picker-hint {
+                  font-size: 0.7rem;
+                  color: #3F3D45;
+                }
+                .master-filter-input {
+                  width: 100%;
+                  padding: 8px 12px;
+                  font-size: 0.85rem;
+                  background: #141416;
+                  border: 1px solid #3F3D45;
+                  border-radius: 4px;
+                  color: #D8CABC;
+                  margin-bottom: 12px;
+                }
+                .master-filter-input:focus {
+                  outline: none;
+                  border-color: #3A1455;
+                }
+                .master-filter-input::placeholder {
+                  color: #3F3D45;
+                }
+                .master-stat-list {
+                  display: flex;
+                  flex-direction: column;
+                  gap: 4px;
+                  max-height: 380px;
+                  overflow-y: auto;
+                  overflow-x: hidden;
+                }
+                .master-faction-header {
+                  padding: 8px 12px;
+                  margin-top: 8px;
+                  margin-bottom: 2px;
+                  font-size: 0.7rem;
+                  font-weight: 700;
+                  text-transform: uppercase;
+                  letter-spacing: 2px;
+                  color: #D8CABC;
+                  background: linear-gradient(90deg, rgba(58, 20, 85, 0.3) 0%, transparent 70%);
+                  border-left: 3px solid #3A1455;
+                  pointer-events: none;
+                  user-select: none;
+                }
+                .master-faction-header:first-child {
+                  margin-top: 0;
+                }
+                .master-stat-row {
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                  padding: 10px 14px;
+                  background: #141416;
+                  border: 1px solid #262311;
+                  border-left: 3px solid transparent;
+                  border-radius: 4px;
+                  cursor: pointer;
+                  transition: all 0.15s ease;
+                  min-height: 42px;
+                }
+                .master-stat-row:hover {
+                  background: #262311;
+                  border-color: #3F3D45;
+                  border-left-color: var(--faction-color, #3A1455);
+                  transform: translateX(2px);
+                }
+                .master-stat-name {
+                  font-size: 0.9rem;
+                  font-weight: 600;
+                  color: #D8CABC;
+                }
+                .master-stat-keyword {
+                  font-size: 0.7rem;
+                  color: #D8CABC;
+                  font-weight: 500;
+                  text-transform: uppercase;
+                  letter-spacing: 0.5px;
+                  padding: 2px 8px;
+                  background: #262311;
+                  border-radius: 3px;
+                  opacity: 0.7;
+                }
+                .master-selected {
+                  background: #141416;
+                  border: 1px solid #3A1455;
+                  border-radius: 8px;
+                  padding: 12px 16px;
+                  margin-bottom: 16px;
+                }
+                .master-selected-header {
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                }
+                .master-selected-name {
+                  font-size: 1.1rem;
+                  font-weight: 700;
+                  color: #D8CABC;
+                }
+                .master-change-btn {
+                  padding: 5px 14px;
+                  font-size: 0.75rem;
+                  font-weight: 600;
+                  background: transparent;
+                  border: 1px solid #3F3D45;
+                  border-radius: 4px;
+                  color: #D8CABC;
+                  cursor: pointer;
+                  transition: all 0.15s ease;
+                  text-transform: uppercase;
+                  opacity: 0.7;
+                }
+                .master-change-btn:hover {
+                  border-color: #3A1455;
+                  color: #D8CABC;
+                  background: rgba(58, 20, 85, 0.2);
+                  opacity: 1;
+                }
+                .master-stat-list::-webkit-scrollbar {
+                  width: 6px;
+                }
+                .master-stat-list::-webkit-scrollbar-track {
+                  background: #141416;
+                }
+                .master-stat-list::-webkit-scrollbar-thumb {
+                  background: #3A1455;
+                  border-radius: 3px;
+                }
+              `}</style>
+              
               {/* Master Selection - Compact Stat List */}
               {!selectedMaster ? (
                 <div className="master-picker">
@@ -4409,7 +4582,15 @@ function App() {
                       return (
                         <React.Fragment key={m.id}>
                           {isNewFaction && (
-                            <div className="master-faction-header">{m.faction}</div>
+                            <div 
+                              className="master-faction-header"
+                              style={{
+                                borderLeftColor: getFactionColor(m.faction),
+                                background: `linear-gradient(90deg, ${getFactionColor(m.faction, 'bg')} 0%, transparent 70%)`
+                              }}
+                            >
+                              {m.faction}
+                            </div>
                           )}
                           <div 
                             className="master-stat-row"
@@ -4417,10 +4598,15 @@ function App() {
                               setSelectedMaster(m)
                               setCrewRoster([])
                               setMasterFilter('')
-                              setMasterCrewCardFlipped(false) // Reset to Master in front
+                              setMasterCrewCardFlipped(false)
+                              // Clear opponent data when selecting new master
+                              setOpponentMaster(null)
+                              setOpponentCrew([])
+                              setOpponentFaction('')
                             }}
                             onMouseEnter={() => setHoveredMaster(m)}
                             onMouseLeave={() => setHoveredMaster(null)}
+                            style={{ '--faction-color': getFactionColor(m.faction) }}
                           >
                             <span className="master-stat-name">{m.name}</span>
                             <span className="master-stat-keyword">{m.primary_keyword}</span>
@@ -4439,12 +4625,16 @@ function App() {
                       onClick={() => {
                         setSelectedMaster(null)
                         setCrewRoster([])
+                        // Clear opponent data when changing master
+                        setOpponentMaster(null)
+                        setOpponentCrew([])
+                        setOpponentFaction('')
                       }}
                     >Change
                     </button>
                   </div>
                 </div>
-              )}
+              )}}
               
               
               {/*  LEADER DISPLAY - Master + Crew Card Stacked  */}
@@ -4535,8 +4725,8 @@ function App() {
                       bottom: 0;
                       left: 0;
                       right: 0;
-                      background: linear-gradient(transparent, rgba(0,0,0,0.8));
-                      color: #fff;
+                      background: linear-gradient(transparent, rgba(20, 20, 22, 0.9));
+                      color: #D8CABC;
                       font-size: 0.7rem;
                       font-weight: 600;
                       text-align: center;
@@ -4569,11 +4759,11 @@ function App() {
                     }
                     
                     .leader-card-stacked.is-master .leader-card-label {
-                      background: linear-gradient(transparent, rgba(139, 69, 19, 0.9));
+                      background: linear-gradient(transparent, rgba(38, 35, 17, 0.95));
                     }
                     
                     .leader-card-stacked.is-crew .leader-card-label {
-                      background: linear-gradient(transparent, rgba(75, 0, 130, 0.9));
+                      background: linear-gradient(transparent, rgba(58, 20, 85, 0.95));
                     }
                     
                     .leader-card-single {
@@ -4603,8 +4793,8 @@ function App() {
                       bottom: 0;
                       left: 0;
                       right: 0;
-                      background: linear-gradient(transparent, rgba(139, 69, 19, 0.9));
-                      color: #fff;
+                      background: linear-gradient(transparent, rgba(38, 35, 17, 0.95));
+                      color: #D8CABC;
                       font-size: 0.7rem;
                       font-weight: 600;
                       text-align: center;
@@ -6289,7 +6479,7 @@ function App() {
                               <span className="meta-stats">
                                 {Math.round(meta.winRate * 100)}% ({meta.games}g)
                               </span>
-                              <span className="meta-delta" style={{ color: meta.delta >= 0 ? '#22c55e' : '#ef4444' }}>
+                              <span className="meta-delta" style={{ color: meta.delta >= 0 ? '#D8CABC' : '#3A1455' }}>
                                 {meta.delta >= 0 ? '+' : ''}{Math.round(meta.delta * 100)}%
                               </span>
                             </div>
@@ -6316,7 +6506,7 @@ function App() {
                               <span className="meta-stats">
                                 {Math.round(meta.winRate * 100)}% ({meta.games}g)
                               </span>
-                              <span className="meta-delta" style={{ color: meta.delta >= 0 ? '#22c55e' : '#ef4444' }}>
+                              <span className="meta-delta" style={{ color: meta.delta >= 0 ? '#D8CABC' : '#3A1455' }}>
                                 {meta.delta >= 0 ? '+' : ''}{Math.round(meta.delta * 100)}%
                               </span>
                             </div>
@@ -6410,7 +6600,7 @@ function App() {
                   </div>
                   {selectedObjective.favors_abilities?.length > 0 && (
                     <>
-                      <h4 style={{marginTop: '0.5rem', color: '#888', fontSize: '0.85rem'}}>Useful Abilities</h4>
+                      <h4 style={{marginTop: '0.5rem', color: '#D8CABC', fontSize: '0.85rem'}}>Useful Abilities</h4>
                       <div className="keywords-list">
                         {selectedObjective.favors_abilities?.map(ability => (
                           <span key={ability} className="keyword-tag ability-tag">{ability.replace(/_/g, ' ')}</span>
