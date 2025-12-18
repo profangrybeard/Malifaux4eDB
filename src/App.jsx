@@ -1102,6 +1102,7 @@ function App() {
   const [selectedVariant, setSelectedVariant] = useState(null) // Track which variant art to show
   const [modalView, setModalView] = useState('dual') // 'dual', 'front', 'back'
   const [modalImagesLoaded, setModalImagesLoaded] = useState({ front: false, back: false })
+  const [showAboutModal, setShowAboutModal] = useState(false);
   
   // State - Objectives selection (browse view)
   const [selectedStrategy, setSelectedStrategy] = useState('')
@@ -3690,36 +3691,57 @@ function App() {
     marginLeft: '0.5rem'
   }}>Unofficial</span>
 </h1>
-    <span className="header-sub">{cards.length} models loaded</span>
-  </div>
-  <div className="header-right">
-    <nav className="header-nav">
-      <button 
-        className={`nav-tab ${viewMode === 'crew' ? 'active' : ''}`}
-        onClick={() => setViewMode('crew')}
-      >Build Crew
-      </button>
-      <button 
-        className={`nav-tab ${viewMode === 'cards' ? 'active' : ''}`}
-        onClick={() => setViewMode('cards')}
-      >Card Gallery
-      </button>
-    </nav>
-<div className="header-version">
-  <span 
-    className="version-badge" 
-    title="December 2024"
-    style={{
-      fontSize: '0.75rem',
-      padding: '0.1rem 0.3rem',
-      opacity: '0.5'
-    }}
-  >
-    v1.0.0
-  </span>
-</div>
-  </div>
-</header>
+      <span className="header-sub">{cards.length} models loaded</span>
+    </div>
+    <div className="header-right">
+      <nav className="header-nav">
+        <button 
+          className={`nav-tab ${viewMode === 'crew' ? 'active' : ''}`}
+          onClick={() => setViewMode('crew')}
+        >Build Crew
+        </button>
+        <button 
+          className={`nav-tab ${viewMode === 'cards' ? 'active' : ''}`}
+          onClick={() => setViewMode('cards')}
+        >Card Gallery
+        </button>
+      </nav>
+      <div className="header-version" style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '0.75rem' }}>
+        <span 
+          className="version-badge" 
+          title="December 2024"
+          style={{
+            fontSize: '0.75rem',
+            padding: '0.1rem 0.3rem',
+            opacity: '0.5'
+          }}
+        >
+          v1.0.0
+        </span>
+        <button 
+          className="about-trigger-header" 
+          onClick={() => setShowAboutModal(true)}
+          title="About this tool"
+          style={{
+            background: 'rgba(138, 100, 170, 0.15)',
+            border: '2px solid rgba(138, 100, 170, 0.3)',
+            color: 'rgba(138, 100, 170, 0.8)',
+            width: '2.0rem',
+            height: '2.0rem',
+            borderRadius: '50%',
+            fontSize: '0.7rem',
+            fontWeight: '600',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          ?
+        </button>
+      </div>
+    </div>
+  </header>
 
       {/* Selected Objectives Bar - shows in cards view when objectives selected */}
       {viewMode === 'cards' && (selectedStrategy || selectedSchemes.length > 0) && (
@@ -7073,7 +7095,163 @@ function App() {
 
   </div>
 </footer>
+{/* ═══════════════════════════════════════════════════════════════════════════
+   ABOUT MODAL - Malifaux 4E Crew Builder
+   
+   Add this state near your other useState declarations:
+   const [showAboutModal, setShowAboutModal] = useState(false);
+   
+   Add the modal JSX at the bottom of your component (before final </div>)
+   Add trigger buttons in header and footer
+   ═══════════════════════════════════════════════════════════════════════════ */}
 
+{/* ═══ ABOUT MODAL ═══ */}
+{showAboutModal && (
+  <div className="modal-overlay" onClick={() => setShowAboutModal(false)}>
+    <div className="about-modal" onClick={e => e.stopPropagation()}>
+      <button className="modal-close" onClick={() => setShowAboutModal(false)}>×</button>
+      
+      <div className="about-content">
+        <h2 className="about-title">Malifaux 4E Crew Builder</h2>
+        <p className="about-subtitle">An AI-Assisted Tool for Learning & Playing</p>
+        
+        {/* ─── WHAT IT DOES ─── */}
+        <section className="about-section">
+          <h3>What Is This?</h3>
+          <p>
+            A crew building companion for <strong>Malifaux Fourth Edition</strong>. 
+            Browse the full card database, assemble crews within hiring rules, 
+            track soulstone budgets, and get strategic insights based on your 
+            selected objectives.
+          </p>
+          <p>
+            Whether you're a veteran player theory-crafting tournament lists or 
+            brand new to the Breach, this tool helps you understand crew composition 
+            and keyword synergies.
+          </p>
+        </section>
+
+        {/* ─── AI & EXPERIMENTAL ─── */}
+        <section className="about-section">
+          <h3>🧪 The AI Experiment</h3>
+          <p>
+            This project explores <strong>AI-assisted game tool development</strong>. 
+            The entire application was built collaboratively with Claude (Anthropic), 
+            treating AI as a development partner rather than just a code generator.
+          </p>
+          <div className="experimental-box">
+            <h4>Experimental Features (Alpha)</h4>
+            <ul>
+              <li><strong>Crew Suggestions</strong> — ML-informed recommendations based on objectives and tournament data</li>
+              <li><strong>Synergy Detection</strong> — Automated analysis of keyword interactions and role complementarity</li>
+              <li><strong>Counter-Crew Analysis</strong> — Strategic insights for responding to opponent masters</li>
+            </ul>
+            <p className="experimental-note">
+              These features are learning tools, not gospel. Use them to spark ideas, 
+              then trust your own judgment. If something seems off, it probably is — 
+              <a href="mailto:prof.angrybeard@gmail.com">let us know</a>!
+            </p>
+          </div>
+        </section>
+
+        {/* ─── QUICK START ─── */}
+        <section className="about-section">
+          <h3>🎮 Quick Start</h3>
+          <ol className="quickstart-list">
+            <li><strong>Select Your Encounter</strong> — Pick a Strategy and available Schemes from the GG0 pool</li>
+            <li><strong>Choose Your Master</strong> — This sets your faction and primary keyword</li>
+            <li><strong>Build Your Crew</strong> — Add models from your hiring pool (keyword models are free to hire, out-of-keyword costs +1 SS)</li>
+            <li><strong>Review Synergies</strong> — Check the analysis panels for strategic insights</li>
+            <li><strong>Share Your List</strong> — Use the share button to generate a URL for your crew</li>
+          </ol>
+        </section>
+
+        {/* ─── CONTACT ─── */}
+        <section className="about-section">
+          <h3>📬 Feedback & Bug Reports</h3>
+          <p>
+            Found a data error? Something broken? Have ideas for improvement? 
+            This tool gets better with community input.
+          </p>
+          <p className="contact-email">
+            <a href="mailto:prof.angrybeard@gmail.com">prof.angrybeard@gmail.com</a>
+          </p>
+        </section>
+
+        {/* ─── CREDITS ─── */}
+        <section className="about-section credits-section">
+          <h3>📜 Credits & Attribution</h3>
+          
+          <div className="credit-block">
+            <h4>Intellectual Property</h4>
+            <p>
+              <strong>Malifaux®</strong> is a trademark of Wyrd Games, LLC. All card images, 
+              game content, faction names, and associated materials are © Wyrd Games. 
+              This is an unofficial fan project with no affiliation to Wyrd Games.
+            </p>
+          </div>
+
+          <div className="credit-block">
+            <h4>Data Sources</h4>
+            <ul>
+              <li><strong>Card Data</strong> — Extracted via OCR from official Wyrd PDFs</li>
+              <li><strong>Tournament Statistics</strong> — <a href="https://www.longshanks.org" target="_blank" rel="noopener noreferrer">Longshanks.org</a></li>
+              <li><strong>Objectives</strong> — Gaining Grounds Season 0 (GG0/GG2025)</li>
+            </ul>
+          </div>
+
+          <div className="credit-block">
+            <h4>Development</h4>
+            <ul>
+              <li><strong>Design & Development</strong> — Prof. Angrybeard</li>
+              <li><strong>AI Development Partner</strong> — Claude (Anthropic)</li>
+              <li><strong>Built With</strong> — React, Vite, Python, OpenCV, Tesseract OCR</li>
+            </ul>
+          </div>
+
+          <div className="credit-block">
+            <h4>Project Goals</h4>
+            <p className="project-goals">
+              This two-week project was built to explore three things: learning to use AI 
+              development tools effectively, learning to play Malifaux 4th Edition, and 
+              building something useful for the community along the way.
+            </p>
+          </div>
+        </section>
+
+        <footer className="about-footer">
+          <a href="https://www.wyrd-games.net" target="_blank" rel="noopener noreferrer">Wyrd Games</a>
+          <span className="footer-dot">•</span>
+          <a href="https://www.longshanks.org" target="_blank" rel="noopener noreferrer">Longshanks</a>
+          <span className="footer-dot">•</span>
+          <span className="about-version">v1.0.0</span>
+        </footer>
+      </div>
+    </div>
+  </div>
+)}
+
+
+{/* ═══════════════════════════════════════════════════════════════════════════
+   TRIGGER BUTTONS
+   ═══════════════════════════════════════════════════════════════════════════ */}
+
+{/* HEADER TRIGGER - Add this in your header-right area, maybe next to version */}
+<button 
+  className="about-trigger-header" 
+  onClick={() => setShowAboutModal(true)}
+  title="About this tool"
+>
+  ?
+</button>
+
+{/* FOOTER TRIGGER - Add this to your footer-link-group or footer-bottom */}
+<button 
+  className="about-trigger-footer" 
+  onClick={() => setShowAboutModal(true)}
+>
+  About
+</button>
     </div>
   )
 }
