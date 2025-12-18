@@ -6109,7 +6109,7 @@ function App() {
                   })()}
                 </span>
               )}
-              <button className="close-btn" onClick={closeModal}></button>
+              <button className="close-btn" onClick={closeModal}>×</button>
             </div>
             
             {/* Data Quality Debug Banner */}
@@ -6470,7 +6470,7 @@ function App() {
                 </span>
                 {selectedObjective.name}
               </h2>
-              <button className="close-btn" onClick={closeObjectiveModal}></button>
+              <button className="close-btn" onClick={closeObjectiveModal}>×</button>
             </div>
             <div className="objective-modal-body">
               {/* Card Image */}
@@ -6681,9 +6681,15 @@ function App() {
                   }}
                 >
                   {selectedObjective.card_type === 'strategy'
-                    ? (selectedStrategy === selectedObjective.id ? ' Strategy Selected' : 'Select Strategy')
-                    : (selectedSchemes.includes(selectedObjective.id) ? ' Scheme Selected' : 'Select Scheme')
+                    ? (selectedStrategy === selectedObjective.id ? '✓ Strategy Selected' : 'Select Strategy')
+                    : (selectedSchemes.includes(selectedObjective.id) ? '✓ Scheme Selected' : 'Select Scheme')
                   }
+                </button>
+                <button 
+                  className="modal-close-bottom"
+                  onClick={closeObjectiveModal}
+                >
+                  Close
                 </button>
               </div>
             </div>

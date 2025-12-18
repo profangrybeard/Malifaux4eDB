@@ -918,16 +918,56 @@ select option {
 }
 
 .close-btn {
-    background: none;
-    border: none;
-    color: #64748B;
+    background: rgba(100, 116, 139, 0.2);
+    border: 1px solid #64748B;
+    border-radius: 50%;
+    color: #E2E8F0;
     font-size: 1.5rem;
     cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+    line-height: 1;
 }
 
     .close-btn:hover {
-        color: #E2E8F0;
+        background: rgba(139, 92, 246, 0.3);
+        border-color: #8B5CF6;
+        color: white;
     }
+
+/* Mobile: Make close button even larger and more prominent */
+@media (max-width: 500px) {
+    .close-btn {
+        width: 44px;
+        height: 44px;
+        font-size: 1.75rem;
+        background: rgba(139, 92, 246, 0.2);
+        border-color: #8B5CF6;
+    }
+    
+    .modal-header {
+        padding: 1rem;
+        position: sticky;
+        top: 0;
+        background: #0F0A14;
+        z-index: 10;
+    }
+    
+    .modal-header h2 {
+        font-size: 1rem;
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin-right: 0.5rem;
+    }
+}
 
 .modal-body {
     padding: 1.5rem;
@@ -1089,6 +1129,9 @@ select option {
     margin-top: 1.5rem;
     padding-top: 1.5rem;
     border-top: 1px solid #64748B;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
 }
 
 .select-objective-btn {
@@ -1109,9 +1152,35 @@ select option {
     }
 
     .select-objective-btn.selected {
-        background: #8B5CF6;
-        color: #E2E8F0;
+        background: #10B981;
+        border-color: #10B981;
+        color: white;
     }
+
+/* Bottom close button for mobile */
+.modal-close-bottom {
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    background: rgba(100, 116, 139, 0.2);
+    border: 1px solid #64748B;
+    border-radius: 8px;
+    color: #E2E8F0;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: none;
+}
+
+.modal-close-bottom:hover {
+    background: rgba(100, 116, 139, 0.4);
+}
+
+/* Show bottom close on mobile */
+@media (max-width: 768px) {
+    .modal-close-bottom {
+        display: block;
+    }
+}
 
 /* Navigation arrows */
 .nav-arrow {
