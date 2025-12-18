@@ -1390,6 +1390,11 @@ function App() {
     })
   }, [cards])
 
+  // ===========================================================================
+// FIXED HIRING POOLS - Filter to only include Stat cards (actual models)
+// ===========================================================================
+// Replace lines ~1394-1460 in App.jsx with these three useMemo hooks
+
   // Get keyword models for selected master (deduplicated)
   const keywordModels = useMemo(() => {
     if (!selectedMaster) return []
@@ -1397,6 +1402,7 @@ function App() {
     if (!primaryKeyword) return []
     
     const filtered = cards.filter(card => 
+      card.card_type === 'Stat' &&    // ONLY actual models, not Crew/Upgrade cards
       card.id !== selectedMaster.id &&
       (card.keywords || []).includes(primaryKeyword) &&
       card.station !== 'Master' &&   // No masters
@@ -1420,6 +1426,7 @@ function App() {
     const primaryKeyword = selectedMaster.primary_keyword
     
     const filtered = cards.filter(card => 
+      card.card_type === 'Stat' &&                            // ONLY actual models, not Crew/Upgrade cards
       card.faction === masterFaction &&
       (card.characteristics || []).includes('Versatile') &&  // Check characteristics, not keywords!
       !(card.keywords || []).includes(primaryKeyword) &&     // Not already in-keyword
@@ -1444,6 +1451,7 @@ function App() {
     const primaryKeyword = selectedMaster.primary_keyword
     
     const filtered = cards.filter(card => 
+      card.card_type === 'Stat' &&                            // ONLY actual models, not Crew/Upgrade cards
       card.faction === masterFaction &&
       !(card.keywords || []).includes(primaryKeyword) &&     // Not in-keyword
       !(card.characteristics || []).includes('Versatile') && // Not versatile
