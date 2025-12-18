@@ -7133,7 +7133,7 @@ function App() {
           <div className="experimental-box">
             <h4>⚗ Experimental Features (Alpha)</h4>
             <ul>
-              <li><strong>Crew Suggestions</strong> — ML-informed recommendations based on objectives and tournament data</li>
+              <li><strong>Crew Suggestions</strong> — Data-driven recommendations based on tournament statistics and keyword analysis</li>
               <li><strong>Synergy Detection</strong> — Automated analysis of keyword interactions and role complementarity</li>
               <li><strong>Counter-Crew Analysis</strong> — Strategic insights for responding to opponent masters</li>
             </ul>
