@@ -7095,27 +7095,19 @@ function App() {
 
   </div>
 </footer>
-{/* ═══════════════════════════════════════════════════════════════════════════
-   ABOUT MODAL - Malifaux 4E Crew Builder
-   
-   Add this state near your other useState declarations:
-   const [showAboutModal, setShowAboutModal] = useState(false);
-   
-   Add the modal JSX at the bottom of your component (before final </div>)
-   Add trigger buttons in header and footer
-   ═══════════════════════════════════════════════════════════════════════════ */}
-
 {/* ═══ ABOUT MODAL ═══ */}
 {showAboutModal && (
   <div className="modal-overlay" onClick={() => setShowAboutModal(false)}>
     <div className="about-modal" onClick={e => e.stopPropagation()}>
-      <button className="modal-close" onClick={() => setShowAboutModal(false)}>×</button>
+      <button className="about-modal-close" onClick={() => setShowAboutModal(false)}>×</button>
       
       <div className="about-content">
-        <h2 className="about-title">Malifaux 4E Crew Builder</h2>
-        <p className="about-subtitle">An AI-Assisted Tool for Learning & Playing</p>
         
-        {/* ─── WHAT IT DOES ─── */}
+        <div className="about-header">
+          <h2 className="about-title">Malifaux 4E Crew Builder</h2>
+          <p className="about-subtitle">An AI-Assisted Tool for Learning & Playing</p>
+        </div>
+        
         <section className="about-section">
           <h3>What Is This?</h3>
           <p>
@@ -7131,16 +7123,15 @@ function App() {
           </p>
         </section>
 
-        {/* ─── AI & EXPERIMENTAL ─── */}
         <section className="about-section">
-          <h3>🧪 The AI Experiment</h3>
+          <h3>The AI Experiment</h3>
           <p>
             This project explores <strong>AI-assisted game tool development</strong>. 
             The entire application was built collaboratively with Claude (Anthropic), 
             treating AI as a development partner rather than just a code generator.
           </p>
           <div className="experimental-box">
-            <h4>Experimental Features (Alpha)</h4>
+            <h4>⚗ Experimental Features (Alpha)</h4>
             <ul>
               <li><strong>Crew Suggestions</strong> — ML-informed recommendations based on objectives and tournament data</li>
               <li><strong>Synergy Detection</strong> — Automated analysis of keyword interactions and role complementarity</li>
@@ -7148,29 +7139,27 @@ function App() {
             </ul>
             <p className="experimental-note">
               These features are learning tools, not gospel. Use them to spark ideas, 
-              then trust your own judgment. If something seems off, it probably is — 
+              then trust your own judgment. If something seems off — 
               <a href="mailto:prof.angrybeard@gmail.com">let us know</a>!
             </p>
           </div>
         </section>
 
-        {/* ─── QUICK START ─── */}
         <section className="about-section">
-          <h3>🎮 Quick Start</h3>
+          <h3>Quick Start</h3>
           <ol className="quickstart-list">
             <li><strong>Select Your Encounter</strong> — Pick a Strategy and available Schemes from the GG0 pool</li>
             <li><strong>Choose Your Master</strong> — This sets your faction and primary keyword</li>
-            <li><strong>Build Your Crew</strong> — Add models from your hiring pool (keyword models are free to hire, out-of-keyword costs +1 SS)</li>
+            <li><strong>Build Your Crew</strong> — Add models from your hiring pool (out-of-keyword costs +1 SS)</li>
             <li><strong>Review Synergies</strong> — Check the analysis panels for strategic insights</li>
-            <li><strong>Share Your List</strong> — Use the share button to generate a URL for your crew</li>
+            <li><strong>Share Your List</strong> — Generate a URL for your crew</li>
           </ol>
         </section>
 
-        {/* ─── CONTACT ─── */}
         <section className="about-section">
-          <h3>📬 Feedback & Bug Reports</h3>
+          <h3>Feedback & Bug Reports</h3>
           <p>
-            Found a data error? Something broken? Have ideas for improvement? 
+            Found a data error? Something broken? Have ideas? 
             This tool gets better with community input.
           </p>
           <p className="contact-email">
@@ -7178,80 +7167,54 @@ function App() {
           </p>
         </section>
 
-        {/* ─── CREDITS ─── */}
         <section className="about-section credits-section">
-          <h3>📜 Credits & Attribution</h3>
+          <h3>Credits & Attribution</h3>
           
           <div className="credit-block">
             <h4>Intellectual Property</h4>
             <p>
               <strong>Malifaux®</strong> is a trademark of Wyrd Games, LLC. All card images, 
-              game content, faction names, and associated materials are © Wyrd Games. 
-              This is an unofficial fan project with no affiliation to Wyrd Games.
+              game content, and associated materials are © Wyrd Games. 
+              This is an unofficial fan project.
             </p>
           </div>
 
           <div className="credit-block">
             <h4>Data Sources</h4>
             <ul>
-              <li><strong>Card Data</strong> — Extracted via OCR from official Wyrd PDFs</li>
-              <li><strong>Tournament Statistics</strong> — <a href="https://www.longshanks.org" target="_blank" rel="noopener noreferrer">Longshanks.org</a></li>
-              <li><strong>Objectives</strong> — Gaining Grounds Season 0 (GG0/GG2025)</li>
+              <li><strong>Card Data</strong> — OCR extraction from official Wyrd PDFs</li>
+              <li><strong>Tournament Stats</strong> — <a href="https://www.longshanks.org" target="_blank" rel="noopener noreferrer">Longshanks.org</a></li>
+              <li><strong>Objectives</strong> — Gaining Grounds Season 0</li>
             </ul>
           </div>
 
           <div className="credit-block">
             <h4>Development</h4>
             <ul>
-              <li><strong>Design & Development</strong> — Prof. Angrybeard</li>
-              <li><strong>AI Development Partner</strong> — Claude (Anthropic)</li>
-              <li><strong>Built With</strong> — React, Vite, Python, OpenCV, Tesseract OCR</li>
+              <li><strong>Design & Dev</strong> — Prof. Angrybeard</li>
+              <li><strong>AI Partner</strong> — Claude (Anthropic)</li>
+              <li><strong>Stack</strong> — React, Vite, Python, OpenCV, Tesseract</li>
             </ul>
           </div>
 
-          <div className="credit-block">
-            <h4>Project Goals</h4>
-            <p className="project-goals">
-              This two-week project was built to explore three things: learning to use AI 
-              development tools effectively, learning to play Malifaux 4th Edition, and 
-              building something useful for the community along the way.
-            </p>
+          <p className="project-goals">
+            A two-week project exploring AI development tools, learning Malifaux 4E, 
+            and building something useful for the community.
+          </p>
+
+          <div className="about-footer">
+            <a href="https://www.wyrd-games.net" target="_blank" rel="noopener noreferrer">Wyrd Games</a>
+            <span className="footer-dot">◆</span>
+            <a href="https://www.longshanks.org" target="_blank" rel="noopener noreferrer">Longshanks</a>
+            <span className="footer-dot">◆</span>
+            <span className="about-version">{versionInfo.display}</span>
           </div>
         </section>
 
-        <footer className="about-footer">
-          <a href="https://www.wyrd-games.net" target="_blank" rel="noopener noreferrer">Wyrd Games</a>
-          <span className="footer-dot">•</span>
-          <a href="https://www.longshanks.org" target="_blank" rel="noopener noreferrer">Longshanks</a>
-          <span className="footer-dot">•</span>
-          <span className="about-version">v1.0.0</span>
-        </footer>
       </div>
     </div>
   </div>
 )}
-
-
-{/* ═══════════════════════════════════════════════════════════════════════════
-   TRIGGER BUTTONS
-   ═══════════════════════════════════════════════════════════════════════════ */}
-
-{/* HEADER TRIGGER - Add this in your header-right area, maybe next to version */}
-<button 
-  className="about-trigger-header" 
-  onClick={() => setShowAboutModal(true)}
-  title="About this tool"
->
-  ?
-</button>
-
-{/* FOOTER TRIGGER - Add this to your footer-link-group or footer-bottom */}
-<button 
-  className="about-trigger-footer" 
-  onClick={() => setShowAboutModal(true)}
->
-  About
-</button>
     </div>
   )
 }
