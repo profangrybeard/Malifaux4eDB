@@ -4,6 +4,19 @@ import crewData from './data/crew.json'
 import upgradeData from './data/upgrade_cards.json'
 import objectivesData from './data/objectives.json'
 import versionInfo from './version.json';
+import { 
+  META_VERSION,
+  STRATEGY_META, 
+  SCHEME_META,
+  MASTER_META, 
+  MASTER_STRATEGY_META,
+  FACTION_META,
+  getMasterMeta, 
+  getTierColor,
+  getMasterStrategyMeta,
+  getFactionStrategyMeta,
+  getStrategyRankings 
+} from './data/tournament_meta.js'
 
 
 const IMAGE_BASE = 'https://raw.githubusercontent.com/profangrybeard/Malifaux4eDB-images/main'
@@ -28,217 +41,6 @@ const getFactionColor = (faction, type = 'primary') => {
   return colors[type] || colors.primary
 }
 
-// ===========================================================================
-// FACTION META DATA - Embedded from Longshanks tournament analysis (15,893 games)
-// ===========================================================================
-const FACTION_META = {
-  "Neverborn": {
-    "overall": {"win_rate": 0.52, "games": 2554},
-    "strategies_m4e": {
-      "boundary_dispute": {"win_rate": 0.43, "games": 260},
-      "collapsing_mines": {"win_rate": 0.61, "games": 18},
-      "informants": {"win_rate": 0.53, "games": 264},
-      "plant_explosives": {"win_rate": 0.43, "games": 223},
-      "recover_evidence": {"win_rate": 0.45, "games": 238}
-    },
-    "schemes_chosen": {
-      "assassinate": {"win_rate": 0.51, "games": 271},
-      "breakthrough": {"win_rate": 0.55, "games": 163},
-      "detonate_charges": {"win_rate": 0.57, "games": 231},
-      "ensnare": {"win_rate": 0.46, "games": 191},
-      "frame_job": {"win_rate": 0.49, "games": 173},
-      "harness_the_ley_line": {"win_rate": 0.49, "games": 169},
-      "leave_your_mark": {"win_rate": 0.47, "games": 184},
-      "make_it_look_like_an_accident": {"win_rate": 0.56, "games": 154},
-      "public_demonstration": {"win_rate": 0.53, "games": 80},
-      "reshape_the_land": {"win_rate": 0.56, "games": 137},
-      "runic_binding": {"win_rate": 0.55, "games": 193},
-      "scout_the_rooftops": {"win_rate": 0.51, "games": 217},
-      "search_the_area": {"win_rate": 0.58, "games": 197},
-      "take_the_highground": {"win_rate": 0.58, "games": 241}
-    }
-  },
-  "Explorers Society": {
-    "overall": {"win_rate": 0.51, "games": 1902},
-    "strategies_m4e": {
-      "boundary_dispute": {"win_rate": 0.46, "games": 204},
-      "collapsing_mines": {"win_rate": 0.31, "games": 13},
-      "informants": {"win_rate": 0.43, "games": 209},
-      "plant_explosives": {"win_rate": 0.51, "games": 172},
-      "recover_evidence": {"win_rate": 0.47, "games": 206}
-    },
-    "schemes_chosen": {
-      "assassinate": {"win_rate": 0.62, "games": 196},
-      "breakthrough": {"win_rate": 0.59, "games": 181},
-      "detonate_charges": {"win_rate": 0.55, "games": 174},
-      "ensnare": {"win_rate": 0.53, "games": 173},
-      "frame_job": {"win_rate": 0.41, "games": 151},
-      "harness_the_ley_line": {"win_rate": 0.52, "games": 127},
-      "leave_your_mark": {"win_rate": 0.58, "games": 139},
-      "make_it_look_like_an_accident": {"win_rate": 0.67, "games": 105},
-      "reshape_the_land": {"win_rate": 0.51, "games": 136},
-      "runic_binding": {"win_rate": 0.50, "games": 145},
-      "scout_the_rooftops": {"win_rate": 0.51, "games": 179},
-      "search_the_area": {"win_rate": 0.56, "games": 146},
-      "take_the_highground": {"win_rate": 0.62, "games": 181}
-    }
-  },
-  "Ten Thunders": {
-    "overall": {"win_rate": 0.51, "games": 1934},
-    "strategies_m4e": {
-      "boundary_dispute": {"win_rate": 0.48, "games": 185},
-      "collapsing_mines": {"win_rate": 0.27, "games": 15},
-      "informants": {"win_rate": 0.35, "games": 163},
-      "plant_explosives": {"win_rate": 0.43, "games": 159},
-      "recover_evidence": {"win_rate": 0.44, "games": 170}
-    },
-    "schemes_chosen": {
-      "assassinate": {"win_rate": 0.47, "games": 182},
-      "breakthrough": {"win_rate": 0.52, "games": 164},
-      "detonate_charges": {"win_rate": 0.51, "games": 135},
-      "ensnare": {"win_rate": 0.45, "games": 90},
-      "frame_job": {"win_rate": 0.41, "games": 128},
-      "harness_the_ley_line": {"win_rate": 0.44, "games": 102},
-      "leave_your_mark": {"win_rate": 0.51, "games": 153},
-      "make_it_look_like_an_accident": {"win_rate": 0.52, "games": 119},
-      "public_demonstration": {"win_rate": 0.64, "games": 35},
-      "reshape_the_land": {"win_rate": 0.55, "games": 131},
-      "runic_binding": {"win_rate": 0.47, "games": 110},
-      "scout_the_rooftops": {"win_rate": 0.48, "games": 167},
-      "search_the_area": {"win_rate": 0.61, "games": 90},
-      "take_the_highground": {"win_rate": 0.53, "games": 160}
-    }
-  },
-  "Bayou": {
-    "overall": {"win_rate": 0.51, "games": 1776},
-    "strategies_m4e": {
-      "boundary_dispute": {"win_rate": 0.47, "games": 148},
-      "collapsing_mines": {"win_rate": 0.00, "games": 4},
-      "informants": {"win_rate": 0.41, "games": 145},
-      "plant_explosives": {"win_rate": 0.46, "games": 136},
-      "recover_evidence": {"win_rate": 0.37, "games": 141}
-    },
-    "schemes_chosen": {
-      "assassinate": {"win_rate": 0.54, "games": 138},
-      "breakthrough": {"win_rate": 0.53, "games": 106},
-      "detonate_charges": {"win_rate": 0.62, "games": 129},
-      "ensnare": {"win_rate": 0.48, "games": 107},
-      "frame_job": {"win_rate": 0.52, "games": 115},
-      "harness_the_ley_line": {"win_rate": 0.62, "games": 123},
-      "leave_your_mark": {"win_rate": 0.48, "games": 126},
-      "make_it_look_like_an_accident": {"win_rate": 0.43, "games": 77},
-      "reshape_the_land": {"win_rate": 0.52, "games": 61},
-      "runic_binding": {"win_rate": 0.46, "games": 116},
-      "scout_the_rooftops": {"win_rate": 0.52, "games": 112},
-      "search_the_area": {"win_rate": 0.51, "games": 72},
-      "take_the_highground": {"win_rate": 0.55, "games": 121}
-    }
-  },
-  "Arcanists": {
-    "overall": {"win_rate": 0.50, "games": 1694},
-    "strategies_m4e": {
-      "boundary_dispute": {"win_rate": 0.41, "games": 177},
-      "collapsing_mines": {"win_rate": 0.40, "games": 10},
-      "informants": {"win_rate": 0.44, "games": 164},
-      "plant_explosives": {"win_rate": 0.46, "games": 158},
-      "recover_evidence": {"win_rate": 0.42, "games": 156}
-    },
-    "schemes_chosen": {
-      "assassinate": {"win_rate": 0.56, "games": 156},
-      "breakthrough": {"win_rate": 0.63, "games": 119},
-      "detonate_charges": {"win_rate": 0.60, "games": 154},
-      "ensnare": {"win_rate": 0.55, "games": 122},
-      "frame_job": {"win_rate": 0.54, "games": 100},
-      "harness_the_ley_line": {"win_rate": 0.46, "games": 98},
-      "leave_your_mark": {"win_rate": 0.64, "games": 116},
-      "make_it_look_like_an_accident": {"win_rate": 0.49, "games": 84},
-      "public_demonstration": {"win_rate": 0.61, "games": 44},
-      "reshape_the_land": {"win_rate": 0.50, "games": 92},
-      "runic_binding": {"win_rate": 0.48, "games": 121},
-      "scout_the_rooftops": {"win_rate": 0.51, "games": 120},
-      "search_the_area": {"win_rate": 0.58, "games": 60},
-      "take_the_highground": {"win_rate": 0.55, "games": 124}
-    }
-  },
-  "Guild": {
-    "overall": {"win_rate": 0.50, "games": 1919},
-    "strategies_m4e": {
-      "boundary_dispute": {"win_rate": 0.45, "games": 210},
-      "collapsing_mines": {"win_rate": 0.50, "games": 10},
-      "informants": {"win_rate": 0.31, "games": 200},
-      "plant_explosives": {"win_rate": 0.51, "games": 168},
-      "recover_evidence": {"win_rate": 0.47, "games": 205}
-    },
-    "schemes_chosen": {
-      "assassinate": {"win_rate": 0.50, "games": 207},
-      "breakthrough": {"win_rate": 0.52, "games": 143},
-      "detonate_charges": {"win_rate": 0.50, "games": 158},
-      "ensnare": {"win_rate": 0.57, "games": 161},
-      "frame_job": {"win_rate": 0.44, "games": 140},
-      "harness_the_ley_line": {"win_rate": 0.52, "games": 124},
-      "leave_your_mark": {"win_rate": 0.58, "games": 163},
-      "make_it_look_like_an_accident": {"win_rate": 0.55, "games": 124},
-      "public_demonstration": {"win_rate": 0.60, "games": 46},
-      "reshape_the_land": {"win_rate": 0.51, "games": 92},
-      "runic_binding": {"win_rate": 0.54, "games": 134},
-      "scout_the_rooftops": {"win_rate": 0.52, "games": 175},
-      "search_the_area": {"win_rate": 0.55, "games": 111},
-      "take_the_highground": {"win_rate": 0.56, "games": 188}
-    }
-  },
-  "Outcasts": {
-    "overall": {"win_rate": 0.48, "games": 2193},
-    "strategies_m4e": {
-      "boundary_dispute": {"win_rate": 0.46, "games": 229},
-      "collapsing_mines": {"win_rate": 0.44, "games": 16},
-      "informants": {"win_rate": 0.40, "games": 229},
-      "plant_explosives": {"win_rate": 0.40, "games": 171},
-      "recover_evidence": {"win_rate": 0.42, "games": 204}
-    },
-    "schemes_chosen": {
-      "assassinate": {"win_rate": 0.47, "games": 215},
-      "breakthrough": {"win_rate": 0.52, "games": 146},
-      "detonate_charges": {"win_rate": 0.51, "games": 157},
-      "ensnare": {"win_rate": 0.47, "games": 135},
-      "frame_job": {"win_rate": 0.45, "games": 172},
-      "harness_the_ley_line": {"win_rate": 0.44, "games": 127},
-      "leave_your_mark": {"win_rate": 0.46, "games": 135},
-      "make_it_look_like_an_accident": {"win_rate": 0.40, "games": 86},
-      "public_demonstration": {"win_rate": 0.56, "games": 63},
-      "reshape_the_land": {"win_rate": 0.43, "games": 101},
-      "runic_binding": {"win_rate": 0.48, "games": 126},
-      "scout_the_rooftops": {"win_rate": 0.40, "games": 164},
-      "search_the_area": {"win_rate": 0.51, "games": 120},
-      "take_the_highground": {"win_rate": 0.47, "games": 165}
-    }
-  },
-  "Resurrectionists": {
-    "overall": {"win_rate": 0.48, "games": 1921},
-    "strategies_m4e": {
-      "boundary_dispute": {"win_rate": 0.50, "games": 197},
-      "collapsing_mines": {"win_rate": 0.38, "games": 8},
-      "informants": {"win_rate": 0.37, "games": 190},
-      "plant_explosives": {"win_rate": 0.40, "games": 150},
-      "recover_evidence": {"win_rate": 0.45, "games": 186}
-    },
-    "schemes_chosen": {
-      "assassinate": {"win_rate": 0.46, "games": 160},
-      "breakthrough": {"win_rate": 0.52, "games": 122},
-      "detonate_charges": {"win_rate": 0.45, "games": 136},
-      "ensnare": {"win_rate": 0.46, "games": 161},
-      "frame_job": {"win_rate": 0.53, "games": 159},
-      "harness_the_ley_line": {"win_rate": 0.47, "games": 149},
-      "leave_your_mark": {"win_rate": 0.54, "games": 126},
-      "make_it_look_like_an_accident": {"win_rate": 0.48, "games": 103},
-      "public_demonstration": {"win_rate": 0.48, "games": 46},
-      "reshape_the_land": {"win_rate": 0.44, "games": 116},
-      "runic_binding": {"win_rate": 0.55, "games": 132},
-      "scout_the_rooftops": {"win_rate": 0.53, "games": 131},
-      "search_the_area": {"win_rate": 0.48, "games": 90},
-      "take_the_highground": {"win_rate": 0.48, "games": 123}
-    }
-  }
-}
 
 // ===========================================================================
 // POOL ANALYSIS - Scheme/Strategy capability requirements and crew analysis
@@ -1131,6 +933,7 @@ function App() {
   const [opponentSynergyPanelOpen, setOpponentSynergyPanelOpen] = useState(false)
   const [poolAnalysisOpen, setPoolAnalysisOpen] = useState(true)
   const [objectivesCardsOpen, setObjectivesCardsOpen] = useState(true) // Show objective cards when selected
+  const [strategyIntelOpen, setStrategyIntelOpen] = useState(false) // Strategy intel collapsed by default
   const [masterCrewCardFlipped, setMasterCrewCardFlipped] = useState(false) // false = Master front, true = Crew front
   const [opponentCrewCardFlipped, setOpponentCrewCardFlipped] = useState(false) // false = Master front, true = Crew front
   const [shareStatus, setShareStatus] = useState('') // For share button feedback
@@ -1287,6 +1090,25 @@ function App() {
   }, [])
 
   // Get unique filter options
+
+  // Helper to get scheme win rate for a faction from tournament meta
+  const getSchemeWinRate = useCallback((schemeName, faction) => {
+    if (!schemeName || !faction) return null
+    
+    // Normalize faction name (handle Explorer's Society vs Explorers Society)
+    const normalizedFaction = faction.replace("'", "")
+    
+    // Convert scheme name to snake_case key (e.g., "Leave Your Mark" -> "leave_your_mark")
+    const schemeKey = schemeName
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, '')
+      .replace(/\s+/g, '_')
+    
+    const factionData = FACTION_META[normalizedFaction] || FACTION_META[faction]
+    if (!factionData?.schemes_chosen) return null
+    
+    return factionData.schemes_chosen[schemeKey] || null
+  }, [])
   const factions = useMemo(() => {
     const validFactions = ['Arcanists', 'Bayou', 'Explorer\'s Society', 'Guild', 'Neverborn', 'Outcasts', 'Resurrectionists', 'Ten Thunders']
     return [...new Set(cards.map(c => c.faction).filter(f => f && validFactions.includes(f)))].sort()
@@ -4427,18 +4249,33 @@ const suggestCrew = () => {
                     {schemePool.map(schemeId => {
                       const scheme = schemes[schemeId]
                       const isChosen = chosenSchemes.includes(schemeId)
+                      const schemeWinData = selectedMaster ? getSchemeWinRate(scheme?.name, selectedMaster.faction) : null
+                      const winRate = schemeWinData?.win_rate
+                      const isStrong = winRate >= 0.55
+                      const isWeak = winRate && winRate < 0.45
                       return (
                         <button
                           key={schemeId}
-                          className={`scheme-chip-btn ${isChosen ? 'chosen' : 'available'}`}
+                          className={`scheme-chip-btn ${isChosen ? 'chosen' : 'available'} ${isStrong ? 'strong-scheme' : ''} ${isWeak ? 'weak-scheme' : ''}`}
                           onClick={() => toggleChosenScheme(schemeId)}
-                          title={isChosen ? 'Click to deselect' : chosenSchemes.length >= 2 ? 'Already chose 2 schemes' : 'Click to choose this scheme'}
+                          title={`${scheme?.name || schemeId}${schemeWinData ? ` • ${selectedMaster.faction}: ${Math.round(winRate * 100)}% win rate (${schemeWinData.games} games)` : ''}${isChosen ? ' • Click to deselect' : chosenSchemes.length >= 2 ? ' • Already chose 2 schemes' : ' • Click to choose'}`}
                         >
                           {isChosen && '✓ '}{scheme?.name || schemeId}
+                          {schemeWinData && (
+                            <span className={`scheme-winrate ${isStrong ? 'strong' : ''} ${isWeak ? 'weak' : ''}`}>
+                              {Math.round(winRate * 100)}%
+                            </span>
+                          )}
                         </button>
                       )
                     })}
                   </div>
+                  {selectedMaster && (
+                    <div className="scheme-meta-hint">
+                      <span className="meta-hint-icon">📊</span>
+                      Win rates show {selectedMaster.faction} tournament performance
+                    </div>
+                  )}
                 </div>
               )}
               
@@ -4799,6 +4636,47 @@ const suggestCrew = () => {
                       border-color: rgba(139, 92, 246, 0.5);
                     }
                     
+                    /* Scheme win rate styling */
+                    .scheme-winrate {
+                      margin-left: 6px;
+                      font-size: 0.7rem;
+                      padding: 1px 5px;
+                      border-radius: 8px;
+                      background: rgba(100, 116, 139, 0.4);
+                      color: #94A3B8;
+                    }
+                    
+                    .scheme-winrate.strong {
+                      background: rgba(34, 197, 94, 0.3);
+                      color: #4ADE80;
+                    }
+                    
+                    .scheme-winrate.weak {
+                      background: rgba(239, 68, 68, 0.3);
+                      color: #F87171;
+                    }
+                    
+                    .scheme-chip-btn.strong-scheme {
+                      border-color: rgba(34, 197, 94, 0.5) !important;
+                    }
+                    
+                    .scheme-chip-btn.weak-scheme {
+                      border-color: rgba(239, 68, 68, 0.4) !important;
+                    }
+                    
+                    .scheme-meta-hint {
+                      margin-top: 8px;
+                      font-size: 0.7rem;
+                      color: #64748B;
+                      display: flex;
+                      align-items: center;
+                      gap: 4px;
+                    }
+                    
+                    .meta-hint-icon {
+                      font-size: 0.8rem;
+                    }
+                    
                     .next-schemes-section {
                       margin-top: 16px;
                       padding: 12px 16px;
@@ -4864,6 +4742,192 @@ const suggestCrew = () => {
               )}
             </div>
           </div>
+
+          {/* 
+              STRATEGY INTEL PANEL - Tournament observations
+               */}
+          {crewStrategy && selectedMaster && (
+            <div className={`strategy-intel-panel ${strategyIntelOpen ? 'open' : 'collapsed'}`}>
+              <div 
+                className="strategy-intel-header"
+                onClick={() => setStrategyIntelOpen(!strategyIntelOpen)}
+              >
+                <span className="strategy-intel-icon">📊</span>
+                <span className="strategy-intel-title">Strategy Intel</span>
+                <span className="strategy-intel-toggle">{strategyIntelOpen ? '▼' : '▶'}</span>
+              </div>
+              
+              {strategyIntelOpen && (
+                <div className="strategy-intel-content">
+                  <div className="strategy-intel-subtitle">
+                    {STRATEGY_META[crewStrategy]?.name || crewStrategy} — Faction Performance
+                  </div>
+                  
+                  <div className="strategy-intel-rankings">
+                    {getStrategyRankings(crewStrategy).map(({ faction, win_rate, games, rank }) => {
+                      const isYourFaction = faction === selectedMaster.faction
+                      const isOpponentFaction = opponentFaction && faction === opponentFaction
+                      
+                      return (
+                        <div 
+                          key={faction} 
+                          className={`strategy-intel-row ${isYourFaction ? 'your-faction' : ''} ${isOpponentFaction ? 'opponent-faction' : ''}`}
+                        >
+                          <span className="intel-rank">#{rank}</span>
+                          <span className="intel-faction">
+                            {faction}
+                            {isYourFaction && <span className="intel-badge you">YOU</span>}
+                            {isOpponentFaction && <span className="intel-badge opp">OPP</span>}
+                          </span>
+                          <span className={`intel-winrate ${win_rate >= 0.53 ? 'good' : win_rate < 0.47 ? 'bad' : ''}`}>
+                            {Math.round(win_rate * 100)}%
+                          </span>
+                          <span className="intel-games">({games})</span>
+                        </div>
+                      )
+                    })}
+                  </div>
+                  
+                  <div className="strategy-intel-footer">
+                    Data: Longshanks • Updated {META_VERSION.last_updated} • {STRATEGY_META[crewStrategy]?.total_games || 0} games
+                  </div>
+                </div>
+              )}
+              
+              <style>{`
+                .strategy-intel-panel {
+                  background: linear-gradient(135deg, #0F0A14 0%, #1a1025 100%);
+                  border: 1px solid #2D2640;
+                  border-radius: 8px;
+                  margin: 16px 0;
+                  overflow: hidden;
+                }
+                .strategy-intel-header {
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+                  padding: 12px 16px;
+                  cursor: pointer;
+                  transition: background 0.15s ease;
+                }
+                .strategy-intel-header:hover {
+                  background: rgba(139, 92, 246, 0.1);
+                }
+                .strategy-intel-icon {
+                  font-size: 1rem;
+                }
+                .strategy-intel-title {
+                  flex: 1;
+                  font-size: 0.85rem;
+                  font-weight: 600;
+                  color: #A78BFA;
+                  text-transform: uppercase;
+                  letter-spacing: 0.5px;
+                }
+                .strategy-intel-toggle {
+                  font-size: 0.7rem;
+                  color: #64748B;
+                }
+                .strategy-intel-content {
+                  padding: 0 16px 16px;
+                }
+                .strategy-intel-subtitle {
+                  font-size: 0.8rem;
+                  color: #94A3B8;
+                  margin-bottom: 12px;
+                  padding-bottom: 8px;
+                  border-bottom: 1px solid #2D2640;
+                }
+                .strategy-intel-rankings {
+                  display: flex;
+                  flex-direction: column;
+                  gap: 4px;
+                }
+                .strategy-intel-row {
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+                  padding: 6px 10px;
+                  border-radius: 4px;
+                  font-size: 0.8rem;
+                  transition: background 0.15s ease;
+                }
+                .strategy-intel-row.your-faction {
+                  background: rgba(139, 92, 246, 0.15);
+                  border-left: 3px solid #8B5CF6;
+                }
+                .strategy-intel-row.opponent-faction {
+                  background: rgba(239, 68, 68, 0.1);
+                  border-left: 3px solid #EF4444;
+                }
+                .strategy-intel-row.your-faction.opponent-faction {
+                  background: linear-gradient(90deg, rgba(139, 92, 246, 0.15) 50%, rgba(239, 68, 68, 0.1) 50%);
+                }
+                .intel-rank {
+                  width: 24px;
+                  font-weight: 600;
+                  color: #64748B;
+                  font-size: 0.75rem;
+                }
+                .intel-faction {
+                  flex: 1;
+                  color: #E2E8F0;
+                  display: flex;
+                  align-items: center;
+                  gap: 6px;
+                }
+                .intel-badge {
+                  font-size: 0.55rem;
+                  font-weight: 700;
+                  padding: 2px 5px;
+                  border-radius: 3px;
+                  text-transform: uppercase;
+                }
+                .intel-badge.you {
+                  background: #8B5CF6;
+                  color: #fff;
+                }
+                .intel-badge.opp {
+                  background: #EF4444;
+                  color: #fff;
+                }
+                .intel-winrate {
+                  font-weight: 600;
+                  color: #94A3B8;
+                  min-width: 36px;
+                  text-align: right;
+                }
+                .intel-winrate.good {
+                  color: #4ADE80;
+                }
+                .intel-winrate.bad {
+                  color: #F87171;
+                }
+                .intel-games {
+                  font-size: 0.7rem;
+                  color: #64748B;
+                  min-width: 45px;
+                }
+                .strategy-intel-footer {
+                  margin-top: 12px;
+                  padding-top: 8px;
+                  border-top: 1px solid #2D2640;
+                  font-size: 0.65rem;
+                  color: #64748B;
+                  text-align: center;
+                }
+                @media (max-width: 768px) {
+                  .strategy-intel-row {
+                    font-size: 0.75rem;
+                    padding: 5px 8px;
+                  }
+                  .intel-games {
+                    display: none;
+                  }
+                }
+              `}</style>
+            </div>
+          )}
 
           {/* 
               A|B CREW COMPARISON - Side by Side
@@ -5013,6 +5077,54 @@ const suggestCrew = () => {
                   text-overflow: ellipsis;
                   white-space: nowrap;
                 }
+                .master-stat-meta {
+                  display: flex;
+                  align-items: center;
+                  gap: 6px;
+                  flex-shrink: 0;
+                }
+                .master-meta-hover {
+                  display: none;
+                  align-items: center;
+                  gap: 6px;
+                  animation: fadeIn 0.15s ease;
+                }
+                @keyframes fadeIn {
+                  from { opacity: 0; transform: translateX(-5px); }
+                  to { opacity: 1; transform: translateX(0); }
+                }
+                .master-stat-row:hover .master-meta-hover {
+                  display: flex;
+                }
+                .master-stat-row:hover .master-stat-keyword {
+                  display: none;
+                }
+                .master-games {
+                  font-size: 0.65rem;
+                  color: #666;
+                  font-weight: 400;
+                }
+                .master-tier-badge {
+                  font-size: 0.65rem;
+                  font-weight: 700;
+                  padding: 2px 6px;
+                  border-radius: 3px;
+                  min-width: 18px;
+                  text-align: center;
+                }
+                .master-winrate {
+                  font-size: 0.75rem;
+                  font-weight: 600;
+                  color: #A0A0A0;
+                  min-width: 32px;
+                  text-align: right;
+                }
+                .master-winrate.good {
+                  color: #4ADE80;
+                }
+                .master-winrate.bad {
+                  color: #F87171;
+                }
                 .master-selected {
                   background: #0F0A14;
                   border: 1px solid #8B5CF6;
@@ -5029,6 +5141,23 @@ const suggestCrew = () => {
                   font-size: 1.1rem;
                   font-weight: 700;
                   color: #E2E8F0;
+                }
+                .master-selected-info {
+                  display: flex;
+                  flex-direction: column;
+                  gap: 4px;
+                }
+                .master-selected-name-row {
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+                }
+                .master-tier-badge-inline {
+                  font-size: 0.6rem;
+                  font-weight: 700;
+                  padding: 2px 6px;
+                  border-radius: 3px;
+                  opacity: 0.8;
                 }
                 .master-change-btn {
                   padding: 5px 14px;
@@ -5169,7 +5298,30 @@ const suggestCrew = () => {
                             style={{ '--faction-color': getFactionColor(m.faction) }}
                           >
                             <span className="master-stat-name">{m.displayName || m.name}</span>
-                            <span className="master-stat-keyword">{m.primary_keyword}</span>
+                            <div className="master-stat-meta">
+                              <span className="master-stat-keyword">{m.primary_keyword}</span>
+                              {(() => {
+                                const meta = getMasterMeta(m.displayName || m.name)
+                                if (!meta) return null
+                                return (
+                                  <div className="master-meta-hover">
+                                    <span 
+                                      className="master-tier-badge"
+                                      style={{ 
+                                        backgroundColor: getTierColor(meta.tier),
+                                        color: meta.tier === 'S' || meta.tier === 'A' ? '#000' : '#fff'
+                                      }}
+                                    >
+                                      {meta.tier}
+                                    </span>
+                                    <span className={`master-winrate ${meta.win_rate >= 0.55 ? 'good' : meta.win_rate < 0.45 ? 'bad' : ''}`}>
+                                      {Math.round(meta.win_rate * 100)}%
+                                    </span>
+                                    <span className="master-games">({meta.games})</span>
+                                  </div>
+                                )
+                              })()}
+                            </div>
                           </div>
                         </React.Fragment>
                       )
@@ -5179,7 +5331,27 @@ const suggestCrew = () => {
               ) : (
                 <div className="master-selected">
                   <div className="master-selected-header">
-                    <span className="master-selected-name">{selectedMaster.displayName || selectedMaster.name}</span>
+                    <div className="master-selected-info">
+                      <div className="master-selected-name-row">
+                        <span className="master-selected-name">{selectedMaster.displayName || selectedMaster.name}</span>
+                        {(() => {
+                          const meta = getMasterMeta(selectedMaster.displayName || selectedMaster.name)
+                          if (!meta) return null
+                          return (
+                            <span 
+                              className="master-tier-badge-inline"
+                              style={{ 
+                                backgroundColor: getTierColor(meta.tier),
+                                color: meta.tier === 'S' || meta.tier === 'A' ? '#000' : '#fff'
+                              }}
+                              title={`${Math.round(meta.win_rate * 100)}% win rate (${meta.games} games)`}
+                            >
+                              {meta.tier}
+                            </span>
+                          )
+                        })()}
+                      </div>
+                    </div>
                     <button 
                       className="master-change-btn"
                       onClick={() => {
