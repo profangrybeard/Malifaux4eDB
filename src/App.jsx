@@ -2928,6 +2928,9 @@ function App() {
     cards.forEach(other => {
       if (other.id === card.id) return
       
+      // Only show legally hireable models (same faction)
+      if (other.faction !== card.faction) return
+      
       const otherKeywords = other.keywords || []
       const otherRoles = other.roles || []
       const otherChars = other.characteristics || []

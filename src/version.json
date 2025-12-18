@@ -1,9 +1,9 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.1",
   "build": "dev",
   "branch": "local",
-  "buildDate": "2024-12-18T00:00:00.000Z",
+  "buildDate": "2025-12-18T00:00:00.000Z",
   "buildDateShort": "Dec 18, 2025",
-  "display": "v1.0.0",
-  "displayFull": "v1.0.0 (dev)"
+  "display": "v1.0.1",
+  "displayFull": "v1.0.1 (dev)"
 }
