@@ -4475,6 +4475,7 @@ function App() {
                   cursor: pointer;
                   transition: all 0.15s ease;
                   min-height: 42px;
+                  gap: 8px;
                 }
                 .master-stat-row:hover {
                   background: #1C1425;
@@ -4486,6 +4487,11 @@ function App() {
                   font-size: 0.9rem;
                   font-weight: 600;
                   color: #E2E8F0;
+                  flex: 1;
+                  min-width: 0;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
                 }
                 .master-stat-keyword {
                   font-size: 0.7rem;
@@ -4497,6 +4503,11 @@ function App() {
                   background: #1C1425;
                   border-radius: 3px;
                   opacity: 0.7;
+                  flex-shrink: 0;
+                  max-width: 80px;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
                 }
                 .master-selected {
                   background: #0F0A14;
@@ -4543,6 +4554,48 @@ function App() {
                 .master-stat-list::-webkit-scrollbar-thumb {
                   background: #8B5CF6;
                   border-radius: 3px;
+                }
+                
+                /* Mobile fixes for master picker */
+                @media (max-width: 500px) {
+                  .master-picker {
+                    padding: 10px;
+                  }
+                  .master-picker-header {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 2px;
+                    margin-bottom: 8px;
+                    padding-bottom: 8px;
+                  }
+                  .master-picker-header > span:first-child {
+                    font-size: 0.85rem;
+                  }
+                  .master-picker-hint {
+                    font-size: 0.6rem;
+                  }
+                  .master-filter-input {
+                    padding: 6px 10px;
+                    font-size: 0.8rem;
+                  }
+                  .master-stat-row {
+                    padding: 8px 10px;
+                    min-height: 36px;
+                  }
+                  .master-stat-name {
+                    font-size: 0.8rem;
+                  }
+                  .master-stat-keyword {
+                    font-size: 0.55rem;
+                    padding: 2px 6px;
+                    max-width: 55px;
+                  }
+                  .master-selected {
+                    padding: 10px 12px;
+                  }
+                  .master-selected-name {
+                    font-size: 0.95rem;
+                  }
                 }
               `}</style>
               

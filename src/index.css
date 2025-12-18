@@ -5819,6 +5819,151 @@ select option {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   MOBILE WIDTH FIXES - Prevent horizontal overflow
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 500px) {
+    /* Constrain all main sections */
+    .ab-side,
+    .ab-intel-panel,
+    .pool-analysis-panel,
+    .encounter-setup,
+    .master-picker {
+        max-width: 100%;
+        overflow-x: hidden;
+        padding: 0.75rem;
+        box-sizing: border-box;
+    }
+    
+    /* Reduce step indicator size */
+    .step-number {
+        width: 28px;
+        height: 28px;
+        font-size: 1rem;
+    }
+    
+    .step-label {
+        font-size: 0.6rem;
+    }
+    
+    /* Master picker mobile fixes */
+    .master-picker {
+        padding: 12px;
+    }
+    
+    .master-picker-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+    
+    .master-picker-header > span:first-child {
+        font-size: 0.85rem;
+    }
+    
+    .master-picker-hint {
+        font-size: 0.6rem;
+    }
+    
+    .master-stat-row {
+        padding: 8px;
+    }
+    
+    .master-stat-name {
+        font-size: 0.8rem;
+        flex: 1;
+        min-width: 0;
+    }
+    
+    .master-stat-keyword {
+        font-size: 0.6rem;
+        max-width: 60px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    
+    /* Pool Analysis mobile */
+    .pool-analysis-panel {
+        padding: 0.75rem;
+    }
+    
+    .pool-analysis-panel h3 {
+        font-size: 0.85rem;
+    }
+    
+    .pool-tip {
+        font-size: 0.75rem;
+        padding: 0.4rem;
+    }
+    
+    .tip-text {
+        font-size: 0.75rem;
+        line-height: 1.3;
+    }
+    
+    /* Scheme scoring buttons */
+    .scheme-buttons {
+        gap: 0.3rem;
+    }
+    
+    .scheme-score-btn {
+        padding: 0.3rem 0.5rem;
+        font-size: 0.75rem;
+    }
+    
+    /* Opponent/Matchup section */
+    .ab-side-header h2 {
+        font-size: 0.95rem;
+    }
+    
+    .ab-side-budget {
+        font-size: 0.75rem;
+    }
+    
+    /* Difficulty slider */
+    .difficulty-slider-container {
+        padding: 0.5rem;
+    }
+    
+    .difficulty-label {
+        font-size: 0.7rem;
+    }
+    
+    .difficulty-labels {
+        font-size: 0.6rem;
+    }
+    
+    /* Counter crew button */
+    .counter-crew-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+    }
+    
+    /* SS warning banners */
+    .ab-ss-warning,
+    .ab-ss-optimal {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.75rem;
+    }
+    
+    /* Opponent faction select */
+    .opponent-faction-select,
+    .opponent-master-select {
+        font-size: 0.85rem;
+        padding: 0.5rem;
+    }
+    
+    /* General text overflow prevention */
+    .ab-side *,
+    .pool-analysis-panel *,
+    .ab-intel-panel * {
+        max-width: 100%;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
    COUNTER-CREW FEATURE STYLES
    ═══════════════════════════════════════════════════════════════════════════ */
 
