@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect, useCallback } from 'react'
 import cardData from './data/cards.json'
 import crewData from './data/crew.json'
+import upgradeData from './data/upgrade_cards.json'
 import objectivesData from './data/objectives.json'
 
 const IMAGE_BASE = 'https://raw.githubusercontent.com/profangrybeard/Malifaux4eDB-images/main'
@@ -969,11 +970,12 @@ function App() {
   const [masterCrewCardFlipped, setMasterCrewCardFlipped] = useState(false) // false = Master front, true = Crew front
   const [opponentCrewCardFlipped, setOpponentCrewCardFlipped] = useState(false) // false = Master front, true = Crew front
 
-  // Parse card data - handle both array and {cards: [...]} formats, merge with crew data
+  // Parse card data - handle both array and {cards: [...]} formats, merge with crew and upgrade data
   const allCards = useMemo(() => {
     const cards = Array.isArray(cardData) ? cardData : (cardData.cards || [])
-    const crews = Array.isArray(crewData) ? crewData : []
-    return [...cards, ...crews]
+    const crews = Array.isArray(crewData) ? crewData : (crewData.cards || [])
+    const upgrades = Array.isArray(upgradeData) ? upgradeData : (upgradeData.cards || [])
+    return [...cards, ...crews, ...upgrades]
   }, [])
   
   // Create a stats fingerprint for a card (used to detect gameplay vs cosmetic variants)
@@ -1024,19 +1026,20 @@ function App() {
   }, [variantGroups])
   
   const cards = useMemo(() => {
-    // Get all Stat cards, removing:
-    // 1. True duplicates (same ID)
-    // 2. Cosmetic variants (same name + same stats, keep only first/A variant)
-    // But KEEP gameplay variants (same name but different stats)
+    // Process all card types:
+    // - Stat cards: deduplicate cosmetic variants (same name + same stats, keep only first/A variant)
+    // - Crew/Upgrade cards: include as-is (no deduplication needed)
     
     const seenIds = new Set()
-    const seenNameStats = new Set() // Track name+stats combo for cosmetic dedup
+    const seenNameStats = new Set() // Track name+stats combo for cosmetic dedup (Stat cards only)
     const primaryCards = []
     
+    // Separate Stat cards (need deduplication) from other card types
     const statCards = allCards.filter(card => card.card_type === 'Stat')
+    const otherCards = allCards.filter(card => card.card_type !== 'Stat')
     
-    // Sort so A variants or null come first
-    const sortedCards = [...statCards].sort((a, b) => {
+    // Sort Stat cards so A variants or null come first
+    const sortedStatCards = [...statCards].sort((a, b) => {
       const vA = a.variant || ''
       const vB = b.variant || ''
       if (vA === 'None' || vA === '') return -1
@@ -1044,7 +1047,8 @@ function App() {
       return vA.localeCompare(vB)
     })
     
-    sortedCards.forEach(card => {
+    // Process Stat cards with deduplication
+    sortedStatCards.forEach(card => {
       // Skip true duplicates (same ID)
       if (seenIds.has(card.id)) return
       seenIds.add(card.id)
@@ -1058,6 +1062,13 @@ function App() {
         primaryCards.push(card)
       }
       // If same name but DIFFERENT stats, it's a gameplay variant - already added with different fingerprint
+    })
+    
+    // Add other card types (Crew, Upgrade, etc.) without deduplication
+    otherCards.forEach(card => {
+      if (seenIds.has(card.id)) return
+      seenIds.add(card.id)
+      primaryCards.push(card)
     })
     
     return primaryCards
@@ -1117,9 +1128,9 @@ function App() {
   }, [cards])
   const baseSizes = useMemo(() => [...new Set(cards.map(c => c.base_size).filter(Boolean))].sort(), [cards])
   const cardTypes = useMemo(() => {
-    const cardArray = Array.isArray(cardData) ? cardData : (cardData.cards || [])
-    return [...new Set(cardArray.map(c => c.card_type).filter(Boolean))].sort()
-  }, [])
+    // Use allCards to include all card types (Stat, Crew, Upgrade, etc.)
+    return [...new Set(allCards.map(c => c.card_type).filter(Boolean))].sort()
+  }, [allCards])
   const metaFactions = useMemo(() =>Object.keys(FACTION_META).sort(), [])
 
   // Get station counts for filter dropdown (shows counts for quick data validation)
@@ -3454,6 +3465,16 @@ function App() {
             />
             <select 
               className="filter-select"
+              value={cardType}
+              onChange={e => setCardType(e.target.value)}
+            >
+              <option value="">All Types</option>
+              {cardTypes.map(t => (
+                <option key={t} value={t}>{getCardTypeDisplay(t)}</option>
+              ))}
+            </select>
+            <select 
+              className="filter-select"
               value={faction}
               onChange={e => setFaction(e.target.value)}
             >
@@ -3463,14 +3484,26 @@ function App() {
               ))}
             </select>
             <select 
-              className="filter-select"
-              value={cardType}
-              onChange={e => setCardType(e.target.value)}
+              className="filter-select station-filter"
+              value={stationFilter}
+              onChange={e => setStationFilter(e.target.value)}
             >
-              <option value="">All Types</option>
-              {cardTypes.map(t => (
-                <option key={t} value={t}>{getCardTypeDisplay(t)}</option>
-              ))}
+              <option value="">All Stations</option>
+              <option value="Master">Master ({stationCounts.Master})</option>
+              <option value="Henchman">Henchman ({stationCounts.Henchman})</option>
+              <option value="Enforcer">Enforcer ({stationCounts.Enforcer})</option>
+              <option value="Minion">Minion ({stationCounts.Minion})</option>
+              <option value="Totem">Totem ({stationCounts.Totem})</option>
+              <option value="Peon">Peon ({stationCounts.Peon})</option>
+            </select>
+            <select 
+              className="filter-select"
+              value={soulstoneFilter}
+              onChange={e => setSoulstoneFilter(e.target.value)}
+            >
+              <option value="">Soulstone: All</option>
+              <option value="yes">Soulstone Users</option>
+              <option value="no">No Soulstone</option>
             </select>
             <select 
               className="filter-select"
@@ -3522,28 +3555,6 @@ function App() {
                 onChange={e => setMaxHealth(e.target.value)}
               />
             </div>
-            <select 
-              className="filter-select"
-              value={soulstoneFilter}
-              onChange={e => setSoulstoneFilter(e.target.value)}
-            >
-              <option value="">Soulstone: All</option>
-              <option value="yes">Soulstone Users</option>
-              <option value="no">No Soulstone</option>
-            </select>
-            <select 
-              className="filter-select station-filter"
-              value={stationFilter}
-              onChange={e => setStationFilter(e.target.value)}
-            >
-              <option value="">All Stations</option>
-              <option value="Master">Master ({stationCounts.Master})</option>
-              <option value="Henchman">Henchman ({stationCounts.Henchman})</option>
-              <option value="Enforcer">Enforcer ({stationCounts.Enforcer})</option>
-              <option value="Minion">Minion ({stationCounts.Minion})</option>
-              <option value="Totem">Totem ({stationCounts.Totem})</option>
-              <option value="Peon">Peon ({stationCounts.Peon})</option>
-            </select>
             {/* Data Issues filter - hidden, enable for debugging
             <select 
               className="filter-select data-issue-filter"
@@ -6095,7 +6106,7 @@ function App() {
             onClick={(e) => { e.stopPropagation(); navigateCard('prev'); }}
             aria-label="Previous card"
           >
-            
+            ‹
           </button>
           
           <div className="modal card-detail-modal" onClick={e => e.stopPropagation()}>
@@ -6456,7 +6467,7 @@ function App() {
             onClick={(e) => { e.stopPropagation(); navigateCard('next'); }}
             aria-label="Next card"
           >
-            
+            ›
           </button>
         </div>
       )}
