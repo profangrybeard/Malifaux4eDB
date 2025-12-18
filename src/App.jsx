@@ -4635,7 +4635,7 @@ function App() {
                     </button>
                   </div>
                 </div>
-              )}}
+              )}
               
               
               {/*  LEADER DISPLAY - Master + Crew Card Stacked  */}
