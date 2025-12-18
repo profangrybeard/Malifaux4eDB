@@ -1379,17 +1379,93 @@ function App() {
   }, [cards])
 
   // Get masters for crew builder (deduplicated by name)
+  // Helper: Extract variant name from card ID
+  // ID pattern: {Faction}_M4E_Stat_{Keyword}_{MasterName}_{VariantName}_{number}
+  const extractVariant = (card) => {
+    if (!card.id) return null
+    
+    const parts = card.id.split('_')
+    const name = card.name || ''
+    const faction = (card.faction || '').toLowerCase()
+    const keyword = (card.primary_keyword || '').toLowerCase().replace(/[- ]/g, '')
+    
+    // Remove trailing number
+    if (parts.length > 0 && /^\d+$/.test(parts[parts.length - 1])) {
+      parts.pop()
+    }
+    
+    // Build list of parts to skip (prefixes)
+    const skipParts = new Set(['m4e', 'stat', faction, keyword])
+    
+    // Clean name for matching: "The Dreamer" -> ["dreamer"], "Som'er Teeth Jones" -> ["somer", "teeth", "jones"]
+    const nameWords = name.toLowerCase()
+      .replace(/[^a-z\s]/g, '')
+      .split(/\s+/)
+      .filter(w => !['the', 'of', 'and'].includes(w))
+    
+    // Find variant parts by walking through ID parts
+    let variantParts = []
+    let passedName = false
+    let nameMatchIndex = 0
+    
+    for (const part of parts) {
+      const partClean = part.toLowerCase().replace(/-/g, '')
+      
+      // Skip known prefixes
+      if (skipParts.has(partClean)) continue
+      
+      // Check if this part matches a name word
+      const matchesNameWord = nameWords.some(nw => 
+        partClean.includes(nw) || nw.includes(partClean)
+      )
+      
+      if (matchesNameWord && !passedName) {
+        nameMatchIndex++
+        // Consider name "passed" after matching most name words
+        if (nameMatchIndex >= Math.max(1, nameWords.length - 1)) {
+          passedName = true
+        }
+        continue
+      }
+      
+      // After name parts, everything is variant
+      if (passedName || nameMatchIndex > 0) {
+        variantParts.push(part.replace(/-/g, ' '))
+      }
+    }
+    
+    if (variantParts.length === 0) return null
+    
+    // Title case the variant
+    return variantParts
+      .map(p => p.split(' ')
+        .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+        .join(' ')
+      )
+      .join(' ')
+  }
+  
   const masters = useMemo(() => {
     const masterCards = cards.filter(card => 
       (card.characteristics || []).includes('Master')
-    ).sort((a, b) => a.name.localeCompare(b.name))
+    )
     
-    // Deduplicate by name - keep first occurrence (usually the stat card)
-    const seen = new Set()
-    return masterCards.filter(card => {
-      if (seen.has(card.name)) return false
-      seen.add(card.name)
-      return true
+    // Enrich each master with extracted variant and display name
+    const enrichedMasters = masterCards.map(card => {
+      const variant = card.variant || extractVariant(card)
+      const displayName = variant ? `${card.name}, ${variant}` : card.name
+      return {
+        ...card,
+        variant: variant,
+        displayName: displayName
+      }
+    })
+    
+    // Sort by name first, then by variant for consistent ordering
+    return enrichedMasters.sort((a, b) => {
+      const nameCompare = a.name.localeCompare(b.name)
+      if (nameCompare !== 0) return nameCompare
+      return (a.variant || '').localeCompare(b.variant || '')
     })
   }, [cards])
 
@@ -2723,80 +2799,164 @@ const suggestCrew = () => {
   }
 
   // Get the crew card for selected master
+  // Helper: Derive crew card image path from master's image path or ID
+  // Master image: Neverborn/Nightmare/M4E_Stat_Nightmare_Dreamer_Fast_Asleep_front.png
+  // Crew card:    Neverborn/Nightmare/M4E_Crew_Nightmare_Dreamer_Fast_Asleep_front.png
+  const deriveCrewCardFromMaster = useCallback((master) => {
+    if (!master) return null
+    
+    // Method 1: Try to derive from front_image path (most reliable)
+    if (master.front_image) {
+      // Replace M4E_Stat_ with M4E_Crew_ in the filename
+      const crewCardPath = master.front_image.replace('M4E_Stat_', 'M4E_Crew_')
+      const crewCardBackPath = crewCardPath.replace('_front.png', '_back.png')
+      
+      // Extract a display name for the crew card from the path
+      // Pattern: M4E_Crew_{Keyword}_{MasterName}_{Variant}_front.png
+      const filename = crewCardPath.split('/').pop()
+      const match = filename.match(/M4E_Crew_([^_]+)_(.+)_front\.png/)
+      let crewCardName = master.variant || 'Crew Rules'
+      if (match) {
+        // The variant part is everything after keyword and master name
+        const parts = match[2].split('_')
+        // Find where master name ends and variant starts
+        const masterNameWords = master.name.toLowerCase().replace(/[^a-z\s]/g, '').split(/\s+/)
+        let variantStart = 0
+        for (let i = 0; i < parts.length; i++) {
+          const partLower = parts[i].toLowerCase()
+          if (masterNameWords.some(w => partLower.includes(w) || w.includes(partLower))) {
+            variantStart = i + 1
+          }
+        }
+        if (variantStart < parts.length) {
+          crewCardName = parts.slice(variantStart).join(' ').replace(/-/g, ' ')
+          // Title case
+          crewCardName = crewCardName.split(' ')
+            .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+            .join(' ')
+        }
+      }
+      
+      return {
+        id: `crew_${master.id}`,
+        name: crewCardName,
+        card_type: 'Crew',
+        faction: master.faction,
+        subfaction: master.primary_keyword,
+        keywords: master.keywords,
+        front_image: crewCardPath,
+        back_image: crewCardBackPath,
+        derived: true // Flag indicating this was derived, not from data
+      }
+    }
+    
+    // Method 2: Construct from ID pattern (fallback)
+    if (master.id) {
+      // ID: {Faction}_M4E_Stat_{Keyword}_{MasterName}_{Variant}_{number}
+      const parts = master.id.split('_')
+      const statIndex = parts.indexOf('Stat')
+      if (statIndex >= 0 && statIndex < parts.length - 2) {
+        // Get everything after 'Stat' except the trailing number
+        const relevantParts = parts.slice(statIndex + 1, -1) // Remove number at end
+        const crewFileName = `M4E_Crew_${relevantParts.join('_')}`
+        const faction = parts[0]
+        const keyword = relevantParts[0]
+        
+        return {
+          id: `crew_${master.id}`,
+          name: master.variant || 'Crew Rules',
+          card_type: 'Crew',
+          faction: master.faction,
+          subfaction: master.primary_keyword,
+          keywords: master.keywords,
+          front_image: `${faction}/${keyword}/${crewFileName}_front.png`,
+          back_image: `${faction}/${keyword}/${crewFileName}_back.png`,
+          derived: true
+        }
+      }
+    }
+    
+    return null
+  }, [])
+  
   const selectedCrewCard = useMemo(() => {
     if (!selectedMaster) return null
     
+    // First, try to find an actual Crew card in the data that matches this specific variant
     const keyword = selectedMaster.primary_keyword
-    if (!keyword) {
-      console.log('[CrewCard Debug] Master has no primary_keyword:', selectedMaster.name)
-      return null
+    const variant = selectedMaster.variant
+    
+    if (keyword) {
+      const normalizeKeyword = (k) => k?.toLowerCase().replace(/-/g, ' ').trim()
+      const normalizedKeyword = normalizeKeyword(keyword)
+      const crewCards = allCards.filter(c => c.card_type === 'Crew')
+      
+      // Try to match by both keyword AND variant (for variant-specific crew cards)
+      if (variant) {
+        const byVariant = crewCards.find(card => {
+          const cardVariant = card.variant || card.name || ''
+          return normalizeKeyword(card.subfaction) === normalizedKeyword &&
+                 cardVariant.toLowerCase().includes(variant.toLowerCase())
+        })
+        if (byVariant) {
+          console.log('[CrewCard Debug] Found by keyword + variant:', byVariant.name)
+          return byVariant
+        }
+      }
+      
+      // Fallback to keyword-only match (old behavior)
+      const byKeyword = crewCards.find(card => 
+        normalizeKeyword(card.subfaction) === normalizedKeyword
+      )
+      if (byKeyword) {
+        console.log('[CrewCard Debug] Found by keyword:', byKeyword.name)
+        return byKeyword
+      }
     }
     
-    // Normalize for comparison (remove hyphens, lowercase)
-    const normalizeKeyword = (k) => k?.toLowerCase().replace(/-/g, ' ').trim()
-    const normalizedKeyword = normalizeKeyword(keyword)
-    
-    // Debug: Log what we're looking for and what's available
-    const crewCards = allCards.filter(c => c.card_type === 'Crew')
-    console.log(`[CrewCard Debug] Looking for keyword: "${keyword}" (normalized: "${normalizedKeyword}")`)
-    console.log(`[CrewCard Debug] Total Crew cards in allCards: ${crewCards.length}`)
-    if (crewCards.length > 0) {
-      console.log('[CrewCard Debug] Sample crew cards:', crewCards.slice(0, 3).map(c => ({
-        name: c.name,
-        subfaction: c.subfaction,
-        keywords: c.keywords
-      })))
-    }
-    
-    // Find crew card by subfaction (primary match method)
-    const bySubfaction = allCards.find(card => 
-      card.card_type === 'Crew' &&
-      normalizeKeyword(card.subfaction) === normalizedKeyword
-    )
-    if (bySubfaction) {
-      console.log('[CrewCard Debug] Found by subfaction:', bySubfaction.name)
-      return bySubfaction
-    }
-    
-    // Fallback: check if keyword appears in crew card's keywords array
-    const byKeywordArray = allCards.find(card =>
-      card.card_type === 'Crew' &&
-      (card.keywords || []).some(k => normalizeKeyword(k) === normalizedKeyword)
-    )
-    if (byKeywordArray) {
-      console.log('[CrewCard Debug] Found by keywords array:', byKeywordArray.name)
-      return byKeywordArray
-    }
-    
-    // Last resort: name matching
-    const byName = allCards.find(card => 
-      card.card_type === 'Crew' &&
-      card.name.toLowerCase().includes(selectedMaster.name.split(',')[0].toLowerCase())
-    )
-    if (byName) {
-      console.log('[CrewCard Debug] Found by name match:', byName.name)
-      return byName
+    // If no data-driven crew card found, derive from master's image path
+    const derived = deriveCrewCardFromMaster(selectedMaster)
+    if (derived) {
+      console.log('[CrewCard Debug] Derived crew card for:', selectedMaster.displayName, derived.front_image)
+      return derived
     }
     
     console.log('[CrewCard Debug] NO CREW CARD FOUND for', selectedMaster.name)
     return null
-  }, [selectedMaster, allCards])
+  }, [selectedMaster, allCards, deriveCrewCardFromMaster])
   
   // Also create a lookup function for opponent crew card
   const getCrewCardForMaster = useCallback((master) => {
-    if (!master?.primary_keyword) return null
+    if (!master) return null
     
-    const normalizeKeyword = (k) => k?.toLowerCase().replace(/-/g, ' ').trim()
-    const normalizedKeyword = normalizeKeyword(master.primary_keyword)
+    const keyword = master.primary_keyword
+    const variant = master.variant
     
-    return allCards.find(card => 
-      card.card_type === 'Crew' &&
-      normalizeKeyword(card.subfaction) === normalizedKeyword
-    ) || allCards.find(card =>
-      card.card_type === 'Crew' &&
-      (card.keywords || []).some(k => normalizeKeyword(k) === normalizedKeyword)
-    )
-  }, [allCards])
+    if (keyword) {
+      const normalizeKeyword = (k) => k?.toLowerCase().replace(/-/g, ' ').trim()
+      const normalizedKeyword = normalizeKeyword(keyword)
+      const crewCards = allCards.filter(c => c.card_type === 'Crew')
+      
+      // Try variant-specific match first
+      if (variant) {
+        const byVariant = crewCards.find(card => {
+          const cardVariant = card.variant || card.name || ''
+          return normalizeKeyword(card.subfaction) === normalizedKeyword &&
+                 cardVariant.toLowerCase().includes(variant.toLowerCase())
+        })
+        if (byVariant) return byVariant
+      }
+      
+      // Fallback to keyword match
+      const byKeyword = crewCards.find(card => 
+        normalizeKeyword(card.subfaction) === normalizedKeyword
+      )
+      if (byKeyword) return byKeyword
+    }
+    
+    // Derive from master's image path
+    return deriveCrewCardFromMaster(master)
+  }, [allCards, deriveCrewCardFromMaster])
   
   // ===========================================================================
   // CREW CARD TEXT ANALYSIS - Extract and highlight relevant rules
@@ -4964,14 +5124,16 @@ const suggestCrew = () => {
                         const filterLower = masterFilter.toLowerCase()
                         return (
                           m.name.toLowerCase().includes(filterLower) ||
+                          m.displayName?.toLowerCase().includes(filterLower) ||
+                          m.variant?.toLowerCase().includes(filterLower) ||
                           m.faction?.toLowerCase().includes(filterLower) ||
                           m.primary_keyword?.toLowerCase().includes(filterLower)
                         )
                       })
                       .sort((a, b) => {
-                        // Sort by faction first, then alphabetically by name
+                        // Sort by faction first, then alphabetically by displayName
                         if (a.faction !== b.faction) return a.faction.localeCompare(b.faction)
-                        return a.name.localeCompare(b.name)
+                        return (a.displayName || a.name).localeCompare(b.displayName || b.name)
                       })
                       .map((m, idx, arr) => {
                       // Check if this is first master of a new faction
@@ -5006,7 +5168,7 @@ const suggestCrew = () => {
                             onMouseLeave={() => setHoveredMaster(null)}
                             style={{ '--faction-color': getFactionColor(m.faction) }}
                           >
-                            <span className="master-stat-name">{m.name}</span>
+                            <span className="master-stat-name">{m.displayName || m.name}</span>
                             <span className="master-stat-keyword">{m.primary_keyword}</span>
                           </div>
                         </React.Fragment>
@@ -5017,7 +5179,7 @@ const suggestCrew = () => {
               ) : (
                 <div className="master-selected">
                   <div className="master-selected-header">
-                    <span className="master-selected-name">{selectedMaster.name}</span>
+                    <span className="master-selected-name">{selectedMaster.displayName || selectedMaster.name}</span>
                     <button 
                       className="master-change-btn"
                       onClick={() => {
