@@ -889,6 +889,7 @@ function App() {
   // State - Filters
   const [search, setSearch] = useState('')
   const [faction, setFaction] = useState('')
+  const [keywordFilter, setKeywordFilter] = useState('')
   const [baseSize, setBaseSize] = useState('')
   const [cardType, setCardType] = useState('')
   const [minCost, setMinCost] = useState('')
@@ -1114,6 +1115,18 @@ function App() {
     const validFactions = ['Arcanists', 'Bayou', 'Explorer\'s Society', 'Guild', 'Neverborn', 'Outcasts', 'Resurrectionists', 'Ten Thunders']
     return [...new Set(cards.map(c => c.faction).filter(f => f && validFactions.includes(f)))].sort()
   }, [cards])
+  
+  // Extract all unique keywords for the keyword filter dropdown
+  const keywords = useMemo(() => {
+    const keywordSet = new Set()
+    cards.forEach(card => {
+      if (card.keywords) {
+        card.keywords.forEach(k => keywordSet.add(k))
+      }
+    })
+    return Array.from(keywordSet).sort()
+  }, [cards])
+  
   const baseSizes = useMemo(() => [...new Set(cards.map(c => c.base_size).filter(Boolean))].sort(), [cards])
   const cardTypes = useMemo(() => {
     // Use allCards to include all card types (Stat, Crew, Upgrade, etc.)
@@ -3348,6 +3361,7 @@ const suggestCrew = () => {
       }
       
       if (faction && card.faction !== faction) return false
+      if (keywordFilter && !(card.keywords && card.keywords.includes(keywordFilter))) return false
       if (baseSize && card.base_size !== baseSize) return false
       if (cardType && card.card_type !== cardType) return false
       if (minCost !== '' && (card.cost === null || card.cost < parseInt(minCost))) return false
@@ -3419,7 +3433,7 @@ const suggestCrew = () => {
       }
       return a.name.localeCompare(b.name)
     })
-  }, [cards, search, faction, baseSize, cardType, minCost, maxCost, minHealth, maxHealth, 
+  }, [cards, search, faction, keywordFilter, baseSize, cardType, minCost, maxCost, minHealth, maxHealth, 
       soulstoneFilter, stationFilter, dataIssueFilter, selectedSchemes, selectedStrategy, schemes, strategies])
 
   // Filter objectives
@@ -3802,6 +3816,16 @@ const suggestCrew = () => {
               <option value="">All Factions</option>
               {factions.map(f => (
                 <option key={f} value={f}>{f}</option>
+              ))}
+            </select>
+            <select 
+              className="filter-select"
+              value={keywordFilter}
+              onChange={e => setKeywordFilter(e.target.value)}
+            >
+              <option value="">All Keywords</option>
+              {keywords.map(k => (
+                <option key={k} value={k}>{k}</option>
               ))}
             </select>
             <select 
